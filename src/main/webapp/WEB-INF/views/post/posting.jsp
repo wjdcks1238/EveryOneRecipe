@@ -61,7 +61,7 @@
 			$("#additional").append(div)	
 		});
 		console.log($("button[name=deleteIng]"));
-		$("button[name=deleteIng]").on("click", function(){
+		$(document).on("click","button[name=deleteIng]" ,function(){
 			console.log("작동도 안해");
 			$(this).parent().remove();
 		});
