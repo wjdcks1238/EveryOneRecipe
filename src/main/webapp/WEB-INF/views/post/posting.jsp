@@ -29,15 +29,21 @@
 	</div>
 	 -->
 	<form id="frm" action="" method="POST">
+		<div>
+			<input type="hidden" name="userId" value="${userId }">
+		</div>
+		<div>
+			<input name="foodName" type="text" placeholder="음식 이름">
+		</div>
 			<div>
-				<input name="ing" type="text" placeholder="재료"> 
-				<input name="amt" type="text" placeholder="수량">
+				<input name="ingredient" type="text" placeholder="재료"> 
+				<input name="amount" type="text" placeholder="수량">
 
 				<div id="additional"></div>
 
 				<button id="addIng" type="button">재료 입력칸 추가</button>
 			</div>
-			<textarea form="frm" name="text" id="editor"></textarea>
+			<textarea form="frm" name="content" id="editor"></textarea>
 		<p>
 			<input type="submit" value="전송">
 		</p>
@@ -49,8 +55,8 @@
 		ClassicEditor.create(document.querySelector('#editor'));
 		
 		$("#addIng").on("click", function(){	
-			var div= $("<div>").append($("<input type='text' placeholder='재료' name='ing'> "));
-			div.append($("<input type='text' placeholder='수량' name='amt'>"));
+			var div= $("<div>").append($("<input type='text' placeholder='재료' name='ingredient'> "));
+			div.append($("<input type='text' placeholder='수량' name='amount'>"));
 			div.append($("<button type='button' name='deleteIng'>").text("삭제"));
 			$("#additional").append(div)	
 		});
