@@ -62,7 +62,6 @@
 		});
 		console.log($("button[name=deleteIng]"));
 		$(document).on("click","button[name=deleteIng]" ,function(){
-			console.log("작동도 안해");
 			$(this).parent().remove();
 		});
 	</script>
