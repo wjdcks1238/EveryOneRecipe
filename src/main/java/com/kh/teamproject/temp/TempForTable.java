@@ -1,6 +1,8 @@
 package com.kh.teamproject.temp;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,8 +37,14 @@ public class TempForTable {
 	@GetMapping("/temp")
 	public String insertTable() {
 		
-		
-		String key="" ;
+		Properties prop = new Properties();
+		InputStream stream = getClass().getClassLoader().getResourceAsStream("apiKeys.properties");
+		try {
+			prop.load(stream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String key = prop.getProperty("recipe");
 		
 		
 		URL url=null;
@@ -83,7 +92,7 @@ public class TempForTable {
 		 String cuisine="";
 		try {
 			//url에 요청인자 삽입
-			urlBuilder1.append(URLEncoder.encode("", "UTF-8"));//인증키
+			urlBuilder1.append(URLEncoder.encode(key, "UTF-8"));//인증키
 			urlBuilder1.append("/" + URLEncoder.encode("xml", "UTF-8"));
 			urlBuilder1.append("/" + URLEncoder.encode("Grid_20150827000000000226_1", "UTF-8")); /*레시피 기본정보*/
 //			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000227_1", "UTF-8")); /*레시피 재료정보*/
@@ -130,7 +139,7 @@ public class TempForTable {
             }
 		System.out.println("--------------------------------------");
           //url에 요청인자 삽입
-			urlBuilder2.append(URLEncoder.encode("", "UTF-8"));//인증키
+			urlBuilder2.append(URLEncoder.encode(key, "UTF-8"));//인증키
 			urlBuilder2.append("/" + URLEncoder.encode("xml", "UTF-8"));
 //			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000226_1", "UTF-8")); /*레시피 기본정보*/
 			urlBuilder2.append("/" + URLEncoder.encode("Grid_20150827000000000227_1", "UTF-8")); /*레시피 재료정보*/
@@ -183,7 +192,7 @@ public class TempForTable {
             System.out.println("--------------------------------------");
             
           //url에 요청인자 삽입
-			urlBuilder3.append(URLEncoder.encode("", "UTF-8"));//인증키
+			urlBuilder3.append(URLEncoder.encode(key, "UTF-8"));//인증키
 			urlBuilder3.append("/" + URLEncoder.encode("xml", "UTF-8"));
 //			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000226_1", "UTF-8")); /*레시피 기본정보*/
 //			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000227_1", "UTF-8")); /*레시피 재료정보*/
