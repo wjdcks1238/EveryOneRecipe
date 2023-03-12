@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+	<insert id="insertId" parameterType="mvo">
+		insert into USERSTABLE values((select NVL(max(#{userNum}), 0)+1 from USERSTABLE)
+        , #{userId}, #{userName}, #{userNickName}, #{email}, #{password}, default
+        , #{address})
+	</insert>
+	
+	<update id="updateId" parameterType="mvo">
+		update USERSTABLE set username=#{userName}, USERNICKNAME=#{userNickName}
+		, EMAIL=#{email}, password = #{password}, address=#{address}
+		where userid=#{userId}
+	</update>
+	
+	<delete id="deleteId" parameterType="string">
+		delete from USERSTABLE where userid=#{userId}
+	</delete>
+	
+	<select id="selectOneId" parameterType="String" resultType="mvo">
+		select * from usersTable where userid=#{userId}
+	</select>
+	
+	<select id="selectListId" resultType="mvo">
+		select * from usersTable
+	</select>
+	
+</mapper>
