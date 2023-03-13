@@ -23,6 +23,9 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.w3c.dom.Document;
@@ -30,25 +33,32 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+@Configuration
+@PropertySource("classpath:apiKeys.properties")
 @Controller
 public class TempForTable {
 
-	
+	//PropertySource 에너테이션사용
+	@Value("${recipe}")
+	private String key ;
 	@GetMapping("/temp")
 	public String insertTable() {
 		
 		
-		//PropertySource 에너테이션사용
 		
 		
-		Properties prop = new Properties();
-		InputStream stream = getClass().getClassLoader().getResourceAsStream("apiKeys.properties");
-		try {
-			prop.load(stream);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String key = prop.getProperty("recipe");
+//		Properties prop = new Properties();
+//		InputStream stream = getClass().getClassLoader().getResourceAsStream("apiKeys.properties");
+//		try {
+//			prop.load(stream);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		String key = prop.getProperty("recipe");
+
+		
+		
+		
 		
 		
 		URL url=null;
