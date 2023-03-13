@@ -2,6 +2,9 @@ package com.kh.teamproject.board.vo;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class BoardVo {
 
 	private int postId;

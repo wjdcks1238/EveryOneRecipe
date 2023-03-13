@@ -37,6 +37,10 @@ public class TempForTable {
 	@GetMapping("/temp")
 	public String insertTable() {
 		
+		
+		//PropertySource 에너테이션사용
+		
+		
 		Properties prop = new Properties();
 		InputStream stream = getClass().getClassLoader().getResourceAsStream("apiKeys.properties");
 		try {

@@ -1,18 +1,23 @@
 package com.kh.teamproject.board.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class IngredientVo {
 	
-	public IngredientVo() {}
-	public IngredientVo(int postId, String ingredient, String amount) {
-		super();
-		this.postId = postId;
-		this.ingredient = ingredient;
-		this.amount = amount;
-	}
 	private int postId;
 	private String ingredient;
 	private String amount;
-	
+
+	public IngredientVo() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "IngredientVo [postId=" + postId + ", ingredient=" + ingredient + ", amount=" + amount + "]";
+	}
+
 	public int getPostId() {
 		return postId;
 	}
@@ -30,10 +35,6 @@ public class IngredientVo {
 	}
 	public void setAmount(String amount) {
 		this.amount = amount;
-	}
-	@Override
-	public String toString() {
-		return "IngredientVo [postId=" + postId + ", ingredient=" + ingredient + ", amount=" + amount + "]";
 	}
 	
 	
