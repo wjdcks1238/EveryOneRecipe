@@ -1,9 +1,13 @@
 package com.kh.teamproject.post.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.teamproject.board.vo.BoardVo;
@@ -18,12 +22,20 @@ public class PostingController {
 		return "post/posting";
 	}
 	@PostMapping("posting")
-	public ModelAndView post(ModelAndView mv, BoardVo bvo,IngredientVo ivo) {
+	public ModelAndView post(ModelAndView mv, BoardVo bvo, @RequestParam("ingredient") List<String> ingredients, @RequestParam("amount") List<String> amounts) {
 //	public ModelAndView post(ModelAndView mv, BoardVo bvo, String ingredient,String amount) {
 
 //		System.out.println(ingredient);
 //		System.out.println(amount);
-		System.out.println(ivo);
+		
+		
+		 List<IngredientVo> ivo = new ArrayList<>(); // users 리스트 생성 
+	     for (int i = 0; i < ingredients.size(); i++) { // names 리스트 순회하면서 users 리스트에 user 객체 생성 및 추가 
+	    	 ivo.add(new IngredientVo(0, ingredients.get(i), amounts.get(i)));
+	     }
+
+	     System.out.println(ivo);
+		System.out.println("----------------");
 		//ingVo 배열로 받고 싶음
 		System.out.println(bvo);
 		mv.setViewName("post/posting");
@@ -31,5 +43,10 @@ public class PostingController {
 		//json 사용
 		//ajax로 받기
 		
+	}
+	
+	@PostMapping("postajax")
+	public void postajax(@RequestBody IngredientVo ivo) {
+		System.out.println(ivo);
 	}
 }

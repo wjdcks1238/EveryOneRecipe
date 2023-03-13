@@ -45,11 +45,12 @@
 			</div>
 			<textarea form="frm" name="content" id="editor"></textarea>
 		<p>
-			<input type="submit" value="전송">
+			<input  type="submit" value="전송">
+			<button id="sb">제출</button>
 		</p>
 	</form>
 	</div>
-	
+
 </body>
 	<script>
 		ClassicEditor.create(document.querySelector('#editor'));
@@ -64,6 +65,32 @@
 		$(document).on("click","button[name=deleteIng]" ,function(){
 			$(this).parent().remove();
 		});
+		
+		
+		
+		$("#sb").click(function(){
+		
+			var formData = new FormData($("#frm")[0]); // 폼 데이터 생성
+			var jsonData = JSON.stringify(Object.fromEntries(formData)); // 폼 데이터를 json 객체로 변환하고 문자열화
+			$.ajax({
+			  url: "/postajax", // 컨트롤러의 url
+			  type: "POST", // http 메소드
+			  contentType: "application/json", // 요청의 타입
+			  dataType: "json", // 응답의 타입
+			  data: jsonData, // 보낼 데이터
+			  success: function(data) { // 성공 시 콜백 함수
+			    console.log(data); // 응답 출력
+			  }
+			});
+		
+		})
+		
+		
+		
+		
+		
+		
+		
 	</script>
 
 </html>

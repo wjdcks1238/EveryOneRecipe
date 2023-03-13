@@ -9,8 +9,12 @@ public class IngredientVo {
 	private String ingredient;
 	private String amount;
 
-	public IngredientVo() {
+	public IngredientVo() {}
+	public IngredientVo(int postId, String ingredient, String amount) {
 		super();
+		this.postId = postId;
+		this.ingredient = ingredient;
+		this.amount = amount;
 	}
 
 	@Override
