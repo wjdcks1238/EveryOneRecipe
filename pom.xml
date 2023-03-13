@@ -172,6 +172,26 @@
 		    <version>1.31.0</version>
 		</dependency>
 		
+		<!-- 네이버로그인API 적용 : 제이슨 문제 발생시 gson으로 변경할게 -->
+		<!-- naver -->
+		<dependency>
+			<groupId>com.github.scribejava</groupId>
+			<artifactId>scribejava-core</artifactId>
+			<version>2.8.1</version>
+		</dependency>
+		<!-- 제이슨 파싱 -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		<!-- jstl -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
 
 	</dependencies>
 	<build>
