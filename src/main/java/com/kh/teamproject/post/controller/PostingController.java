@@ -29,8 +29,8 @@ public class PostingController {
 //		System.out.println(amount);
 		
 		
-		 List<IngredientVo> ivo = new ArrayList<>(); // users 리스트 생성 
-	     for (int i = 0; i < ingredients.size(); i++) { // names 리스트 순회하면서 users 리스트에 user 객체 생성 및 추가 
+		 List<IngredientVo> ivo = new ArrayList<>();
+	     for (int i = 0; i < ingredients.size(); i++) { 
 	    	 ivo.add(new IngredientVo(0, ingredients.get(i), amounts.get(i)));
 	     }
 
