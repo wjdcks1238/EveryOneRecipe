@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/ckeditor5/build/ckeditor.js"></script>
+	src="<%=request.getContextPath()%>/resources/ckeditor4/ckeditor.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <style>
 .ck-editor__editable {
@@ -53,8 +53,8 @@
 
 </body>
 	<script>
-		ClassicEditor.create(document.querySelector('#editor'));
-		
+		// ClassicEditor.create(document.querySelector('#editor')); ck5
+		CKEDITOR.replace('content');
 		$("#addIng").on("click", function(){	
 			var div= $("<div>").append($("<input type='text' placeholder='재료' name='ingredient'> "));
 			div.append($("<input type='text' placeholder='수량' name='amount'>"));
