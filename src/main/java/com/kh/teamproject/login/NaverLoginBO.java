@@ -3,27 +3,40 @@ package com.kh.teamproject.login;
 
 import java.io.IOException;
 import java.util.UUID;
- 
+
 import javax.servlet.http.HttpSession;
- 
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.StringUtils;
- 
+
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
- 
+
+
+@Configuration
+@PropertySource("classpath:apiKeys.properties")
 public class NaverLoginBO {
 	 	/* 인증 요청문을 구성하는 파라미터 */
 		//client_id: 애플리케이션 등록 후 발급받은 클라이언트 아이디
 		//response_type: 인증 과정에 대한 구분값. code로 값이 고정돼 있습니다.
 		//redirect_uri: 네이버 로그인 인증의 결과를 전달받을 콜백 URL(URL 인코딩). 애플리케이션을 등록할 때 Callback URL에 설정한 정보입니다.
 		//state: 애플리케이션이 생성한 상태 토큰
-		private final static String CLIENT_ID = "클라이언트 id";
-	    private final static String CLIENT_SECRET = "클라이언트 secret";
-	    private final static String REDIRECT_URI = "콜백 주소";
+		
+		//private final static String CLIENT_ID = "클라이언트 id";
+		//private final static String CLIENT_SECRET = "클라이언트 secret";
+		//private final static String REDIRECT_URI = "콜백 주소";
+		@Value("${client.id}")
+		private String CLIENT_ID;
+		@Value("${client.secret}")
+		private String CLIENT_SECRET;
+		@Value("${client.uri}")
+		private String REDIRECT_URI;
 	    private final static String SESSION_STATE = "oauth_state";
 	    /* 프로필 조회 API URL */
 	    private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
