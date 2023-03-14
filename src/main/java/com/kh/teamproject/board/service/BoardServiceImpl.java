@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.teamproject.board.dao.BoardDao;
 import com.kh.teamproject.board.vo.BoardVo;
+import com.kh.teamproject.board.vo.IngredientVo;
 import com.kh.teamproject.member.vo.MemberVo;
 
 @Service
@@ -18,11 +19,7 @@ public class BoardServiceImpl implements BoardService{
 	public int insert(BoardVo vo) throws Exception {	
 		return dao.insert(vo); 
 	}
-	@Override
-	public int insertDB(BoardVo vo) throws Exception {
-		
-		return dao.insertDB(vo); 
-	}
+
 
 	@Override
 	public int update(BoardVo vo) throws Exception {
@@ -43,6 +40,16 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVo> selectList() throws Exception {
 		
 		return dao.selectList();
+	}
+	@Override
+	public int insertBasicPost(List<BoardVo> bvoList) throws Exception {
+		return dao.insertBasicPost(bvoList); 
+	}
+
+
+	@Override
+	public int insertBasicIng(List<IngredientVo> iList) throws Exception {
+		return dao.insertBasicIng(iList); 
 	}
 
 }

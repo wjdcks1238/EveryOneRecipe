@@ -9,20 +9,20 @@ public class BoardVo {
 
 	private int postId;
 	private String userId;
+	private String nickname;	
 	private String foodName;	
 	private String content;
 	private Date createDate;
 	private Date UpdateDate;
 	private String isDeleted;
 	
-	
-	
-	public BoardVo() {}
-	public BoardVo(int postId, String userId, String foodName, String content, Date createDate, Date updateDate,
-			String isDeleted) {
+	public BoardVo() {} 
+	public BoardVo(int postId, String userId, String nickname, String foodName, String content, Date createDate,
+			Date updateDate, String isDeleted) {
 		super();
 		this.postId = postId;
 		this.userId = userId;
+		this.nickname = nickname;
 		this.foodName = foodName;
 		this.content = content;
 		this.createDate = createDate;
@@ -40,6 +40,12 @@ public class BoardVo {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getFoodName() {
 		return foodName;
@@ -73,7 +79,13 @@ public class BoardVo {
 	}
 	@Override
 	public String toString() {
-		return "BoardVo [postId=" + postId + ", userId=" + userId + ", foodName=" + foodName + ", content=" + content
-				+ ", createDate=" + createDate + ", UpdateDate=" + UpdateDate + ", isDeleted=" + isDeleted + "]";
+		return "BoardVo [postId=" + postId + ", userId=" + userId + ", nickname=" + nickname + ", foodName=" + foodName
+				+ ", content=" + content + ", createDate=" + createDate + ", UpdateDate=" + UpdateDate + ", isDeleted="
+				+ isDeleted + "]";
 	}
+	
+
+	
+	
+
 }

@@ -65,7 +65,7 @@ CREATE TABLE POST(
 );
 
 --게시글 리스트 조회
-
+select * from post;
 --게시글 작성
 
 --게시글 삭제
@@ -74,14 +74,14 @@ DROP TABLE POST;
 
 --재료 테이블
 CREATE TABLE INGREDIENT(
-     INGREDIENT VARCHAR2(30 char) NOT NULL
-    , POSTID NUMBER NOT NULL
+      POSTID NUMBER NOT NULL
+    , INGREDIENT VARCHAR2(30 char) NOT NULL
     , AMOUNT VARCHAR2(30 char) NOT NULL
     , CONSTRAINT FK_PID_ING FOREIGN KEY(POSTID) REFERENCES POST(POSTID)
     , CONSTRAINT PK_ING PRIMARY KEY(POSTID, INGREDIENT)
 );
-
-
+select * from ingredient;
+drop table ingredient;
 --이미지 테이블(수정필요)
 CREATE TABLE POSTIMG(
       IMGURL VARCHAR2(300 CHAR) NOT NULL

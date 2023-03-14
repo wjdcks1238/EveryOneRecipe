@@ -4,10 +4,31 @@
 	<insert id="insert" parameterType="bvo">
 		
 	</insert>
-	<insert id="insert" parameterType="list">
+	
+	<update id="insertBasicPost" parameterType="java.util.List">
+  		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" >
+   			INTO post VALUES(#{item.postId}, #{item.userId}, #{item.nickname},#{item.foodName},#{item.content},default,default,default )
+  		</foreach>
+	</update>
+	<insert id="insertBasicPost2" parameterType="java.util.List">
 		INSERT ALL
 		<foreach collection="list" item="item">
-			INTO posttable VALUES((SELECT NVL(MAX(postid), 0) + 1 FROM posttable), #{item.userId},#{item.foodName},#{item.content},default,default,default )
+			INTO post VALUES((SELECT NVL(MAX(postid), 0) + 1 FROM post), #{item.userId}, #{item.nickname},#{item.foodName},#{item.content},default,default,default )
+		</foreach>
+		SELECT * FROM DUAL
+	</insert>
+	
+	<update id="insertBasicIng" parameterType="java.util.List">
+  		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
+   			INTO ingredient VALUES(#{item.postId}, #{item.ingredient}, #{item.amount} )
+  		</foreach>
+	</update>
+	
+	
+	<insert id="insertBasicIng2" parameterType="java.util.List">
+		INSERT ALL
+		<foreach collection="list" item="item">
+			INTO ingredient VALUES(#{item.postid}, #{item.ingredient}, #{item.amount} )
 		</foreach>
 		SELECT * FROM DUAL
 	</insert>

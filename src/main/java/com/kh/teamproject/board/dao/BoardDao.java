@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.teamproject.board.vo.BoardVo;
+import com.kh.teamproject.board.vo.IngredientVo;
 
 @Repository
 public class BoardDao {
@@ -17,8 +18,11 @@ public class BoardDao {
 		return sqlSession.insert("boardMapper.insert",vo);
 	}
 
-	public int insertDB(BoardVo vo) {
-		return sqlSession.insert("boardMapper.insertDB",vo);
+	public int insertBasicPost(List<BoardVo> bvoList) {
+		return sqlSession.insert("boardMapper.insertBasicPost",bvoList);
+	}
+	public int insertBasicIng(List<IngredientVo> iList) {
+		return sqlSession.insert("boardMapper.insertBasicIng",iList);
 	}
 	
 	public int update(BoardVo vo) throws Exception {
@@ -40,5 +44,8 @@ public class BoardDao {
 		
 	}
 
+	
+
+	
 	
 }

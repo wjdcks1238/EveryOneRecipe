@@ -330,7 +330,7 @@ public class TempForTable {
 		for(String s : mn) {
 			m.put(s.split("%")[0], s.split("%")[1]);
 		}
-		System.out.println(m);
+//		System.out.println(m);
 
 						
 		
@@ -362,7 +362,7 @@ public class TempForTable {
 			
 		}
 		
-		System.out.println(ing);
+//		System.out.println(ing);
 		
 		
 		//한번 요청에 1000건까지만 가능해서 1~86번 레시피 까지만 가능. 
@@ -389,7 +389,7 @@ public class TempForTable {
 		}
 		
 		
-		System.out.println(cs);
+//		System.out.println(cs);
 
 		
 		
@@ -401,28 +401,32 @@ public class TempForTable {
 		
 //		객체에 담기(게시글)
 		List<BoardVo> bvoList = new ArrayList<BoardVo>();
-		for(int i=0; i<86;i++) {
+		for(int i=1; i<86;i++) {
 			BoardVo bvo = new BoardVo();
 			
 			bvo.setUserId("everys_recipe");
-			bvo.setFoodName(m.get(i));
-			bvo.setContent(cs.get(i));
-			
+			bvo.setNickname("모두의 레시피");
+//			System.out.println(m.get(i+""));
+			bvo.setFoodName(m.get(i+""));
+			bvo.setContent(cs.get(i+""));
+			bvo.setPostId(i);
+//			System.out.println(cs.get(i+""));
+			bvoList.add(bvo);
 		}
-		System.out.println(bvoList);
+//		System.out.println("bvolist"+bvoList);
 		
 //		객체에 담기(재료)
 		List<IngredientVo> iList = new ArrayList<IngredientVo>();
-		for(int i=0; i<86;i++) {
+		for(int i=1; i<86;i++) {
 			
-			LinkedHashMap<String, String> map =ing.get(i);
-	
+			LinkedHashMap<String, String> map =ing.get(i+"");
+//			System.out.println("map"+map);
 			for (String key : map.keySet()) {
 				IngredientVo ivo = new IngredientVo();
 				String value = map.get(key);
 				ivo.setPostId(i);
 				ivo.setIngredient(key);
-				ivo.setAmount(value);
+				ivo.setAmount(value); 
 				iList.add(ivo);
 			}
 			
@@ -432,12 +436,14 @@ public class TempForTable {
 			//포스트 id처리 필요 
 			//일단 1~86 으로 처리
 			
-			System.out.println(iList);
 			
 		}
+		System.out.println(iList);
 		try {
-			//테이블에 저장 
-//			service.insertDB(bvo);
+			//게시글 테이블에 저장 
+			service.insertBasicPost(bvoList);
+			//재료 테이블에 저장 
+			service.insertBasicIng(iList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
