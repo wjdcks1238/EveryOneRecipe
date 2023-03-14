@@ -1,41 +1,49 @@
+--예약어 목록
+SELECT * FROM V$RESERVED_WORDS;
+
 --<<사용자 테이블>>--
 --이용자 테이블 삭제
-drop table USERS;
+drop table MEMBERS;
+
 
 --이용자 테이블 생성
-create table USERS(
+create table MEMBERS(
             userid VARCHAR2(20 char) NOT NULL
-          , email VARCHAR2(100) NOT NULL
-          , password VARCHAR2(30) NOT NULL
+          , email VARCHAR2(100 char) NOT NULL
+          , password VARCHAR2(30 char) NOT NULL
           , nickname VARCHAR2(15 char) unique NOT NULL
-          , profile VARCHAR2(1000) NOT NULL
-          , profileurl VARCHAR2(300 char) NOT NULL
-          , CREATEAT TIMESTAMP DEFAULT SYSDATE NOT NULL
-          , UPDATEAT TIMESTAMP DEFAULT SYSDATE
+          , profile VARCHAR2(1000 char) NOT NULL
+          , profileurl VARCHAR2(300 char)
+          , CREATEAT TIMESTAMP DEFAULT systimestamp NOT NULL
+          , UPDATEAT TIMESTAMP DEFAULT systimestamp
           , ISDELETED VARCHAR2(1 char) DEFAULT 'N'
           , ISOPERATOR VARCHAR2(1 char) DEFAULT 'M'
-          , CONSTRAINT PK_USERS PRIMARY KEY (userid)
+          , CONSTRAINT PK_MEMBERS PRIMARY KEY (userid)
 );
+
+insert into MEMBERS values("everys_recipe", "admin@email.com","password", "모두의 레시피", "관리자 입니다.", "url", default,default,default,'A'  );
 --이용자 테이블 조회
-select * from USERS;
+select * from MEMBERS;
 
 --이용자 추가(회원가입)
-select NVL(max(userid), 0)+1 from USERS;
-insert into USERS values((select NVL(max(usernum), 0)+1 from USERS)
+select NVL(max(userid), 0)+1 from MEMBERS;
+insert into MEMBERS values((select NVL(max(usernum), 0)+1 from MEMBERS)
         , 'admin', '관리자', '모두의레시피관리자', 'admin@example.com', 'admin', default, '주소입력란');
 
-insert into USERS values((select NVL(max(usernum), 0)+1 from USERS)
+insert into MEMBERS values((select NVL(max(usernum), 0)+1 from MEMBERS)
         , '&userid', '&name', '&nickname', '&email', '&password', default, '&address');
 
 --회원탈퇴
-delete from USERS where userid='user1';
+delete from MEMBERS where userid='user1';
 
 --회원정보 수정
-update USERS set username='사용자11', USERNICKNAME='이용자11', EMAIL='user11@example.com'
+update MEMBERS set username='사용자11', USERNICKNAME='이용자11', EMAIL='user11@example.com'
                     , password = 'user11', address='서울시 강남구 학동' where userid='user1';
 
-update USERS set username='&name', USERNICKNAME='&nickname', EMAIL='&email'
+update MEMBERS set username='&name', USERNICKNAME='&nickname', EMAIL='&email'
                     , password = '&password', address='&address' where userid='&userid';
+
+
 
 
 
@@ -47,13 +55,13 @@ update USERS set username='&name', USERNICKNAME='&nickname', EMAIL='&email'
 CREATE TABLE POST(
        POSTID NUMBER PRIMARY KEY NOT NULL
      , USERID VARCHAR2(20 char) NOT NULL                        
-     , USERNAME VARCHAR2(20 char) NOT NULL			        
+     , NICKNAME VARCHAR2(20 char) NOT NULL			        
      , FOODNAME VARCHAR2(50 char) NOT NULL
      , CONTENT CLOB NOT NULL
      , CREATEDATE TIMESTAMP DEFAULT(systimestamp) NOT NULL
      , UPDATEDATE TIMESTAMP DEFAULT(systimestamp) NOT NULL
-     , ISDELETED VARCHAR2(1 char) NOT NULL
-     , CONSTRAINT FK_USERID_POST FOREIGN KEY(USERID) REFERENCES USERS(userid)
+     , ISDELETED VARCHAR2(1 char) DEFAULT 'N' NOT NULL
+     , CONSTRAINT FK_USERID_POST FOREIGN KEY(USERID) REFERENCES MEMBERS(userid)
 );
 
 --게시글 리스트 조회
@@ -95,11 +103,11 @@ CREATE TABLE HASHTAG(
 drop table POSTLIKE;
 
 create table POSTLIKE(
-        LIKEID Number 
-      , POSTID Number 
-      , USERID VARCHAR2(20 char)
+        POSTID Number NOT NULL
+      , USERID VARCHAR2(20 char) NOT NULL
+      , ISDELETED VARCHAR2(1 char) DEFAULT 'N' NOT NULL
       , CONSTRAINT FK_POSTID FOREIGN KEY(POSTID) REFERENCES POST(POSTID)
-      , CONSTRAINT FK_USERID FOREIGN KEY(USERID) REFERENCES usersTable(userid)
+      , CONSTRAINT FK_USERID FOREIGN KEY(USERID) REFERENCES MEMBERS(userid)
       , CONSTRAINT PK_POSTLIKE PRIMARY KEY(POSTID, USERID)
 );
 
@@ -108,13 +116,13 @@ select * from POSTLIKE;
 
 --<<댓글 테이블>>--
 create table COMMENT(
-        CMTID number not null primary key
-      , USERID VARCHAR2(20 char) not null
-      , POSTID number not null
-      , COMMENTCONTENT VARCHAR2(4000) not null
-      , create_at TIMESTAMP default sysdate not null
-      , updated_at TIMESTAMP
-      , constraint FK_userid_COMMENT Foreign Key (userid) references usersTable (userid)
+        CMTID NUMBER NOT NULL primary key
+      , USERID VARCHAR2(20 char) NOT NULL
+      , POSTID NUMBER NOT NULL
+      , CONTENT VARCHAR2(200 char) NOT NULL
+      , UPDATEAT TIMESTAMP DEFAULT systimestamp NOT NULL
+      , ISDELETED VARCHAR2(1 char) DEFAULT 'N' NOT NULL
+      , constraint FK_userid_COMMENT Foreign Key (userid) references MEMBERS (userid)
       , constraint FK_postid_COMMENT Foreign Key (postid) references POST (postid)
 );
 --댓글 조회
