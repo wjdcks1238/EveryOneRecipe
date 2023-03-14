@@ -35,7 +35,7 @@ public class NaverLoginBO {
 		private String CLIENT_ID;
 		@Value("${client.secret}")
 		private String CLIENT_SECRET;
-		@Value("${client.uri}")
+		@Value("${redirect.uri}")
 		private String REDIRECT_URI;
 	    private final static String SESSION_STATE = "oauth_state";
 	    /* 프로필 조회 API URL */
