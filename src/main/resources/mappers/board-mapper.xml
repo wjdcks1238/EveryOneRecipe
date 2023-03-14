@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
-	<insert id="insert" parameterType="mvo">
+	<insert id="insert" parameterType="bvo">
 		
 	</insert>
+	<insert id="insert" parameterType="list">
+		INSERT ALL
+		<foreach collection="list" item="item">
+			INTO posttable VALUES((SELECT NVL(MAX(postid), 0) + 1 FROM posttable), #{item.userId},#{item.foodName},#{item.content},default,default,default )
+		</foreach>
+		SELECT * FROM DUAL
+	</insert>
 	
-	<update id="update" parameterType="mvo">
+	<update id="update" parameterType="bvo">
 		
 	</update>
 	

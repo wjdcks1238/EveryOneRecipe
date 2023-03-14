@@ -18,6 +18,11 @@ public class BoardServiceImpl implements BoardService{
 	public int insert(BoardVo vo) throws Exception {	
 		return dao.insert(vo); 
 	}
+	@Override
+	public int insertDB(BoardVo vo) throws Exception {
+		
+		return dao.insertDB(vo); 
+	}
 
 	@Override
 	public int update(BoardVo vo) throws Exception {
@@ -39,4 +44,5 @@ public class BoardServiceImpl implements BoardService{
 		
 		return dao.selectList();
 	}
+
 }

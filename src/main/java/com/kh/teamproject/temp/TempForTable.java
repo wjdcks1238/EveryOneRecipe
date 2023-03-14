@@ -1,8 +1,6 @@
 package com.kh.teamproject.temp;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
@@ -14,7 +12,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,6 +20,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -33,11 +31,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import com.kh.teamproject.board.service.BoardService;
+import com.kh.teamproject.board.vo.BoardVo;
+import com.kh.teamproject.board.vo.IngredientVo;
+
 @Configuration
 @PropertySource("classpath:apiKeys.properties")
 @Controller
 public class TempForTable {
-
+	
+	@Autowired private BoardService service;
+	
 	//PropertySource 에너테이션사용
 	@Value("${recipe}")
 	private String key ;
@@ -158,7 +162,7 @@ public class TempForTable {
 //			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000226_1", "UTF-8")); /*레시피 기본정보*/
 			urlBuilder2.append("/" + URLEncoder.encode("Grid_20150827000000000227_1", "UTF-8")); /*레시피 재료정보*/
 //			urlBuilder2.append("/" + URLEncoder.encode("Grid_20150827000000000228_1", "UTF-8")); /*레시피 과정정보*/
-			urlBuilder2.append("/" + URLEncoder.encode("1", "UTF-8") + "/" + URLEncoder.encode("100", "UTF-8")); /*레시피 기본정보*/
+			urlBuilder2.append("/" + URLEncoder.encode("1", "UTF-8") + "/" + URLEncoder.encode("1000", "UTF-8"));
 			url = new URL(urlBuilder2.toString());
 			urlconnection = (HttpURLConnection) url.openConnection();
 			br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
@@ -211,7 +215,7 @@ public class TempForTable {
 //			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000226_1", "UTF-8")); /*레시피 기본정보*/
 //			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000227_1", "UTF-8")); /*레시피 재료정보*/
 			urlBuilder3.append("/" + URLEncoder.encode("Grid_20150827000000000228_1", "UTF-8")); /*레시피 과정정보*/
-			urlBuilder3.append("/" + URLEncoder.encode("1", "UTF-8") + "/" + URLEncoder.encode("100", "UTF-8")); /*레시피 기본정보*/
+			urlBuilder3.append("/" + URLEncoder.encode("1", "UTF-8") + "/" + URLEncoder.encode("600", "UTF-8"));
 			url = new URL(urlBuilder3.toString());
 			urlconnection = (HttpURLConnection) url.openConnection();
 			br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
@@ -249,7 +253,7 @@ public class TempForTable {
                     	}
                     }
                 }
-            
+                	
             }  
             
 
@@ -361,7 +365,7 @@ public class TempForTable {
 		System.out.println(ing);
 		
 		
-		
+		//한번 요청에 1000건까지만 가능해서 1~86번 레시피 까지만 가능. 
 		
 		
 		//과정
@@ -388,8 +392,74 @@ public class TempForTable {
 		System.out.println(cs);
 
 		
+		
+		
+		
+		
+		
+		//m, ing, cs
+		
+//		객체에 담기(게시글)
+		List<BoardVo> bvoList = new ArrayList<BoardVo>();
+		for(int i=0; i<86;i++) {
+			BoardVo bvo = new BoardVo();
+			
+			bvo.setUserId("everys_recipe");
+			bvo.setFoodName(m.get(i));
+			bvo.setContent(cs.get(i));
+			
+		}
+		System.out.println(bvoList);
+		
+//		객체에 담기(재료)
+		List<IngredientVo> iList = new ArrayList<IngredientVo>();
+		for(int i=0; i<86;i++) {
+			
+			LinkedHashMap<String, String> map =ing.get(i);
+	
+			for (String key : map.keySet()) {
+				IngredientVo ivo = new IngredientVo();
+				String value = map.get(key);
+				ivo.setPostId(i);
+				ivo.setIngredient(key);
+				ivo.setAmount(value);
+				iList.add(ivo);
+			}
+			
+			
+//			ivo.setIngredient(ing.get(i));
+//			ivo.setAmount(amount);
+			//포스트 id처리 필요 
+			//일단 1~86 으로 처리
+			
+			System.out.println(iList);
+			
+		}
+		try {
+			//테이블에 저장 
+//			service.insertDB(bvo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return "temp";
 				
+		
 		
 		
 	}

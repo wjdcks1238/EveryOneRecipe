@@ -16,6 +16,10 @@ public class BoardDao {
 	public int insert(BoardVo vo) throws Exception{		
 		return sqlSession.insert("boardMapper.insert",vo);
 	}
+
+	public int insertDB(BoardVo vo) {
+		return sqlSession.insert("boardMapper.insertDB",vo);
+	}
 	
 	public int update(BoardVo vo) throws Exception {
 		return sqlSession.update("boardMapper.update",vo);
@@ -35,4 +39,6 @@ public class BoardDao {
 		return sqlSession.selectList("boardMapper.selectList");
 		
 	}
+
+	
 }
