@@ -9,7 +9,7 @@
 	<typeAliases>
 		<!-- <typeAlias type="kh.spring.s01.board.model.vo.BoardVo" alias="BoardVo"/> -->
 		<typeAlias type="com.kh.teamproject.member.vo.MemberVo" alias="mvo"/>
-		<typeAlias type="com.kh.teamproject.member.vo.BoardVo" alias="bvo"/>
+		<typeAlias type="com.kh.teamproject.board.vo.BoardVo" alias="bvo"/>
 	</typeAliases>
 	
 	<mappers>

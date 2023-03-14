@@ -152,12 +152,7 @@
 
 
 
-		<!-- log4jdbc -->
-		<dependency>
-			<groupId>org.bgee.log4jdbc-log4j2</groupId>
-			<artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
-			<version>1.16</version>
-		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
@@ -167,11 +162,11 @@
 		</dependency>
 		<!-- Cloudinary API -->
 		<dependency>
-		    <groupId>com.cloudinary</groupId>
-		    <artifactId>cloudinary-http44</artifactId>
-		    <version>1.31.0</version>
+			<groupId>com.cloudinary</groupId>
+			<artifactId>cloudinary-http44</artifactId>
+			<version>1.31.0</version>
 		</dependency>
-		
+
 		<!-- 네이버로그인API 적용 : 제이슨 문제 발생시 gson으로 변경할게 -->
 		<!-- naver -->
 		<dependency>
@@ -181,9 +176,9 @@
 		</dependency>
 		<!-- 제이슨 파싱 -->
 		<dependency>
-		    <groupId>com.googlecode.json-simple</groupId>
-		    <artifactId>json-simple</artifactId>
-		    <version>1.1.1</version>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 		<!-- jstl -->
 		<dependency>
@@ -191,7 +186,30 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
+
+
+			<!-- logback-core.jar 추가 -->
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>1.2.3</version>
+			</dependency>
+
+			<!-- logback-classic.jar 추가 -->
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.2.3</version>
+			</dependency>
+
+			<!-- slf4j-api.jar 추가 -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.7.28</version>
+			</dependency>
+
 
 	</dependencies>
 	<build>
