@@ -12,7 +12,7 @@
 <hr>	
 <br>
  <div class="container">
-    <form>
+    <form id="login" method="post">
       <label for="username">아이디</label>
       <input type="text" id="username" name="username">
       <label for="password">비밀번호</label>
