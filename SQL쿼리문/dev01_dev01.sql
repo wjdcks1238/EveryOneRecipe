@@ -21,7 +21,8 @@ create table MEMBERS(
           , CONSTRAINT PK_MEMBERS PRIMARY KEY (userid)
 );
 
-insert into MEMBERS values('everys_recipe', 'admin@email.com','password', '모두의 레시피', '관리자 입니다.', 'url', default,default,default,'A'  );
+insert into MEMBERS values('everys_recipe', 'admin@email.com','password', '모두의 레시피', '관리자 입니다.', 'url',default,null ,'N', 'A');
+
 --이용자 테이블 조회
 select * from MEMBERS;
 
@@ -66,6 +67,7 @@ CREATE TABLE POST(
 
 --게시글 리스트 조회
 select * from post;
+select max(postId) from post;
 --게시글 작성
 
 --게시글 삭제
