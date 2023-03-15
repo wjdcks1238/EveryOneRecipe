@@ -16,8 +16,8 @@ public class BoardServiceImpl implements BoardService{
 	private BoardDao dao;
 
 	@Override
-	public int insert(BoardVo vo) throws Exception {	
-		return dao.insert(vo); 
+	public int insertPost(BoardVo vo) throws Exception {	
+		return dao.insertPost(vo); 
 	}
 
 
@@ -48,15 +48,24 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
-	@Override
-	public int insertBasicIng(List<IngredientVo> iList) throws Exception {
-		return dao.insertBasicIng(iList); 
-	}
+
 
 
 	@Override
 	public List<IngredientVo> ingredientList() throws Exception {
 		return dao.ingredientList();
+	}
+
+
+	@Override
+	public int insertIngList(List<IngredientVo> ivoList) throws Exception {
+		return dao.insertIngList(ivoList); 
+	}
+
+
+	@Override
+	public int getLastPostId() {
+		return dao.getLastPostId(); 
 	}
 
 }

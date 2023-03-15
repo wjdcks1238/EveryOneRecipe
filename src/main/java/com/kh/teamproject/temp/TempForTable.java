@@ -443,7 +443,7 @@ public class TempForTable {
 			//게시글 테이블에 저장 
 			service.insertBasicPost(bvoList);
 			//재료 테이블에 저장 
-			service.insertBasicIng(iList);
+			service.insertIngList(iList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

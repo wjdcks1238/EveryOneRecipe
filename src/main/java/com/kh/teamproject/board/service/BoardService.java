@@ -14,7 +14,7 @@ public interface BoardService {
 	
 	
 
-	public int insert(BoardVo vo) throws Exception;
+	public int insertPost(BoardVo vo) throws Exception;
 	
 	public int update(BoardVo vo) throws Exception;
 	
@@ -27,5 +27,9 @@ public interface BoardService {
 	
 	public int insertBasicPost(List<BoardVo> bvoList) throws Exception;
 
-	public int insertBasicIng(List<IngredientVo> iList) throws Exception;
+
+
+	public int insertIngList(List<IngredientVo> ivoList) throws Exception;
+
+	public int getLastPostId();
 }
