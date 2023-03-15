@@ -13,11 +13,12 @@ import com.kh.teamproject.member.vo.MemberVo;
 
 
 @Controller
-@RequestMapping("/member")
+//@RequestMapping("/signup")
 public class MemberController {	
 	@Autowired 
 	private MemberService service;
 	
+<<<<<<< Updated upstream
 	@GetMapping("/signUp")
 	public ModelAndView viewInsert(ModelAndView mv) {
 		
@@ -28,6 +29,10 @@ public class MemberController {
 	
 	//@PostMapping("/signUp")
 	@GetMapping("/testSignup")
+=======
+
+	@PostMapping("/signUp")
+>>>>>>> Stashed changes
 	public ModelAndView insert(ModelAndView mv, MemberVo vo) throws Exception {
 		vo.setUserId("user1");
 		vo.setEmail("user1@example.com");
