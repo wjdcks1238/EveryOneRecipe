@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
+	<resultMap type="com.kh.teamproject.board.vo.PostVo" id="postResultMap">
+		<id property="postId" column="POSTID"/>
+		<result property="userId" column="USERID"/>
+		<result property="nickname" column="NICKNAME"/>
+		<result property="foodName" column="FOODNAME"/>
+		<result property="content" column="CONTENT"/>
+		<result property="createDate" column="CREATEDATE"/>
+		<result property="UpdateDate" column="UPDATEDATE"/>
+		<result property="isDeleted" column="ISDELETED"/>
+		<collection property="ingredients" ofType="ivo">
+			<result property="ingredient" column="INGREDIENT"/>
+			<result property="amount" column="AMOUNT"/>
+		</collection>
+	</resultMap>
+
+
+	<select id="selectList" resultMap="postResultMap">
+		SELECT p.POSTID
+     , p.USERID
+     , p.NICKNAME
+     , p.FOODNAME
+     , p.CONTENT
+     , p.CREATEDATE
+     , p.UPDATEDATE
+     , p.ISDELETED
+     , i.INGREDIENT
+     , i.AMOUNT
+  FROM post p
+ INNER JOIN ingredient i
+    ON p.POSTID = i.POSTID
+	</select>
+
+
+
+
+
+
 	<insert id="insert" parameterType="bvo">
 		
 	</insert>
@@ -10,13 +47,6 @@
    			INTO post VALUES(#{item.postId}, #{item.userId}, #{item.nickname},#{item.foodName},#{item.content},default,default,default )
   		</foreach>
 	</update>
-	<insert id="insertBasicPost2" parameterType="java.util.List">
-		INSERT ALL
-		<foreach collection="list" item="item">
-			INTO post VALUES((SELECT NVL(MAX(postid), 0) + 1 FROM post), #{item.userId}, #{item.nickname},#{item.foodName},#{item.content},default,default,default )
-		</foreach>
-		SELECT * FROM DUAL
-	</insert>
 	
 	<update id="insertBasicIng" parameterType="java.util.List">
   		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
@@ -25,13 +55,6 @@
 	</update>
 	
 	
-	<insert id="insertBasicIng2" parameterType="java.util.List">
-		INSERT ALL
-		<foreach collection="list" item="item">
-			INTO ingredient VALUES(#{item.postid}, #{item.ingredient}, #{item.amount} )
-		</foreach>
-		SELECT * FROM DUAL
-	</insert>
 	
 	<update id="update" parameterType="bvo">
 		
@@ -41,11 +64,12 @@
 		
 	</delete>
 	
-	<select id="selectOne" parameterType="String" resultType="mvo">
+	<select id="selectOne" parameterType="String" resultType="bvo">
 		
 	</select>
 	
-	<select id="selectList" resultType="mvo">
-		
+
+	<select id="ingredientList" resultType="ivo">
+		select * from ingredient
 	</select>
 </mapper>

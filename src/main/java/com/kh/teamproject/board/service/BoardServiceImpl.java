@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.teamproject.board.dao.BoardDao;
 import com.kh.teamproject.board.vo.BoardVo;
 import com.kh.teamproject.board.vo.IngredientVo;
-import com.kh.teamproject.member.vo.MemberVo;
+import com.kh.teamproject.board.vo.PostVo;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -37,10 +37,11 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVo> selectList() throws Exception {
+	public List<PostVo> selectList() throws Exception {
 		
 		return dao.selectList();
 	}
+	
 	@Override
 	public int insertBasicPost(List<BoardVo> bvoList) throws Exception {
 		return dao.insertBasicPost(bvoList); 
@@ -50,6 +51,12 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int insertBasicIng(List<IngredientVo> iList) throws Exception {
 		return dao.insertBasicIng(iList); 
+	}
+
+
+	@Override
+	public List<IngredientVo> ingredientList() throws Exception {
+		return dao.ingredientList();
 	}
 
 }

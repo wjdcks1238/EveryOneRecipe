@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.teamproject.board.vo.BoardVo;
 import com.kh.teamproject.board.vo.IngredientVo;
+import com.kh.teamproject.board.vo.PostVo;
 
 @Repository
 public class BoardDao {
@@ -39,9 +40,13 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.selectOne",postId);
 		
 	}
-	public List<BoardVo> selectList() throws Exception {
+	public List<PostVo> selectList() throws Exception {
 		return sqlSession.selectList("boardMapper.selectList");
 		
+	}
+
+	public List<IngredientVo> ingredientList() {
+		return sqlSession.selectList("boardMapper.ingredientList");
 	}
 
 	
