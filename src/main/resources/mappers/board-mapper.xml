@@ -35,12 +35,25 @@
 
 
 
+	
+	<select id="getLastPostId" resultType="_int">
+		SELECT MAX(postId) FROM post
+	</select>
 
-
-
-	<insert id="insert" parameterType="bvo">
-		
+	<insert id="insertPost" parameterType="bvo">
+		INSERT INTO post values( (SELECT NVL(MAX(postid), 0) + 1 FROM post), #{userId}, #{nickname}, #{foodName}, #{content}, default, default, default) 
 	</insert>
+	
+	<update id="insertIngList" parameterType="java.util.List">
+  		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
+   			INTO ingredient VALUES(#{item.postId}, #{item.ingredient}, #{item.amount} )
+  		</foreach>
+	</update>
+	
+	
+	
+	
+	
 	
 	<update id="insertBasicPost" parameterType="java.util.List">
   		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" >
@@ -48,12 +61,7 @@
   		</foreach>
 	</update>
 	
-	<update id="insertBasicIng" parameterType="java.util.List">
-  		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
-   			INTO ingredient VALUES(#{item.postId}, #{item.ingredient}, #{item.amount} )
-  		</foreach>
-	</update>
-	
+
 	
 	
 	<update id="update" parameterType="bvo">
@@ -70,6 +78,6 @@
 	
 
 	<select id="ingredientList" resultType="ivo">
-		select * from ingredient
+		SELECT * FROM ingredient
 	</select>
 </mapper>

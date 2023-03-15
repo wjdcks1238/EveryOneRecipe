@@ -23,6 +23,9 @@ create table MEMBERS(
           , ISDELETED VARCHAR2(1 char) CHECK(ISDELETED IN('N', 'Y')) NOT NULL
           , ISOPERATOR VARCHAR2(1 char) CHECK(ISOPERATOR IN('M', 'A')) NOT NULL
 );
+--회원가입
+insert into MEMBERS values('everys_recipe', 'admin@email.com','password', '모두의 레시피', '관리자 입니다.', 'url',default,null ,'N', 'A');
+
 --이용자 테이블 조회
 SELECT * FROM MEMBERS;
 
@@ -65,6 +68,7 @@ CREATE TABLE POST(
 
 --게시글 리스트 조회
 select * from post;
+select max(postId) from post;
 --게시글 작성
 
 --게시글 삭제

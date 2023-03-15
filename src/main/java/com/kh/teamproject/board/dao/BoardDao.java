@@ -15,10 +15,13 @@ public class BoardDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public int insert(BoardVo vo) throws Exception{		
-		return sqlSession.insert("boardMapper.insert",vo);
+	public int insertPost(BoardVo vo) throws Exception{		
+		return sqlSession.insert("boardMapper.insertPost",vo);
 	}
-
+	public int insertIngList(List<IngredientVo> ivoList) {
+		return sqlSession.insert("boardMapper.insertIngList",ivoList);
+	}
+	
 	public int insertBasicPost(List<BoardVo> bvoList) {
 		return sqlSession.insert("boardMapper.insertBasicPost",bvoList);
 	}
@@ -48,6 +51,11 @@ public class BoardDao {
 	public List<IngredientVo> ingredientList() {
 		return sqlSession.selectList("boardMapper.ingredientList");
 	}
+	public int getLastPostId() {
+		return sqlSession.selectOne("boardMapper.getLastPostId");
+	}
+
+	
 
 	
 
