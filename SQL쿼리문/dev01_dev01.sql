@@ -5,43 +5,42 @@ SELECT * FROM V$RESERVED_WORDS;
 --이용자 테이블 삭제
 drop table MEMBERS;
 
-
 --이용자 테이블 생성
+/*
+ * ISDELETED 'N' 논리 삭제 아님 / 'Y' 논리 삭제
+ * ISOPERATOR 'M' 이용자 식별 / 'A' 관리자 식별
+ *     ISOPERATOR는 이용자가 가입하기 때문에 'M'에서 움직일 일은 없음.
+ */
 create table MEMBERS(
-            userid VARCHAR2(20 char) NOT NULL
-          , email VARCHAR2(100 char) NOT NULL
-          , password VARCHAR2(30 char) NOT NULL
-          , nickname VARCHAR2(15 char) unique NOT NULL
-          , profile VARCHAR2(1000 char) NOT NULL
-          , profileurl VARCHAR2(300 char)
-          , CREATEAT TIMESTAMP DEFAULT systimestamp NOT NULL
-          , UPDATEAT TIMESTAMP DEFAULT systimestamp
-          , ISDELETED VARCHAR2(1 char) DEFAULT 'N'
-          , ISOPERATOR VARCHAR2(1 char) DEFAULT 'M'
-          , CONSTRAINT PK_MEMBERS PRIMARY KEY (userid)
+            USERID VARCHAR2(15 char) PRIMARY KEY NOT NULL
+          , EMAIL VARCHAR2(50 char) NOT NULL
+          , PASSWORD VARCHAR2(200 char) NOT NULL
+          , NICKNAME VARCHAR2(50 char) NOT NULL
+          , PROFILE VARCHAR2(200 char)
+          , PROFILEURL VARCHAR2(300 char)
+          , CREATEAT TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+          , UPDATEAT TIMESTAMP
+          , ISDELETED VARCHAR2(1 char) CHECK(ISDELETED IN('N', 'Y')) NOT NULL
+          , ISOPERATOR VARCHAR2(1 char) CHECK(ISOPERATOR IN('M', 'A')) NOT NULL
 );
-
-insert into MEMBERS values('everys_recipe', 'admin@email.com','password', '모두의 레시피', '관리자 입니다.', 'url', default,default,default,'A'  );
 --이용자 테이블 조회
-select * from MEMBERS;
+SELECT * FROM MEMBERS;
 
 --이용자 추가(회원가입)
-select NVL(max(userid), 0)+1 from MEMBERS;
-insert into MEMBERS values((select NVL(max(usernum), 0)+1 from MEMBERS)
-        , 'admin', '관리자', '모두의레시피관리자', 'admin@example.com', 'admin', default, '주소입력란');
+INSERT INTO MEMBERS VALUES('user0', 'user0@example.com', 'user0', '이용자0', null, null
+                            , DEFAULT, null, 'N', 'M');
 
-insert into MEMBERS values((select NVL(max(usernum), 0)+1 from MEMBERS)
-        , '&userid', '&name', '&nickname', '&email', '&password', default, '&address');
+INSERT INTO MEMBERS VALUES('&userId', '&email', '&password', '&nickname', null, null
+                            , DEFAULT, null, 'N', 'M');
 
 --회원탈퇴
 delete from MEMBERS where userid='user1';
+delete from MEMBERS where userid='&userId';
 
 --회원정보 수정
-update MEMBERS set username='사용자11', USERNICKNAME='이용자11', EMAIL='user11@example.com'
-                    , password = 'user11', address='서울시 강남구 학동' where userid='user1';
-
-update MEMBERS set username='&name', USERNICKNAME='&nickname', EMAIL='&email'
-                    , password = '&password', address='&address' where userid='&userid';
+update USERSTABLE set EMAIL='user11@example.com', PASSWORD='user11', NICKNAME='user11'
+                    , PROFILE='profile', PROFILEURL='사진경로', UPDATEAT=DEFAULT)
+        WHERE USERID='user0';
 
 
 
