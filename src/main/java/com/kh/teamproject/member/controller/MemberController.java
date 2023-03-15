@@ -27,7 +27,7 @@ public class MemberController {
 	}
 	
 	//@PostMapping("/signUp")
-	@GetMapping("/testSignUp")
+	@GetMapping("/testSignup")
 	public ModelAndView insert(ModelAndView mv, MemberVo vo) throws Exception {
 		vo.setUserId("user1");
 		vo.setEmail("user1@example.com");
