@@ -82,6 +82,21 @@ CREATE TABLE INGREDIENT(
 );
 select * from ingredient;
 drop table ingredient;
+
+SELECT p.POSTID
+     , p.USERID
+     , p.NICKNAME
+     , p.FOODNAME
+     , p.CONTENT
+     , p.CREATEDATE
+     , p.UPDATEDATE
+     , P.ISDELETED
+     , i.INGREDIENT
+     , i.AMOUNT
+  FROM post p
+ INNER JOIN ingredient i
+    ON p.POSTID = i.POSTID;
+
 --이미지 테이블(수정필요)
 CREATE TABLE POSTIMG(
       IMGURL VARCHAR2(300 CHAR) NOT NULL
