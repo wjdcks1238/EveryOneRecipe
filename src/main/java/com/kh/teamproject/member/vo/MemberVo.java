@@ -6,110 +6,136 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MemberVo {
-//	------------ -------- -------------- 
-//	USERNUM      NOT NULL NUMBER         
-//	USERID       NOT NULL VARCHAR2(20)   
-//	USERNAME              VARCHAR2(20)   
-//	USERNICKNAME          VARCHAR2(45)   
-//	EMAIL                 VARCHAR2(100)  
-//	PASSWORD              VARCHAR2(30)   
-//	CREATE_AT             DATE           
-//	ADDRESS               VARCHAR2(1000)
+//	---------- -------- ------------------ 
+//	USERID     NOT NULL VARCHAR2(15 CHAR)  
+//	EMAIL      NOT NULL VARCHAR2(50 CHAR)  
+//	PASSWORD   NOT NULL VARCHAR2(200 CHAR) 
+//	NICKNAME   NOT NULL VARCHAR2(50 CHAR)  
+//	PROFILE             VARCHAR2(200 CHAR) 
+//	PROFILEURL          VARCHAR2(300 CHAR) 
+//	CREATEAT   NOT NULL TIMESTAMP(6)       
+//	UPDATEAT            TIMESTAMP(6)       
+//	ISDELETED  NOT NULL VARCHAR2(1 CHAR)   
+//	ISOPERATOR NOT NULL VARCHAR2(1 CHAR)
 	
-	private int userNum;
 	private String userId;
-	private String userName;
-	private String userNickName;
 	private String email;
 	private String password;
+	private String nickName;
+	private String profile;
+	private String profileUrl;
 	private Date createAt;
-	private String address;
+	private Date updateAt;
+	private char isDeleted;
+	private char isOperator;
 	
 	public MemberVo() {
 		super();
 	}
 	
-	public MemberVo(int userNum, String userId, String userName, String userNickName
-			, String email, String password, Date createAt, String address) {
+	public MemberVo(String userId, String email, String password, String nickName
+			, String profile, String profileUrl, Date createAt, Date updateAt, char isDeleted
+			, char isOperator) {
 		super();
-		this.userNum = userNum;
 		this.userId = userId;
-		this.userName = userName;
-		this.userNickName = userNickName;
 		this.email = email;
 		this.password = password;
+		this.nickName = nickName;
+		this.profile = profile;
+		this.profileUrl = profileUrl;
 		this.createAt = createAt;
-		this.address = address;
+		this.updateAt = updateAt;
+		this.isDeleted = isDeleted;
+		this.isOperator = isOperator;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "MemberVo [userNum=" + userNum + ", userId=" + userId + ", userName=" + userName + ", userNickName="
-				+ userNickName + ", email=" + email + ", password=" + password + ", createAt=" + createAt + ", address="
-				+ address + "]";
+		return "MemberVo [userId=" + userId + ", email=" + email + ", password=" + password + ", nickName=" + nickName
+				+ ", profile=" + profile + ", profileUrl=" + profileUrl + ", createAt=" + createAt + ", updateAt="
+				+ updateAt + ", isDeleted=" + isDeleted + ", isOperator=" + isOperator + "]";
 	}
-	
-	public int getUserNum() {
-		return userNum;
-	}
-	
-	public void setUserNum(int userNum) {
-		this.userNum = userNum;
-	}
-	
+
 	public String getUserId() {
 		return userId;
 	}
-	
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
-	public String getUserName() {
-		return userName;
-	}
-	
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	
-	public String getUserNickName() {
-		return userNickName;
-	}
-	
-	public void setUserNickName(String userNickName) {
-		this.userNickName = userNickName;
-	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
+	public String getProfileUrl() {
+		return profileUrl;
+	}
+
+	public void setProfileUrl(String profileUrl) {
+		this.profileUrl = profileUrl;
+	}
+
 	public Date getCreateAt() {
 		return createAt;
 	}
-	
+
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-	
-	public String getAddress() {
-		return address;
+
+	public Date getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(Date updateAt) {
+		this.updateAt = updateAt;
+	}
+
+	public char getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(char isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public char getIsOperator() {
+		return isOperator;
+	}
+
+	public void setIsOperator(char isOperator) {
+		this.isOperator = isOperator;
 	}
 	
-	public void setAddress(String address) {
-		this.address = address;
-	}
+	
+	
 }

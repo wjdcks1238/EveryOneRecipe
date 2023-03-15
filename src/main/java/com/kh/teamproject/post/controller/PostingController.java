@@ -3,6 +3,8 @@ package com.kh.teamproject.post.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +20,6 @@ public class PostingController {
 
 	@GetMapping("posting")
 	public String postingPage() {
-		
 		return "post/posting";
 	}
 	@PostMapping("posting")

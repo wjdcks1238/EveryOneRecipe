@@ -29,12 +29,10 @@ public class MemberController {
 	//@PostMapping("/signUp")
 	@GetMapping("/testSignUp")
 	public ModelAndView insert(ModelAndView mv, MemberVo vo) throws Exception {
-		vo.setUserId("user2");
-		vo.setUserName("사용자2");
-		vo.setUserNickName("이용자2");
-		vo.setPassword("user2");
-		vo.setEmail("user2@example.com");
-		vo.setAddress("경기도 시흥시 정왕동");
+		vo.setUserId("user1");
+		vo.setEmail("user1@example.com");
+		vo.setPassword("user1");
+		vo.setNickName("이용자1");
 		int result = -1;
 		
 		result = service.insert(vo);
