@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.teamproject.member.service.MemberService;
 import com.kh.teamproject.member.vo.MemberVo;
@@ -13,37 +14,28 @@ import com.kh.teamproject.member.vo.MemberVo;
 
 
 @Controller
-//@RequestMapping("/signup")
+@RequestMapping("/member")
 public class MemberController {	
 	@Autowired 
 	private MemberService service;
 	
-	@GetMapping("/signUp")
-	public ModelAndView viewInsert(ModelAndView mv) {
+	@GetMapping("/signup")
+	public String signup() {
 		
-		mv.setViewName("member/signUp");
-		return mv;
-		
+		return "/signup";
 	}
 	
-	//@PostMapping("/signUp")
-
-	@PostMapping("/signUp")
-	public ModelAndView insert(ModelAndView mv, MemberVo vo) throws Exception {
-		vo.setUserId("user1");
-		vo.setEmail("user1@example.com");
-		vo.setPassword("user1");
-		vo.setNickName("이용자1");
+	@PostMapping("/signup")
+	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
 		int result = -1;
 		
 		result = service.insert(vo);
 		
-		if(result == 1) {
-			System.out.println("회원가입 성공");
+		if(result > 0) {
+			rttr.addFlashAttribute("msg", "회원가입 성공");
 		} else {
-			System.out.println("회원가입 실패");
+			rttr.addFlashAttribute("msg", "회원가입 실패");
 		}
-		
 		return mv;
 	}
 }
