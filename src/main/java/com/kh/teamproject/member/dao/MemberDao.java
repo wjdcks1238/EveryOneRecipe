@@ -13,6 +13,7 @@ public class MemberDao {
 	@Autowired
 	private SqlSession sqlSession;
 
+	//회원가입
 	public int insert(MemberVo vo) throws Exception{		
 		return sqlSession.insert("memberMapper.insertId",vo);
 	}
