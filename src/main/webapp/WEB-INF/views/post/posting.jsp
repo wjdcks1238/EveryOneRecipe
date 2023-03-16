@@ -23,34 +23,36 @@
 </head>
 <body>
 	<div style="width: 1000px;">
-	<!-- 
-	<div>
-		<button type='button' name='deleteIng'>삭제</button>
-	</div>
-	 -->
+ 
+
 	<form id="frm" action="" method="POST">
+	
 		<div>
 			<input type="hidden" name="userId" value="${userId }">
 		</div>
 		<div>
 			<input name="foodName" type="text" placeholder="음식 이름">
 		</div>
-			<div>
-				<input name="ingredient" type="text" placeholder="재료"> 
-				<input name="amount" type="text" placeholder="수량">
-
-				<div id="additional"></div>
-
-				<button id="addIng" type="button">재료 입력칸 추가</button>
-			</div>
-			<textarea form="frm" name="content" id="editor"></textarea>
-		<p>
+		<div>
+			<input name="ingredient" type="text" placeholder="재료"> 
+			<input name="amount" type="text" placeholder="수량">
+			<div id="additional"></div>
+			<button id="addIng" type="button">재료 입력칸 추가</button>
+		</div>
+		<textarea form="frm" name="content" id="editor"></textarea>
+		
+		<div>
+			<input name="hashtag" type="text" placeholder="해쉬태그 입력">
+		</div>	
+			
+		<div>
 			<input  type="submit" value="전송">
 			<button id="sb" type="button">제출</button>
-		</p>
+		</div>
+
 	</form>
 	</div>
-
+	
 </body>
 	<script>
 		// ClassicEditor.create(document.querySelector('#editor')); ck5

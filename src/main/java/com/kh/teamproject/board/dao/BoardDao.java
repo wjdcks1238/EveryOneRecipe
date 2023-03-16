@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.teamproject.board.vo.BoardVo;
+import com.kh.teamproject.board.vo.HashtagVo;
 import com.kh.teamproject.board.vo.IngredientVo;
 import com.kh.teamproject.board.vo.PostVo;
 
@@ -54,6 +55,10 @@ public class BoardDao {
 	public int getLastPostId() {
 		return sqlSession.selectOne("boardMapper.getLastPostId");
 	}
+	public int insertHashtagList(List<HashtagVo> hashtagList) {
+		return sqlSession.selectOne("boardMapper.insertHashtagList",hashtagList);
+	}
+	
 
 	
 

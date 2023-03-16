@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.teamproject.board.dao.BoardDao;
 import com.kh.teamproject.board.vo.BoardVo;
+import com.kh.teamproject.board.vo.HashtagVo;
 import com.kh.teamproject.board.vo.IngredientVo;
 import com.kh.teamproject.board.vo.PostVo;
 
@@ -66,6 +67,12 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int getLastPostId() {
 		return dao.getLastPostId(); 
+	}
+
+
+	@Override
+	public int insertHashtagList(List<HashtagVo> hashtagList) {
+		return dao.insertHashtagList(hashtagList); 
 	}
 
 }
