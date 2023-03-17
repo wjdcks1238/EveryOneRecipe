@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/ckeditor4/ckeditor.js"></script>
+	src="<%=request.getContextPath()%>/resources/ckeditor/ckeditor.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <style>
 .ck-editor__editable {
@@ -62,7 +62,7 @@ ${pageContext.request.contextPath}
 	<script>
 		// ClassicEditor.create(document.querySelector('#editor')); ck5
 		$(function() {
-			CKEDITOR.replace('content', {
+			CKEDITOR.replace('editor', {
 				filebrowserUploadUrl:'${pageContext.request.contextPath}/upload.do'
 			});
 		});
