@@ -253,6 +253,13 @@
 			<version>1.18.24</version>
 			<scope>provided</scope>
 			</dependency>
+			
+			<!-- 네이버쇼핑 api사용. JSONInJava-->
+			<dependency>
+			    <groupId>org.json</groupId>
+			    <artifactId>json</artifactId>
+			    <version>20180813</version>
+			</dependency>	
 
 	</dependencies>
 	<build>
