@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.cloudinary.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.gson.JsonObject;
 import com.kh.teamproject.board.service.BoardService;
 import com.kh.teamproject.board.vo.BoardVo;
+import com.kh.teamproject.board.vo.HashtagVo;
 import com.kh.teamproject.board.vo.IngredientVo;
 
 @Controller
@@ -45,7 +44,11 @@ public class PostingController {
 		return "post/posting";
 	}
 	@PostMapping("posting")
-	public ModelAndView post(ModelAndView mv, BoardVo bvo, @RequestParam("ingredient") List<String> ingredients, @RequestParam("amount") List<String> amounts) {
+	public ModelAndView post(ModelAndView mv
+			, BoardVo bvo
+			, @RequestParam("ingredient") List<String> ingredients
+			, @RequestParam("amount") List<String> amounts
+			, @RequestParam("hashtag") String hashtag) {
 //	public ModelAndView post(ModelAndView mv, BoardVo bvo, String ingredient,String amount) {
 
 		
@@ -59,15 +62,48 @@ public class PostingController {
 
 	     System.out.println(ivoList);
 		System.out.println("----------------");
-		//ingVo 배열로 받고 싶음
+
 		System.out.println(bvo);
 		
+
+		List<HashtagVo> hashtagList = new ArrayList<>();
+
+		if(!(   ("").equals(hashtag) || hashtag==null        )) {
+			String tag = hashtag.trim();
+			System.out.println("tag"+ tag);
+			if(    !("#").equals(tag.indexOf(0))  ) {
+				tag+="#";
+			}
+			String[] ht= tag.split("#");
+			
+			for(String s: ht ) {
+				if( !("").equals(s) ) {
+					hashtagList.add(new HashtagVo(lastPostId+1, s));
+				}
+			}
+			
+		}
+			
 		
+		//빈 문자열일 경우
+		
+		//처음부터 #를 붙이지 않았을 경우  #붙여줌
+		
+		//trim 후  #으로 나눈다. 띄어쓰기는 고려하지 않음. 해시태그로 저장
+	
+			
+		//
+		//#abv#adf abc 라면??
+		//
+		 
+		//저장된 순서대로 그대로 출력 
 		
 		
 		try {
 //			if(service.insertPost(bvo)!=0) {				
 //			service.insertIngList(ivoList);
+			service.insertHashtagList(hashtagList);
+			
 //			}
 			
 		} catch (Exception e) {
@@ -75,27 +111,12 @@ public class PostingController {
 			e.printStackTrace();
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			
 		
 		mv.setViewName("post/posting");
 		return mv;
-		//json 사용
-		//ajax로 받기
-		
-		
+
 		
 	}
-	
-	@PostMapping("postajax")
-	public void postajax(@RequestBody IngredientVo ivo) {
-		System.out.println(ivo);
-	}
+
 }

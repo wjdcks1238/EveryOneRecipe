@@ -28,12 +28,12 @@ public class BoardController {
 		@Autowired
 		private BoardService service;
 	
-		@GetMapping("/list")
-		public void list() {
-			System.out.println("list~!~!~!~!~!!~");
-		}
+//		@GetMapping("/list")
+//		public void list() {
+//			System.out.println("list~!~!~!~!~!!~");
+//		}
 		
-		@GetMapping("/list2")
+		@GetMapping("/list")
 		public ModelAndView list2(ModelAndView mv
 				) {
 				
@@ -47,7 +47,7 @@ public class BoardController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			mv.setViewName("board/list2");
+			mv.setViewName("board/list");
 			return mv;
 		}
 }

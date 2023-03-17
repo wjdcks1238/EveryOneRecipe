@@ -3,6 +3,7 @@ package com.kh.teamproject.board.service;
 import java.util.List;
 
 import com.kh.teamproject.board.vo.BoardVo;
+import com.kh.teamproject.board.vo.HashtagVo;
 import com.kh.teamproject.board.vo.IngredientVo;
 import com.kh.teamproject.board.vo.PostVo;
 
@@ -32,4 +33,6 @@ public interface BoardService {
 	public int insertIngList(List<IngredientVo> ivoList) throws Exception;
 
 	public int getLastPostId();
+
+	public int insertHashtagList(List<HashtagVo> hashtagList);
 }

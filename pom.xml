@@ -217,6 +217,7 @@
 				<artifactId>slf4j-log4j12</artifactId>
 				<version>1.7.28</version>
 			</dependency>
+
 			
 			<!-- 공통 IO https://mvnrepository.com/artifact/commons-io/commons-io -->
 			<dependency>
@@ -231,7 +232,27 @@
 				<artifactId>commons-fileupload</artifactId>
 				<version>1.4</version>
 			</dependency>
-			
+
+			<!-- spring-security-web -->
+			<dependency>
+			    <groupId>org.springframework.security</groupId>
+			    <artifactId>spring-security-web</artifactId>
+			    <version>4.2.2.RELEASE</version>
+			</dependency>
+			<!-- spring-security-config -->
+			<dependency>
+			    <groupId>org.springframework.security</groupId>
+			    <artifactId>spring-security-config</artifactId>
+			    <version>4.2.2.RELEASE</version>
+			</dependency>
+						
+			<!-- lombok -->
+			<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
+			</dependency>
 
 	</dependencies>
 	<build>
