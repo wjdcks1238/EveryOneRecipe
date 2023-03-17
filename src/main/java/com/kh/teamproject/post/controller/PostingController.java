@@ -139,8 +139,7 @@ public class PostingController {
 			e.printStackTrace();
 		}
 		
-		return "결과:"+result;
-		
+		return "결과:"+result;	
 	}
 	
 }

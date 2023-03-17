@@ -40,9 +40,8 @@ public class BoardDao {
 		
 	}
 	
-	public BoardVo selectOne(String postId) throws Exception {
+	public PostVo selectOne(int postId) throws Exception {
 		return sqlSession.selectOne("boardMapper.selectOne",postId);
-		
 	}
 	public List<PostVo> selectList() throws Exception {
 		return sqlSession.selectList("boardMapper.selectList");

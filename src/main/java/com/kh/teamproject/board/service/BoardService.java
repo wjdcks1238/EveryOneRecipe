@@ -21,7 +21,7 @@ public interface BoardService {
 	
 	public int delete(int postId ) throws Exception;
 	
-	public BoardVo selectOne(String id) throws Exception ;
+	public PostVo selectOne(int postId) throws Exception ;
 	public List<PostVo> selectList() throws Exception;
 	public List<IngredientVo> ingredientList() throws Exception;
 	

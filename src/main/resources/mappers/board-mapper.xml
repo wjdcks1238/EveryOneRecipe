@@ -33,7 +33,22 @@
     ON p.POSTID = i.POSTID
 	</select>
 
-
+	<select id="selectOne" resultMap="postResultMap" parameterType="_int">
+		SELECT p.POSTID
+     , p.USERID
+     , p.NICKNAME
+     , p.FOODNAME
+     , p.CONTENT
+     , p.CREATEDATE
+     , p.UPDATEDATE
+     , p.ISDELETED
+     , i.INGREDIENT
+     , i.AMOUNT
+  FROM post p
+ INNER JOIN ingredient i
+    ON p.POSTID = i.POSTID
+ WHERE p.POSTID = #{postId}
+	</select>
 
 	
 	<select id="getLastPostId" resultType="_int">
@@ -77,10 +92,6 @@
 	<update id="delete" parameterType="_int">
 		UPDATE post SET isdeleted='Y' WHERE postid=#{postId}
 	</update>
-	
-	<select id="selectOne" parameterType="String" resultType="bvo">
-		
-	</select>
 	
 
 	<select id="ingredientList" resultType="ivo">

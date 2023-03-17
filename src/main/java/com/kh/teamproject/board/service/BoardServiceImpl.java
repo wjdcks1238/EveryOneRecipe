@@ -33,8 +33,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public BoardVo selectOne(String id) throws Exception {
-		return dao.selectOne(id);
+	public PostVo selectOne(int postId) throws Exception {
+		return dao.selectOne(postId);
 	}
 
 	@Override

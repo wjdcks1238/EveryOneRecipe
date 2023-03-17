@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +35,7 @@ public class BoardController {
 //		}
 		
 		@GetMapping("/list")
-		public ModelAndView list2(ModelAndView mv
+		public ModelAndView boardList(ModelAndView mv
 				) {
 				
 			
@@ -46,6 +47,23 @@ public class BoardController {
 				e.printStackTrace();
 			}
 			mv.setViewName("board/list");
+			return mv;
+		}
+		
+		@GetMapping("/list/{postId}")
+		public ModelAndView boardDetail (ModelAndView mv
+				,@PathVariable int postId
+				) {
+				
+		//TODO 삭제되었을 때의 처리
+		//TODO 없는 게시글 번호로 접근시의 처리
+			try {			
+				mv.addObject("post", service.selectOne(postId));
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mv.setViewName("board/detail");
 			return mv;
 		}
 }
