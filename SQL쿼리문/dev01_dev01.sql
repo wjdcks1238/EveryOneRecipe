@@ -72,8 +72,10 @@ select max(postId) from post;
 --게시글 작성
 
 --게시글 삭제
+UPDATE POST SET ISDELETED='Y' WHERE POSTID='';
 DROP TABLE POST;
 --게시글 수정
+
 
 --재료 테이블
 CREATE TABLE INGREDIENT(
@@ -98,7 +100,7 @@ SELECT p.POSTID
      , i.AMOUNT
   FROM post p
  INNER JOIN ingredient i
-    ON p.POSTID = i.POSTID;
+    ON p.POSTID = i.POSTID; 
 
 --이미지 테이블(수정필요)
 CREATE TABLE POSTIMG(

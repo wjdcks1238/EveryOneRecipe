@@ -35,8 +35,8 @@ public class BoardDao {
 		
 	}
 	
-	public int delete(String postId ) throws Exception {
-		return sqlSession.delete("boardMapper.delete",postId);
+	public int delete(int postId ) throws Exception {
+		return sqlSession.update("boardMapper.delete",postId);
 		
 	}
 	

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 </head>
 <body>
 <c:forEach items="${ postList}" var="list" varStatus="status" >
@@ -39,6 +40,10 @@
 	
 	</table>
 </c:forEach>
+
+<div>
+ 	<button id="testDelete" type="button">임시 삭제버튼</button>
+</div>
 <!-- 
 <table>
 <c:forEach items="${boardList}" var="list" varStatus="status" >
@@ -64,5 +69,20 @@
 </c:forEach>
 </table>
  -->
+ 
+ <script type="text/javascript">
+ $("#testDelete").click(function(){
+	 	var postId=86;
+			$.ajax({
+			  url: "../delete",
+			  type: "POST", 
+			  data: {postId: postId},
+			  success:function(result){
+					console.log(result);
+				}
+			});
+		
+		})
+ </script>
 </body>
 </html>

@@ -117,10 +117,30 @@ public class PostingController {
 		
 			
 		
-		mv.setViewName("post/posting");
+		mv.setViewName("board/list");
 		return mv;
 
 		
 	}
 
+	@PostMapping("delete")
+	public String deletePost(@RequestParam("postId") int postId) {
+		//게시글의 isdelete필드를 'Y'로 변경. 재료, 해쉬태그는 따로 삭제하지 않는다. 
+		int result=0;
+		System.out.println("ajax작동");
+		System.out.println(postId);
+		
+		try {
+			result= service.delete(postId);
+			if(result==1) {				
+				System.out.println("삭제 성공");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "결과:"+result;
+		
+	}
+	
 }

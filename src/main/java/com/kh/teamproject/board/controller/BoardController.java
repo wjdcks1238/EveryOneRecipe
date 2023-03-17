@@ -39,12 +39,10 @@ public class BoardController {
 				
 			
 			try {
-				//post 와 ingredient의 값들을 새 vo에 저장 후 전달해야 할 것 같다. 
-				
+				//TODO isdelete 필드가 'N'인 게시글만 불러온다. 				
 				mv.addObject("postList", service.selectList());
 				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			mv.setViewName("board/list");

@@ -19,7 +19,7 @@ public interface BoardService {
 	
 	public int update(BoardVo vo) throws Exception;
 	
-	public int delete(String id ) throws Exception;
+	public int delete(int postId ) throws Exception;
 	
 	public BoardVo selectOne(String id) throws Exception ;
 	public List<PostVo> selectList() throws Exception;

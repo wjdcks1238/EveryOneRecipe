@@ -74,9 +74,9 @@
 		
 	</update>
 	
-	<delete id="delete" parameterType="string">
-		
-	</delete>
+	<update id="delete" parameterType="_int">
+		UPDATE post SET isdeleted='Y' WHERE postid=#{postId}
+	</update>
 	
 	<select id="selectOne" parameterType="String" resultType="bvo">
 		

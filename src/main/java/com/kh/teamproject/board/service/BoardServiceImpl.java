@@ -28,8 +28,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int delete(String id) throws Exception {
-		return dao.delete(id);
+	public int delete(int postId) throws Exception {
+		return dao.delete(postId);
 	}
 
 	@Override
