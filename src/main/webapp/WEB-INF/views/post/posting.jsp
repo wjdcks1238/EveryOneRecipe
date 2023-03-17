@@ -50,11 +50,19 @@
 		</p>
 	</form>
 	</div>
-
-</body>
+<hr>
+<%=request.getContextPath()%>
+<hr>
+${pageContext.request.contextPath}
+<hr>
 	<script>
 		// ClassicEditor.create(document.querySelector('#editor')); ck5
-		CKEDITOR.replace('content');
+		$(function() {
+			CKEDITOR.replace('content', {
+				filebrowserUploadUrl:'${pageContext.request.contextPath}/upload.do'
+			});
+		});
+		
 		$("#addIng").on("click", function(){	
 			var div= $("<div>").append($("<input type='text' placeholder='재료' name='ingredient'> "));
 			div.append($("<input type='text' placeholder='수량' name='amount'>"));
@@ -94,5 +102,6 @@
 		
 		
 	</script>
+</body>
 
 </html>
