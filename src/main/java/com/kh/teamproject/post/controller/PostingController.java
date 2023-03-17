@@ -55,17 +55,21 @@ public class PostingController {
 		
 		int lastPostId = service.getLastPostId();
 		
-		 List<IngredientVo> ivoList = new ArrayList<>();
+		 List<IngredientVo> ivoList = new ArrayList<>(); // 공백일 때 처리 필요 
 	     for (int i = 0; i < ingredients.size(); i++) { 
 	    	 ivoList.add(new IngredientVo(lastPostId+1, ingredients.get(i), amounts.get(i)));
 	     }
-
-	     System.out.println(ivoList);
+	    System.out.println(ivoList);
 		System.out.println("----------------");
 
 		System.out.println(bvo);
 		
-
+		//임시 id,닉네임 
+		//TODO
+		bvo.setUserId("everys_recipe");
+		bvo.setNickname("모두의 레시피");		
+		
+		
 		List<HashtagVo> hashtagList = new ArrayList<>();
 
 		if(!(   ("").equals(hashtag) || hashtag==null        )) {
@@ -100,11 +104,11 @@ public class PostingController {
 		
 		
 		try {
-//			if(service.insertPost(bvo)!=0) {				
-//			service.insertIngList(ivoList);
+			if(service.insertPost(bvo)!=0) {				
+			service.insertIngList(ivoList);
 			service.insertHashtagList(hashtagList);
 			
-//			}
+			}
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
