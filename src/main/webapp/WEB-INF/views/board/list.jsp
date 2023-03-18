@@ -74,7 +74,7 @@
  $("#testDelete").click(function(){
 	 	var postId=86;
 			$.ajax({
-			  url: "../delete",
+			  url: "./delete",
 			  type: "POST", 
 			  data: {postId: postId},
 			  success:function(result){

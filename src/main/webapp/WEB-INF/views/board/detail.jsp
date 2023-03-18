@@ -26,6 +26,9 @@
 			<td>${post.createDate }</td>
 		</tr>
 </table>
-		
+
+<div>
+	<button>게시글 수정</button>
+</div>
 </body>
 </html>

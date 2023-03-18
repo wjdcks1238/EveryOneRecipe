@@ -47,7 +47,6 @@
 			
 		<div>
 			<input  type="submit" value="전송">
-			<button id="sb" type="button">제출</button>
 		</div>
 
 	</form>

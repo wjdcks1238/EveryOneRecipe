@@ -16,63 +16,95 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	private BoardDao dao;
 
+	
+	//Post
+	@Override
+	public int getLastPostId() {
+		return dao.getLastPostId(); 
+	}
 	@Override
 	public int insertPost(BoardVo vo) throws Exception {	
 		return dao.insertPost(vo); 
 	}
-
-
-	@Override
-	public int update(BoardVo vo) throws Exception {
-		return dao.update(vo);
-	}
-
 	@Override
 	public int delete(int postId) throws Exception {
 		return dao.delete(postId);
 	}
-
 	@Override
 	public PostVo selectOne(int postId) throws Exception {
 		return dao.selectOne(postId);
 	}
-
 	@Override
 	public List<PostVo> selectList() throws Exception {
 		
 		return dao.selectList();
 	}
-	
 	@Override
 	public int insertBasicPost(List<BoardVo> bvoList) throws Exception {
 		return dao.insertBasicPost(bvoList); 
 	}
-
-
-
-
-
 	@Override
-	public List<IngredientVo> ingredientList() throws Exception {
-		return dao.ingredientList();
+	public int updatePost(BoardVo bvo) throws Exception {
+		return dao.updatePost(bvo); 
 	}
-
-
+	
+	
+	//Ingredient
+	@Override
+	public List<IngredientVo> getIngredients() throws Exception {
+		return dao.getIngredients();
+	}
+	@Override
+	public List<IngredientVo> getIngredients(int postId) throws Exception {
+		return dao.getIngredients(postId); 
+	}
 	@Override
 	public int insertIngList(List<IngredientVo> ivoList) throws Exception {
 		return dao.insertIngList(ivoList); 
 	}
-
-
 	@Override
-	public int getLastPostId() {
-		return dao.getLastPostId(); 
+	public int updateIngList(List<IngredientVo> ivoList) throws Exception {
+		return dao.updateIngList(ivoList); 
 	}
 
+	
+	//Hashtag
 
 	@Override
 	public int insertHashtagList(List<HashtagVo> hashtagList) {
 		return dao.insertHashtagList(hashtagList); 
 	}
+	@Override
+	public List<HashtagVo> getHashtags(int postId) throws Exception {
+		return dao.getHashtags(postId); 
+	}
+	@Override
+	public int updateHashtagList(List<HashtagVo> hashtagList) throws Exception {
+		return dao.updateHashtagList(hashtagList);
+	}
+
+
+
+	
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+
+
+
+	
 
 }
