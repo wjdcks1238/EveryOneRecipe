@@ -31,12 +31,12 @@ public interface BoardService {
 	public List<IngredientVo> getIngredients() throws Exception;
 	public List<IngredientVo> getIngredients(int postId) throws Exception;
 	public int insertIngList(List<IngredientVo> ivoList) throws Exception;
-	public int updateIngList(List<IngredientVo> ivoList) throws Exception;
+	public int deleteIngList(int postId) throws Exception;
 	
 	
 	//Hashtag
 	public int insertHashtagList(List<HashtagVo> hashtagList) throws Exception;
-	public int updateHashtagList(List<HashtagVo> hashtagList) throws Exception;
+	public int deleteHashtagList(int postId) throws Exception;
 	public List<HashtagVo> getHashtags(int postId) throws Exception;
 
 	

@@ -91,6 +91,11 @@
 		SELECT * FROM ingredient WHERE postid =#{postId}
 	</select>
 	
+	<delete id="deleteIngList" parameterType="_int">
+		DELETE FROM ingredient WHERE postid=#{postId}
+	</delete>
+	
+	
 	
 	<!--Hashtag -->
 	<update id="insertHashtagList" parameterType="java.util.List">
@@ -102,6 +107,9 @@
 		SELECT * FROM hashtag WHERE postid =#{postId}
 	</select>
 	
+	<delete id="deleteHashtagList" parameterType="_int">
+		DELETE FROM hashtag WHERE postid=#{postId}
+	</delete>
 	
 	
 	

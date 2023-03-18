@@ -24,10 +24,10 @@
 
 <body>
 <div style="width: 1000px;">
-<form id="frm" action="" method="POST">
+<form id="frm" action="./" method="POST">
 	
 		<div>
-			<input value="${post.postId }" type="hidden">
+			<input value="${post.postId }" name="postId" type="hidden">
 		</div>
 		<div>
 			<input value="${post.foodName }" name="foodName" type="text" placeholder="음식 이름">
@@ -59,7 +59,7 @@
 			<input  type="submit" value="전송">
 		</div>
 
-	</form>
+</form>
 
 </div>
 <div>

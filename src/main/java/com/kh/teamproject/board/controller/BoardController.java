@@ -86,7 +86,7 @@ public class BoardController {
 		 		//List<HashtagVo>가 아닌 List<String>이 나을 수 있음
 				List<HashtagVo> hvoList= service.getHashtags(postId);
 				for(HashtagVo hvo : hvoList) {
-					hashtags += hvo.getHashtag();
+					hashtags += "#"+hvo.getHashtag();
 				}
 				
 			} catch (Exception e1) {
@@ -137,12 +137,16 @@ public class BoardController {
 			}
 				
 
-			//TODO 업데이트로 변경
 			try {
-				if(service.updatePost(bvo)!=0) {				
-				service.updateIngList(ivoList);
-				service.updateHashtagList(hashtagList);
-				
+				if(service.updatePost(bvo)==1) {	
+				//삭제 후 새로 추가
+				service.deleteIngList(bvo.getPostId()); 
+				service.deleteHashtagList(bvo.getPostId());  
+				service.insertIngList(ivoList);
+				//nullpointer 발생하지만 작동은 잘됨..??
+				service.insertHashtagList(hashtagList);
+					
+					
 				}
 				
 			} catch (Exception e) {

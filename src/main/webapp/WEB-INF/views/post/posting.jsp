@@ -25,7 +25,7 @@
 	<div style="width: 1000px;">
  
 
-	<form id="frm" action="" method="POST">
+	<form id="frm" action="posting" method="POST">
 	
 		<div>
 			<input type="hidden" name="userId" value="${userId }">

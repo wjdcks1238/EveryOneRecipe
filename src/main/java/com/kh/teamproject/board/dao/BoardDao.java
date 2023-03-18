@@ -55,8 +55,8 @@ public class BoardDao {
 	public List<IngredientVo> getIngredients(int postId) {
 		return sqlSession.selectList("boardMapper.getIngredients",postId);
 	}
-	public int updateIngList(List<IngredientVo> ivoList) {
-		return sqlSession.update("boardMapper.updateIngList",ivoList);
+	public int deleteIngList(int postId) {
+		return sqlSession.delete("boardMapper.deleteIngList",postId);
 	}
 	
 	
@@ -68,8 +68,8 @@ public class BoardDao {
 	public List<HashtagVo> getHashtags(int postId) {
 		return sqlSession.selectList("boardMapper.getHashtags",postId);
 	}
-	public int updateHashtagList(List<HashtagVo> hashtagList) {
-		return sqlSession.update("boardMapper.updateHashtagList",hashtagList);
+	public int deleteHashtagList(int postId) {
+		return sqlSession.delete("boardMapper.deleteHashtagList",postId);
 	}
 	
 	
