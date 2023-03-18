@@ -16,9 +16,8 @@
 		<th>아이디</th>
 		<th>음식 이름</th>
 		<th>음식 재료</th>
-		<th>음식 수량</th>	
 		<th>내용</th>
-		<th>게시일</th>
+		<th>작성일</th>
 	</tr>	
 	<tr>
 		<td>${list.nickname} </td>
@@ -26,12 +25,7 @@
 		<td>${list.foodName} </td>
 		<td>
 	<c:forEach items="${list.ingredients }" var="ing" varStatus="status" >
-		${ing.ingredient }
-	</c:forEach>
-		</td>
-		<td>
-	<c:forEach items="${list.ingredients }" var="ing" varStatus="status" >
-		${ing.amount }
+		${ing.ingredient } : ${ing.amount } /
 	</c:forEach>
 		</td>
 		<td>${list.content} </td>

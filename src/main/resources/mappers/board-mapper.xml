@@ -16,7 +16,7 @@
 		</collection>
 	</resultMap>
 
-
+	<!--Post -->
 	<select id="selectList" resultMap="postResultMap">
 		SELECT p.POSTID
      , p.USERID
@@ -51,7 +51,7 @@
 	</select>
 
 	
-	<!--Post -->
+
 	<select id="getLastPostId" resultType="_int">
 		SELECT MAX(postId) FROM post
 	</select>
