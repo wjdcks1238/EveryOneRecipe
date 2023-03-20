@@ -8,7 +8,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.kh.teamproject" additivity="true" />
+    <logger name="com.kh.everyrecipe" additivity="true" />
 
 	<!-- SQL Query Log Pretty -->
 	<logger name="jdbc" level="OFF" />
