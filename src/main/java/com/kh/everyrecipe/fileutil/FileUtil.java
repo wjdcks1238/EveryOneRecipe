@@ -2,6 +2,7 @@ package com.kh.everyrecipe.fileutil;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,67 +11,57 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-public class FileUtil {
-	
-	public List<Map<String, String>> saveFileList(
-			MultipartHttpServletRequest multiReq
-			, HttpServletRequest request
-			, String addedPath) throws Exception{
-		List<Map<String, String>> result = new ArrayList<Map<String,String>>();
-		
-		Iterator<String> iterator = multiReq.getFileNames();
-		
-		while(iterator.hasNext()) {
-			String name = iterator.next();
-			MultipartFile multiFile = multiReq.getFile(name);
-			
-			Map<String, String> map = new HashMap<String, String>();
-			map = saveFile(multiFile, request, addedPath);
-			result.add(map);
-		}
-		
-		return result;
-	}
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
+@PropertySource("classpath:apiKeys.properties")
+@Controller
+public class FileUtil {
+	@Value("${cloudinary.name}") String apiName;
+	@Value("${cloudinary.key}") String apiKey;
+	@Value("${cloudinary.secret}") String apiSecret;
+	@Value("${cloudinary.url}") String apiUrl;
+	
 	private Map<String, String> saveFile(
 			MultipartFile multi
-			, HttpServletRequest request
-			, String addedPath
 			) throws Exception{
-		Map<String, String> result = null;
-		String renameFilePath = null;
-		String renameByTime = null;
+		Map<String, String> map = null;
 		
-		if(multi != null && multi.equals("")) {
-			result = new HashMap<String, String>();
+		if(!multi.isEmpty()) {
 			
-			String originalFileName = multi.getOriginalFilename();
-			
-			//TODO: 추후 CloudFileServer에 파일을 올릴 경우, 경로 관련 하여 설정.
-			String WebServerRoot = null;
-			String savePath = null;
-			
-			if(addedPath != null) {
-				savePath += addedPath;
+			try {
+				String originalFileName = multi.getOriginalFilename();
+				
+				File f = Files.createTempFile("temp", multi.getOriginalFilename()).toFile();
+				multi.transferTo(f);
+				
+				Map<String, String> config = new HashMap<String, String>();
+				config.put("cloud_name", apiName);
+				config.put("api_key", apiKey);
+				config.put("api_secret", apiSecret);
+				Cloudinary cloudinary = new Cloudinary(config);
+				
+				Map uploadResult = cloudinary.uploader().upload(f, ObjectUtils.emptyMap());
+				
+				System.out.println("==============================================");
+				System.out.println(uploadResult.get("url"));
+				
+				map = new HashMap<String, String>();
+				
+				map.put("original", originalFileName);
+				map.put("url", uploadResult.get("url").toString());
+			} catch(Exception e) {
+				System.out.println("업로드 실패");
+				e.printStackTrace();
 			}
-			
-			File folder = new File(savePath);
-			if(!folder.exists()) {
-				folder.mkdirs();
-			}
-			
-			renameByTime = System.currentTimeMillis() + "_" + originalFileName;
-			
-			renameFilePath = null; // TODO:
-			multi.transferTo(new File(savePath + "\\" + renameByTime)); //TODO:
-			
-			result.put("original", originalFileName);
-			result.put("rename", renameByTime);
-		}
-		return result;
+		} 
+		return map;
 	}
 	
 	
