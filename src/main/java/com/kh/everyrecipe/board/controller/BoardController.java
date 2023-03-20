@@ -171,7 +171,7 @@ public class BoardController {
 			
 				
 			
-			mv.setViewName("board/list");
+			mv.setViewName("redirect:/board/list/"+bvo.getPostId());
 			return mv;
 
 			

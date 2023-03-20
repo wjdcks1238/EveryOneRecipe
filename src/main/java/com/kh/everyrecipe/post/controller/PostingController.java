@@ -117,7 +117,7 @@ public class PostingController {
 		
 			
 		
-		mv.setViewName("board/list");
+		mv.setViewName("redirect:/board/list/");
 		return mv;
 
 		
