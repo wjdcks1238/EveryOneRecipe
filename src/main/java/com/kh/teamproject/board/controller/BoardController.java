@@ -2,31 +2,26 @@ package com.kh.teamproject.board.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.teamproject.board.service.BoardService;
 import com.kh.teamproject.board.vo.BoardVo;
 import com.kh.teamproject.board.vo.HashtagVo;
 import com.kh.teamproject.board.vo.IngredientVo;
-import com.kh.teamproject.fileutil.FileUtil;
-import com.kh.teamproject.member.vo.MemberVo;
+import com.kh.teamproject.board.vo.PostVo;
 
 @Controller
 @RequestMapping("/board")
+@Transactional
 public class BoardController {
 		@Autowired
 		private BoardService service;
@@ -42,7 +37,7 @@ public class BoardController {
 				
 			
 			try {
-				//TODO isdelete 필드가 'N'인 게시글만 불러온다. 				
+				//isdelete 필드가 'N'인 게시글만 불러온다. 				
 				mv.addObject("postList", service.selectList());
 				
 			} catch (Exception e) {
@@ -57,10 +52,23 @@ public class BoardController {
 				,@PathVariable int postId
 				) {
 				
-		//TODO 삭제되었을 때의 처리
-		//TODO 없는 게시글 번호로 접근시의 처리
+
+		
+			
+			
 			try {			
-				mv.addObject("post", service.selectOne(postId));
+				PostVo pvo = service.selectOne(postId);
+				//없는 게시글 번호로 접근시의 처리 (임시)
+				if(pvo ==null) {
+					mv.setViewName("errors/errorPage");
+					return mv;
+				}
+				//삭제된 게시물 번호로 접근시의 처리
+				if("Y".equals(pvo.getIsDeleted())) {
+					mv.setViewName("errors/deletedPost");
+					return mv;
+				}
+				mv.addObject("post",pvo);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -79,23 +87,31 @@ public class BoardController {
 				
 		//TODO 작성자가 아닐 때의 처리
 		//TODO 없는 게시글 번호로 접근시의 처리
-
-			
 			String hashtags= "";
+		
 		 	try {
+		 		PostVo pvo = service.selectOne(postId);	
+		 		//없는 게시글 번호로 접근시
+		 		if(pvo ==null) {
+					mv.setViewName("errors/errorPage");
+					return mv;
+				}
+				//삭제된 게시물 번호로 접근시
+				if("Y".equals(pvo.getIsDeleted())) {
+					mv.setViewName("errors/deletedPost");
+					return mv;
+				}
+				mv.addObject("post",pvo);
 		 		//List<HashtagVo>가 아닌 List<String>이 나을 수 있음
 				List<HashtagVo> hvoList= service.getHashtags(postId);
 				for(HashtagVo hvo : hvoList) {
 					hashtags += "#"+hvo.getHashtag();
 				}
 				
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-			try {				
+			
 				mv.addObject("hashtags",hashtags );
 				mv.addObject("ingredients", service.getIngredients(postId));
-				mv.addObject("post", service.selectOne(postId));
+				mv.addObject("post", pvo);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

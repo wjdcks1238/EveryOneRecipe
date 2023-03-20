@@ -31,6 +31,7 @@
   FROM post p
  INNER JOIN ingredient i
     ON p.POSTID = i.POSTID
+ WHERE p.ISDELETED = 'N'
 	</select>
 
 	<select id="selectOne" resultMap="postResultMap" parameterType="_int">

@@ -68,8 +68,11 @@
 
 
 <script type="text/javascript">
-CKEDITOR.replace('editor');
-
+$(function() {
+	CKEDITOR.replace('editor', {
+		filebrowserUploadUrl:'${pageContext.request.contextPath}/upload.do'
+	});
+});
 $("#addIng").on("click", function(){	
 	var div= $("<div>").append($("<input type='text' placeholder='재료' name='ingredient'> "));
 	div.append($("<input type='text' placeholder='수량' name='amount'>"));
