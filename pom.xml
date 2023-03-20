@@ -12,7 +12,8 @@
 		<java-version>1.11</java-version>
 		<org.springframework-version>5.3.19</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<org.slf4j-version>1.7.28</org.slf4j-version>
+		<ch.qos.logback-version>1.2.3</ch.qos.logback-version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -40,8 +41,7 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
-		
-		<!-- aspectjweaver -->
+		<!-- aspectj weaver -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
@@ -91,6 +91,26 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
+		<!--  LOG -->
+		<!-- logback-core.jar 추가 -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${ch.qos.logback-version}</version>
+		</dependency>
+		<!-- logback-classic.jar 추가 -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${ch.qos.logback-version}</version>
+		</dependency>
+		<!-- SQL Query Log Pretty -->
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+			<version>1.16</version>
+		</dependency>
+
 
 		<!-- @Inject -->
 		<dependency>
@@ -117,7 +137,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-
+		
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -126,6 +146,16 @@
 			<scope>test</scope>
 		</dependency>
 
+		
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
+		</dependency>
+
+		
 		<!-- DB연동 -->
 		<!-- spring-jdbc -->
 		<dependency>
@@ -159,35 +189,33 @@
 		</dependency>
 
 
-
-
-
-		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<!-- spring-security-web -->
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.9</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>4.2.2.RELEASE</version>
 		</dependency>
-		<!-- Cloudinary API -->
+		<!-- spring-security-config -->
 		<dependency>
-			<groupId>com.cloudinary</groupId>
-			<artifactId>cloudinary-http44</artifactId>
-			<version>1.31.0</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>4.2.2.RELEASE</version>
 		</dependency>
-
+		
 		<!-- 네이버로그인API 적용 : 제이슨 문제 발생시 gson으로 변경할게 -->
-		<!-- gson 써야되는 일이 발생해서 추가해 놓겠습니다 -->
 		<!-- naver -->
 		<dependency>
 			<groupId>com.github.scribejava</groupId>
 			<artifactId>scribejava-core</artifactId>
 			<version>2.8.1</version>
 		</dependency>
-		<!-- gson -->
+		
+		<!-- JSON -->
+		<!-- 네이버쇼핑 api사용. JSONInJava -->
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.9</version>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180813</version>
 		</dependency>
 		<!-- 제이슨 파싱 -->
 		<dependency>
@@ -195,79 +223,34 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-
-		<!-- jstl -->
+		<!-- gson -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.9</version>
 		</dependency>
 
+		
+		<!-- file upload -->
+		<!-- 공통 IO commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<!-- 파일 업로드 commons-fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
 
-
-			<!-- logback-core.jar 추가 -->
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-core</artifactId>
-				<version>1.2.3</version>
-			</dependency>
-
-			<!-- logback-classic.jar 추가 -->
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>1.2.3</version>
-			</dependency>
-
-			<!-- slf4j-api.jar 추가 -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-log4j12</artifactId>
-				<version>1.7.28</version>
-			</dependency>
-
-			
-			<!-- 공통 IO https://mvnrepository.com/artifact/commons-io/commons-io -->
-			<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-				<version>2.6</version>
-			</dependency>
-			
-			<!-- 파일 업로드 https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-			<dependency>
-				<groupId>commons-fileupload</groupId>
-				<artifactId>commons-fileupload</artifactId>
-				<version>1.4</version>
-			</dependency>
-
-			<!-- spring-security-web -->
-			<dependency>
-			    <groupId>org.springframework.security</groupId>
-			    <artifactId>spring-security-web</artifactId>
-			    <version>4.2.2.RELEASE</version>
-			</dependency>
-			<!-- spring-security-config -->
-			<dependency>
-			    <groupId>org.springframework.security</groupId>
-			    <artifactId>spring-security-config</artifactId>
-			    <version>4.2.2.RELEASE</version>
-			</dependency>
-						
-			<!-- lombok -->
-			<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.24</version>
-			<scope>provided</scope>
-			</dependency>
-			
-			<!-- 네이버쇼핑 api사용. JSONInJava-->
-			<dependency>
-			    <groupId>org.json</groupId>
-			    <artifactId>json</artifactId>
-			    <version>20180813</version>
-			</dependency>	
+		<!-- Cloudinary API -->
+		<dependency>
+			<groupId>com.cloudinary</groupId>
+			<artifactId>cloudinary-http44</artifactId>
+			<version>1.31.0</version>
+		</dependency>
 
 	</dependencies>
 	<build>
