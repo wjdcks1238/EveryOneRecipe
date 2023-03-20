@@ -8,10 +8,10 @@
  
 	<typeAliases>
 		<!-- <typeAlias type="kh.spring.s01.board.model.vo.BoardVo" alias="BoardVo"/> -->
-		<typeAlias type="com.kh.teamproject.member.vo.MemberVo" alias="mvo"/>
-		<typeAlias type="com.kh.teamproject.board.vo.BoardVo" alias="bvo"/>
-		<typeAlias type="com.kh.teamproject.board.vo.IngredientVo" alias="ivo"/>
-		<typeAlias type="com.kh.teamproject.board.vo.HashtagVo" alias="hvo"/>
+		<typeAlias type="com.kh.everyrecipe.member.vo.MemberVo" alias="mvo"/>
+		<typeAlias type="com.kh.everyrecipe.board.vo.BoardVo" alias="bvo"/>
+		<typeAlias type="com.kh.everyrecipe.board.vo.IngredientVo" alias="ivo"/>
+		<typeAlias type="com.kh.everyrecipe.board.vo.HashtagVo" alias="hvo"/>
 	</typeAliases>
 	
 	<mappers>
