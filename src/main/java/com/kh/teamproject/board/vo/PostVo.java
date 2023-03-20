@@ -26,4 +26,5 @@ public class PostVo {
 	private Date createDate;
 	private Date UpdateDate;
 	private String isDeleted;
+	private List<IngredientVo> ingredients;
 }
