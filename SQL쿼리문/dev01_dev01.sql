@@ -66,6 +66,9 @@ CREATE TABLE POST(
      , CONSTRAINT FK_USERID_POST FOREIGN KEY(USERID) REFERENCES MEMBERS(userid)
 );
 
+--게시글 테이블용 시퀀스
+create sequence SEQ_POST;
+
 --게시글 리스트 조회
 select * from post;
 select max(postId) from post;
@@ -130,7 +133,9 @@ select * from POSTLIKE;
 
 
 --<<댓글 테이블>>--
-create table COMMENT(
+drop table TBCOMMENT;
+
+create table TBCOMMENT(
         CMTID NUMBER NOT NULL primary key
       , USERID VARCHAR2(20 char) NOT NULL
       , POSTID NUMBER NOT NULL
@@ -140,8 +145,12 @@ create table COMMENT(
       , constraint FK_userid_COMMENT Foreign Key (userid) references MEMBERS (userid)
       , constraint FK_postid_COMMENT Foreign Key (postid) references POST (postid)
 );
+
+--게시글 테이블용 시퀀스
+create sequence SEQ_COMMENT;
+
 --댓글 조회
-select * from COMMENT;
+select * from TBCOMMENT;
 
 --댓글 작성
 
