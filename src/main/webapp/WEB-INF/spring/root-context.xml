@@ -4,7 +4,9 @@
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+	xmlns:s="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.6.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
@@ -34,5 +36,44 @@
 	
 	<tx:annotation-driven/>
 	<!-- @Transactional -->
+	
+	<!-- Spring Security -->
+	<s:http auto-config="true" use-expressions="true">
+	
+		<!-- 정적 리소스는 모두 접근 허용 -->
+		<s:intercept-url pattern="/resources/**" access="permitAll" />
+
+		<!-- 로그인된 상태에서는 로그인이나 회원가입 화면에 접근 못하도록 함 -->
+		<s:intercept-url pattern="/loginView" access="isAnonymous()" />
+		<s:intercept-url pattern="/registerUserView" access="isAnonymous()" />
+
+		<!-- 관리자페이지는 관리자만 접근 허용 -->
+		<s:intercept-url pattern="/admin/**" access="hasRole('admin')" />
+
+		<!-- 로그인 설정 -->
+		<s:form-login	
+			username-parameter="userId" 
+			password-parameter="userPw"
+			login-processing-url="/loginAsk" 
+			login-page="/loginView" default-target-url="/"
+			authentication-failure-url="/loginView" />
+
+		<!-- 로그아웃 설정 -->
+		<s:logout 
+			logout-url="/logoutAsk"
+			logout-success-url="/"
+			invalidate-session="true"
+			delete-cookies="true" />
+	</s:http>
+	
+
+	<!-- DB 연동 설정 -->
+	<s:authentication-manager>
+		<s:authentication-provider user-service-ref="userLoginService">
+		</s:authentication-provider>
+	</s:authentication-manager>
+	
+
+	
 		
 </beans>
