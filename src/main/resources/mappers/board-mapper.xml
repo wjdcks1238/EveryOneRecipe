@@ -33,7 +33,22 @@
     ON p.POSTID = i.POSTID
  WHERE p.ISDELETED = 'N'
 	</select>
-
+	<select id="pagingList" resultMap="postResultMap">
+		SELECT p.POSTID
+     , p.USERID
+     , p.NICKNAME
+     , p.FOODNAME
+     , p.CONTENT
+     , p.CREATEDATE
+     , p.UPDATEDATE
+     , p.ISDELETED
+     , i.INGREDIENT
+     , i.AMOUNT
+  FROM post p
+ INNER JOIN ingredient i
+    ON p.POSTID = i.POSTID
+ WHERE p.ISDELETED = 'N'
+	</select>
 	<select id="selectOne" resultMap="postResultMap" parameterType="_int">
 		SELECT p.POSTID
      , p.USERID

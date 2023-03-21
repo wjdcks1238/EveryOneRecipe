@@ -2,6 +2,7 @@ package com.kh.everyrecipe.board.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,9 +38,14 @@ public class BoardDao {
 	public List<PostVo> selectList() throws Exception {
 		return sqlSession.selectList("boardMapper.selectList");
 	}
+	public List<PostVo> pagingList(int currentPage, int limit) {
+		return sqlSession.selectList("boardMapper.pagingList",null,new RowBounds((currentPage-1)*limit,limit));
+	}
 	public int updatePost(BoardVo bvo) {
 		return sqlSession.update("boardMapper.updatePost",bvo);
 	}
+	
+	
 	//Ingredient
 	public int insertIngList(List<IngredientVo> ivoList) {
 		return sqlSession.insert("boardMapper.insertIngList",ivoList);
@@ -71,6 +77,7 @@ public class BoardDao {
 	public int deleteHashtagList(int postId) {
 		return sqlSession.delete("boardMapper.deleteHashtagList",postId);
 	}
+	
 	
 	
 

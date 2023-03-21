@@ -38,7 +38,7 @@ public class BoardController {
 			
 			try {
 				//isdelete 필드가 'N'인 게시글만 불러온다. 				
-				mv.addObject("postList", service.selectList());
+				mv.addObject("postList", service.pagingList(1, 20));
 				
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -26,14 +26,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import com.google.gson.Gson;
 import com.kh.everyrecipe.board.service.BoardService;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
+import com.kh.everyrecipe.board.vo.PostVo;
 
 @Configuration
 @PropertySource("classpath:apiKeys.properties")
@@ -41,6 +46,34 @@ import com.kh.everyrecipe.board.vo.IngredientVo;
 public class TempForTable {
 	
 	@Autowired private BoardService service;
+	
+	@GetMapping("test")
+	public String test() {
+		
+		return "test";
+	}
+	
+	@PostMapping("testAjax")
+	@ResponseBody
+	public String testAjax( int curPage, int pageListSize ) {
+		List<PostVo> pvoList=null;
+//		System.out.println(map.get("curPage"));
+//		System.out.println(map.get("pageListSize"));
+		System.out.println(curPage);
+		System.out.println(pageListSize);
+		
+		
+		
+		try {
+			pvoList= service.pagingList(curPage, pageListSize);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return new Gson().toJson(pvoList);
+	}
+	
 	
 	//PropertySource 에너테이션사용
 	@Value("${recipe}")

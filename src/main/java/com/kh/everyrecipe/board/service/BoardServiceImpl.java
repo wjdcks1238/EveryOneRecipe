@@ -36,7 +36,6 @@ public class BoardServiceImpl implements BoardService{
 	}
 	@Override
 	public List<PostVo> selectList() throws Exception {
-		
 		return dao.selectList();
 	}
 	@Override
@@ -47,7 +46,10 @@ public class BoardServiceImpl implements BoardService{
 	public int updatePost(BoardVo bvo) throws Exception {
 		return dao.updatePost(bvo); 
 	}
-	
+	@Override
+	public List<PostVo> pagingList(int currentPage, int limit) throws Exception {
+		return dao.pagingList(currentPage,limit);
+	}
 	
 	//Ingredient
 	@Override
@@ -82,6 +84,7 @@ public class BoardServiceImpl implements BoardService{
 	public int deleteHashtagList(int postId) throws Exception {
 		return dao.deleteHashtagList(postId);
 	}
+
 
 
 
