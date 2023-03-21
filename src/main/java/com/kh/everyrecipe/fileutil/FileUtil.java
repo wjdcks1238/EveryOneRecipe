@@ -13,22 +13,29 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
+@Component("fileUtil")
 @PropertySource("classpath:apiKeys.properties")
-@Controller
 public class FileUtil {
-	@Value("${cloudinary.name}") String apiName;
-	@Value("${cloudinary.key}") String apiKey;
-	@Value("${cloudinary.secret}") String apiSecret;
-	@Value("${cloudinary.url}") String apiUrl;
+	@Value("${cloudinary.name}")
+	private String apiName;
+	@Value("${cloudinary.key}")
+	private String apiKey;
+	@Value("${cloudinary.secret}")
+	private String apiSecret;
+	@Value("${cloudinary.url}")
+	private String apiUrl;
 	
-	private Map<String, String> saveFile(
+
+	public Map<String, String> saveFile(
 			MultipartFile multi
 			) throws Exception{
 		Map<String, String> map = null;
