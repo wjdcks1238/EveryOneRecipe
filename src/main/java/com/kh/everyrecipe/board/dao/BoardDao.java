@@ -1,6 +1,7 @@
 package com.kh.everyrecipe.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -38,8 +39,8 @@ public class BoardDao {
 	public List<PostVo> selectList() throws Exception {
 		return sqlSession.selectList("boardMapper.selectList");
 	}
-	public List<PostVo> pagingList(int currentPage, int limit) {
-		return sqlSession.selectList("boardMapper.pagingList",null,new RowBounds((currentPage-1)*limit,limit));
+	public List<PostVo> pagingList(Map<String, Integer> map) {
+		return sqlSession.selectList("boardMapper.pagingList",map);
 	}
 	public int updatePost(BoardVo bvo) {
 		return sqlSession.update("boardMapper.updatePost",bvo);

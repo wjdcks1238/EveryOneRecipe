@@ -11,14 +11,17 @@
 <body>
 <c:forEach items="${ postList}" var="list" varStatus="status" >
 	<table>
-	<tr>
-		<th>닉네임 </th>
-		<th>아이디</th>
-		<th>음식 이름</th>
-		<th>음식 재료</th>
-		<th>내용</th>
-		<th>작성일</th>
-	</tr>	
+	<thead>
+		<tr>
+			<th>닉네임 </th>
+			<th>아이디</th>
+			<th>음식 이름</th>
+			<th>음식 재료</th>
+			<th>내용</th>
+			<th>작성일</th>
+		</tr>	
+	</thead>
+	
 	<tr>
 		<td>${list.nickname} </td>
 		<td>${list.userId} </td>
@@ -39,7 +42,12 @@
  	<button id="testDelete" type="button">임시 삭제버튼</button>
 </div>
 
-<div class="gridList"></div>
+<div class="list">
+
+
+</div>
+
+
 
 
 <!-- 
@@ -96,8 +104,7 @@ $(document).ready(function(){
 });
 var start = {
         param : {
-            curPage : 1,
-            pageListSize : 20,
+            curPage : 2,
         },
         
         init : function() {
@@ -117,11 +124,12 @@ var start = {
         // 무한 스크롤 ajax 요청
         testAjax : function() {
         	var arr = [ {curPage:start.param.curPage, pageListSize :start.param.pageListSize} ];
-        	var map = {curPage:start.param.curPage, pageListSize :start.param.pageListSize};
+        	var map = {curPage:start.param.curPage};
         	console.log(map);
             $.ajax({
                 type     : 'POST',
                 url      : '${pageContext.request.contextPath}/testAjax',
+                async : false,
                 //contentType: "application/json",
                 //data     : JSON.stringify(map),
                 data : map,
@@ -133,18 +141,54 @@ var start = {
             function successCallback(data) {
             	
                 if(data.length == 0 ){
-                    $(".gridList").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
-                   	window.removeEventListener('scroll',testEvent);
+                    $(".list").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
+                    $(window).off("scroll");
                 } 
                 
      
                 if(data.length != 0){
-                	console.log(data[0]);
-            		console.log(data[0].postId);
                 	console.log("작동중");
                 	console.log("### 3: " + start.param.curPage);
-                	 $(".gridList").append('<div class="List">'+data[0].content+'</div>');
-	                }    
+                	
+                	
+            		for(i = 0 ; i<data.length;i++){
+	            		var reply = data[i];	
+            			
+            			var table = $('<table></table>');
+	                	var htmlVal= "";
+            			
+	                	var ing= "";
+	                	for(j=0; j<reply.ingredients.length;j++){
+	                		ing+=reply.ingredients[j].ingredient +" : " + reply.ingredients[j].amount + " / ";
+            			}
+            			
+	                	htmlVal+='<tr>';
+            			htmlVal+='<th>닉네임</th>';
+            			htmlVal+='<th>아이디</th>';
+            			htmlVal+='<th>음식 이름</th>';
+            			htmlVal+='<th>음식 재료</th>';
+            			htmlVal+='<th>내용</th>';
+            			htmlVal+='<th>작성일</th>';
+            			htmlVal+='</tr>';
+            			
+            			htmlVal+='<tr>';
+            			htmlVal+='<td>'+reply.nickname+'</td>';
+            			htmlVal+='<td>'+reply.userId+'</td>';
+            			htmlVal+='<td>'+reply.foodName +'</td>';
+            			htmlVal+='<td>'+ing+'</td>';
+            			
+            			
+            			htmlVal+='<td>'+reply.content +'</td>';
+            			htmlVal+='<td>'+reply.createDate +'</td>';
+            			htmlVal+='</tr>';
+            			table.html(htmlVal);
+	            		$(".list").append(table);	
+            		}
+                	
+                	
+               
+                	
+	           }    
             }
             
             // 실패

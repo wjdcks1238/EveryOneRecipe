@@ -55,17 +55,20 @@ public class TempForTable {
 	
 	@PostMapping("testAjax")
 	@ResponseBody
-	public String testAjax( int curPage, int pageListSize ) {
+	public String testAjax( int curPage ) {
 		List<PostVo> pvoList=null;
 //		System.out.println(map.get("curPage"));
 //		System.out.println(map.get("pageListSize"));
 		System.out.println(curPage);
-		System.out.println(pageListSize);
-		
+		int from = (curPage-1)*20;
+		int to = from +20;
+		Map<String, Integer> map = new HashMap<>();
+		map.put("from", from);
+		map.put("to", to);
 		
 		
 		try {
-			pvoList= service.pagingList(curPage, pageListSize);
+			pvoList= service.pagingList(map);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

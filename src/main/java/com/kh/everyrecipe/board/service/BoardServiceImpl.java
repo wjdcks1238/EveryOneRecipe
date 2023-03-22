@@ -1,6 +1,7 @@
 package com.kh.everyrecipe.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,8 +48,8 @@ public class BoardServiceImpl implements BoardService{
 		return dao.updatePost(bvo); 
 	}
 	@Override
-	public List<PostVo> pagingList(int currentPage, int limit) throws Exception {
-		return dao.pagingList(currentPage,limit);
+	public List<PostVo> pagingList(Map<String, Integer> map) throws Exception {
+		return dao.pagingList(map);
 	}
 	
 	//Ingredient

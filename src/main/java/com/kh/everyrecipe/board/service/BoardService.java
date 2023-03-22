@@ -1,6 +1,7 @@
 package com.kh.everyrecipe.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
@@ -21,7 +22,7 @@ public interface BoardService {
 	public int getLastPostId();
 	public PostVo selectOne(int postId) throws Exception ;
 	public List<PostVo> selectList() throws Exception;
-	public List<PostVo> pagingList(int currentPage, int limit) throws Exception;
+	public List<PostVo> pagingList(Map<String, Integer> map) throws Exception;
 	public int insertPost(BoardVo bvo) throws Exception;
 	public int updatePost(BoardVo bvo) throws Exception;
 	public int insertBasicPost(List<BoardVo> bvoList) throws Exception;

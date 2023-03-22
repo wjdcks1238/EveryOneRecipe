@@ -16,7 +16,6 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class PostVo {
 	private int postId;
 	private String userId;
@@ -27,4 +26,11 @@ public class PostVo {
 	private Date UpdateDate;
 	private String isDeleted;
 	private List<IngredientVo> ingredients;
+	@Override
+	public String toString() {
+		return "PostVo [postId=" + postId + ", userId=" + userId + ", nickname=" + nickname + ", foodName=" + foodName
+				+ ", createDate=" + createDate + ", UpdateDate=" + UpdateDate + ", isDeleted=" + isDeleted
+				+ ", ingredients=" + ingredients + "]";
+	}
+	
 }
