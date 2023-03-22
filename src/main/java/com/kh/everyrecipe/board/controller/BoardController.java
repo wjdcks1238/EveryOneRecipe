@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.everyrecipe.board.service.BoardService;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
@@ -52,6 +54,34 @@ public class BoardController {
 			return mv;
 		}
 		
+		@PostMapping("ISajax")
+		@ResponseBody
+		public String testAjax( int curPage ) {
+			List<PostVo> pvoList=null;
+//			System.out.println(map.get("curPage"));
+//			System.out.println(map.get("pageListSize"));
+			System.out.println(curPage);
+			int from = (curPage-1)*20;
+			int to = from +20;
+			Map<String, Integer> map = new HashMap<>();
+			map.put("from", from);
+			map.put("to", to);
+			
+			
+			try {
+				pvoList= service.pagingList(map);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return new Gson().toJson(pvoList);
+		}
+		
+		
+		
+		
+		
 		@GetMapping("/list/{postId}")
 		public ModelAndView boardDetail (ModelAndView mv
 				,@PathVariable int postId
@@ -73,7 +103,15 @@ public class BoardController {
 					mv.setViewName("errors/deletedPost");
 					return mv;
 				}
+				String hashtags= "";
 				mv.addObject("post",pvo);
+				List<HashtagVo> hvoList= service.getHashtags(postId);
+				for(HashtagVo hvo : hvoList) {
+					hashtags += "#"+hvo.getHashtag();
+				}
+				mv.addObject("hashtags",hashtags );
+				
+				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
