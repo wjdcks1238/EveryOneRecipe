@@ -1,7 +1,9 @@
 package com.kh.everyrecipe.board.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,8 +39,11 @@ public class BoardController {
 				
 			
 			try {
-				//isdelete 필드가 'N'인 게시글만 불러온다. 				
-				mv.addObject("postList", service.pagingList(1, 20));
+				//isdelete 필드가 'N'인 게시글만 불러온다. 	
+				Map<String, Integer> map = new HashMap<>();
+				map.put("from", 0);
+				map.put("to", 20);
+				mv.addObject("postList", service.pagingList(map));
 				
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -107,6 +107,22 @@ SELECT p.POSTID
 
 
 
+SELECT p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEDATE , p2.UPDATEDATE 
+, p2.ISDELETED , i.INGREDIENT , i.AMOUNT FROM
+(select * 
+  from (SELECT p.*
+             , ROWNUM AS RNUM
+          FROM (select * from post order by postid ) p) 
+  where RNUM>20
+    AND RNUM<=40) p2 INNER JOIN ingredient i ON p2.POSTID = i.POSTID 
+WHERE p.ISDELETED = 'N' ;
+      
+  
+
+SELECT p.POSTID , p.USERID , p.NICKNAME , p.FOODNAME , p.CONTENT , p.CREATEDATE , p.UPDATEDATE 
+, p.ISDELETED , i.INGREDIENT , i.AMOUNT FROM post p INNER JOIN ingredient i ON p.POSTID = i.POSTID 
+WHERE p.ISDELETED = 'N' ;
+
 
 --해쉬태그 태이블
 CREATE TABLE HASHTAG(
