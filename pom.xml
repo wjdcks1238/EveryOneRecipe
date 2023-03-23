@@ -274,30 +274,6 @@
 			<artifactId>cloudinary-http44</artifactId>
 			<version>1.31.0</version>
 		</dependency>
-		
-		<!-- 이메일 인증 관련 repository -->
-		<!-- spring-context-support -->
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-context-support</artifactId>
-		    <version>5.3.19</version>
-		</dependency>
-		
-		<!-- javax.mail-api(javaMail Jar) -->
-		<dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>javax.mail-api</artifactId>
-		    <version>1.6.2</version>
-		</dependency>
-		
-		<!-- javax.mail(javaMail API) -->
-		<dependency>
-		    <groupId>com.sun.mail</groupId>
-		    <artifactId>javax.mail</artifactId>
-		    <version>1.6.2</version>
-		</dependency>
-		
-		
 
 	</dependencies>
 	<build>
