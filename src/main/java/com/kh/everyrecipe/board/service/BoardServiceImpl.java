@@ -62,6 +62,11 @@ public class BoardServiceImpl implements BoardService{
 		return dao.getIngredients(postId); 
 	}
 	@Override
+	public List<String> searchIng(String ing) throws Exception {
+		return dao.searchIng(ing); 
+	}
+	
+	@Override
 	public int insertIngList(List<IngredientVo> ivoList) throws Exception {
 		return dao.insertIngList(ivoList); 
 	}
@@ -85,6 +90,7 @@ public class BoardServiceImpl implements BoardService{
 	public int deleteHashtagList(int postId) throws Exception {
 		return dao.deleteHashtagList(postId);
 	}
+
 
 
 

@@ -33,6 +33,7 @@ public interface BoardService {
 	//Ingredient
 	public List<IngredientVo> getIngredients() throws Exception;
 	public List<IngredientVo> getIngredients(int postId) throws Exception;
+	public List<String> searchIng(String ing) throws Exception;
 	public int insertIngList(List<IngredientVo> ivoList) throws Exception;
 	public int deleteIngList(int postId) throws Exception;
 	

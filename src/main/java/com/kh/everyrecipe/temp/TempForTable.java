@@ -28,7 +28,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -50,10 +52,47 @@ public class TempForTable {
 	@GetMapping("test")
 	public String test() {
 		
+		
+	
+
+		
 		return "test";
 	}
 	
 
+	@PostMapping("searchAjax")
+	@ResponseBody
+	public List<String> searchAjax(String ingSearch) {
+		List<String> ingList =null;
+		
+		try {
+			//재료 선택(ajax를 이용해 검색)
+			//재료 중복 제거 
+			ingList = service.searchIng(ingSearch);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ingList;
+	}
+	
+	@PostMapping("recommend")
+	public String recommend(@RequestParam("list") String list ) {
+		System.out.println("값"+list);
+		
+		list.split("$");
+		//TODO 재료 입력시 $문자 사용 불가능하게 변경
+		
+		
+		//선택된 재료들의 부분집합(부족한 재료가 3개까지인 음식들 포함)
+		//게시글들의 재료
+		
+		return null;
+	}
+	
+	
+	
+	
 	
 	
 	//PropertySource 에너테이션사용

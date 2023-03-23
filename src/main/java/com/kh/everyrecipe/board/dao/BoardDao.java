@@ -58,6 +58,9 @@ public class BoardDao {
 	public List<IngredientVo> getIngredients() {
 		return sqlSession.selectList("boardMapper.allIngredients");
 	}
+	public List<String> searchIng(String ing) {
+		return sqlSession.selectList("boardMapper.searchIng",ing);
+	}
 	
 	public List<IngredientVo> getIngredients(int postId) {
 		return sqlSession.selectList("boardMapper.getIngredients",postId);
@@ -78,6 +81,7 @@ public class BoardDao {
 	public int deleteHashtagList(int postId) {
 		return sqlSession.delete("boardMapper.deleteHashtagList",postId);
 	}
+	
 	
 	
 	

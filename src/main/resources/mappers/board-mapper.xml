@@ -103,6 +103,9 @@
 	<select id="getIngredients" resultType="ivo">
 		SELECT * FROM ingredient WHERE postid =#{postId}
 	</select>
+	<select id="searchIng" resultType="string">
+		SELECT DISTINCT TRIM(ingredient) FROM ingredient WHERE ingredient LIKE '%'||#{ing}||'%'
+	</select>
 	
 	<delete id="deleteIngList" parameterType="_int">
 		DELETE FROM ingredient WHERE postid=#{postId}

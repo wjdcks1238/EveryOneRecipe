@@ -9,71 +9,79 @@
 </head>
 <body>
 
-<div class="gridList"></div>
+	<input type="text" name="ingSearch" placeholder="재료를 입력해 주세요">
+<form action="recommend" method="post">
+
+	<div class="chosen" >
+		<input type="hidden" name="list" id="chosenList">	
+	</div>
 
 
+<div id="searchResult">
+
+</div>
+
+<button type="submit">레시피 찾기</button>
+</form>
+
+
+
+
+
+
+
+	
 <script type="text/javascript">
-$(document).ready(function(){
-    start.init();
-    start.testAjax();
-});
-var start = {
-        param : {
-            curPage : 1,
-            pageListSize : 15,
-        },
-        
-        init : function() {
-           this.testEvent();
-        },
-       testEvent : function() {
-            // 무한 스크롤
-            $(window).scroll(function() {
-                // 맨 밑으로 스크롤이 갔을경우 if문을 탑니다.
-                if($(window).scrollTop() == $(document).height() - $(window).height()) { 
-                    start.param.curPage++; // 현재 페이지에서 +1 처리.
-                    
-                    start.testAjax(); //ajax 호출
-                } 
-            }); 
-        },
-        // 무한 스크롤 ajax 요청
-        testAjax : function() {
-            $.ajax({
-                type     : 'POST',
-                url      : '${pageContext.request.contextPath}/testAjax',
-                data     : JSON.stringify(start.param), // 다음 페이지 번호와 페이지 사이즈를 가지고 갑니다.
-                dataType : 'json',
-                contentType: "application/json",
-                success : successCallback,
-                error : errorCallback
-            });
-            // 성공
-            function successCallback(data) {
-            	console.log(data[0]);
-        		console.log(data[0].postId);
-                if(data.size == 0 ){
-                    $(".gridList").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
-                } 
-                
-     
-                if(data.size != 0){
-                	 $(".gridList").append('<div class="List"><span>  </span></div>').val(data[0]);
-                  
-                }    
-            }
-            
-            // 실패
-            function errorCallback() {
-                alert("실패");
-            }
-        }
-        
 
-}
-
-
+	$("input[name=ingSearch]").on("propertychange change paste input",function(){
+		var ingSearch= $("input[name=ingSearch]").val();
+			$.ajax({
+			  url: "searchAjax",
+			  type: "POST", 
+			  data: {ingSearch: ingSearch},
+			  async : false,
+			  success:function(result){
+					$("#searchResult").text("");
+					for(i =0; i<result.length;i++){
+						var existEqaulCing = false;
+						console.log("### "+result[i]);
+						$("span[name=cing]").each(function(){
+							console.log("# " +$(this).text());
+							if($(this).text() && result[i]){
+								if(result[i] == $(this).text()){
+									existEqaulCing = true;
+									return;
+								}
+							}
+						});
+						if(existEqaulCing == false){
+							console.log("확인"+result[i]);
+							var a = $('<a name="ing" href="#">'+result[i]+'</a><span>/</span>');
+							$("#searchResult").append(a);	
+						}
+					}
+					
+			  },
+			  error:function(){
+				  console.log("실패");
+			  }
+			});
+		
+		})
+	$(document).on("click", "a[name=ing]", function() {
+		console.log($(this).text());
+		var cList =$("#chosenList").val();
+		var span= $("<span name='cing'>").text($(this).text());
+		$(this).remove();
+		$(".chosen").append(span).append($('<span>/</span>'));
+		$("#chosenList").val(cList+ $(this).text()+'$');
+		
+		
+	});
+		
 </script>
+
+
 </body>
 
 
