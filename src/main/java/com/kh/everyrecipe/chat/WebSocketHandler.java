@@ -1,4 +1,4 @@
-package com.kh.everyrecipe.chat.controller;
+package com.kh.everyrecipe.chat;
 
 import java.util.ArrayList;
 import java.util.List;
