@@ -24,8 +24,8 @@ public class MailConfig {
 		//TODO: api property 파일과 연계
 		mailSender.setHost("smtp.gmail.com"); //어느 이메일(메일서버)를 이용하여 보낼것인가?, 사설 메일 서버가 없기 때문에 다른 메일을 사용한다.
 		mailSender.setPort(587);//메일서버서 사용하는 포트 명은 지정되어 있음.
-		mailSender.setUsername("id");//인증번호 보낼 이메일 번호?계정?
-		mailSender.setPassword("passwd");//위 이메일 번호의 비밀번호
+		mailSender.setUsername(id);//인증번호 보낼 이메일 번호?계정?
+		mailSender.setPassword(passwd);//위 이메일 번호의 비밀번호
 		
 		//연결을 위한 접속 관리 정보
 		Properties pro = new Properties();
