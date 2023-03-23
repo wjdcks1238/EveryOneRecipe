@@ -46,7 +46,7 @@
 		<websocket:sockjs />
 	</websocket:handlers>
 	
-	<beans:bean id="chatHandler" class="com.kh.everyrecipe.chat.controller.WebSocketHandler"/>
+	<beans:bean id="chatHandler" class="com.kh.everyrecipe.chat.WebSocketHandler"/>
 	
 	
 </beans:beans>
