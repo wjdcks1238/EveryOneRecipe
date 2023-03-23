@@ -191,15 +191,21 @@
 		<!-- Spring security -->
 		<!-- spring-security-web -->
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>4.2.1.RELEASE</version>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>5.6.3</version>
 		</dependency>
-		
+		<!-- spring-security-config -->
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>4.2.1.RELEASE</version>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>5.6.3</version>
+		</dependency>	
+		<!-- spring-security-taglibs -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>5.6.3</version>
 		</dependency>
 		
 		<dependency>
@@ -235,7 +241,23 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.9</version>
 		</dependency>
+		
+		<!-- 채팅에서 사용 웹소켓. spring-websocket -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- 채팅에서 사용. 웹소켓에서 json형식으로 데이터 주고받기 위해 사용. jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.14.1</version>
+		</dependency>
 
+		
+		
 		
 		<!-- file upload -->
 		<!-- 공통 IO commons-io -->

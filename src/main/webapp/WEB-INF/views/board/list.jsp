@@ -10,7 +10,7 @@
 </head>
 <body>
 <c:forEach items="${ postList}" var="list" varStatus="status" >
-	<table>
+	<table border="1">
 	<thead>
 		<tr>
 			<th>닉네임 </th>
@@ -128,7 +128,7 @@ var start = {
         	console.log(map);
             $.ajax({
                 type     : 'POST',
-                url      : '${pageContext.request.contextPath}/testAjax',
+                url      : '${pageContext.request.contextPath}/board/ISajax',
                 async : false,
                 //contentType: "application/json",
                 //data     : JSON.stringify(map),
@@ -154,7 +154,7 @@ var start = {
             		for(i = 0 ; i<data.length;i++){
 	            		var reply = data[i];	
             			
-            			var table = $('<table></table>');
+            			var table = $('<table border="1"></table>');
 	                	var htmlVal= "";
             			
 	                	var ing= "";
