@@ -9,8 +9,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-@Configuration
 @PropertySource("classpath:apiKeys.properties")
+@Configuration
 public class MailConfig {
 	@Value("${email.id}") String id;
 	@Value("${email.pass}") String passwd;
@@ -18,6 +18,7 @@ public class MailConfig {
 	@Bean
 	public JavaMailSender mailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		System.out.println("id: "+ id +"\n pw: " + passwd);
 		
 		//접속정보 설정
 		//TODO: api property 파일과 연계
@@ -33,9 +34,5 @@ public class MailConfig {
 		pro.setProperty("mail.smtp.starttls.enable", "true");//암호화 통신 관련 사용 여부(true로 해줘야 원활히 동작 = 구글은 암호화 통신을 하기 때문)
 		mailSender.setJavaMailProperties(pro);
 		return mailSender;
-
-
-		
-		
 	}
 }
