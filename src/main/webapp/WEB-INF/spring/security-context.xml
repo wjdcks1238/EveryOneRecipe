@@ -4,11 +4,21 @@
 	xmlns:s="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
-
-	<s:http>
-		<s:intercept-url pattern="/**" access="hasRole('USER')" />
-		<s:form-login />
-		<s:logout />
+	<!-- intercept-url의 access의 값이 false이면 access="USER"로 사용해야함 -->
+	<!-- csrf 방어사용으로 로그아웃은 POST 방식으로 해야함 -->
+	<s:http use-expressions="true">
+		<s:intercept-url pattern="/loginForm" access="permitAll" />
+		<s:intercept-url pattern="/home" access="permitAll" />
+		<s:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<s:intercept-url pattern="/**" access="hasAnyRole('USER, ADMIN')" />
+		
+		<s:form-login login-page="/loginForm"
+		              default-target-url="/home"
+	                  authentication-failure-url="/login/?error"
+		              username-parameter="id"
+		              password-parameter="password" />
+		<s:logout logout-url="/logout" logout-success-url="/home" />
+		<s:access-denied-handler error-page="/loginForm/accessDenied" />
 	</s:http>
 
 	<!--  provider  -->
@@ -16,6 +26,7 @@
 		<s:authentication-provider>
 			<s:user-service>
 				<s:user name="user" password="password" authorities="ROLE_USER" />
+				<s:user name="admin" password="password" authorities="ROLE_ADMIN" />
 			</s:user-service>
 		</s:authentication-provider>
 	</s:authentication-manager>	

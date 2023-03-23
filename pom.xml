@@ -202,6 +202,12 @@
 			<version>4.2.1.RELEASE</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>4.2.1.RELEASE</version>
+		</dependency>
+		
 		<!-- 네이버로그인API 적용 : 제이슨 문제 발생시 gson으로 변경할게 -->
 		<!-- naver -->
 		<dependency>
