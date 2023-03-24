@@ -24,8 +24,8 @@
      , p.NICKNAME
      , p.FOODNAME
      , p.CONTENT
-     , p.CREATEDATE
-     , p.UPDATEDATE
+     , p.CREATEAT
+     , p.UPDATEAT
      , p.ISDELETED
      , p.LOOKUP
      , i.INGREDIENT
@@ -37,7 +37,7 @@
 	</select>
 	
 	<select id="pagingList" parameterType="map" resultMap="postResultMap">
-	SELECT p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEDATE , p2.UPDATEDATE 
+	SELECT p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p2.UPDATEAT 
 	, p2.ISDELETED , p2.LOOKUP, i.INGREDIENT , i.AMOUNT FROM
 	(SELECT * 
 	  FROM (SELECT p.*
@@ -54,8 +54,8 @@
      , p.NICKNAME
      , p.FOODNAME
      , p.CONTENT
-     , p.CREATEDATE
-     , p.UPDATEDATE
+     , p.CREATEAT
+     , p.UPDATEAT
      , p.ISDELETED
      , p.LOOKUP
      , i.INGREDIENT
@@ -87,7 +87,7 @@
 		UPDATE post 
 		   SET FOODNAME=#{foodName}
 		     , CONTENT =#{content} 
-		     , UPDATEDATE = default
+		     , UPDATEAT = default
 		 WHERE postid=#{postId}
 	</update>
 	
