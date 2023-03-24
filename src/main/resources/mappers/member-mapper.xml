@@ -9,22 +9,22 @@
 	
 
 	
-	<update id="updateId" parameterType="mvo">
-		update USERSTABLE set USERNICKNAME=#{userNickName}
+	<update id="update" parameterType="mvo">
+		update members set USERNICKNAME=#{userNickName}
 		, EMAIL=#{email}, password = #{password}
 		where userid=#{userId}
 	</update>
 	
-	<delete id="deleteId" parameterType="string">
-		delete from USERSTABLE where userid=#{userId}
+	<delete id="delete" parameterType="string">
+		delete from members where userid=#{userId}
 	</delete>
 	
-	<select id="selectOneId" parameterType="String" resultType="mvo">
-		select * from usersTable where userid=#{userId}
+	<select id="selectOne" parameterType="String" resultType="mvo">
+		select * from members where userid=#{userId}
 	</select>
 	
-	<select id="selectListId" resultType="mvo">
-		select * from usersTable
+	<select id="selectList" resultType="mvo">
+		select * from members
 	</select>
 	
 	

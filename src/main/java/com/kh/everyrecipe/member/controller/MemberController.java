@@ -1,5 +1,6 @@
 package com.kh.everyrecipe.member.controller;
 
+import java.security.Principal;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,15 +60,20 @@ public class MemberController {
 	}
 	
 	@GetMapping("/profile")
-	public String profile() {
-		return "member/profile";
+	public ModelAndView profile(ModelAndView mv, Principal principal) throws Exception {
+		String id = principal.getName();
+		if(id != null) {
+			mv.addObject("memberDto", service.selectOne(id));
+		}
+		mv.setViewName("member/profile");
+		return mv;
 	}
 	
 	@PostMapping("/profile")
 	public ModelAndView insertProfile(
 				MultipartHttpServletRequest multiReq
 			  , @RequestParam(name="report", required = false) MultipartFile multi
-			  , HttpServletRequest request
+			  , Principal principal
 			  , ModelAndView mv
 			) {
 		Map<String, String> uploadResult;
@@ -81,4 +88,6 @@ public class MemberController {
 		
 		return mv;
 	}
+	
+	
 }
