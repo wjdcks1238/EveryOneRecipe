@@ -4,12 +4,15 @@
 	xmlns:s="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
-	<!-- intercept-url의 access의 값이 false이면 access="USER"로 사용해야함 -->
-	<!-- csrf 방어사용으로 로그아웃은 POST 방식으로 해야함 -->
+	
+	<!--  -->
+	<s:http pattern="/resource/**" security="none"/>
+	
 	<s:http use-expressions="true">
 		<s:csrf disabled="true"/>
 		<s:intercept-url pattern="/member/login" access="permitAll" />
-		<s:intercept-url pattern="/**" access="hasAnyRole('MEMBER', 'ADMIN')" />
+		<s:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<s:intercept-url pattern="/member/**" access="hasAnyRole('MEMBER', 'ADMIN')" />
 		
 		<s:form-login 
 			login-page="/member/login"

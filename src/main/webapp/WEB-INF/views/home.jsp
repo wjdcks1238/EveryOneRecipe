@@ -16,7 +16,7 @@
 
 
 	<sec:authorize access="isAnonymous()">
-	<p><a href="/login/loginForm.do">로그인</a></p>
+	<p><a href="<c:url value="/member/login" />">로그인</a></p>
 	</sec:authorize>
 
 	<sec:authorize access="isAuthenticated()">
@@ -27,7 +27,6 @@
 	
 	
 	<h3>
-		[<a href="<c:url value="/logout" />">로그아웃</a>]
 		[<a href="<c:url value="/board/list" />">게시판</a>]
 		[<a href="<c:url value="/admin/home" />">관리자 홈</a>]
 	</h3>
