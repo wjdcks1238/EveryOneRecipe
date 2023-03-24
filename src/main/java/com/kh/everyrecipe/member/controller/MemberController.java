@@ -31,6 +31,12 @@ public class MemberController {
 	@Qualifier("fileUtil")
 	private FileUtil fileUtil;
 	
+	@GetMapping("/login")
+	public String login() {
+		return "member/login";
+	}
+	
+	
 	@GetMapping("/signup")
 	public String signup() {
 		

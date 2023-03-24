@@ -2,18 +2,28 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:s="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 	<!-- intercept-url의 access의 값이 false이면 access="USER"로 사용해야함 -->
 	<!-- csrf 방어사용으로 로그아웃은 POST 방식으로 해야함 -->
-	<s:http>
-		<s:intercept-url pattern="/login/loginForm.do" access="permitAll" />
-		<s:intercept-url pattern="/home.do" access="permitAll" />
-		<s:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
-		<s:intercept-url pattern="/**" access="hasAnyRole('USER, ADMIN')" />
+	<s:http use-expressions="true">
+		<s:csrf disabled="true"/>
+		<s:intercept-url pattern="/member/login" access="permitAll" />
+		<s:intercept-url pattern="/**" access="hasAnyRole('MEMBER', 'ADMIN')" />
 		
-		<s:form-login/>
-		<s:access-denied-handler error-page="/login/accessDenied.do" />
+		<s:form-login 
+			login-page="/member/login"
+			username-parameter="username"
+			password-parameter="password"
+			default-target-url="/home"
+			authentication-failure-url="/board/list"
+		/>
+		<s:logout
+			logout-url="/logout"
+			logout-success-url="/home"
+			invalidate-session="true"
+			delete-cookies="true"
+		/>
 	</s:http>
 
 	<!--  provider  -->
@@ -21,10 +31,8 @@
 		<s:authentication-provider>
 			<s:jdbc-user-service
 				data-source-ref="dataSource"
-				role-prefix=""
-          	    users-by-username-query="select userid, password, enabled from members where userid = ?"
-            	authorities-by-username-query="select userid authority from members where userid = ?"
-            	group-authorities-by-username-query="SELECT userid, authority FROM MEMBERS WHERE authority ='A'"
+          	    users-by-username-query="select USERID as username, PASSWORD, STATUS as enabled from members where userid = ?"
+            	authorities-by-username-query="select USERID as USERNAME, AUTHORITY from MEMBERS where userid = ?"
 			/>
 		</s:authentication-provider>
 	</s:authentication-manager>	

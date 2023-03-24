@@ -72,4 +72,11 @@ public class HomeController {
 		return "home";
 	}
 	
+	@GetMapping("/admin/home")
+	public String adminTest() {
+		
+		return "admin";
+	}
+	
+	
 }

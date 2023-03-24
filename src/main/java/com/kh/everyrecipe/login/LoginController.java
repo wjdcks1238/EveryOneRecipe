@@ -87,13 +87,13 @@ public class LoginController {
 	}
 	
 	//로그아웃
-	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/naverlogout", method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout(HttpSession session)throws IOException {
-			System.out.println("여기는 logout");
+			System.out.println("여기는 naverlogout");
 			session.invalidate();
  
 	        
-			return "redirect:index.jsp";
+			return "redirect:/home";
 		}
 	
 }

@@ -27,8 +27,9 @@
 	
 	
 	<h3>
-		[<a href="<c:url value="/intro/introduction.do" />">소개 페이지</a>]
-		[<a href="<c:url value="/admin/adminHome.do" />">관리자 홈</a>]
+		[<a href="<c:url value="/logout" />">로그아웃</a>]
+		[<a href="<c:url value="/board/list" />">게시판</a>]
+		[<a href="<c:url value="/admin/home" />">관리자 홈</a>]
 	</h3>
 </body>
 </html>
