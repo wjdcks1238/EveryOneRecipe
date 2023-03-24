@@ -9,9 +9,11 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -80,12 +82,51 @@ public class TempForTable {
 	public String recommend(@RequestParam("list") String list ) {
 		System.out.println("값"+list);
 		
-		list.split("$");
+		//set으로 변환후 포함관계 확인
+		Set<String> chosenSet = new HashSet<String>(Arrays.asList(list.split("\\$")));
+		chosenSet.remove("");
+		System.out.println(chosenSet);
+		List<IngredientVo> ingList=null;
+		try {
+			ingList = service.getIngredients();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//postId로 구분된 전체 재료 셋
+		Map<Integer, Set<String>> allIngMap = new HashMap<>();
+		
+		//postId로 구분해야함 
+		//TODO 삭제된게시물 제외
+		
+		for(int i=1; i<=87;i++) {
+			Set<String> cuisineSet = new HashSet<String>();
+			
+			for(int j=0; j<ingList.size();j++) {				
+				if(ingList.get(j).getPostId()==i) {
+					cuisineSet.add(ingList.get(j).getIngredient());
+				}
+			}
+			allIngMap.put(i, cuisineSet); 
+		}
+		System.out.println("전체:"+allIngMap);
+		
+		
+		
 		//TODO 재료 입력시 $문자 사용 불가능하게 변경
 		
 		
 		//선택된 재료들의 부분집합(부족한 재료가 3개까지인 음식들 포함)
-		//게시글들의 재료
+		
+		for(int i=1; i<=87;i++) {
+			if(chosenSet.containsAll(allIngMap.get(i))) {
+				System.out.println(allIngMap.get(i));
+				
+				
+			}
+		}
+		
 		
 		return null;
 	}
@@ -418,7 +459,7 @@ public class TempForTable {
 //		System.out.println(ing);
 		
 		
-		//한번 요청에 1000건까지만 가능해서 1~86번 레시피 까지만 가능. 
+		//한번 요청에 1000건까지만 가능해서 1~85번 레시피 까지만 가능. 
 		
 		
 		//과정
@@ -487,7 +528,7 @@ public class TempForTable {
 //			ivo.setIngredient(ing.get(i));
 //			ivo.setAmount(amount);
 			//포스트 id처리 필요 
-			//일단 1~86 으로 처리
+			//일단 1~85 으로 처리
 			
 			
 		}
