@@ -26,11 +26,12 @@ public class PostVo {
 	private Date UpdateDate;
 	private String isDeleted;
 	private List<IngredientVo> ingredients;
+	private int lookUp;
 	@Override
 	public String toString() {
 		return "PostVo [postId=" + postId + ", userId=" + userId + ", nickname=" + nickname + ", foodName=" + foodName
 				+ ", createDate=" + createDate + ", UpdateDate=" + UpdateDate + ", isDeleted=" + isDeleted
-				+ ", ingredients=" + ingredients + "]";
+				+ ", ingredients=" + ingredients +", lookUp=" + lookUp + "]";
 	}
 	
 }
