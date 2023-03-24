@@ -1,30 +1,3 @@
---게시글 테이블용 시퀀스
-DROP SEQUENCE SEQ_POSTID;
-CREATE SEQUENCE SEQ_POSTID;
-
---1-2
-    DROP TABLE "INGREDIENT";
-    DROP TABLE "HASHTAG";
-    DROP TABLE "MAILAUTH";
-    DROP TABLE "FOLLOWMAPPING";
---1-2
-        DROP TABLE "DIRECTMESSAGE";
-    DROP TABLE "CHATTINGROOM";
--- 2-3
-            DROP TABLE "REPLYCOMMENT";
-        DROP TABLE "TBCOMMENT";
--- 2-3
-        DROP TABLE "REPORT";
-        DROP TABLE "POSTBOOKMARK";
-        DROP TABLE "POSTLIKE";
--- 2
-    DROP TABLE "POST";
--- 1
-DROP TABLE "MEMBERS";
--- 1
-DROP TABLE "SEARCH";
-
-
 --검색어
 CREATE TABLE "SEARCH" (
 	"KEWORD"	VARCHAR2(30 CHAR)		NOT NULL,
@@ -34,6 +7,22 @@ ALTER TABLE "SEARCH" ADD CONSTRAINT "PK_SEARCH" PRIMARY KEY (
 	"KEWORD"
 );
 --멤버테이블
+--관리자(회원가입)
+insert into MEMBERS values('everys_recipe', 'admin@email.com', 'password', '모두의 레시피', '관리자 입니다.', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
+                            , '1','ROLE_ADMIN', default, default, default, default);
+--이용자 추가
+INSERT INTO MEMBERS VALUES('user01', 'user01@gmail.com', 'user01', '고정찬', '횐님', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
+                            , '0','ROLE_MEMBER', default, default, default, default);
+INSERT INTO MEMBERS VALUES('user02', 'user02@gmail.com', 'user02', '김진태', '횐님', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
+                            , '0','ROLE_MEMBER', default, default, default, default);
+INSERT INTO MEMBERS VALUES('user03', 'user03@gmail.com', 'user03', '오경훈', '횐님', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
+                            , '0','ROLE_MEMBER', default, default, default, default);
+INSERT INTO MEMBERS VALUES('user04', 'user04@gmail.com', 'user04', '이승걸', '횐님', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
+                            , '0','ROLE_MEMBER', default, default, default, default);
+INSERT INTO MEMBERS VALUES('user05', 'user05@gmail.com', 'user05', '박새롬', '횐님', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
+                            , '0','ROLE_MEMBER', default, default, default, default);
+select * from members;
+
 CREATE TABLE "MEMBERS" (
 	"USERID"	VARCHAR2(15 char)		NOT NULL,
 	"EMAIL"	VARCHAR2(50 char)		    NOT NULL,
@@ -62,6 +51,8 @@ COMMENT ON COLUMN "MEMBERS"."POSTBLOCKYN" IS 'N';
 COMMENT ON COLUMN "MEMBERS"."REPLYBLOCKYN" IS 'N';
 
 --게시물
+
+
 CREATE TABLE "POST" (
 	"POSTID"	NUMBER		NOT NULL,
 	"USERID"	VARCHAR2(15 char)		NOT NULL,
