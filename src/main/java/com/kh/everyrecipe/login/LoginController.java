@@ -32,7 +32,7 @@ public class LoginController {
 	}
  
 	//로그인 첫 화면 요청 메소드
-	@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/naverlogin", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login(Model model, HttpSession session) {
 		
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
@@ -45,7 +45,7 @@ public class LoginController {
 		//네이버 
 		model.addAttribute("url", naverAuthUrl);
  
-		return "login";
+		return "naverlogin";
 	}
  
 	//네이버 로그인 성공시 callback호출 메소드
@@ -83,7 +83,7 @@ public class LoginController {
 		
 		model.addAttribute("result", apiResult);
 	     
-		return "login";
+		return "naverlogin";
 	}
 	
 	//로그아웃

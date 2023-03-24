@@ -6,28 +6,26 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 	<!-- intercept-url의 access의 값이 false이면 access="USER"로 사용해야함 -->
 	<!-- csrf 방어사용으로 로그아웃은 POST 방식으로 해야함 -->
-	<s:http use-expressions="true">
-		<s:intercept-url pattern="/loginForm" access="permitAll" />
-		<s:intercept-url pattern="/home" access="permitAll" />
+	<s:http>
+		<s:intercept-url pattern="/login/loginForm.do" access="permitAll" />
+		<s:intercept-url pattern="/home.do" access="permitAll" />
 		<s:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<s:intercept-url pattern="/**" access="hasAnyRole('USER, ADMIN')" />
 		
-		<s:form-login login-page="/loginForm"
-		              default-target-url="/home"
-	                  authentication-failure-url="/login/?error"
-		              username-parameter="id"
-		              password-parameter="password" />
-		<s:logout logout-url="/logout" logout-success-url="/home" />
-		<s:access-denied-handler error-page="/loginForm/accessDenied" />
+		<s:form-login/>
+		<s:access-denied-handler error-page="/login/accessDenied.do" />
 	</s:http>
 
 	<!--  provider  -->
 	<s:authentication-manager>
 		<s:authentication-provider>
-			<s:user-service>
-				<s:user name="user" password="password" authorities="ROLE_USER" />
-				<s:user name="admin" password="password" authorities="ROLE_ADMIN" />
-			</s:user-service>
+			<s:jdbc-user-service
+				data-source-ref="dataSource"
+				role-prefix=""
+          	    users-by-username-query="select userid, password, enabled from members where userid = ?"
+            	authorities-by-username-query="select userid authority from members where userid = ?"
+            	group-authorities-by-username-query="SELECT userid, authority FROM MEMBERS WHERE authority ='A'"
+			/>
 		</s:authentication-provider>
 	</s:authentication-manager>	
 </beans>
