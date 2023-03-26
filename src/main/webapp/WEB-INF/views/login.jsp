@@ -34,5 +34,6 @@
  <form:form action="${pageContext.request.contextPath}/logout" method="POST">
 	<input type="submit" value="로그아웃" />
 </form:form>
+
 </body>
 </html>

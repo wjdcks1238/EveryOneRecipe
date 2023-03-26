@@ -10,6 +10,7 @@
 	
 	<s:http use-expressions="true">
 		<s:csrf disabled="true"/>
+		<s:intercept-url pattern="/member/signup" access="permitAll"/>
 		<s:intercept-url pattern="/member/login" access="permitAll" />
 		<s:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<s:intercept-url pattern="/member/**" access="hasAnyRole('MEMBER', 'ADMIN')" />
