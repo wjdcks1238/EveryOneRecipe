@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
 import com.kh.everyrecipe.postLike.service.PostLikeService;
+import com.kh.everyrecipe.postLike.vo.PostLikeVo;
 
 
 @Controller
@@ -32,23 +33,23 @@ public class PostLikeController {
 		map.put("fwId", fwId); 
 		
 		
-		//팔로우 정보를 가져옴
-		FollowMappingVo fmVo= pService.getFollowInfo(map);
-		//DB에 정보가 없으면 -> 팔로우
-		//isdelete: 'Y'  ->팔로우
-		if(fmVo==null ) {
-			pService.addFollower(map);
+		//좋아요 정보를 가져옴
+		PostLikeVo pvo= pService.getLikeInfo(map);
+		//DB에 정보가 없으면 -> 좋아요
+		//isdelete: 'Y'  ->좋아요
+		if(pvo==null ) {
+			pService.addLike(map);
 			return true;
 		}
-		if("Y".equals(fmVo.getISDELETED())) {
-			pService.reAddFollower(map);
+		if("Y".equals(pvo.getIsDeleted())) {
+			pService.reAddLike(map);
 			return true;
 		}
 		
 	
-		//isdelete: 'N'   -> 언팔로우
-		if("N".equals(fmVo.getISDELETED()) ) {
-			pService.removeFollower(map);
+		//isdelete: 'N'   -> 좋아요 취소
+		if("N".equals(pvo.getIsDeleted()) ) {
+			pService.removeLike(map);
 			return false; 
 		}
 		

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="followMapper">
+<mapper namespace="postLikeMapper">
 
-		<!--팔로우 -->
-	<select id="isFollowed" parameterType="map" resultType="_int">
-		select count(*) from FOLLOWMAPPING where FWID=#{fwId} and USERID=#{userId} and ISDELETED='N'
-	</select>
+	
+	<select id="isLiked" parameterType="map" resultType="_int">
+		select count(*) from POSTLIKE where USERID=#{userId} AND POSTID=#{postId} AND ISDELETED='N'
+	</select>	
 
-	<select id="getFollowInfo" parameterType="map" resultType="com.kh.everyrecipe.followMapping.vo.FollowMappingVo">
+	<select id="getLikeInfo" parameterType="map" resultType="com.kh.everyrecipe.followMapping.vo.FollowMappingVo">
 		select * from FOLLOWMAPPING where FWID=#{fwId} and USERID=#{userId}
 	</select>
 	
-	<insert id="addFollower">
+	<insert id="addLike">
 		insert into FOLLOWMAPPING values(#{fwId}, #{userId}, default) 
 	</insert>
 	
-	<update id="reAddFollower">
+	<update id="reAddLike">
 		update FOLLOWMAPPING set ISDELETED='N' where FWID=#{fwId} and USERID=#{userId}
 	</update>
 	
@@ -23,7 +23,7 @@
 		update FOLLOWMAPPING set ISDELETED='Y' where FWID=#{fwId} and USERID=#{userId}
 	</update>
 	
-
+	
 
 	
 	

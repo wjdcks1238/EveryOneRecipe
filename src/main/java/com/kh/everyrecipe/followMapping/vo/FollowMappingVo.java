@@ -1,7 +1,5 @@
 package com.kh.everyrecipe.followMapping.vo;
 
-import java.sql.Date;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 

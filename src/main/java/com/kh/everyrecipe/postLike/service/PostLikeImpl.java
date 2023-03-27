@@ -1,36 +1,20 @@
 package com.kh.everyrecipe.postLike.service;
 
-import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.everyrecipe.board.dao.BoardDao;
-import com.kh.everyrecipe.board.vo.BoardVo;
-import com.kh.everyrecipe.board.vo.HashtagVo;
-import com.kh.everyrecipe.board.vo.IngredientVo;
-import com.kh.everyrecipe.board.vo.PostVo;
-import com.kh.everyrecipe.followMapping.dao.FollowMappingDao;
-import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
+
+import com.kh.everyrecipe.postLike.dao.PostLikeDao;
+import com.kh.everyrecipe.postLike.vo.PostLikeVo;
 
 @Service
 public class PostLikeImpl implements PostLikeService{
 	@Autowired
-	private FollowMappingDao dao;
+	private PostLikeDao dao;
 
-	
-	@Override
-	public boolean isFollowed(Map<String, String> map) throws Exception {
-
-		 
-		if(dao.isFollowed(map)==1) {
-			System.out.println("dao if문 true");
-			return true;
-		}
-		return false;
-//		return dao.isFollowed(map);
-	}
 
 	@Override
 	public boolean isLiked(Map<String, String> map) throws Exception {	
@@ -38,28 +22,29 @@ public class PostLikeImpl implements PostLikeService{
 			return true;
 		}
 		return false;
-//		return dao.isLiked(map);
 	}
 
 	@Override
-	public FollowMappingVo getFollowInfo(Map<String, String> map) {
-		return dao.getFollowInfo(map);
+	public PostLikeVo getLikeInfo(Map<String, String> map) {
+		return dao.getLikeInfo(map);
+	}
+
+	@Override
+	public int addLike(Map<String, String> map) {
+		return dao.addLike(map);
+	}
+
+	@Override
+	public int reAddLike(Map<String, String> map) {
+		return dao.reAddLike(map);
+	}
+
+	@Override
+	public int removeLike(Map<String, String> map) {
+		return dao.removeLike(map);
 	}
 
 	
-	@Override
-	public int addFollower(Map<String, String> map) {
-		return dao.addFollower(map);
-	}
-	@Override
-	public int reAddFollower(Map<String, String> map) {
-		return dao.reAddFollower(map);
-	}
-
-	@Override
-	public int removeFollower(Map<String, String> map) {
-		return dao.removeFollower(map);
-	}
 
 
 

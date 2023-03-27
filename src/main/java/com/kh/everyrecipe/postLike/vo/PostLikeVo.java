@@ -17,8 +17,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PostLikeMappingVo {
-	private String fwId;
+public class PostLikeVo {
+	private int postId;
 	private String userId;	
-	private String ISDELETED;
+	private String isDeleted;
 }

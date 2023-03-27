@@ -20,6 +20,7 @@
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/comment-mapper.xml"/>
 		<mapper resource="mappers/follow-mapper.xml"/>
+		<mapper resource="mappers/postLike-mapper.xml"/>
 	</mappers>
 	
 </configuration>
