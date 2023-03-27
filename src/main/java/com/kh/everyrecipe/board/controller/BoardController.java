@@ -23,12 +23,18 @@ import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
+
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
+
 
 @Controller
 @RequestMapping("/board")
 @Transactional
 public class BoardController {
+		@Autowired
+		private BoardService service;
+		@Autowired
+		private CommentService cmtService;
 		@Autowired
 		private BoardService bService;
 		@Autowired
@@ -83,6 +89,34 @@ public class BoardController {
 				) throws Exception {
 				
 			
+			
+			try {			
+				PostVo pvo = service.selectOne(postId);
+				//없는 게시글 번호로 접근시의 처리 (임시)
+				if(pvo ==null) {
+					mv.setViewName("errors/errorPage");
+					return mv;
+				}
+				//삭제된 게시물 번호로 접근시의 처리
+				if("Y".equals(pvo.getIsDeleted())) {
+					mv.setViewName("errors/deletedPost");
+					return mv;
+				}
+				String hashtags= "";
+				mv.addObject("post",pvo);
+				List<HashtagVo> hvoList= service.getHashtags(postId);
+				for(HashtagVo hvo : hvoList) {
+					hashtags += "#"+hvo.getHashtag();
+				}
+				mv.addObject("hashtags",hashtags );
+				List<CommentVo> cvo = cmtService.getCommentList(postId);
+				System.out.println(postId);
+				mv.addObject("comment", cvo);
+				
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
 			PostVo pvo = bService.selectOne(postId);
 			// 없는 게시글 번호로 접근시의 처리 (임시)
 			if (pvo == null) {
