@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
-
 	<!-- 회원가입 -->
-	<insert id="insertsignup" parameterType="mvo">
-       insert into MEMBERS values(#{userid}, #{email}, #{password}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT);
-	</insert>
+	<insert id="insertId" parameterType="mvo">
+	   INSERT INTO MEMBERS VALUES(#{userId}, #{email}, #{password}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT
+                            , '1','ROLE_MEMBER', DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+    </insert>
 	
-
+	
+	
+	
+	
+	
+	
 	
 	<update id="update" parameterType="mvo">
 		update members set USERNICKNAME=#{userNickName}

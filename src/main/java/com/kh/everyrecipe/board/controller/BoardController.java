@@ -1,5 +1,6 @@
 package com.kh.everyrecipe.board.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +23,9 @@ import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
-import com.kh.everyrecipe.comment.service.CommentService;
-import com.kh.everyrecipe.comment.vo.CommentVo;
+
+import com.kh.everyrecipe.followMapping.service.FollowMappingService;
+
 
 @Controller
 @RequestMapping("/board")
@@ -33,6 +35,10 @@ public class BoardController {
 		private BoardService service;
 		@Autowired
 		private CommentService cmtService;
+		@Autowired
+		private BoardService bService;
+		@Autowired
+		private FollowMappingService fService;
 	
 //		@GetMapping("/list")
 //		public void list() {
@@ -40,27 +46,21 @@ public class BoardController {
 //		}
 		
 		@GetMapping("/list")
-		public ModelAndView boardList(ModelAndView mv
-				) {
-				
-			
-			try {
-				//isdelete 필드가 'N'인 게시글만 불러온다. 	
-				Map<String, Integer> map = new HashMap<>();
-				map.put("from", 0);
-				map.put("to", 20);
-				mv.addObject("postList", service.pagingList(map));
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		public ModelAndView boardList(ModelAndView mv) throws Exception {
+
+			// isdelete 필드가 'N'인 게시글만 불러온다.
+			Map<String, Integer> map = new HashMap<>();
+			map.put("from", 0);
+			map.put("to", 20);
+			mv.addObject("postList", bService.pagingList(map));
+
 			mv.setViewName("board/list");
 			return mv;
 		}
 		
 		@PostMapping("ISajax")
 		@ResponseBody
-		public String testAjax( int curPage ) {
+		public String testAjax( int curPage ) throws Exception {
 			List<PostVo> pvoList=null;
 //			System.out.println(map.get("curPage"));
 //			System.out.println(map.get("pageListSize"));
@@ -72,13 +72,9 @@ public class BoardController {
 			map.put("to", to);
 			
 			
-			try {
-				pvoList= service.pagingList(map);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			
+			pvoList= bService.pagingList(map);
+		
 			return new Gson().toJson(pvoList);
 		}
 		
@@ -89,10 +85,9 @@ public class BoardController {
 		@GetMapping("/list/{postId}")
 		public ModelAndView boardDetail (ModelAndView mv
 				,@PathVariable int postId
-				) {
+				,Principal principal
+				) throws Exception {
 				
-
-		
 			
 			
 			try {			
@@ -122,7 +117,49 @@ public class BoardController {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
+			PostVo pvo = bService.selectOne(postId);
+			// 없는 게시글 번호로 접근시의 처리 (임시)
+			if (pvo == null) {
+				mv.setViewName("errors/errorPage");
+				return mv;
 			}
+			// 삭제된 게시물 번호로 접근시의 처리
+			if ("Y".equals(pvo.getIsDeleted())) {
+				mv.setViewName("errors/deletedPost");
+				return mv;
+			}
+			String hashtags = "";
+			mv.addObject("post", pvo);
+			List<HashtagVo> hvoList = bService.getHashtags(postId);
+			for (HashtagVo hvo : hvoList) {
+				hashtags += "#" + hvo.getHashtag();
+			}
+			mv.addObject("hashtags", hashtags);
+			
+			//TODO (회원일시) 작성자 팔로우 여부와 좋아요 여부. 전체 팔로워 전체 좋아요
+			//작성자 본인이거나 비회원일시 비활성화 
+			
+			//팔로우 - isdelete N, FWID는 열람중인 회원, USERID는 작성자
+			Map<String, String> map1 = new HashMap<String, String>();
+			//회원 id, 작성자 id 전달
+			map1.put("userId",principal.getName() ); 
+			map1.put("fwId", pvo.getUserId() ); 
+			
+			mv.addObject("isFollowed", ""+fService.isFollowed(map1));
+			
+			//좋아요 - isdelete N, POSTID, USERID
+			Map<String, String> map2 = new HashMap<String, String>();
+			//회원 id, 게시글 id 전달
+			map2.put("userId",principal.getName() ); 
+			map2.put("postId", postId+"" ); 
+			
+			
+			mv.addObject("isLiked",""+fService.isLiked(map2));
+			
+			
+			
+			
+			
 			mv.setViewName("board/detail");
 			return mv;
 		}
@@ -133,38 +170,35 @@ public class BoardController {
 		@GetMapping("/list/update/{postId}")
 		public ModelAndView boardUpdate (ModelAndView mv
 				,@PathVariable int postId
-				) {
+				) throws Exception {
 				
 		//TODO 작성자가 아닐 때의 처리
 		//TODO 없는 게시글 번호로 접근시의 처리
 			String hashtags= "";
 		
-		 	try {
-		 		PostVo pvo = service.selectOne(postId);	
-		 		//없는 게시글 번호로 접근시
-		 		if(pvo ==null) {
-					mv.setViewName("errors/errorPage");
-					return mv;
-				}
-				//삭제된 게시물 번호로 접근시
-				if("Y".equals(pvo.getIsDeleted())) {
-					mv.setViewName("errors/deletedPost");
-					return mv;
-				}
-				mv.addObject("post",pvo);
-		 		//List<HashtagVo>가 아닌 List<String>이 나을 수 있음
-				List<HashtagVo> hvoList= service.getHashtags(postId);
-				for(HashtagVo hvo : hvoList) {
-					hashtags += "#"+hvo.getHashtag();
-				}
-				
-			
-				mv.addObject("hashtags",hashtags );
-				mv.addObject("ingredients", service.getIngredients(postId));
-				mv.addObject("post", pvo);
-			} catch (Exception e) {
-				e.printStackTrace();
+		 	
+			PostVo pvo = bService.selectOne(postId);
+			// 없는 게시글 번호로 접근시
+			if (pvo == null) {
+				mv.setViewName("errors/errorPage");
+				return mv;
 			}
+			// 삭제된 게시물 번호로 접근시
+			if ("Y".equals(pvo.getIsDeleted())) {
+				mv.setViewName("errors/deletedPost");
+				return mv;
+			}
+			mv.addObject("post", pvo);
+			// List<HashtagVo>가 아닌 List<String>이 나을 수 있음
+			List<HashtagVo> hvoList = bService.getHashtags(postId);
+			for (HashtagVo hvo : hvoList) {
+				hashtags += "#" + hvo.getHashtag();
+			}
+
+			mv.addObject("hashtags", hashtags);
+			mv.addObject("ingredients", bService.getIngredients(postId));
+			mv.addObject("post", pvo);
+
 			mv.setViewName("board/update");
 			return mv;
 		}
@@ -175,7 +209,7 @@ public class BoardController {
 				, BoardVo bvo
 				, @RequestParam("ingredient") List<String> ingredients
 				, @RequestParam("amount") List<String> amounts
-				, @RequestParam("hashtag") String hashtag) {
+				, @RequestParam("hashtag") String hashtag) throws Exception {
 				
 			//받은 bvo를 그대로 업데이트
 			
@@ -203,20 +237,15 @@ public class BoardController {
 			}
 				
 
-			try {
-				if(service.updatePost(bvo)==1) {	
-				//삭제 후 새로 추가
-				service.deleteIngList(bvo.getPostId()); 
-				service.deleteHashtagList(bvo.getPostId());  
-				service.insertIngList(ivoList);
-				//nullpointer 발생하지만 작동은 잘됨..??
-				service.insertHashtagList(hashtagList);
-					
-					
-				}
-				
-			} catch (Exception e) {
-				e.printStackTrace();
+			
+			if (bService.updatePost(bvo) == 1) {
+				// 삭제 후 새로 추가
+				bService.deleteIngList(bvo.getPostId());
+				bService.deleteHashtagList(bvo.getPostId());
+				bService.insertIngList(ivoList);
+				// nullpointer 발생하지만 작동은 잘됨..??
+				bService.insertHashtagList(hashtagList);
+
 			}
 			
 				
@@ -231,20 +260,15 @@ public class BoardController {
 		
 		
 		@PostMapping("delete")
-		public String deletePost(@RequestParam("postId") int postId) {
+		public String deletePost(@RequestParam("postId") int postId) throws Exception {
 			//게시글의 isdelete필드를 'Y'로 변경. 재료, 해쉬태그는 따로 삭제하지 않는다. 
 			int result=0;
-			System.out.println("ajax작동");
-			System.out.println(postId);
-			
-			try {
-				result= service.delete(postId);
-				if(result==1) {				
-					System.out.println("삭제 성공");
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+						
+			result = bService.delete(postId);
+			if (result == 1) {
+				System.out.println("삭제 성공");
 			}
+			
 			
 			return "결과:"+result;	
 		}

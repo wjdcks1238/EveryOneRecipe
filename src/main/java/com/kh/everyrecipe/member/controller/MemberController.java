@@ -39,12 +39,10 @@ public class MemberController {
 	}
 	
 	
-	@GetMapping("/signup")
-	public String signup() {
-		
-		return "/signup";
-	}
+
 	
+	
+	//회원가입
 	@PostMapping("/signup")
 	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
 		int result = service.insert(vo);

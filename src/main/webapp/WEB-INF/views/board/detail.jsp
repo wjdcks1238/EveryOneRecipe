@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -34,6 +35,37 @@
 			<td>${post.createDate }</td>
 		</tr>
 </table>
+
+<div id="follow">
+팔로우 :
+<c:choose>
+	<c:when test="${isFollowed }">
+		<span id="isFollowed">O</span>
+		<button id="followBtn">팔로우 취소</button>
+	</c:when>
+	<c:otherwise>
+		<span id="isFollowed">X</span>
+		<button id="followBtn">팔로우 하기</button>
+	</c:otherwise>
+</c:choose>
+
+
+</div>
+
+<div id="like">
+좋아요:
+<c:choose>
+	<c:when test="${isLiked }">
+	 	<span id="isLiked">O</span> 
+		<button id="likeBtn">좋아요 취소</button>
+	</c:when>
+	<c:otherwise>
+		<span id="isLiked">X</span>
+		<button id="likeBtn">좋아요 누르기</button>
+	</c:otherwise>
+</c:choose>
+
+</div>
 
 <div>
 	<a href="<%=request.getContextPath()%>/board/list/update/${post.postId }">게시글 수정</a>
@@ -64,5 +96,56 @@
 		</c:forEach>
 	</table>
 </div>
+
+
+
+<script type="text/javascript">
+
+
+
+$(document).on("click","#followBtn" ,function() {
+	var isFollowed = $("#isFollowed").text();
+	$.ajax({
+		url: "<%=request.getContextPath()%>/follow",
+		type: "POST", 
+		data: {isFollowed: isFollowed, fwId: "${post.userId }" },
+		async : false,
+		success:function(result){
+			if(result==false){
+				var htmlVal= "팔로우 : <span id='isFollowed'> X </span><button id='followBtn'>팔로우</button>";
+				$("#follow").html(htmlVal);
+			}else if(result==true){
+				var htmlVal= "팔로우 : <span id='isFollowed'> O </span><button id='followBtn'>팔로우 취소</button>";
+				$("#follow").html(htmlVal);
+			}
+		}
+		
+	});
+});
+
+
+$(document).on("click","#like" ,function() {
+	$.ajax({
+		url: "./like",
+		type: "POST", 
+		data: {postId: postId},
+		async : false,
+		success:function(result){
+			if(result==false){
+				var htmlVal= "<span id='isFollowed'>X</span><button id='followBtn'>팔로우</button>";
+				$("#follow").html(htmlVal);
+			}else if(result==true){
+				var htmlVal= "<span id='isFollowed'>O</span><button id='followBtn'>팔로우 취소</button>";
+				$("#follow").html(htmlVal);
+			}
+		}
+		
+	});
+});
+
+
+
+</script>
+
 </body>
 </html>
