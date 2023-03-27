@@ -18,27 +18,30 @@
 
 </body>
 <script type="text/javascript">
+	var socket = new SockJS("http://localhost:8090/everyrecipe/chat/"); //SockJS 객체 생성
+	
 	$("#send").click(function() {
-		sendMessage();
+		socket.send($("#message").val()); // 메시지 전송
 		$('#message').val('')
 	});
 
-	let socket = new SockJS("http://localhost:8090/everyrecipe/chat/"); //SockJS 객체 생성
+	socket.onopen = createConnect // onopen = 웹소켓의 연결
 	socket.onmessage = recieveMsg // onmessage = 메시지 수신 이벤트
 	socket.onclose = Disconnection // onclose = 웹소켓의 연결이 끊어지면 발생
 	
-	// 메시지 전송
-	function sendMessage() {
-		socket.send($("#message").val());
-	}
+	// 서버 연결
+	function createConnect(){
+		$("#messageArea").append("서버와의 연결이 성공하였습니다." + "&#10;");
+	}	
 	// 받은 메시지 출력
 	function recieveMsg(recieve) {
 		var data = recieve.data;
 		$("#messageArea").append(data + "&#10;"); // &#10; = textarea 개행 
 	}
 	// 서버와 연결이 끊어짐
-	function Disconnection(discon) {
+	function Disconnection() {
 		$("#messageArea").append("서버와의 연결이 끊어졌습니다.");
 	}
+
 </script>
 </html>

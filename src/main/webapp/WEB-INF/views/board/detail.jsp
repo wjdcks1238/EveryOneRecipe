@@ -38,32 +38,32 @@
 
 <div id="follow">
 팔로우 :
-<c:choose>
-	<c:when test="${isFollowed }">
+
+	<c:if test="${isFollowed }">
 		<span id="isFollowed">O</span>
 		<button id="followBtn">팔로우 취소</button>
-	</c:when>
-	<c:otherwise>
+	</c:if>
+	<c:if test="${isFollowed eq false }">
 		<span id="isFollowed">X</span>
 		<button id="followBtn">팔로우 하기</button>
-	</c:otherwise>
-</c:choose>
+	</c:if>
+
 
 
 </div>
 
 <div id="like">
 좋아요:
-<c:choose>
-	<c:when test="${isLiked }">
+
+	<c:if test="${isLiked }">
 	 	<span id="isLiked">O</span> 
 		<button id="likeBtn">좋아요 취소</button>
-	</c:when>
-	<c:otherwise>
+	</c:if>
+	<c:if test="${isLiked eq false }">
 		<span id="isLiked">X</span>
 		<button id="likeBtn">좋아요 누르기</button>
-	</c:otherwise>
-</c:choose>
+	</c:if>
+
 
 </div>
 
