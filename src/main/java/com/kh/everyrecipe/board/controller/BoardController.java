@@ -22,6 +22,8 @@ import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.comment.service.CommentService;
+import com.kh.everyrecipe.comment.vo.CommentVo;
 
 @Controller
 @RequestMapping("/board")
@@ -29,6 +31,8 @@ import com.kh.everyrecipe.board.vo.PostVo;
 public class BoardController {
 		@Autowired
 		private BoardService service;
+		@Autowired
+		private CommentService cmtService;
 	
 //		@GetMapping("/list")
 //		public void list() {
@@ -110,6 +114,9 @@ public class BoardController {
 					hashtags += "#"+hvo.getHashtag();
 				}
 				mv.addObject("hashtags",hashtags );
+				List<CommentVo> cvo = cmtService.getCommentList(postId);
+				System.out.println(postId);
+				mv.addObject("comment", cvo);
 				
 				
 				
