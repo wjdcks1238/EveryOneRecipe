@@ -113,7 +113,6 @@ public class BoardController {
 				}
 				mv.addObject("hashtags",hashtags );
 				List<CommentVo> cvo = cmtService.getCommentList(postId);
-				System.out.println(postId);
 				mv.addObject("comment", cvo);
 				
 				

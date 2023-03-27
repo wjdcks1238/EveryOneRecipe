@@ -1,3 +1,4 @@
+<%@page import="java.security.Principal"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -83,20 +84,34 @@
 				<td>${cvo.updateAt }</td>
 				<td>
 				댓글쓰기
-				<sec:authorize var="loggedIn" access="isAuthenticated()">
+				<sec:authorize var="loggedIn" access="isAuthenticated()" />
+					<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
 					<c:choose>
-						<c:when test="${loggedIn }">
-							| 댓글수정 | 댓글삭제
+						<c:when test="${loggedIn}">
+							<c:if test="${lgnuser eq cvo.userId }">
+								| 댓글수정 | 댓글삭제
+							</c:if>
 						</c:when>
 						<c:otherwise />
 					</c:choose>
-				</sec:authorize>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
 </div>
-
+<div>
+	<sec:authorize var="loggedIn" access="isAuthenticated()" />
+	<c:choose>
+		<c:when test="${loggedIn}">
+			<form action="<%=request.getContextPath() %>/board/insertcmt/${post.postId }" method="post">
+				<textarea rows="3" cols="70"></textarea>
+				<br>
+				<button type="button">댓글 작성</button>
+			</form>
+		</c:when>
+		<c:otherwise />
+	</c:choose>
+</div>
 
 
 <script type="text/javascript">
