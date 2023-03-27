@@ -85,7 +85,9 @@
 				<td>
 				댓글쓰기
 				<sec:authorize var="loggedIn" access="isAuthenticated()" />
+				<c:if test="${loggedIn }">
 					<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
+				</c:if>
 					<c:choose>
 						<c:when test="${loggedIn}">
 							<c:if test="${lgnuser eq cvo.userId }">
