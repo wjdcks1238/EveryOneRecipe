@@ -26,7 +26,7 @@
 			<div id="naver_id_login" style="text-align:center"><a href="${url}">
 			<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
 			<br>
-		
+	
     </form>
     <p>계정이 없으신가요? <a href="#">가입하기</a></p>
   </div>

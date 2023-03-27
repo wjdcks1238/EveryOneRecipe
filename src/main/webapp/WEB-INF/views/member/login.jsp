@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -46,6 +47,10 @@
         <input type="password" id="password" name="password" placeholder="Password" />
         <input type="submit" value="로그인" />
       </form:form>
+      
+			<!-- 네이버 로그인 창으로 이동 -->
+			<div id="naver_id_login" style="text-align:center"><a href="${url}">
+			<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
       <hr>
       <p>
         계정이 없으신가요? <a href="#" onclick="toggle()">가입하기</a>
