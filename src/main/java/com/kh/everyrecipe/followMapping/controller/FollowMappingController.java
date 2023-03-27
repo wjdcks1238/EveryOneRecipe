@@ -55,10 +55,5 @@ public class FollowMappingController {
 		
 		return false;
 	}
-	@PostMapping("/like")
-	public String like() {
-		
-		return null;
-	}
 	
 }

@@ -26,6 +26,7 @@ import com.kh.everyrecipe.board.vo.PostVo;
 import com.kh.everyrecipe.comment.service.CommentService;
 import com.kh.everyrecipe.comment.vo.CommentVo;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
+import com.kh.everyrecipe.postLike.service.PostLikeService;
 
 @Controller
 @RequestMapping("/board")
@@ -35,6 +36,8 @@ public class BoardController {
 		private BoardService bService;
 		@Autowired
 		private FollowMappingService fService;
+		@Autowired
+		private PostLikeService pService;
 		@Autowired
 		private CommentService cmtService;
 	
@@ -134,7 +137,7 @@ public class BoardController {
 					map2.put("postId", postId+"" ); 
 					
 					
-					mv.addObject("isLiked",fService.isLiked(map2));
+					mv.addObject("isLiked",pService.isLiked(map2));
 					
 					
 				}
