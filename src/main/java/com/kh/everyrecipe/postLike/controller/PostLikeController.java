@@ -23,14 +23,14 @@ public class PostLikeController {
 	
 	@PostMapping("/like")
 	@ResponseBody
-	public boolean like(String isFollowed, Principal principal, String fwId) throws Exception {
-		System.out.println(isFollowed);
+	public boolean like(Principal principal,int postId) throws Exception {
+	
 
 		
 		Map<String, String> map = new HashMap<String, String>();
-//		회원 id, 작성자 id 전달
+//		회원 id, postId 전달
 		map.put("userId",principal.getName() ); 
-		map.put("fwId", fwId); 
+		map.put("postId", postId+""); 
 		
 		
 		//좋아요 정보를 가져옴

@@ -21,8 +21,7 @@ public class FollowMappingController {
 	
 	@PostMapping("/follow")
 	@ResponseBody
-	public boolean follow(String isFollowed, Principal principal, String fwId) throws Exception {
-		System.out.println(isFollowed);
+	public boolean follow(Principal principal, String fwId) throws Exception {
 
 		
 		Map<String, String> map = new HashMap<String, String>();
@@ -39,14 +38,14 @@ public class FollowMappingController {
 			fService.addFollower(map);
 			return true;
 		}
-		if("Y".equals(fmVo.getISDELETED())) {
+		if("Y".equals(fmVo.getIsDeleted())) {
 			fService.reAddFollower(map);
 			return true;
 		}
 		
 	
 		//isdelete: 'N'   -> 언팔로우
-		if("N".equals(fmVo.getISDELETED()) ) {
+		if("N".equals(fmVo.getIsDeleted())) {
 			fService.removeFollower(map);
 			return false; 
 		}

@@ -2,25 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="postLikeMapper">
 
-	
 	<select id="isLiked" parameterType="map" resultType="_int">
 		select count(*) from POSTLIKE where USERID=#{userId} AND POSTID=#{postId} AND ISDELETED='N'
 	</select>	
 
-	<select id="getLikeInfo" parameterType="map" resultType="com.kh.everyrecipe.followMapping.vo.FollowMappingVo">
-		select * from FOLLOWMAPPING where FWID=#{fwId} and USERID=#{userId}
+	<select id="getLikeInfo" parameterType="map" resultType="com.kh.everyrecipe.postLike.vo.PostLikeVo">
+		select * from POSTLIKE where POSTID=#{postId} and USERID=#{userId}
 	</select>
 	
 	<insert id="addLike">
-		insert into FOLLOWMAPPING values(#{fwId}, #{userId}, default) 
+		insert into POSTLIKE values(#{postId}, #{userId}, default) 
 	</insert>
 	
 	<update id="reAddLike">
-		update FOLLOWMAPPING set ISDELETED='N' where FWID=#{fwId} and USERID=#{userId}
+		update POSTLIKE set ISDELETED='N' where POSTID=#{postId} and USERID=#{userId}
 	</update>
 	
-	<update id="removeFollower">
-		update FOLLOWMAPPING set ISDELETED='Y' where FWID=#{fwId} and USERID=#{userId}
+	<update id="removeLike">
+		update POSTLIKE set ISDELETED='Y' where POSTID=#{postId} and USERID=#{userId}
 	</update>
 	
 	

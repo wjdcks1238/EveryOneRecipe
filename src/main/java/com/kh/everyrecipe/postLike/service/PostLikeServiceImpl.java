@@ -11,7 +11,7 @@ import com.kh.everyrecipe.postLike.dao.PostLikeDao;
 import com.kh.everyrecipe.postLike.vo.PostLikeVo;
 
 @Service
-public class PostLikeImpl implements PostLikeService{
+public class PostLikeServiceImpl implements PostLikeService{
 	@Autowired
 	private PostLikeDao dao;
 

@@ -35,7 +35,7 @@ public class PostLikeDao {
 	}
 
 	public int removeLike(Map<String, String> map) {
-		return sqlSession.update("removeLike.removeFollower",map);
+		return sqlSession.update("postLikeMapper.removeLike",map);
 	}
 
 	

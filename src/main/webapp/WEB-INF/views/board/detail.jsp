@@ -51,7 +51,7 @@
 
 
 </div>
-
+아이콘으로 대체 예정
 <div id="like">
 좋아요:
 
@@ -61,7 +61,7 @@
 	</c:if>
 	<c:if test="${isLiked eq false }">
 		<span id="isLiked">X</span>
-		<button id="likeBtn">좋아요 누르기</button>
+		<button id="likeBtn">좋아요</button>
 	</c:if>
 
 
@@ -108,7 +108,7 @@ $(document).on("click","#followBtn" ,function() {
 	$.ajax({
 		url: "<%=request.getContextPath()%>/follow",
 		type: "POST", 
-		data: {isFollowed: isFollowed, fwId: "${post.userId }" },
+		data: {fwId: "${post.userId }" },
 		async : false,
 		success:function(result){
 			if(result==false){
@@ -126,17 +126,17 @@ $(document).on("click","#followBtn" ,function() {
 
 $(document).on("click","#like" ,function() {
 	$.ajax({
-		url: "./like",
+		url: "<%=request.getContextPath()%>/like",
 		type: "POST", 
-		data: {postId: postId},
+		data: {postId: ${post.postId}},
 		async : false,
 		success:function(result){
 			if(result==false){
-				var htmlVal= "<span id='isFollowed'>X</span><button id='followBtn'>팔로우</button>";
-				$("#follow").html(htmlVal);
+				var htmlVal= "좋아요 : <span id='isLiked'> X </span><button id='likeBtn'>좋아요</button>";
+				$("#like").html(htmlVal);
 			}else if(result==true){
-				var htmlVal= "<span id='isFollowed'>O</span><button id='followBtn'>팔로우 취소</button>";
-				$("#follow").html(htmlVal);
+				var htmlVal= "좋아요 : <span id='isLiked'> O </span><button id='likeBtn'>좋아요 취소</button>";
+				$("#like").html(htmlVal);
 			}
 		}
 		

@@ -18,5 +18,5 @@ import lombok.ToString;
 public class FollowMappingVo {
 	private String fwId;
 	private String userId;	
-	private String ISDELETED;
+	private String isDeleted;
 }
