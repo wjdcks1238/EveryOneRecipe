@@ -16,14 +16,19 @@
     <img src="//unsplash.it/700" alt="" />
     <div class="sign-up">
       <h1>회원가입</h1>
-      <form action="">
-        <input type="text" placeholder="아이디" />
-        <input type="email" placeholder="이메일" />
-        <input type="password" placeholder="비밀번호" />
+      <c:url value="/signup" var="signupUrl" />
+      <form:form name="signup" action="${signupUrl} " method="POST">
+        <input type="text" id="id" name="signupUsername" placeholder="아이디" />
+        <input type="email" id="email" name="email" placeholder="이메일" />
+        <input type="password" id="password" name="signupPassword" placeholder="비밀번호" />
         <input type="password" placeholder="비밀번호를 한번 더 입력해주세요" />
-        <p>개인정보 수집 및 이용에 동의하십니까?</p>
+        <p>
+       <span>개인정보 수집 및 이용에 동의하십니까?</span>
+       <input type="checkbox">
+       <label>동의함</label>
+        </p>
         <input type="submit" value="가입하기" />
-      </form>
+      </form:form>
       <p>
         이미 계정이 있으신가요?
         <a href="#" id="sign-in" onclick="toggle()">로그인</a>

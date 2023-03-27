@@ -40,4 +40,6 @@
 			/>
 		</s:authentication-provider>
 	</s:authentication-manager>	
+	
+	
 </beans>

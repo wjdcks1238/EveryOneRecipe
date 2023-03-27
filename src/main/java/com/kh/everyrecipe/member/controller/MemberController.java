@@ -47,14 +47,14 @@ public class MemberController {
 	
 	@PostMapping("/signup")
 	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
-		int result = -1;
-		
-		result = service.insert(vo);
+		int result = service.insert(vo);
 		
 		if(result > 0) {
 			rttr.addFlashAttribute("msg", "회원가입 성공");
+			mv.setViewName("redirect:login");
 		} else {
 			rttr.addFlashAttribute("msg", "회원가입 실패");
+			mv.setViewName("redirect:login");
 		}
 		return mv;
 	}
