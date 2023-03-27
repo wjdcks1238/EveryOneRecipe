@@ -80,7 +80,7 @@
 			<div class="row">
 				<div class="col-md-5 wrapthumbnail">
 					<a href="<%=request.getContextPath()%>/resources/mediumish/post.html">
-						<div class="thumbnail" style="background-image:url(assets/img/demopic/1.jpg);">
+						<div class="thumbnail" style="background-image:url(<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/1.jpg);">
 						</div>
 					</a>
 				</div>
@@ -111,7 +111,7 @@
 			<div class="row">
 				<div class="col-md-5 wrapthumbnail">
 					<a href="<%=request.getContextPath()%>/resources/mediumish/post.html">
-						<div class="thumbnail" style="background-image:url(assets/img/demopic/2.jpg);">
+						<div class="thumbnail" style="background-image:url(<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/2.jpg);">
 						</div>
 					</a>
 				</div>
@@ -142,7 +142,7 @@
 			<div class="row">
 				<div class="col-md-5 wrapthumbnail">
 					<a href="<%=request.getContextPath()%>/resources/mediumish/post.html">
-						<div class="thumbnail" style="background-image:url(assets/img/demopic/3.jpg);">
+						<div class="thumbnail" style="background-image:url(<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/3.jpg);">
 						</div>
 					</a>
 				</div>
@@ -173,7 +173,7 @@
 			<div class="row">
 				<div class="col-md-5 wrapthumbnail">
 					<a href="<%=request.getContextPath()%>/resources/mediumish/post.html">
-						<div class="thumbnail" style="background-image:url(assets/img/demopic/4.jpg);">
+						<div class="thumbnail" style="background-image:url(<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/4.jpg);">
 						</div>
 					</a>
 				</div>
@@ -215,7 +215,7 @@
 		<!-- begin post -->
 		<div class="card">
 			<a href="<%=request.getContextPath()%>/resources/mediumish/post.html">
-				<img class="img-fluid" src="assets/img/demopic/5.jpg" alt="">
+				<img class="img-fluid" src="<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/5.jpg" alt="">
 			</a>
 			<div class="card-block">
 				<h2 class="card-title"><a href="<%=request.getContextPath()%>/resources/mediumish/post.html">Autumn doesn't have to be nostalgic, you know?</a></h2>
@@ -239,7 +239,7 @@
 		<!-- begin post -->
 		<div class="card">
 			<a href="<%=request.getContextPath()%>/resources/mediumish/post.html">
-				<img class="img-fluid" src="assets/img/demopic/6.jpg" alt="">
+				<img class="img-fluid" src="<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/6.jpg" alt="">
 			</a>
 			<div class="card-block">
 				<h2 class="card-title"><a href="<%=request.getContextPath()%>/resources/mediumish/post.html">Best galleries in the world with photos</a></h2>
@@ -263,7 +263,7 @@
 		<!-- begin post -->
 		<div class="card">
 			<a href="<%=request.getContextPath()%>/resources/mediumish/post.html">
-				<img class="img-fluid" src="assets/img/demopic/7.jpg" alt="">
+				<img class="img-fluid" src="<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/7.jpg" alt="">
 			</a>
 			<div class="card-block">
 				<h2 class="card-title"><a href="<%=request.getContextPath()%>/resources/mediumish/post.html">Little red dress and a perfect summer</a></h2>
@@ -287,7 +287,7 @@
 		<!-- begin post -->
 		<div class="card">
 			<a href="<%=request.getContextPath()%>/resources/mediumish/post.html">
-				<img class="img-fluid" src="assets/img/demopic/8.jpg" alt="">
+				<img class="img-fluid" src="<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/8.jpg" alt="">
 			</a>
 			<div class="card-block">
 				<h2 class="card-title"><a href="<%=request.getContextPath()%>/resources/mediumish/post.html">Thinking outside the box can help you prosper</a></h2>
@@ -311,7 +311,7 @@
 		<!-- begin post -->
 		<div class="card">
 			<a href="<%=request.getContextPath()%>/resources/mediumish/post.html">
-				<img class="img-fluid" src="assets/img/demopic/9.jpg" alt="">
+				<img class="img-fluid" src="<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/9.jpg" alt="">
 			</a>
 			<div class="card-block">
 				<h2 class="card-title"><a href="<%=request.getContextPath()%>/resources/mediumish/post.html">10 Things you should know about choosing your house</a></h2>
@@ -335,7 +335,7 @@
 		<!-- begin post -->
 		<div class="card">
 			<a href="<%=request.getContextPath()%>/resources/mediumish/post.html">
-				<img class="img-fluid" src="assets/img/demopic/10.jpg" alt="">
+				<img class="img-fluid" src="<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/10.jpg" alt="">
 			</a>
 			<div class="card-block">
 				<h2 class="card-title"><a href="<%=request.getContextPath()%>/resources/mediumish/post.html">Visiting the world means learning cultures</a></h2>
