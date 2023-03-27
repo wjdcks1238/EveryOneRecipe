@@ -22,6 +22,7 @@ INSERT INTO MEMBERS VALUES('user04', 'user04@gmail.com', 'user04', '이승걸', 
 INSERT INTO MEMBERS VALUES('user05', 'user05@gmail.com', 'user05', '박새롬', '횐님', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
                             , '1','ROLE_MEMBER', default, default, default, default);
 commit;
+
 --select * from members;
 
 --회원정보 수정
