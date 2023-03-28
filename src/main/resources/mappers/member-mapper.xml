@@ -15,8 +15,8 @@
 	
 	
 	<update id="update" parameterType="mvo">
-		update members set USERNICKNAME=#{userNickName}
-		, EMAIL=#{email}, password = #{password}
+		update members set nickname=#{nickName}
+		, EMAIL=#{email}, password = #{password}, profile=#{profile}, profileurl=#{profileUrl}, updateat= default
 		where userid=#{userId}
 	</update>
 	
