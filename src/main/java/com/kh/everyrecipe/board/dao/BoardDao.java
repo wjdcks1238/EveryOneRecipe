@@ -73,7 +73,7 @@ public class BoardDao {
 	
 	//Hashtag
 	public int insertHashtagList(List<HashtagVo> hashtagList) {
-		return sqlSession.selectOne("boardMapper.insertHashtagList",hashtagList);
+		return sqlSession.update("boardMapper.insertHashtagList",hashtagList);
 	}
 	public List<HashtagVo> getHashtags(int postId) {
 		return sqlSession.selectList("boardMapper.getHashtags",postId);

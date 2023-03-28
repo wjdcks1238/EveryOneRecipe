@@ -27,6 +27,8 @@ import com.kh.everyrecipe.board.vo.PostVo;
 import com.kh.everyrecipe.comment.service.CommentService;
 import com.kh.everyrecipe.comment.vo.CommentVo;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
+import com.kh.everyrecipe.member.service.MemberService;
+import com.kh.everyrecipe.member.vo.MemberVo;
 import com.kh.everyrecipe.postBookmark.service.PostBookmarkService;
 import com.kh.everyrecipe.postLike.service.PostLikeService;
 
@@ -44,11 +46,84 @@ public class BoardController {
 		private CommentService cmtService;
 		@Autowired
 		private PostBookmarkService bmService;
-	
-//		@GetMapping("/list")
-//		public void list() {
-//			System.out.println("list~!~!~!~!~!!~");
-//		}
+		@Autowired
+		private MemberService mService;
+
+		
+		
+		
+		
+		@GetMapping("posting")
+		public String postingPage() {
+			return "post/posting";
+		}
+		@PostMapping("posting")
+		public ModelAndView post(ModelAndView mv
+				, Principal principal
+				, BoardVo bvo
+				, @RequestParam("ingredient") List<String> ingredients
+				, @RequestParam("amount") List<String> amounts
+				, @RequestParam("hashtag") String hashtag) throws Exception {
+//		public ModelAndView post(ModelAndView mv, BoardVo bvo, String ingredient,String amount) {
+
+			
+			
+			int lastPostId = bService.getLastPostId();
+			
+			 List<IngredientVo> ivoList = new ArrayList<>(); // 공백일 때 처리 필요 
+		     for (int i = 0; i < ingredients.size(); i++) { 
+		    	 ivoList.add(new IngredientVo(lastPostId+1, ingredients.get(i), amounts.get(i)));
+		     }
+			
+			bvo.setUserId(principal.getName());
+			MemberVo mvo= mService.selectOne(principal.getName());
+			bvo.setNickname(mvo.getNickName());		
+			
+			
+			List<HashtagVo> hashtagList = new ArrayList<>();
+
+			if(!(   ("").equals(hashtag) || hashtag==null        )) {
+				String tag = hashtag.trim();
+				System.out.println("tag"+ tag);
+				if(    !("#").equals(tag.indexOf(0))  ) {
+					tag+="#";
+				}
+				String[] ht= tag.split("#");
+				
+				for(String s: ht ) {
+					if( !("").equals(s) ) {
+						hashtagList.add(new HashtagVo(lastPostId+1, s));
+					}
+				}
+				
+			}
+				
+			
+			//빈 문자열일 경우
+			
+			//처음부터 #를 붙이지 않았을 경우  #붙여줌
+			
+			//trim 후  #으로 나눈다. 띄어쓰기는 고려하지 않음. 해시태그로 저장
+			 
+			//저장된 순서대로 그대로 출력 
+			
+			
+			if (bService.insertPost(bvo) != 0) {
+				bService.insertIngList(ivoList);
+				bService.insertHashtagList(hashtagList);
+
+			}
+				
+			
+			mv.setViewName("redirect:/board/list/");
+			return mv;
+
+			
+		}
+		
+		
+		
+		
 		
 		@GetMapping("/list")
 		public ModelAndView boardList(ModelAndView mv
