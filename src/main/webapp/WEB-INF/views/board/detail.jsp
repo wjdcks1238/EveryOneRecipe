@@ -140,9 +140,11 @@
 	</c:choose>
 </div>
 <div>
-	<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
-	<c:if test="${user eq post.userId}">
-		<button id="deletePost">게시글 삭제</button>
+	<c:if test="${loggedIn}">
+		<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+		<c:if test="${user eq post.userId}">
+			<button id="deletePost">게시글 삭제</button>
+		</c:if>
 	</c:if>
 </div>
 
