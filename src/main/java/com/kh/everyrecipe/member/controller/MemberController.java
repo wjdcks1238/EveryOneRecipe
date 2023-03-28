@@ -27,8 +27,10 @@ import com.kh.everyrecipe.member.vo.MemberVo;
 @Controller
 @RequestMapping("/member")
 public class MemberController {	
+	
 	@Autowired 
 	private MemberService service;
+	
 	@Autowired
 	@Qualifier("fileUtil")
 	private FileUtil fileUtil;
@@ -38,9 +40,7 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	
 
-	
 	
 	//회원가입
 	@PostMapping("/signup")

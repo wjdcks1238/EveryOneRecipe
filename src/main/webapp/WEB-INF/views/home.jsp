@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +44,20 @@
 			<a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/author.html">Author</a>
 			</li>
 		</ul>
+		
+		<!-- 로그인  -->
+		<a href="<%=request.getContextPath() %>/member/login" class="btn">로그인</a>
+		
+		<!-- 로그아웃 버튼 -->
+		<form class="form-logout" method="post" action="/logout">
+		  <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token} ">
+		  <button class="btn" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</button>
+		</form>
+
+		<form id="logout-form" action="${pageContext.request.contextPath}/logout" method="post" style="display: none;">
+		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		</form>
+
 		<!-- End Menu -->
 		<!-- Begin Search -->
 		<form class="form-inline my-2 my-lg-0">
