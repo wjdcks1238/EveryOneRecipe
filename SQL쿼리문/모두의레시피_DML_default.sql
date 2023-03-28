@@ -132,6 +132,14 @@ select* from post;
 --COMMENT ON COLUMN "REPORT"."POSTID" IS '신고당한 게시물';
 --COMMENT ON COLUMN "REPORT"."REPORTTIME" IS '신고 시간';
 ----댓글
+--댓글 삽입
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, '&userid', '&postid', '&content', default, default);
+
+--댓글 수정
+update TBCOMMENT set CONTENT='&content', UPDATEAT=default where CMTID='&cmtid';
+
+--댓글 삭제 <<- 테이블 상에서 완전히 남기는 것이 아닌, 비공개 처리를 위해 ISDELETED를 'Y'로 변경
+update TBCOMMENT set ISDELETED='Y' where CMTID='&cmtid';
 --CREATE TABLE "TBCOMMENT" (
 --	"CMTID"	NUMBER		NOT NULL,
 --	"USERID"	VARCHAR2(20 char)		NOT NULL,
