@@ -14,7 +14,7 @@
 		<s:intercept-url pattern="/member/login" access="permitAll" />
 		<s:intercept-url pattern="/naverlogin" access="permitAll" />
 		<s:intercept-url pattern="/main/**" access="permitAll" />
-		<s:intercept-url pattern="/board/post" access="hasRole('MEMBER','ADMIN')" />
+		<s:intercept-url pattern="/board/posting" access="hasRole('MEMBER','ADMIN')" />
 		<s:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<s:intercept-url pattern="/member/**" access="hasAnyRole('MEMBER', 'ADMIN')" />
 		
