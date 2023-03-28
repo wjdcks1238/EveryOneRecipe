@@ -36,12 +36,13 @@
 	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 		<!-- Begin Menu -->
 		<ul class="navbar-nav ml-auto">
-			<li class="nav-item active">
-				<a class="nav-link" href="<%=request.getContextPath()%>/board/list">내 게시글 <span class="sr-only">(current)</span></a>
-		    </li>
+
 	  		<li class="nav-item">
 	  <c:choose>
 		  <c:when test="${pageContext.request.userPrincipal != null and pageContext.request.isUserInRole('MEMBER')}">
+			<li class="nav-item ">
+				<a class="nav-link" href="<%=request.getContextPath()%>/board/list">내 게시글</a>
+		    </li>
 		    <li class="nav-item ">
 	        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내정보</a>
 		    </li>
@@ -65,15 +66,8 @@
 		  </c:otherwise>
 	 </c:choose>
 	  		</li>
-		    <li class="nav-item">
-		     <a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/author.html">Author</a>
-		    </li>
 		    </ul>
-		
 		<sec:authorize var="loggedIn" access="isAuthenticated()" />
-	
-		
-
 		<!-- End Menu -->
 		<!-- Begin Search -->
 		<form class="form-inline my-2 my-lg-0">
