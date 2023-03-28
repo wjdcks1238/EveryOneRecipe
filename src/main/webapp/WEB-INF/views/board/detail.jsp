@@ -37,6 +37,23 @@
 		</tr>
 </table>
 
+아이콘으로 대체 예정
+<div id="bookmark">
+북마크 :
+
+	<c:if test="${isBookmarked }">
+		<span id="isBookmarked">O</span>
+		<button id="bookmarkBtn">북마크 취소</button>
+	</c:if>
+	<c:if test="${isBookmarked eq false }">
+		<span id="isBookmarked">X</span>
+		<button id="bookmarkBtn">북마크 하기</button>
+	</c:if>
+
+</div>
+
+
+
 <div id="follow">
 팔로우 :
 
@@ -46,13 +63,13 @@
 	</c:if>
 	<c:if test="${isFollowed eq false }">
 		<span id="isFollowed">X</span>
-		<button id="followBtn">팔로우 하기</button>
+		<button id="followBtn">팔로우</button>
 	</c:if>
 
 
 
 </div>
-아이콘으로 대체 예정
+
 <div id="like">
 좋아요:
 
@@ -118,6 +135,24 @@
 
 <script type="text/javascript">
 
+$(document).on("click","#bookmark" ,function() {
+	$.ajax({
+		url: "<%=request.getContextPath()%>/bookmark",
+		type: "POST", 
+		data: {postId: ${post.postId}},
+		async : false,
+		success:function(result){
+			if(result==false){
+				var htmlVal= "북마크 : <span id='isBookmarked'> X </span><button id='bookmarkBtn'>북마크</button>";
+				$("#bookmark").html(htmlVal);
+			}else if(result==true){
+				var htmlVal= "북마크 : <span id='isBookmarked'> O </span><button id='bookmarkBtn'>북마크 취소</button>";
+				$("#bookmark").html(htmlVal);
+			}
+		}
+		
+	});
+});
 
 
 $(document).on("click","#followBtn" ,function() {
@@ -159,6 +194,7 @@ $(document).on("click","#like" ,function() {
 		
 	});
 });
+
 
 
 

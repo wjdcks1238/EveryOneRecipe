@@ -26,6 +26,7 @@ import com.kh.everyrecipe.board.vo.PostVo;
 import com.kh.everyrecipe.comment.service.CommentService;
 import com.kh.everyrecipe.comment.vo.CommentVo;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
+import com.kh.everyrecipe.postBookmark.service.PostBookmarkService;
 import com.kh.everyrecipe.postLike.service.PostLikeService;
 
 @Controller
@@ -40,6 +41,8 @@ public class BoardController {
 		private PostLikeService pService;
 		@Autowired
 		private CommentService cmtService;
+		@Autowired
+		private PostBookmarkService bmService;
 	
 //		@GetMapping("/list")
 //		public void list() {
@@ -137,6 +140,7 @@ public class BoardController {
 					
 					
 					mv.addObject("isLiked",pService.isLiked(map2));
+					mv.addObject("isBookmarked",bmService.isBookmarked(map2));
 					
 					
 				}
