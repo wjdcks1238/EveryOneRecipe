@@ -41,56 +41,60 @@ ${hashtags }
 </div>
 
 아이콘으로 대체 예정
-<div id="bookmark">
-북마크 :
+<sec:authorize var="loggedIn" access="isAuthenticated()" />
+<c:if test="${loggedIn}">
+	<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
 
-	<c:if test="${isBookmarked }">
-		<span id="isBookmarked">O</span>
-		<button id="bookmarkBtn">북마크 취소</button>
+		<div id="bookmark">
+		북마크 :
+		
+			<c:if test="${isBookmarked }">
+				<span id="isBookmarked">O</span>
+				<button id="bookmarkBtn">북마크 취소</button>
+			</c:if>
+			<c:if test="${isBookmarked eq false }">
+				<span id="isBookmarked">X</span>
+				<button id="bookmarkBtn">북마크 하기</button>
+			</c:if>
+		
+		</div>
+	<c:if test="${user ne post.userId}">
+		
+		
+		
+		<div id="follow">
+		팔로우 :
+		
+			<c:if test="${isFollowed }">
+				<span id="isFollowed">O</span>
+				<button id="followBtn">팔로우 취소</button>
+			</c:if>
+			<c:if test="${isFollowed eq false }">
+				<span id="isFollowed">X</span>
+				<button id="followBtn">팔로우</button>
+			</c:if>
+		
+		
+		
+		</div>
+		
+		<div id="like">
+		좋아요:
+				<c:if test="${isLiked }">
+				 	<span id="isLiked">O</span> 
+					<button id="likeBtn">좋아요 취소</button>
+				</c:if>
+				<c:if test="${isLiked eq false }">
+					<span id="isLiked">X</span>
+					<button id="likeBtn">좋아요</button>
+				</c:if>
+		
+		</div>
+	
 	</c:if>
-	<c:if test="${isBookmarked eq false }">
-		<span id="isBookmarked">X</span>
-		<button id="bookmarkBtn">북마크 하기</button>
-	</c:if>
 
-</div>
+</c:if>
 
-
-
-<div id="follow">
-팔로우 :
-
-	<c:if test="${isFollowed }">
-		<span id="isFollowed">O</span>
-		<button id="followBtn">팔로우 취소</button>
-	</c:if>
-	<c:if test="${isFollowed eq false }">
-		<span id="isFollowed">X</span>
-		<button id="followBtn">팔로우</button>
-	</c:if>
-
-
-
-</div>
-
-<div id="like">
-좋아요:
-
-	<c:if test="${isLiked }">
-	 	<span id="isLiked">O</span> 
-		<button id="likeBtn">좋아요 취소</button>
-	</c:if>
-	<c:if test="${isLiked eq false }">
-		<span id="isLiked">X</span>
-		<button id="likeBtn">좋아요</button>
-	</c:if>
-
-
-</div>
-
-<div>
-	<a href="<%=request.getContextPath()%>/board/list/update/${post.postId }">게시글 수정</a>
-</div>
 <div>
 	<table>
 		<c:forEach items="${comment }" var="cvo" varStatus="s">
@@ -104,7 +108,6 @@ ${hashtags }
 				<td>${cvo.updateAt }</td>
 				<td>
 				댓글쓰기
-				<sec:authorize var="loggedIn" access="isAuthenticated()" />
 				<c:if test="${loggedIn }">
 					<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
 				</c:if>
@@ -142,10 +145,12 @@ ${hashtags }
 		<c:otherwise />
 	</c:choose>
 </div>
+
 <div>
 	<c:if test="${loggedIn}">
-		<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+		
 		<c:if test="${user eq post.userId}">
+			<a href="<%=request.getContextPath()%>/board/list/update/${post.postId }">게시글 수정</a>
 			<button id="deletePost">게시글 삭제</button>
 		</c:if>
 	</c:if>
