@@ -1,11 +1,13 @@
---검색어
-CREATE TABLE "SEARCH" (
-	"KEWORD"	VARCHAR2(30 CHAR)		NOT NULL,
-	"TIMES"	NUMBER	DEFAULT 0	NOT NULL
-);
-ALTER TABLE "SEARCH" ADD CONSTRAINT "PK_SEARCH" PRIMARY KEY (
-	"KEWORD"
-);
+----검색어
+--검색시, 검색어 내용 DB 추가
+insert into SEARCH values('&keyword', default);
+--CREATE TABLE "SEARCH" (
+--	"KEWORD"	VARCHAR2(30 CHAR)		NOT NULL,
+--	"TIMES"	NUMBER	DEFAULT 0	NOT NULL
+--);
+--ALTER TABLE "SEARCH" ADD CONSTRAINT "PK_SEARCH" PRIMARY KEY (
+--	"KEWORD"
+--);
 --멤버테이블
 --관리자(회원가입)
 insert into MEMBERS values('everys_recipe', 'admin@email.com', 'password', '모두의 레시피', '관리자 입니다.', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
@@ -84,6 +86,12 @@ select* from post;
 --);
 --
 ----게시물 북마크
+--최초 북마크 추가 시
+insert into POSTBOOKMARK values('&postid', '&userid', default);
+--북마크 해제
+update POSTBOOKMARK set ISDELETED='Y' where POSTID='&postid' and USERID='&userid';
+--북마크 재지정
+update POSTBOOKMARK set ISDELETED='N' where POSTID='&postid' and USERID='&userid';
 --CREATE TABLE "POSTBOOKMARK" (
 --	"POSTID"	NUMBER		NOT NULL,
 --	"USERID"	VARCHAR2(15 char)		NOT NULL,
@@ -132,6 +140,14 @@ select* from post;
 --COMMENT ON COLUMN "REPORT"."POSTID" IS '신고당한 게시물';
 --COMMENT ON COLUMN "REPORT"."REPORTTIME" IS '신고 시간';
 ----댓글
+--댓글 삽입
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, '&userid', '&postid', '&content', default, default);
+
+--댓글 수정
+update TBCOMMENT set CONTENT='&content', UPDATEAT=default where CMTID='&cmtid';
+
+--댓글 삭제 <<- 테이블 상에서 완전히 남기는 것이 아닌, 비공개 처리를 위해 ISDELETED를 'Y'로 변경
+update TBCOMMENT set ISDELETED='Y' where CMTID='&cmtid';
 --CREATE TABLE "TBCOMMENT" (
 --	"CMTID"	NUMBER		NOT NULL,
 --	"USERID"	VARCHAR2(20 char)		NOT NULL,
@@ -156,6 +172,12 @@ select* from post;
 --	"CMTID"
 --);
 ----대댓글
+--대댓글 삽입
+insert into REPLYCOMMENT values(SEQ_RCMTID.NEXTVAL, '&cmtid', '&content', default, default);
+--대댓글 수정
+update REPLYCOMMENT set CONTENT='&content', UPDATEAT=default where RCMID='&rcmid';
+--대댓글 삭제 <<- 테이블 상에서 완전히 남기는 것이 아닌, 비공개 처리를 위해 ISDELETED를 'Y'로 변경
+update REPLYCOMMENT set ISDELETED='Y' where RCMID='&rcmid';
 --CREATE TABLE "REPLYCOMMENT" (
 --	"RCMID"	NUMBER		NOT NULL,
 --	"CMTID"	NUMBER		NOT NULL,
@@ -220,22 +242,6 @@ select* from post;
 --	"USERID"
 --);
 --
-----메일인증
---CREATE TABLE "MAILAUTH" (
---	"KEY"	NUMBER		NOT NULL,
---	"USERID"	VARCHAR2(15 char)		NOT NULL,
---	"CREATEAT"	TIMESTAMP	DEFAULT SYSTIMESTAMP	NOT NULL
---);
---ALTER TABLE "MAILAUTH" ADD CONSTRAINT "FK_MEMBERS_TO_MAILAUTH_1" FOREIGN KEY (
---	"USERID"
---)
---REFERENCES "MEMBERS" (
---	"USERID"
---);
---ALTER TABLE "MAILAUTH" ADD CONSTRAINT "PK_MAILAUTH" PRIMARY KEY (
---	"KEY",
---	"USERID"
---);
 ----해쉬태그
 SELECT * FROM HASHTAG;
 ----재료

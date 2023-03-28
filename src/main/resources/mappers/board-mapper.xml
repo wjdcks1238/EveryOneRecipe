@@ -119,7 +119,7 @@
 	<!--Hashtag -->
 	<update id="insertHashtagList" parameterType="java.util.List">
   		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
-   			INTO hashtag VALUES(#{item.postId}, #{item.hashtag} )
+   			INTO hashtag VALUES( #{item.hashtag},#{item.postId} )
   		</foreach>
 	</update>
 	<select id="getHashtags" resultType="hvo">

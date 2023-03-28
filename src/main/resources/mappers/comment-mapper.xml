@@ -5,6 +5,6 @@
 		select count(*) from TBCOMMENT where POSTID=#{postId}
 	</select>
 	<select id="getCommentList" resultType="cvo" parameterType="_int">
-		select USERID, CONTENT, UPDATEAT from TBCOMMENT where POSTID=#{postId}
+		select * from TBCOMMENT where POSTID=#{postId}
 	</select>
 </mapper>

@@ -1,3 +1,4 @@
+<%@page import="java.security.Principal"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -36,6 +37,23 @@
 		</tr>
 </table>
 
+아이콘으로 대체 예정
+<div id="bookmark">
+북마크 :
+
+	<c:if test="${isBookmarked }">
+		<span id="isBookmarked">O</span>
+		<button id="bookmarkBtn">북마크 취소</button>
+	</c:if>
+	<c:if test="${isBookmarked eq false }">
+		<span id="isBookmarked">X</span>
+		<button id="bookmarkBtn">북마크 하기</button>
+	</c:if>
+
+</div>
+
+
+
 <div id="follow">
 팔로우 :
 
@@ -45,13 +63,13 @@
 	</c:if>
 	<c:if test="${isFollowed eq false }">
 		<span id="isFollowed">X</span>
-		<button id="followBtn">팔로우 하기</button>
+		<button id="followBtn">팔로우</button>
 	</c:if>
 
 
 
 </div>
-아이콘으로 대체 예정
+
 <div id="like">
 좋아요:
 
@@ -83,24 +101,77 @@
 				<td>${cvo.updateAt }</td>
 				<td>
 				댓글쓰기
-				<sec:authorize var="loggedIn" access="isAuthenticated()">
+				<sec:authorize var="loggedIn" access="isAuthenticated()" />
+				<c:if test="${loggedIn }">
+					<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
+				</c:if>
 					<c:choose>
-						<c:when test="${loggedIn }">
-							| 댓글수정 | 댓글삭제
+						<c:when test="${loggedIn}">
+							<c:if test="${lgnuser eq cvo.userId }">
+								| 댓글수정 | 댓글삭제
+							</c:if>
 						</c:when>
 						<c:otherwise />
 					</c:choose>
-				</sec:authorize>
+				</td>
+			</tr>
+			<tr class="editbox ${cvo.cmtId }">
+				<td>
+					<textarea rows="3" cols="70">${cvo.content }</textarea>
+					<br>
+					<button type="button">수정</button>
+					<button type="exit_box_${cvo.cmtId }">취소</button>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
 </div>
-
+<div>
+	<sec:authorize var="loggedIn" access="isAuthenticated()" />
+	<c:choose>
+		<c:when test="${loggedIn}">
+			<form action="<%=request.getContextPath() %>/board/insertcmt/${post.postId }" method="post">
+				<textarea rows="3" cols="70"></textarea>
+				<br>
+				<button type="button">댓글 작성</button>
+			</form>
+		</c:when>
+		<c:otherwise />
+	</c:choose>
+</div>
+<div>
+	<c:if test="${loggedIn}">
+		<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+		<c:if test="${user eq post.userId}">
+			<button id="deletePost">게시글 삭제</button>
+		</c:if>
+	</c:if>
+</div>
 
 
 <script type="text/javascript">
+$(document).ready(function() {
+	$(".editbox").hide();
+})
 
+$(document).on("click","#bookmark" ,function() {
+	$.ajax({
+		url: "<%=request.getContextPath()%>/bookmark",
+		type: "POST", 
+		data: {postId: ${post.postId}},
+		async : false,
+		success:function(result){
+			if(result==false){
+				var htmlVal= "북마크 : <span id='isBookmarked'> X </span><button id='bookmarkBtn'>북마크</button>";
+				$("#bookmark").html(htmlVal);
+			}else if(result==true){
+				var htmlVal= "북마크 : <span id='isBookmarked'> O </span><button id='bookmarkBtn'>북마크 취소</button>";
+				$("#bookmark").html(htmlVal);
+			}
+		}
+		
+	});
+});
 
 
 $(document).on("click","#followBtn" ,function() {
@@ -142,6 +213,19 @@ $(document).on("click","#like" ,function() {
 		
 	});
 });
+
+$("#deletePost").click(function(){
+	$.ajax({
+	  url: "<%=request.getContextPath()%>/board/delete",
+	  type: "POST", 
+	  data: {postId: ${post.postId}},
+	  success:function(result){
+			console.log(result);
+			location.href ="<%=request.getContextPath()%>/board/list"
+		}
+	});
+
+})
 
 
 
