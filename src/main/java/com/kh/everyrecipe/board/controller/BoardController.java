@@ -347,8 +347,15 @@ public class BoardController {
 		@PostMapping("/insertReplyAjax")
 		@ResponseBody
 		public String insertReplyAjax(
-				BoardVo vo) {
+				CommentVo vo
+			  , Principal principal) {
+			vo.setUserId(principal.getName());
 			
+			cmtService.insertComment(vo);
+			
+			List<CommentVo> replyList = cmtService.getCommentList(vo.getPostId());
+			
+			return new Gson().toJson(replyList);
 		}
 		
 }

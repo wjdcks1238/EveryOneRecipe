@@ -96,7 +96,7 @@ ${hashtags }
 </c:if>
 
 <div>
-	<table>
+	<table id="tb_comment">
 		<c:forEach items="${comment }" var="cvo" varStatus="s">
 			<tr>
 				<td colspan="2">${cvo.userId }</td>
@@ -165,13 +165,67 @@ $(document).ready(function() {
 	$(".editbox").hide();
 });
 
-$(".btn.reply").on("click", replyClickHandler);
+$(document).on("click", ".btn.reply", function() {
+	$.ajax({
+		url: "<%=request.getContextPath()%>/board/insertReplyAjax",
+		type: "POST",
+		data:{
+			postId: ${post.postId},
+			content: $("[name=commentContent]").val()
+		},
+		dataType:"json",
+		async:false,
+		success: function(result){
+			console.log(result.length);
+			frmReply.reset();
+			if(result.length > 0) {
+				alert("댓글이 작성되었습니다.")
+			} else {
+				alert("댓글이 작성이 되지 않았습니다. 다시 작성해 주세요.")
+			}
+			
+			displayReply(result);
+		}
+		, error: function() {
+			
+		}
+	});
+});
 
-function replyClickHandler() {
-	let formData = new FormData();
-	formData.append("content", $("[name=commentContent]").val());
-	formData.append("postId", $("[name=boardNum]").val());
-	console.log(formData);
+function displayReply(result) {
+	console.log(result);
+	
+	var htmlval = '';
+	for(i = 0; i<result.length; i++) {
+		var reply = result[i];
+		htmlval += '<tr>';
+		htmlval +=	 '<td colspan="2">'+reply.userId+'</td>';
+		htmlval += '</tr>';
+		htmlval += '<tr>';
+		htmlval +=	 '<td colspan="2">'+reply.content+'</td>';
+		htmlval += '</tr>';
+		htmlval += '<tr>';
+		htmlval +=	 '<td>'+reply.updateAt+'</td>';
+		htmlval +=   '<td>';
+		htmlval +=	'댓글쓰기';
+		htmlval +=	'<c:if test="${loggedIn }">';
+		htmlval +=		'<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>';
+		htmlval +=	'</c:if>';
+		htmlval +=		'<c:choose><c:when test="${loggedIn}"><c:if test="${lgnuser eq'+ reply.userId+' }">| 댓글수정 | 댓글삭제</c:if></c:when><c:otherwise /></c:choose>';
+		htmlval +=	'</td>';
+		htmlval +='</tr>';
+		htmlval +='<tr class="editbox '+ reply.cmtId +'" style="display: none;">';
+		htmlval +=	'<td>';
+		htmlval +=		'<textarea rows="3" cols="70">'+reply.content+'</textarea>';
+		htmlval +=		'<br>';
+		htmlval +=		'<button type="button">수정</button>';
+		htmlval +=		'<button type="exit_box_'+reply.cmtId+'">취소</button>';
+		htmlval +=	'</td>';
+		htmlval +='</tr>';
+	}
+	
+	console.log(htmlval);
+	$("#tb_comment").html(htmlval);
 }
 
 $(document).on("click","#bookmark" ,function() {

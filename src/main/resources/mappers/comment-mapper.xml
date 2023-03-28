@@ -5,7 +5,7 @@
 		select count(*) from TBCOMMENT where POSTID=#{postId}
 	</select>
 	<select id="getCommentList" resultType="cvo" parameterType="_int">
-		select * from TBCOMMENT where POSTID=#{postId}
+		select * from TBCOMMENT where POSTID=#{postId} order by CMTID desc
 	</select>
 	<insert id="insertComment" parameterType="cvo">
 		insert into TBCOMMENT values(
