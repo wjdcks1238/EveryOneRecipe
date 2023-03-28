@@ -73,16 +73,18 @@ public class MemberController {
 			  , @RequestParam(name="report", required = false) MultipartFile multi
 			  , Principal principal
 			  , ModelAndView mv
-			) {
+			  , MemberVo mvo
+			) throws Exception {
 		Map<String, String> uploadResult;
 		
-		try {
+		if(multi!=null) {
 			uploadResult = fileUtil.saveFile(multi);
-			System.out.println(uploadResult.get("original"));
-			System.out.println(uploadResult.get("url"));
-		} catch(Exception e) {
-			e.printStackTrace();
+//			System.out.println(uploadResult.get("original"));
+//			System.out.println(uploadResult.get("url"));			
 		}
+		System.out.println(mvo);
+
+	//TODO 업데이트
 		
 		return mv;
 	}

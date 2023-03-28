@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +21,6 @@
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
 </head>
 <body>
-
 <!-- Begin Nav
 ================================================== -->
 <nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
@@ -40,6 +41,7 @@
 			</li>
 			<li class="nav-item">
 			<a class="nav-link" href="<%=request.getContextPath()%>/board/posting">Post</a>
+			<a class="nav-link" href="<%=request.getContextPath()%>/board/list">Post</a>
 			</li>
 			<li class="nav-item">
 			<a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/author.html">Author</a>
@@ -63,6 +65,32 @@
 			</c:otherwise>
 		</c:choose>
 		
+		<sec:authorize var="loggedIn" access="isAuthenticated()" />
+		<c:choose>
+			<c:when test="${loggedIn}">
+				<!-- 내정보 버튼 -->
+				<a href="<%=request.getContextPath() %>/member/profile" class="btn">내정보</a>
+				<!-- 로그아웃 버튼 -->
+				<form class="form-logout" method="post" action="/logout">
+				  <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token} ">
+				  <button class="btn" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</button>
+				</form>
+			</c:when>
+			<c:otherwise>
+				<!-- 회원가입  -->
+				<a href="<%=request.getContextPath() %>/member/signup" class="btn">회원가입</a>
+				<!-- 로그인  -->
+				<a href="<%=request.getContextPath() %>/member/login" class="btn">로그인</a>
+			</c:otherwise>
+		</c:choose>
+		
+		
+		
+
+		<form id="logout-form" action="${pageContext.request.contextPath}/logout" method="post" style="display: none;">
+		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		</form>
+>>>>>>> c8d6ad1da2fbf0015321f81be389131df5028ac1
 
 		<!-- End Menu -->
 		<!-- Begin Search -->
