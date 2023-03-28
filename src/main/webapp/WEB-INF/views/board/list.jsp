@@ -85,8 +85,10 @@
 </nav>
 <!-- End Nav
 ================================================== -->
+<div id="temp">
+</div>
 <br>
-<div class="card-columns listrecent">
+<div id="postList" class="card-columns listrecent">
 	<c:forEach items="${postList }" var="list" varStatus="stqatus">
 		<div class="card">
 			<a href="<%=request.getContextPath() %>/board/list/${list.postId}">
@@ -108,6 +110,9 @@
 			</div>
 		</div>
 	</c:forEach>
+</div>
+<div class="list">
+
 </div>
 <!-- 
 <c:forEach items="${ postList}" var="list" varStatus="status" >
@@ -184,7 +189,9 @@
  var height_win = $(window).height();
  console.log(height_win);
  
- 
+
+	
+
 $(document).ready(function(){
     start.init();
 });
@@ -239,8 +246,28 @@ var start = {
                 	
             		for(i = 0 ; i<data.length;i++){
 	            		var reply = data[i];	
+	            		//var table = $('<table border="1"></table>');
+	            		var card = $('<div class="card">'+
+	            						'<a href="<%=request.getContextPath() %>/board/list/'+reply.postId+'">'+
+	            							'이미지 삽입 예정.'+
+	            						'</a>'+
+	            						'<div class="card-block">'+
+	            							'<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/'+reply.postId+'">'+reply.foodName+'</a></h2>'+
+	            							'<h4 class="card-text">'+reply.content+'</h4>'+
+	            							'<div class="wrapfooter">'+
+	            								'<span class="meta-footer-thumb">'+
+	            									'프로필이미지'+
+	            								'</span>'+
+	            								'<span class="author-meta">'+
+	            									'<span class="post-name">'+reply.nickname+'</span>'+
+	            									'<span class="post-date">'+reply.createDate+'</span><span class="post-read"></span>'+
+	            								'</span>'+
+	            								'<span class="post-read-more"><a href="<%=request.getContextPath()%>/board/list/'+reply.postId+'" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>'+
+	            							'div'+
+	            						'div'+
+	            				'</div>');
             			
-            			var table = $('<table border="1"></table>');
+            			
 	                	var htmlVal= "";
             			
 	                	var ing= "";
@@ -267,8 +294,9 @@ var start = {
             			htmlVal+='<td>'+reply.content +'</td>';
             			htmlVal+='<td>'+reply.createDate +'</td>';
             			htmlVal+='</tr>';
-            			table.html(htmlVal);
-	            		$(".list").append(table);	
+            			//table.html(htmlVal);
+	            		//$(".list").append(table);	
+	            		$("#postList").append(card);
             		}
                 	
                 	
