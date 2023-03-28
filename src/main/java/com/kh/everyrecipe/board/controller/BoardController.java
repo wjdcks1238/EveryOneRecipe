@@ -344,4 +344,11 @@ public class BoardController {
 //			return ;	
 		}
 		
+		@PostMapping("/insertReplyAjax")
+		@ResponseBody
+		public String insertReplyAjax(
+				BoardVo vo) {
+			
+		}
+		
 }
