@@ -57,6 +57,35 @@ public class MemberController {
 		return mv;
 	}
 	
+	//TODO
+	@GetMapping("/myinfo")
+	public ModelAndView myinfo(ModelAndView mv, Principal principal) throws Exception {
+		String id = principal.getName();
+		if(id != null) {
+			mv.addObject("memberDto", service.selectOne(id));
+		}
+		mv.setViewName("member/myinfo");
+		return mv;
+	}	
+	@PostMapping("/myinfo")
+	public ModelAndView insertMyinfo(
+				MultipartHttpServletRequest multiReq
+			  , @RequestParam(name="report", required = false) MultipartFile multi
+			  , Principal principal
+			  , ModelAndView mv
+			  , MemberVo mvo
+			) throws Exception {
+		Map<String, String> uploadResult;
+		
+		if(multi!=null) {
+			uploadResult = fileUtil.saveFile(multi);
+//			System.out.println(uploadResult.get("original"));
+//			System.out.println(uploadResult.get("url"));			
+		}
+		System.out.println(mvo);
+		return mv;
+	}
+	
 	@GetMapping("/profile")
 	public ModelAndView profile(ModelAndView mv, Principal principal) throws Exception {
 		String id = principal.getName();

@@ -30,7 +30,7 @@
 </button>
 <div class="container">
 	<!-- Begin Logo -->
-	<a class="navbar-brand" href="<%=request.getContextPath()%>/resources/mediumish/pages/index.html">
+	<a class="navbar-brand" href="<%=request.getContextPath()%>/">
 	<img src="<%=request.getContextPath()%>/resources/mediumish/assets/img/logo.png" alt="logo">
 	</a>
 	<!-- End Logo -->
@@ -38,41 +38,41 @@
 		<!-- Begin Menu -->
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item active">
-			<a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/index.html">Stories <span class="sr-only">(current)</span></a>
-			</li>
-			<li class="nav-item">
-			<a class="nav-link" href="<%=request.getContextPath()%>/board/list">Post</a>
-			</li>
-			<li class="nav-item">
-			<a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/author.html">Author</a>
-			</li>
-		</ul>
+				<a class="nav-link" href="<%=request.getContextPath()%>/board/list">내 게시글 <span class="sr-only">(current)</span></a>
+		    </li>
+	  		<li class="nav-item">
+	  <c:choose>
+		  <c:when test="${pageContext.request.userPrincipal != null and pageContext.request.isUserInRole('MEMBER')}">
+		    <li class="nav-item ">
+	        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내정보</a>
+		    </li>
+		    <li class="nav-item">
+	        	<a class="nav-link" href="<%=request.getContextPath()%>/member/profile">프로필관리</a>
+	        </li>
+		    <li class="nav-item">
+		      <form class="form-logout" method="post" action="/logout">
+		        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token} ">
+		        <a class="nav-link btn" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</a>
+		      </form>
+		      <form id="logout-form" action="${pageContext.request.contextPath}/logout" method="post" style="display: none;">
+		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		      </form>
+		    </li>
+		  </c:when>
+		  <c:otherwise>
+		    <li class="nav-item">
+		      <a href="<%=request.getContextPath() %>/member/login" class="nav-link btn">로그인</a>
+		    </li>
+		  </c:otherwise>
+	 </c:choose>
+	  		</li>
+		    <li class="nav-item">
+		     <a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/author.html">Author</a>
+		    </li>
+		    </ul>
+		
 		<sec:authorize var="loggedIn" access="isAuthenticated()" />
-		<c:choose>
-			<c:when test="${loggedIn}">
-				<!-- 내정보 버튼 -->
-				<a href="<%=request.getContextPath() %>/member/profile" class="btn">내정보</a>
-				<!-- 로그아웃 버튼 -->
-				<form class="form-logout" method="post" action="/logout">
-				  <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token} ">
-				  <button class="btn" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</button>
-				</form>
-			</c:when>
-			<c:otherwise>
-				<!-- 회원가입  -->
-				<a href="<%=request.getContextPath() %>/member/signup" class="btn">회원가입</a>
-				<!-- 로그인  -->
-				<a href="<%=request.getContextPath() %>/member/login" class="btn">로그인</a>
-			</c:otherwise>
-		</c:choose>
-		
-		
-		
-
-		<form id="logout-form" action="${pageContext.request.contextPath}/logout" method="post" style="display: none;">
-		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		</form>
-
+	
 		<!-- End Menu -->
 		<!-- Begin Search -->
 		<form class="form-inline my-2 my-lg-0">
