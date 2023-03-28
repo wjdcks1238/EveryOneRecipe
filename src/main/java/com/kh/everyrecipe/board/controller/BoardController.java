@@ -195,8 +195,9 @@ public class BoardController {
 				mv.addObject("comment", cvo);
 				
 				
-				//TODO (회원일시) 작성자 팔로우 여부와 좋아요 여부. 전체 팔로워 전체 좋아요
+				//(회원일시) 작성자 팔로우 여부와 좋아요 여부.
 				//작성자 본인이거나 비회원일시 비활성화 
+				//TODO 전체 팔로워 전체 좋아요
 				
 				//팔로우 - isdelete N, FWID는 열람중인 회원, USERID는 작성자
 				Map<String, String> map1 = new HashMap<String, String>();
