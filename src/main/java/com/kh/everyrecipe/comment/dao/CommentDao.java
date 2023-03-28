@@ -21,5 +21,11 @@ public class CommentDao {
 	public List<CommentVo> getCommentList(int postId) {
 		return session.selectList("commentMapper.getCommentList", postId);
 	}
+	
+	public int insertComment(CommentVo vo) {
+		return session.insert("commentMapper.insertComment",vo);
+	}
+
+	
 
 }

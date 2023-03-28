@@ -136,10 +136,13 @@ ${hashtags }
 	<sec:authorize var="loggedIn" access="isAuthenticated()" />
 	<c:choose>
 		<c:when test="${loggedIn}">
-			<form action="<%=request.getContextPath() %>/board/insertcmt/${post.postId }" method="post">
-				<textarea rows="3" cols="70"></textarea>
-				<br>
-				<button type="button">댓글 작성</button>
+			<form id="frmReply">
+				<fieldset>
+					<legend>댓글 작성</legend>
+					<div><textarea rows="3" cols="70" name="commentContent" ></textarea></div>
+					<input type="hidden" name="boardNum" value="${post.postId }">
+					<button type="button" class="btn reply">댓글 작성</button>
+				</fieldset>
 			</form>
 		</c:when>
 		<c:otherwise />
@@ -160,7 +163,16 @@ ${hashtags }
 <script type="text/javascript">
 $(document).ready(function() {
 	$(".editbox").hide();
-})
+});
+
+$(".btn.reply").on("click", replyClickHandler);
+
+function replyClickHandler() {
+	let formData = new FormData();
+	formData.append("content", $("[name=commentContent]").val());
+	formData.append("postId", $("[name=boardNum]").val());
+	console.log(formData);
+}
 
 $(document).on("click","#bookmark" ,function() {
 	$.ajax({
