@@ -1,11 +1,13 @@
---검색어
-CREATE TABLE "SEARCH" (
-	"KEWORD"	VARCHAR2(30 CHAR)		NOT NULL,
-	"TIMES"	NUMBER	DEFAULT 0	NOT NULL
-);
-ALTER TABLE "SEARCH" ADD CONSTRAINT "PK_SEARCH" PRIMARY KEY (
-	"KEWORD"
-);
+----검색어
+--검색시, 검색어 내용 DB 추가
+insert into SEARCH values('&keyword', default);
+--CREATE TABLE "SEARCH" (
+--	"KEWORD"	VARCHAR2(30 CHAR)		NOT NULL,
+--	"TIMES"	NUMBER	DEFAULT 0	NOT NULL
+--);
+--ALTER TABLE "SEARCH" ADD CONSTRAINT "PK_SEARCH" PRIMARY KEY (
+--	"KEWORD"
+--);
 --멤버테이블
 --관리자(회원가입)
 insert into MEMBERS values('everys_recipe', 'admin@email.com', 'password', '모두의 레시피', '관리자 입니다.', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
@@ -84,6 +86,12 @@ select* from post;
 --);
 --
 ----게시물 북마크
+--최초 북마크 추가 시
+insert into POSTBOOKMARK values('&postid', '&userid', default);
+--북마크 해제
+update POSTBOOKMARK set ISDELETED='Y' where POSTID='&postid' and USERID='&userid';
+--북마크 재지정
+update POSTBOOKMARK set ISDELETED='N' where POSTID='&postid' and USERID='&userid';
 --CREATE TABLE "POSTBOOKMARK" (
 --	"POSTID"	NUMBER		NOT NULL,
 --	"USERID"	VARCHAR2(15 char)		NOT NULL,
