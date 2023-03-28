@@ -115,6 +115,14 @@
 					</c:choose>
 				</td>
 			</tr>
+			<tr class="editbox ${cvo.cmtId }">
+				<td>
+					<textarea rows="3" cols="70">${cvo.content }</textarea>
+					<br>
+					<button type="button">수정</button>
+					<button type="exit_box_${cvo.cmtId }">취소</button>
+				</td>
+			</tr>
 		</c:forEach>
 	</table>
 </div>
@@ -134,6 +142,9 @@
 
 
 <script type="text/javascript">
+$(document).ready(function() {
+	$(".editbox").hide();
+})
 
 $(document).on("click","#bookmark" ,function() {
 	$.ajax({
