@@ -38,9 +38,7 @@
 	</table>
 </c:forEach>
 
-<div>
- 	<button id="testDelete" type="button">임시 삭제버튼</button>
-</div>
+
 
 <div class="list">
 
@@ -76,20 +74,7 @@
 </table>
  -->
  
- <script type="text/javascript">
- $("#testDelete").click(function(){
-	 	var postId=86;
-			$.ajax({
-			  url: "./delete",
-			  type: "POST", 
-			  data: {postId: postId},
-			  success:function(result){
-					console.log(result);
-				}
-			});
-		
-		})
- </script>
+
  <script type="text/javascript">
  var scrolltop = $(document).scrollTop();
  console.log(scrolltop);

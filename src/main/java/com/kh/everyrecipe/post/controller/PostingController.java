@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -31,12 +32,14 @@ import com.kh.everyrecipe.board.service.BoardService;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
+import com.kh.everyrecipe.member.service.MemberService;
+import com.kh.everyrecipe.member.vo.MemberVo;
 
 @Controller
 public class PostingController {
 
-	@Autowired private BoardService service;
-	
+	@Autowired private BoardService bService;
+	@Autowired private MemberService mService;
 	
 	
 	@GetMapping("posting")
@@ -45,15 +48,16 @@ public class PostingController {
 	}
 	@PostMapping("posting")
 	public ModelAndView post(ModelAndView mv
+			, Principal principal
 			, BoardVo bvo
 			, @RequestParam("ingredient") List<String> ingredients
 			, @RequestParam("amount") List<String> amounts
-			, @RequestParam("hashtag") String hashtag) {
+			, @RequestParam("hashtag") String hashtag) throws Exception {
 //	public ModelAndView post(ModelAndView mv, BoardVo bvo, String ingredient,String amount) {
 
 		
 		
-		int lastPostId = service.getLastPostId();
+		int lastPostId = bService.getLastPostId();
 		
 		 List<IngredientVo> ivoList = new ArrayList<>(); // 공백일 때 처리 필요 
 	     for (int i = 0; i < ingredients.size(); i++) { 
@@ -64,10 +68,9 @@ public class PostingController {
 
 		System.out.println(bvo);
 		
-		//임시 id,닉네임 
-		//TODO
-		bvo.setUserId("everys_recipe");
-		bvo.setNickname("모두의 레시피");		
+		bvo.setUserId(principal.getName());
+		MemberVo mvo= mService.selectOne(principal.getName());
+		bvo.setNickname(mvo.getNickName());		
 		
 		
 		List<HashtagVo> hashtagList = new ArrayList<>();
@@ -104,9 +107,9 @@ public class PostingController {
 		
 		
 		try {
-			if(service.insertPost(bvo)!=0) {				
-			service.insertIngList(ivoList);
-			service.insertHashtagList(hashtagList);
+			if(bService.insertPost(bvo)!=0) {				
+			bService.insertIngList(ivoList);
+			bService.insertHashtagList(hashtagList);
 			
 			}
 			

@@ -1,5 +1,6 @@
 package com.kh.everyrecipe.board.controller;
 
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -249,19 +250,22 @@ public class BoardController {
 		
 		
 		@PostMapping("delete")
-		public String deletePost(@RequestParam("postId") int postId) throws Exception {
+		public void deletePost(@RequestParam("postId") int postId
+				, PrintWriter out
+				) throws Exception {
 			//게시글의 isdelete필드를 'Y'로 변경. 재료, 해쉬태그는 따로 삭제하지 않는다. 
 			int result=0;
 			System.out.println("ajax작동");
 			System.out.println(postId);
-			
-			
-				result= bService.delete(postId);
-				if(result==1) {				
-					System.out.println("삭제 성공");
-				}
-			
-			return "결과:"+result;	
+		
+			result= bService.delete(postId);
+			if(result==1) {				
+				System.out.println("삭제 성공");
+			}
+			out.println("결과:"+result);
+			out.flush();
+			out.close();
+//			return ;	
 		}
 		
 }

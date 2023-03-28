@@ -139,6 +139,12 @@
 		<c:otherwise />
 	</c:choose>
 </div>
+<div>
+	<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+	<c:if test="${user eq post.userId}">
+		<button id="deletePost">게시글 삭제</button>
+	</c:if>
+</div>
 
 
 <script type="text/javascript">
@@ -206,6 +212,18 @@ $(document).on("click","#like" ,function() {
 	});
 });
 
+$("#deletePost").click(function(){
+	$.ajax({
+	  url: "<%=request.getContextPath()%>/board/delete",
+	  type: "POST", 
+	  data: {postId: ${post.postId}},
+	  success:function(result){
+			console.log(result);
+			location.href ="<%=request.getContextPath()%>/board/list"
+		}
+	});
+
+})
 
 
 
