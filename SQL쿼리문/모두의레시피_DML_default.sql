@@ -164,6 +164,12 @@ update TBCOMMENT set ISDELETED='Y' where CMTID='&cmtid';
 --	"CMTID"
 --);
 ----대댓글
+--대댓글 삽입
+insert into REPLYCOMMENT values(SEQ_RCMTID.NEXTVAL, '&cmtid', '&content', default, default);
+--대댓글 수정
+update REPLYCOMMENT set CONTENT='&content', UPDATEAT=default where RCMID='&rcmid';
+--대댓글 삭제 <<- 테이블 상에서 완전히 남기는 것이 아닌, 비공개 처리를 위해 ISDELETED를 'Y'로 변경
+update REPLYCOMMENT set ISDELETED='Y' where RCMID='&rcmid';
 --CREATE TABLE "REPLYCOMMENT" (
 --	"RCMID"	NUMBER		NOT NULL,
 --	"CMTID"	NUMBER		NOT NULL,
@@ -228,22 +234,6 @@ update TBCOMMENT set ISDELETED='Y' where CMTID='&cmtid';
 --	"USERID"
 --);
 --
-----메일인증
---CREATE TABLE "MAILAUTH" (
---	"KEY"	NUMBER		NOT NULL,
---	"USERID"	VARCHAR2(15 char)		NOT NULL,
---	"CREATEAT"	TIMESTAMP	DEFAULT SYSTIMESTAMP	NOT NULL
---);
---ALTER TABLE "MAILAUTH" ADD CONSTRAINT "FK_MEMBERS_TO_MAILAUTH_1" FOREIGN KEY (
---	"USERID"
---)
---REFERENCES "MEMBERS" (
---	"USERID"
---);
---ALTER TABLE "MAILAUTH" ADD CONSTRAINT "PK_MAILAUTH" PRIMARY KEY (
---	"KEY",
---	"USERID"
---);
 ----해쉬태그
 SELECT * FROM HASHTAG;
 ----재료
