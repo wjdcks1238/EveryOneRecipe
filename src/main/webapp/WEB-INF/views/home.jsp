@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,25 +39,30 @@
 			<a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/index.html">Stories <span class="sr-only">(current)</span></a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/post.html">Post</a>
+			<a class="nav-link" href="<%=request.getContextPath()%>/board/posting">Post</a>
 			</li>
 			<li class="nav-item">
 			<a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/author.html">Author</a>
 			</li>
 		</ul>
+		<!-- 로그인 로그아웃 버튼 -->
+		<c:choose>
+		    <c:when test="${pageContext.request.userPrincipal != null and pageContext.request.isUserInRole('MEMBER')}">
+			      <!-- 로그아웃 버튼 -->
+			      <form class="form-logout" method="post" action="/logout">
+			        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token} ">
+			        <button class="btn" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</button>
+			      </form>
+			      <form id="logout-form" action="${pageContext.request.contextPath}/logout" method="post" style="display: none;">
+			        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			      </form>
+			</c:when>
+			<c:otherwise>
+				<!-- 로그인  -->
+				<a href="<%=request.getContextPath() %>/member/login" class="btn">로그인</a>			
+			</c:otherwise>
+		</c:choose>
 		
-		<!-- 로그인  -->
-		<a href="<%=request.getContextPath() %>/member/login" class="btn">로그인</a>
-		
-		<!-- 로그아웃 버튼 -->
-		<form class="form-logout" method="post" action="/logout">
-		  <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token} ">
-		  <button class="btn" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</button>
-		</form>
-
-		<form id="logout-form" action="${pageContext.request.contextPath}/logout" method="post" style="display: none;">
-		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		</form>
 
 		<!-- End Menu -->
 		<!-- Begin Search -->
