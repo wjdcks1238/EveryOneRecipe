@@ -51,12 +51,6 @@
 
 	</form>
 	</div>
-<hr>
-<%=request.getContextPath()%>
-<hr>
-${pageContext.request.contextPath}
-<hr>
-	
 </body>
 	<script>
 		// ClassicEditor.create(document.querySelector('#editor')); ck5
