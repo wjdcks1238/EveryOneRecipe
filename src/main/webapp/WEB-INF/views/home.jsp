@@ -20,7 +20,6 @@
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
 </head>
 <body>
-
 <!-- Begin Nav
 ================================================== -->
 <nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
@@ -40,7 +39,7 @@
 			<a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/index.html">Stories <span class="sr-only">(current)</span></a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/post.html">Post</a>
+			<a class="nav-link" href="<%=request.getContextPath()%>/board/list">Post</a>
 			</li>
 			<li class="nav-item">
 			<a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/author.html">Author</a>
