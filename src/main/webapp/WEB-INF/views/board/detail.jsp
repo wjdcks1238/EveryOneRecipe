@@ -36,6 +36,9 @@
 			<td>${post.createDate }</td>
 		</tr>
 </table>
+<div>
+${hashtags } 
+</div>
 
 아이콘으로 대체 예정
 <div id="bookmark">
