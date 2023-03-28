@@ -51,7 +51,7 @@
 		    <li class="nav-item">
 		      <form class="form-logout" method="post" action="/logout">
 		        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token} ">
-		        <a class="nav-link btn" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</a>
+		        <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</a>
 		      </form>
 		      <form id="logout-form" action="${pageContext.request.contextPath}/logout" method="post" style="display: none;">
 		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
