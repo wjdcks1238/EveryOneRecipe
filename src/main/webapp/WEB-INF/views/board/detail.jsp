@@ -39,7 +39,9 @@
 						</c:forEach>
     				</ul>
     				<hr>
-    				${post.content }
+    				<div id="post_content">    				
+	    				${post.content }
+    				</div>
     				<!-- Begin Comments -replace demowebsite with your own id
                     ================================================== -->
     				<div id="comments" class="mt-4">
