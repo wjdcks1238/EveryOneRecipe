@@ -47,7 +47,7 @@
 	        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내정보</a>
 		    </li>
 		    <li class="nav-item">
-	        	<a class="nav-link" href="<%=request.getContextPath()%>/member/profile">프로필관리</a>
+	        	<a class="nav-link" href="<%=request.getContextPath()%>/member/update">프로필관리</a>
 	        </li>
 		    <li class="nav-item">
 		      <form class="form-logout" method="post" action="/logout">
