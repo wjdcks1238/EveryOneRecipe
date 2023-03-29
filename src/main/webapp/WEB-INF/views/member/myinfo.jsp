@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,6 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>내 정보</title>
+<%@ include file="../header.jsp" %>
 
 <link rel="icon" href="<%=request.getContextPath()%>/resources/mediumish/assets/img/favicon.ico">
 <!-- Fonts -->
@@ -19,16 +19,15 @@
 
 <!-- Bootstrap core CSS -->
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/bootstrap.min.css" rel="stylesheet">
-
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/template-pintereso/assets/css/app.css">
+<!-- !!!!!!!!!!!! ===================app.css 파일의 nav와 충돌함 !!!!!!!!!
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/template-pintereso/assets/css/app.css">-->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/template-pintereso/assets/css/theme.css">
-
+ 
 <!-- Custom styles for this template -->
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
 
 </head>
 <body>
-<%@ include file="../header.jsp" %>
 
 <!-- Begin Top Author Page
 ================================================== -->
