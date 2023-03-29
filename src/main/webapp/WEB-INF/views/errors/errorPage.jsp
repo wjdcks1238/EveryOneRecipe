@@ -13,5 +13,6 @@
 	<li>${i.toString()}</li>
 </c:forEach>
 </ol>
+<jsp:include page="${pageContext.request.contextPath }/resouces/sbadmin2/pages/404.html"/>
 </body>
 </html>

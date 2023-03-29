@@ -72,9 +72,5 @@ public class HomeController {
 		return "home";
 	}
 	
-	@GetMapping("/admin")
-	public String adminTest() {
-		
-		return "admin";
-	}
+
 }
