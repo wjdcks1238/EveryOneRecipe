@@ -60,6 +60,11 @@ public class MemberController {
 	//TODO
 	@GetMapping("/myinfo")
 	public ModelAndView myinfo(ModelAndView mv, Principal principal) throws Exception {
+		
+		//TODO
+		//회원 정보 - 닉네임, 프로필, 프로필 사진, 팔로워 정보,  팔로잉 정보, (회원이고 본인이 아닐 시) 팔로우 버튼
+		//
+		//회원 포스트 목록
 		String id = principal.getName();
 		if(id != null) {
 			mv.addObject("memberDto", service.selectOne(id));
@@ -86,17 +91,17 @@ public class MemberController {
 		return mv;
 	}
 	
-	@GetMapping("/profile")
+	@GetMapping("/update")
 	public ModelAndView profile(ModelAndView mv, Principal principal) throws Exception {
 		String id = principal.getName();
 		if(id != null) {
 			mv.addObject("memberDto", service.selectOne(id));
 		}
-		mv.setViewName("member/profile");
+		mv.setViewName("member/update");
 		return mv;
 	}
 	
-	@PostMapping("/profile")
+	@PostMapping("/update")
 	public ModelAndView insertProfile(
 				MultipartHttpServletRequest multiReq
 			  , @RequestParam(name="report", required = false) MultipartFile multi
