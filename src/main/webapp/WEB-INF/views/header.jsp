@@ -40,6 +40,7 @@
 	  		<li class="nav-item">
 	  <c:choose>
 		  <c:when test="${pageContext.request.userPrincipal != null and pageContext.request.isUserInRole('MEMBER')}">
+			
 			<li class="nav-item ">
 				<a class="nav-link" href="<%=request.getContextPath()%>/board/list">내 게시글</a>
 		    </li>
@@ -62,6 +63,9 @@
 		  <c:otherwise>
 		    <li class="nav-item">
 		      <a href="<%=request.getContextPath() %>/member/login" class="nav-link btn">로그인</a>
+		    </li>
+		    <li class="nav-item ">
+				<a class="nav-link" href="<%=request.getContextPath()%>/admin">관리자모드</a>
 		    </li>
 		  </c:otherwise>
 	 </c:choose>
