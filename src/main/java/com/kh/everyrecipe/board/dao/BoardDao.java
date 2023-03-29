@@ -39,7 +39,7 @@ public class BoardDao {
 	public List<PostVo> selectList() throws Exception {
 		return sqlSession.selectList("boardMapper.selectList");
 	}
-	public List<PostVo> pagingList(Map<String, Integer> map) {
+	public List<PostVo> pagingList(Map<String, String> map) {
 		return sqlSession.selectList("boardMapper.pagingList",map);
 	}
 	public int updatePost(BoardVo bvo) {
