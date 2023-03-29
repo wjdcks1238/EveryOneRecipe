@@ -48,7 +48,7 @@ public class BoardServiceImpl implements BoardService{
 		return dao.updatePost(bvo); 
 	}
 	@Override
-	public List<PostVo> pagingList(Map<String, Integer> map) throws Exception {
+	public List<PostVo> pagingList(Map<String, String> map) throws Exception {
 		return dao.pagingList(map);
 	}
 	

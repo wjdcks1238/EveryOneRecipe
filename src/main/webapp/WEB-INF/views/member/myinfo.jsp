@@ -33,7 +33,9 @@
 					<div class="col-md-10 col-xs-12">
 						<h1>${memberDto.userId }</h1>
 						<div>회원 정보 - 닉네임, 프로필, 프로필 사진, 팔로워 정보,  팔로잉 정보, (회원이고 본인이 아닐 시) 팔로우 버튼</div>
-						<div>회원 포스트 목록</div>
+						<div>회원 포스트 목록
+							${postList }
+						</div>
 						<span class="author-description">Founder of <a target="_blank" href="https://www.wowthemes.net">WowThemes.net</a> and creator of <strong>"Mediumish"</strong> theme that you're currently previewing. I professionally develop premium themes, templates & scripts since the Apocalypse (2012). You can reach me out on the social links below.</span>
 						<div class="sociallinks"><a  target="_blank" href="https://www.facebook.com/wowthemesnet/"><i class="fa fa-facebook"></i></a> <span class="dot"></span> <a target="_blank" href="https://plus.google.com/s/wowthemesnet/top"><i class="fa fa-google-plus"></i></a></div>
 						<a target="_blank" href="https://twitter.com/wowthemesnet" class="btn follow">수정하기</a>

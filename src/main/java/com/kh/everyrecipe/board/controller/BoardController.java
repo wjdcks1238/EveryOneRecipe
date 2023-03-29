@@ -132,9 +132,9 @@ public class BoardController {
 			
 		
 				//isdelete 필드가 'N'인 게시글만 불러온다. 	
-				Map<String, Integer> map = new HashMap<>();
-				map.put("from", 0);
-				map.put("to", 20);
+				Map<String, String> map = new HashMap<>();
+				map.put("from", 0+"");
+				map.put("to", 20+"");
 				mv.addObject("postList", bService.pagingList(map));
 				
 	
@@ -149,14 +149,14 @@ public class BoardController {
 //			System.out.println(map.get("curPage"));
 //			System.out.println(map.get("pageListSize"));
 			System.out.println(curPage);
-			int from = (curPage-1)*20;
-			int to = from +20;
-			Map<String, Integer> map = new HashMap<>();
+			String from = (curPage-1)*20+"";
+			String to = from +20;
+			Map<String, String> map = new HashMap<>();
 			map.put("from", from);
 			map.put("to", to);
 			
 			
-				pvoList= bService.pagingList(map);
+			pvoList= bService.pagingList(map);
 			
 			
 			return new Gson().toJson(pvoList);

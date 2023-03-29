@@ -6,13 +6,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Post - Pintereso Bootstrap Template</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/app.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/theme.css">
 </head>
 <body>
 
-
+<main role="main">
+    <section class="bg-gray200 pt-5 pb-5">
+    <div class="container">
+    	<div class="row justify-content-center">
+    		<div class="col-md-7">
+    			<article class="card">
+    			<img class="card-img-top mb-2" src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e0245bb4e87077312cc3d102e68c1efd&auto=format&fit=crop&w=735&q=80" alt="Card image">
+    			<div class="card-body">
+    				<h1 class="card-title display-4">
+    				${post.foodName }
+    				</h1>
+    				<span class="btn btn-sm">작성자 : ${post.nickname }</span>
+    				<span class="btn btn-sm" style="float: right;">작성일자 : ${post.createDate }</span>
+    				<hr>
+    				<h3>재료</h3>
+    				<ul>
+	    				<c:forEach items="${post.ingredients }" var="ing" varStatus="status">
+							<li>${ing.ingredient } : ${ing.amount }</li>
+						</c:forEach>
+    				</ul>
+    				<hr>
+    				${post.content }
+    				<!-- Begin Comments -replace demowebsite with your own id
+                    ================================================== -->
+    				<div id="comments" class="mt-4">
+    					<div id="disqus_thread">
+    					</div>
+    					<script type="text/javascript">
+                            var disqus_shortname = 'demowebsite'; 
+                            var disqus_developer = 0;
+                            (function() {
+                                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                                dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+                                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                            })();
+                        </script>
+    					<noscript>
+    					Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+    					</noscript>
+    				</div>
+    				<!--End Comments
+                    ================================================== -->
+    			</div>
+    			</article>
+    		</div>
+    	</div>
+    </div>
+  </section>
+        
+    
+</main>
 <table border="1">
 		<tr>
 			<th>글번호</th>
