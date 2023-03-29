@@ -22,7 +22,7 @@ public interface BoardService {
 	public int getLastPostId();
 	public PostVo selectOne(int postId) throws Exception ;
 	public List<PostVo> selectList() throws Exception;
-	public List<PostVo> pagingList(Map<String, Integer> map) throws Exception;
+	public List<PostVo> pagingList(Map<String, String> map) throws Exception;
 	public int insertPost(BoardVo bvo) throws Exception;
 	public int updatePost(BoardVo bvo) throws Exception;
 	public int insertBasicPost(List<BoardVo> bvoList) throws Exception;

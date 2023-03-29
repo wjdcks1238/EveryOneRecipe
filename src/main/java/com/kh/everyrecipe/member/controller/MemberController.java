@@ -1,6 +1,7 @@
 package com.kh.everyrecipe.member.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.everyrecipe.board.service.BoardService;
 import com.kh.everyrecipe.fileutil.FileUtil;
 import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
@@ -29,7 +31,9 @@ import com.kh.everyrecipe.member.vo.MemberVo;
 public class MemberController {	
 	
 	@Autowired 
-	private MemberService service;
+	private MemberService mService;
+	@Autowired
+	private BoardService bService;
 	
 	@Autowired
 	@Qualifier("fileUtil")
@@ -45,7 +49,7 @@ public class MemberController {
 	//회원가입
 	@PostMapping("/signup")
 	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
-		int result = service.insert(vo);
+		int result = mService.insert(vo);
 		
 		if(result > 0) {
 			rttr.addFlashAttribute("msg", "회원가입 성공");
@@ -60,9 +64,20 @@ public class MemberController {
 	//TODO
 	@GetMapping("/myinfo")
 	public ModelAndView myinfo(ModelAndView mv, Principal principal) throws Exception {
+		
+		//TODO
+		//회원 정보 - 닉네임, 프로필, 프로필 사진, 팔로워 정보,  팔로잉 정보, (회원이고 본인이 아닐 시) 팔로우 버튼
+
+		//회원 포스트 목록
 		String id = principal.getName();
+		Map<String, String> map = new HashMap<>();
+		map.put("from", 0+"");
+		map.put("to", 20+""); 
+		map.put("userId",id);
+		mv.addObject("postList", bService.pagingList(map));
+		
 		if(id != null) {
-			mv.addObject("memberDto", service.selectOne(id));
+			mv.addObject("memberDto", mService.selectOne(id));
 		}
 		mv.setViewName("member/myinfo");
 		return mv;
@@ -86,17 +101,17 @@ public class MemberController {
 		return mv;
 	}
 	
-	@GetMapping("/profile")
+	@GetMapping("/update")
 	public ModelAndView profile(ModelAndView mv, Principal principal) throws Exception {
 		String id = principal.getName();
 		if(id != null) {
-			mv.addObject("memberDto", service.selectOne(id));
+			mv.addObject("memberDto", mService.selectOne(id));
 		}
-		mv.setViewName("member/profile");
+		mv.setViewName("member/update");
 		return mv;
 	}
 	
-	@PostMapping("/profile")
+	@PostMapping("/update")
 	public ModelAndView insertProfile(
 				MultipartHttpServletRequest multiReq
 			  , @RequestParam(name="report", required = false) MultipartFile multi
