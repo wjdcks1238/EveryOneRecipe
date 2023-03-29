@@ -32,10 +32,36 @@
 
 <!-- Begin Top Author Page
 ================================================== -->
+
+	<div class="pt-5 container">
+		<div>
+			프로필 이미지
+			<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">
+			<!-- 
+				<img alt="" src="${memberDto.profileUrl }">
+			 -->
+			 
+		</div>
+		<div>
+			아이디: ${memberDto.userId }
+		</div>
+		<div>
+			닉네임: ${memberDto.nickName }
+		</div>
+		<div>	
+			이메일: ${memberDto.email }
+		</div>
+		<div>
+			프로필 설명: ${memberDto.profile }
+		</div>
+		<div>
+			가입일: ${memberDto.createAt }
+		</div>
+	</div>
     <main role="main">
 
     <div class="container-fluid">
-    	<div class="row">
+    	
     		<div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
     			<c:forEach items="${postList }" var="list" >
 	    			<div class="col-md-2 card card-pin mt-3">
@@ -51,7 +77,7 @@
     			</c:forEach>
     			
     		</div>
-    	</div>
+    	
     </div>
 
     </main>
