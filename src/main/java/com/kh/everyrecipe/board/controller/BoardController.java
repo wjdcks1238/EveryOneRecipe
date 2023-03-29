@@ -193,6 +193,8 @@ public class BoardController {
 				mv.addObject("hashtags",hashtags );
 				List<CommentVo> cvo = cmtService.getCommentList(postId);
 				mv.addObject("comment", cvo);
+				int cmtCount = cmtService.getCountComment(postId);
+				mv.addObject("cmtCount", cmtCount);
 				
 				
 				//(회원일시) 작성자 팔로우 여부와 좋아요 여부.

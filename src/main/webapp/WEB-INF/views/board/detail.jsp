@@ -42,20 +42,46 @@
     				<!-- Begin Comments -replace demowebsite with your own id
                     ================================================== -->
     				<div id="comments" class="mt-4">
-    					<div id="disqus_thread">
-    					</div>
-    					<script type="text/javascript">
-                            var disqus_shortname = 'demowebsite'; 
-                            var disqus_developer = 0;
-                            (function() {
-                                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                                dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
-                                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                            })();
-                        </script>
-    					<noscript>
-    					Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-    					</noscript>
+	   					<fieldset>
+	   						<span>댓글</span>
+	   						<span>${cmtCount }</span>
+	   						<hr>
+	   						<table id="tb_comment">
+								<c:forEach items="${comment }" var="cvo" varStatus="s">
+									<tr>
+										<td colspan="2">${cvo.userId }</td>
+									</tr>
+									<tr>
+										<td colspan="2">${cvo.content }</td>
+									</tr>
+									<tr>
+										<td>${cvo.updateAt }</td>
+										<td>
+										댓글쓰기
+										<c:if test="${loggedIn }">
+											<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
+										</c:if>
+											<c:choose>
+												<c:when test="${loggedIn}">
+													<c:if test="${lgnuser eq cvo.userId }">
+														| 댓글수정 | 댓글삭제
+													</c:if>
+												</c:when>
+												<c:otherwise />
+											</c:choose>
+										</td>
+									</tr>
+									<tr class="editbox ${cvo.cmtId }">
+										<td>
+											<textarea rows="3" cols="70">${cvo.content }</textarea>
+											<br>
+											<button type="button">수정</button>
+											<button type="exit_box_${cvo.cmtId }">취소</button>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
+	   					</fieldset>
     				</div>
     				<!--End Comments
                     ================================================== -->
