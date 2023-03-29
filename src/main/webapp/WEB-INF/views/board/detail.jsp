@@ -14,6 +14,7 @@
 <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/app.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/theme.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
 
@@ -38,14 +39,15 @@
 						</c:forEach>
     				</ul>
     				<hr>
-    				${post.content }
+    				<div id="post_content">    				
+	    				${post.content }
+    				</div>
     				<!-- Begin Comments -replace demowebsite with your own id
                     ================================================== -->
     				<div id="comments" class="mt-4">
 	   					<fieldset>
 	   						<span>댓글</span>
 	   						<span>${cmtCount }</span>
-	   						<hr>
 	   						<table id="tb_comment">
 								<c:forEach items="${comment }" var="cvo" varStatus="s">
 									<tr>
@@ -57,14 +59,13 @@
 									<tr>
 										<td>${cvo.updateAt }</td>
 										<td>
-										댓글쓰기
 										<c:if test="${loggedIn }">
 											<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
 										</c:if>
 											<c:choose>
 												<c:when test="${loggedIn}">
 													<c:if test="${lgnuser eq cvo.userId }">
-														| 댓글수정 | 댓글삭제
+														댓글쓰기  | 댓글수정 | 댓글삭제
 													</c:if>
 												</c:when>
 												<c:otherwise />
@@ -245,6 +246,8 @@ ${hashtags }
 $(document).ready(function() {
 	$(".editbox").hide();
 });
+
+
 
 $(document).on("click", ".btn.reply", function() {
 	$.ajax({

@@ -144,16 +144,19 @@ public class BoardController {
 		
 		@PostMapping("ISajax")
 		@ResponseBody
-		public String testAjax( int curPage ) throws Exception {
+		public String testAjax( int curPage, String userId) throws Exception {
 			List<PostVo> pvoList=null;
 //			System.out.println(map.get("curPage"));
 //			System.out.println(map.get("pageListSize"));
 			System.out.println(curPage);
 			String from = (curPage-1)*20+"";
-			String to = from +20;
+			String to = ((curPage-1)*20+20)+"";
 			Map<String, String> map = new HashMap<>();
 			map.put("from", from);
 			map.put("to", to);
+			if(userId!=null) {				
+				map.put("userId", userId);
+			}
 			
 			
 			pvoList= bService.pagingList(map);
