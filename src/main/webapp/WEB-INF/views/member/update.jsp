@@ -23,18 +23,22 @@
 
 <!-- Custom styles for this template -->
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <%@ include file="../header.jsp" %>
 
 	<form action="profile" method="post" enctype="multipart/form-data">
+		<label>아이디</label>
 		<input type="text" name="id" value="${memberDto.userId }" readonly="readonly">
+		<label>닉네임</label>
 		<input type="text" name="nickName" value="${memberDto.nickName }">
+		<label>프로필 설명</label>
 		<input type="text" name="profile" value="${memberDto.profile }">
 		
 		
-		<img alt="" src="${memberDto.profileUrl }">
-		
+		<label>프로필 사진</label>
+		<img alt="../resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
 		<input type="file" name="report" placeholder="첨부파일">
 		<br>
 		<button type="submit">사진 등록</button>

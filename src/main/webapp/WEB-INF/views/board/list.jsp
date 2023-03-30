@@ -21,6 +21,7 @@
 <!-- Custom styles for this template -->
 
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 </head>
 <body>

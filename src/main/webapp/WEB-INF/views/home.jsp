@@ -18,6 +18,7 @@
 <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <%@ include file="header.jsp" %>

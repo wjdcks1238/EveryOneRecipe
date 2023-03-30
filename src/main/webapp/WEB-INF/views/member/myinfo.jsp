@@ -10,13 +10,11 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>내 정보</title>
-<%@ include file="../header.jsp" %>
 
 <link rel="icon" href="<%=request.getContextPath()%>/resources/mediumish/assets/img/favicon.ico">
 <!-- Fonts -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-
 <!-- Bootstrap core CSS -->
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/bootstrap.min.css" rel="stylesheet">
 <!-- !!!!!!!!!!!! ===================app.css 파일의 nav와 충돌함 !!!!!!!!!
@@ -25,36 +23,50 @@
  
 <!-- Custom styles for this template -->
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
+<%@ include file="../header.jsp" %>
 
 <!-- Begin Top Author Page
 ================================================== -->
-
-	<div class="pt-5 container">
-		<div>
-			프로필 이미지
-			<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">
-			<!-- 
-				<img alt="" src="${memberDto.profileUrl }">
-			 -->
-			 
-		</div>
-		<div>
-			아이디: ${memberDto.userId }
-		</div>
-		<div>
-			닉네임: ${memberDto.nickName }
-		</div>
-		<div>	
-			이메일: ${memberDto.email }
-		</div>
-		<div>
-			프로필 설명: ${memberDto.profile }
-		</div>
-		<div>
-			가입일: ${memberDto.createAt }
+	<div class="container-fluid">
+		<div class="row flex-nowrap">
+			<div class="col-1 bd-sidebar">
+				<ul class="navbar-nav">
+					<li class="nav-item active" ><a class="nav-link" href="#">내 정보 보기</a></li>
+					<li class="nav-item "><a class="nav-link" href="#">내 정보 수정 </a></li>
+					<li class="nav-item "><a class="nav-link" href="#">내 정보 보기</a></li>
+				</ul>
+			</div>
+				<div class="container">
+				
+				
+					<div>
+						프로필 이미지
+						<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">
+						<!-- 
+							<img alt="" src="${memberDto.profileUrl }">
+						 -->
+				 
+					</div>
+					<div>
+						아이디: ${memberDto.userId }
+					</div>
+					<div>
+						닉네임: ${memberDto.nickName }
+					</div>
+					<div>	
+						이메일: ${memberDto.email }
+					</div>
+					<div>
+						프로필 설명: ${memberDto.profile }
+					</div>
+					<div>
+						가입일: ${memberDto.createAt }
+					</div>
+				</div>
 		</div>
 	</div>
     <main role="main">
@@ -76,7 +88,7 @@
     			</c:forEach>
     			
     		</div>
-    	
+    <div id="end"></div>
     </div>
 
     </main>
@@ -89,9 +101,9 @@
 
 <!-- Bootstrap core JavaScript 
 ================================================== -->
-
     <script src="<%=request.getContextPath()%>/resources/template-pintereso/assets/js/app.js"></script>
     <script src="<%=request.getContextPath()%>/resources/template-pintereso/assets/js/theme.js"></script>
+
     
     <script type="text/javascript">$(document).ready(function(){
         start.init();
@@ -133,7 +145,7 @@
                 function successCallback(data) {
                 	
                     if(data.length == 0 ){
-                        $(".container-fluid").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
+                        $("#end").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
                         $(window).off("scroll");
                     } 
                     
