@@ -22,7 +22,10 @@
 		update POSTLIKE set ISDELETED='Y' where POSTID=#{postId} and USERID=#{userId}
 	</update>
 	
-	
+		
+	<select id="getLikeCount" parameterType="_int" resultType="_int">
+		select COUNT(*) from POSTLIKE where POSTID=#{postId} and ISDELETED='N'
+	</select>
 
 	
 	

@@ -47,15 +47,19 @@
 					<c:choose >
 						<c:when test="${following ne null}">
 						팔로잉 목록
-						<div>
-							${following}
-						</div>
+						<c:forEach var="fw" items="${following}">
+							<div>
+								<a href="<%=request.getContextPath() %>/member/info/${fw}">${fw}</a> 
+							</div>
+						</c:forEach>
 						</c:when>
 						<c:when test="${follower ne null}">
-						팔로워 목록	
-						<div>
-							${follower}
-						</div>
+						팔로워 목록
+						<c:forEach var="fw" items="${follower}">	
+							<div>
+								<a href="<%=request.getContextPath() %>/member/info/${fw}">${fw}</a> 
+							</div>
+						</c:forEach>
 						</c:when>
 					</c:choose>
 				
