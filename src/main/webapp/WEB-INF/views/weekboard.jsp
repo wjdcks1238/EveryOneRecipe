@@ -24,13 +24,17 @@ text-decoration: none;
 			<th>레시피명</th>
 			<th>닉네임</th>
 			<th>작성일자</th>
+			<th>삭제여부</th>
+			<th>조회수</th>
 		</tr>	
 		<c:forEach items="${weekboard}" var="list">
 		<tr>
 			<td>${list.postId }</td>
 			<td><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></td>
 			<td>${list.nickname }</td>
-			<td>${list.dateWrite }</td> 
+			<td>${list.dateWrite }</td>
+			<td>${list.isDeleted }</td> 
+			<td>${list.lookUp }</td>
 		</tr>
 		</c:forEach>
 </table>
