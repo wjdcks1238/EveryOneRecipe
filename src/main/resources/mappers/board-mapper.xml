@@ -95,7 +95,7 @@
 	
 	<update id="upView">
 		UPDATE POST 
-		   SET LOOKUP =(SELECT NVL(MAX(LOOKUP), 0) + 1 FROM POST)
+		   SET LOOKUP =NVL(LOOKUP, 0) +1
 		 WHERE POSTID=#{postId}
 	</update>
 	
