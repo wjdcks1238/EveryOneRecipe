@@ -30,7 +30,7 @@ text-decoration: none;
 			<td>${list.postId }</td>
 			<td><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></td>
 			<td>${list.nickname }</td>
-			<td>${list.dateWrite }</td>
+			<td>${list.dateWrite }</td> 
 		</tr>
 		</c:forEach>
 </table>
