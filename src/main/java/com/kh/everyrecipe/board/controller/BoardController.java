@@ -51,8 +51,6 @@ public class BoardController {
 
 		
 		
-		
-		
 		@GetMapping("posting")
 		public String postingPage() {
 			return "post/posting";
@@ -359,6 +357,18 @@ public class BoardController {
 			vo.setUserId(principal.getName());
 			
 			cmtService.insertComment(vo);
+			
+			List<CommentVo> replyList = cmtService.getCommentList(vo.getPostId());
+			
+			return new Gson().toJson(replyList);
+		}
+		
+		@PostMapping("/updateReplyAjax")
+		@ResponseBody
+		public String updateReplyAjax(
+				CommentVo vo) {
+			
+			cmtService.updateComment(vo);
 			
 			List<CommentVo> replyList = cmtService.getCommentList(vo.getPostId());
 			

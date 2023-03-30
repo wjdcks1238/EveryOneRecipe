@@ -17,6 +17,9 @@
 		, default
 		)
 	</insert>
+	<update id="updateComment" parameterType="cvo">
+		update TBCOMMENT set CONTENT=#{content}, UPDATEAT=default where CMTID=#{cmtId}
+	</update>
 	<update id="deleteComment" parameterType="cvo">
 		update TBCOMMENT set ISDELETED='Y' where CMTID=#{cmtId}
 	</update>

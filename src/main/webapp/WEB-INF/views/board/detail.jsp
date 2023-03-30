@@ -67,7 +67,7 @@
 													<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openInsert(${cvo.cmtId})">답글 쓰기</button>
 													<c:if test="${lgnuser eq cvo.userId }">
 														<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openEdit(${cvo.cmtId})">댓글 수정</button> 
-														<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="deleteCmt(${cvo.cmtId}, ${cvo.postId})">댓글 삭제</button>
+														<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="deleteCmt(${cvo.cmtId})">댓글 삭제</button>
 													</c:if>
 												</c:when>
 												<c:otherwise />
@@ -76,7 +76,7 @@
 									</tr>
 									<tr class="editbox ${cvo.cmtId }">
 										<td colspan="2">
-											<textarea rows="3" cols="64" id="editBox">${cvo.content }</textarea>
+											<textarea rows="3" cols="64" id="updateBox">${cvo.content }</textarea>
 											<br>
 											<button type="button">수정</button>
 											<button type="button" onclick="closeEdit(${cvo.cmtId})">취소</button>
@@ -290,13 +290,36 @@ function closeInsert(num) {
 	$(".insertbox."+num).hide();
 }
 
-function deleteCmt(cid, pid) {
+function updateComment(cid) {
+	$.ajax({
+		url:"<%=request.getContextPath()%>/board/updateReplyAjax",
+		type: "POST",
+		data:{
+			cmtId: cid,
+			postId: ${post.postId},
+			content: $("[name=updateBox]").val()
+		},
+		dataType:"json",
+		async:false,
+		success: function(result){
+			if(result.length > 0) {
+				alert("댓글이 수정되었습니다.")
+			} else {
+				alert("댓글이 수정 되지 않았습니다. 댓글 확인 후, 다시 수정해 주세요.")
+			}
+			displayReply(result);
+		}
+	});
+}
+
+function deleteCmt(cid) {
 	$.ajax({
 		url: "<%=request.getContextPath() %>/board/deleteReplyAjax",
 		type: "POST",
 		data: {cmtId: cid
-			  , postId: pid
+			  , postId: ${post.postId}
 		},
+		dataType:"json",
 		async: false,
 		success: function(result) {
 			if(result.length > 0) {
@@ -346,29 +369,41 @@ function displayReply(result) {
 	var htmlval = '';
 	for(i = 0; i<result.length; i++) {
 		var reply = result[i];
-		htmlval += '<tr>';
-		htmlval +=	 '<td colspan="2">'+reply.userId+'</td>';
-		htmlval += '</tr>';
-		htmlval += '<tr>';
-		htmlval +=	 '<td colspan="2">'+reply.content+'</td>';
-		htmlval += '</tr>';
-		htmlval += '<tr>';
-		htmlval +=	 '<td>'+reply.updateAt+'</td>';
-		htmlval +=   '<td>';
-		htmlval +=	'댓글쓰기';
-		htmlval +=	'<c:if test="${loggedIn }">';
-		htmlval +=		'<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>';
-		htmlval +=	'</c:if>';
-		htmlval +=		'<c:choose><c:when test="${loggedIn}"><c:if test="${lgnuser eq'+ reply.userId+' }">| 댓글수정 | 댓글삭제</c:if></c:when><c:otherwise /></c:choose>';
-		htmlval +=	'</td>';
+		htmlval +='<tr>';
+		htmlval +='<td colspan="2">'+reply.userId+'</td>';
 		htmlval +='</tr>';
-		htmlval +='<tr class="editbox '+ reply.cmtId +'" style="display: none;">';
-		htmlval +=	'<td>';
-		htmlval +=		'<textarea rows="3" cols="70">'+reply.content+'</textarea>';
-		htmlval +=		'<br>';
-		htmlval +=		'<button type="button">수정</button>';
-		htmlval +=		'<button type="exit_box_'+reply.cmtId+'">취소</button>';
-		htmlval +=	'</td>';
+		htmlval +='<tr>';
+		htmlval +='<td colspan="2">'+reply.content+'</td>';
+		htmlval +='</tr>';
+		htmlval +='<tr>';
+		htmlval +='<td>'+reply.updateAt+'&nbsp;';
+		var aaa = "${loggedIn}";
+		if(aaa) {
+			var lgnuser = '<%=request.getUserPrincipal().getName() %>';
+		}
+		if(aaa) {
+			htmlval += '<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openInsert('+reply.cmtId+')">답글 쓰기</button>';
+			if(lgnuser === reply.userId) {
+				htmlval += '<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openEdit('+reply.cmtId+')">댓글 수정</button> <button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="deleteCmt('+reply.cmtId+', '+reply.postId+')">댓글 삭제</button>';
+			}
+		}
+		htmlval +='</td>';
+		htmlval +='</tr>';
+		htmlval +='<tr class="editbox '+reply.cmtId +'" style="display: none;">';
+		htmlval +='<td colspan="2">';
+		htmlval +='<textarea rows="3" cols="64" name="updateBox">'+reply.content +'</textarea>';
+		htmlval +='<br>';
+		htmlval +='<button type="button" onclick="updateComment('+reply.cmtId+')">수정</button>';
+		htmlval +='<button type="button" onclick="closeEdit('+reply.cmtId+')">취소</button>';
+		htmlval +='</td>';
+		htmlval +='</tr>';
+		htmlval +='<tr class="insertbox '+reply.cmtId +'" style="display: none;">';
+		htmlval +='<td colspan="2">';
+		htmlval +='<textarea rows="3" cols="64" name="insertReplyBox"></textarea>';
+		htmlval +='<br>';
+		htmlval +='<button type="button">작성</button>';
+		htmlval +='<button type="button" onclick="closeInsert('+reply.cmtId+')">취소</button>';
+		htmlval +='</td>';
 		htmlval +='</tr>';
 	}
 	

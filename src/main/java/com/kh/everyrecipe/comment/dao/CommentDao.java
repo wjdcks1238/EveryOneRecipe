@@ -30,6 +30,10 @@ public class CommentDao {
 		return session.update("commentMapper.deleteComment", vo);
 	}
 
+	public int updateComment(CommentVo vo) {
+		return session.update("commentMapper.updateComment", vo);
+	}
+
 	
 
 }

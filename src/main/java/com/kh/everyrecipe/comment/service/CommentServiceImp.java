@@ -32,5 +32,10 @@ public class CommentServiceImp implements CommentService{
 	public int deleteComment(CommentVo vo) {
 		return dao.deleteComment(vo);
 	}
+
+	@Override
+	public int updateComment(CommentVo vo) {
+		return dao.updateComment(vo);
+	}
 	
 }
