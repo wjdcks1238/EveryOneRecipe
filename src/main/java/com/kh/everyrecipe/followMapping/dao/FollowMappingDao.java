@@ -1,6 +1,7 @@
 package com.kh.everyrecipe.followMapping.dao;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
+import com.kh.everyrecipe.member.vo.MemberVo;
 
 
 @Repository
@@ -23,9 +25,6 @@ public class FollowMappingDao {
 		return sqlSession.selectOne("followMapper.isFollowed",map);
 	}
 
-	public int toggleFollow(Map<String, String> map) {
-		return sqlSession.update("followMapper.toggleFollow",map);
-	}
 
 	public FollowMappingVo getFollowInfo(Map<String, String> map) {
 		return sqlSession.selectOne("followMapper.getFollowInfo",map);
@@ -40,6 +39,23 @@ public class FollowMappingDao {
 
 	public int removeFollower(Map<String, String> map) {
 		return sqlSession.update("followMapper.removeFollower",map);
+	}
+
+	
+	public int getFollowerCount(String userId) {
+		return sqlSession.selectOne("followMapper.getFollowerCount",userId);
+	}
+
+	public int getFollowingCount(String userId) {
+		return sqlSession.selectOne("followMapper.getFollowingCount",userId);
+	}
+
+	public List<String> getFollower(String userId) {
+		return sqlSession.selectList("followMapper.getFollower",userId);
+	}
+
+	public List<String> getFollowing(String userId) {
+		return sqlSession.selectList("followMapper.getFollowing",userId);
 	}
 
 	

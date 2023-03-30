@@ -227,7 +227,7 @@ public class BoardController {
 					
 				}
 				
-			//TODO 임시 조회수 증가(삭제된 게시물, 조회수 증가 가능 간격설정)
+			//TODO 임시 조회수 증가(삭제된 게시물, 조회수 증가 가능 간격설정)ip주소 또는 쿠키 사용
 			bService.upView(postId);
 				
 			mv.setViewName("board/detail");
