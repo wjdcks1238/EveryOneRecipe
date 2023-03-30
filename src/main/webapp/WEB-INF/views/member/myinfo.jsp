@@ -127,10 +127,10 @@
 						가입일: ${memberDto.createAt }
 					</div>
 					<div>
-					    <a href="<%=request.getContextPath()%>/member/follower ">팔로워: ${followerCount }</a>	
+					    <a href="<%=request.getContextPath()%>/member/follower/<%=request.getUserPrincipal().getName() %> ">팔로워: ${followerCount }</a>	
 					</div>
 					<div>
-					    <a href="<%=request.getContextPath()%>/member/following ">팔로잉: ${followingCount }</a>	
+					    <a href="<%=request.getContextPath()%>/member/following/<%=request.getUserPrincipal().getName() %> ">팔로잉: ${followingCount }</a>	
 					</div>
 					
 					<!-- 

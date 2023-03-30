@@ -23,6 +23,9 @@
 	</update>
 	
 	
+	<select id="getLikeCount" parameterType="_int" resultType="string">
+		select COUNT(*) from POSTLIKE where POSTID=#{postId} and ISDELETED='N'
+	</select>
 
 	
 	

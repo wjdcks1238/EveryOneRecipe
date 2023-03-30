@@ -196,8 +196,10 @@ ${hashtags }
 					<span id="isLiked">X</span>
 					<button id="likeBtn">좋아요</button>
 				</c:if>
-		
 		</div>
+		<div>
+			좋아요 수:${likeCount } 
+		</div> 
 	
 	</c:if>
 

@@ -144,21 +144,21 @@ public class MemberController {
 	
 	
 	//TODO 다른 회원도 접근 가능하게 변경
-	@GetMapping("/following")
-	public ModelAndView following(ModelAndView mv, Principal principal) throws Exception {
+	@GetMapping("/following/{userId}")
+	public ModelAndView following(ModelAndView mv, Principal principal, @PathVariable String userId) throws Exception {
 
 		
-		String id = principal.getName();
-		mv.addObject("following",fService.getFollowing(id));
+//		String id = principal.getName();
+		mv.addObject("following",fService.getFollowing(userId));
 		
 		mv.setViewName("member/followMember");
 		return mv;
 	}
-	@GetMapping("/follower")
-	public ModelAndView follower(ModelAndView mv, Principal principal) throws Exception {
+	@GetMapping("/follower/{userId}")
+	public ModelAndView follower(ModelAndView mv, Principal principal, @PathVariable String userId) throws Exception {
 		
-		String id = principal.getName();
-		mv.addObject("follower",fService.getFollower(id));
+//		String id = principal.getName();
+		mv.addObject("follower",fService.getFollower(userId));
 		
 		mv.setViewName("member/followMember");
 		return mv;

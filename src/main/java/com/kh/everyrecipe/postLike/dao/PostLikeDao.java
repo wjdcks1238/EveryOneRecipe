@@ -38,6 +38,10 @@ public class PostLikeDao {
 		return sqlSession.update("postLikeMapper.removeLike",map);
 	}
 
+	public int getLikeCount(int postId) {
+		return sqlSession.update("postLikeMapper.getLikeCount",postId);
+	}
+
 	
 	
 }

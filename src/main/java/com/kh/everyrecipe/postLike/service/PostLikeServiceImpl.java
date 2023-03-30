@@ -44,6 +44,11 @@ public class PostLikeServiceImpl implements PostLikeService{
 		return dao.removeLike(map);
 	}
 
+	@Override
+	public int getLikeCount(int postId) throws Exception {
+		return dao.getLikeCount(postId);
+	}
+
 	
 
 

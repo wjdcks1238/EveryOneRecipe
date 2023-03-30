@@ -19,17 +19,10 @@
 <!-- Bootstrap core CSS -->
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-
-<!-- !!!!!!!!!!!! ===================app.css 파일의 nav와 충돌함 !!!!!!!!!
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/template-pintereso/assets/css/app.css">-->
-<!-- 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/template-pintereso/assets/css/theme.css">
- -->
  
 <!-- Custom styles for this template -->
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
-
 
 
 <style type="text/css">
@@ -124,10 +117,10 @@
 						가입일: ${memberDto.createAt }
 					</div>
 					<div>
-					    <a href="<%=request.getContextPath()%>/member/follower ">팔로워: ${followerCount }</a>	
+					    <a href="<%=request.getContextPath()%>/member/follower/${memberDto.userId } ">팔로워: ${followerCount }</a>	
 					</div>
 					<div>
-					    <a href="<%=request.getContextPath()%>/member/following ">팔로잉: ${followingCount }</a>	
+					    <a href="<%=request.getContextPath()%>/member/following/${memberDto.userId } ">팔로잉: ${followingCount }</a>	
 					</div>
 					
 	
@@ -181,12 +174,6 @@
 ================================================== -->
 
 <%@ include file="../footer.jsp" %>
-
-<!-- Bootstrap core JavaScript 
-================================================== 
-    <script src="<%=request.getContextPath()%>/resources/template-pintereso/assets/js/app.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/template-pintereso/assets/js/theme.js"></script>
--->
 
     
     <script type="text/javascript">$(document).ready(function(){
@@ -269,6 +256,8 @@
                 }
             }
             
+
+    }
             $(document).on("click","#followBtn" ,function() {
             	var isFollowed = $("#isFollowed").text();
             	$.ajax({
@@ -289,9 +278,8 @@
             	});
             });
 
-    }
-
 
     </script>
+    
 </body>
 </html>
