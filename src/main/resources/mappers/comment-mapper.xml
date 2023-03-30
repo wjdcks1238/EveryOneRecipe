@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="commentMapper">
 	<select id="getCommentCount" resultType="_int">
-		select count(*) from TBCOMMENT where POSTID=#{postId}
+		select count(*) from TBCOMMENT where POSTID=#{postId} and ISDELETED='N'
 	</select>
 	<select id="getCommentList" resultType="cvo" parameterType="_int">
-		select * from TBCOMMENT where POSTID=#{postId} order by CMTID desc
+		select * from TBCOMMENT where POSTID=#{postId} and ISDELETED='N' order by CMTID desc
 	</select>
 	<insert id="insertComment" parameterType="cvo">
 		insert into TBCOMMENT values(
@@ -17,4 +17,7 @@
 		, default
 		)
 	</insert>
+	<update id="deleteComment" parameterType="cvo">
+		update TBCOMMENT set ISDELETED='Y' where CMTID=#{cmtId}
+	</update>
 </mapper>

@@ -363,4 +363,15 @@ public class BoardController {
 			return new Gson().toJson(replyList);
 		}
 		
+		@PostMapping("/deleteReplyAjax")
+		@ResponseBody
+		public String deleteReplyAjax(
+				CommentVo vo) {
+			
+			cmtService.deleteComment(vo);
+			
+			List<CommentVo> replyList = cmtService.getCommentList(vo.getPostId());
+			
+			return new Gson().toJson(replyList);
+		}
 }
