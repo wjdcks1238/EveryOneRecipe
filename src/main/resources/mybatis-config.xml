@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.everyrecipe.board.vo.BoardVo" alias="bvo"/>
 		<typeAlias type="com.kh.everyrecipe.board.vo.IngredientVo" alias="ivo"/>
 		<typeAlias type="com.kh.everyrecipe.board.vo.HashtagVo" alias="hvo"/>
+		<typeAlias type="com.kh.everyrecipe.weekboard.vo.weekVo" alias="wvo"/>
 	</typeAliases>
 	
 	<mappers>
@@ -22,6 +23,7 @@
 		<mapper resource="mappers/follow-mapper.xml"/>
 		<mapper resource="mappers/postLike-mapper.xml"/>
 		<mapper resource="mappers/postBookmark-mapper.xml"/>
+		<mapper resource="mappers/weekboard-mapper.xml"/>
 	</mappers>
 	
 </configuration>
