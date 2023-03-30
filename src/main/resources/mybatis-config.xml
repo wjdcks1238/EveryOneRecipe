@@ -14,6 +14,7 @@
 		<typeAlias type="com.kh.everyrecipe.board.vo.IngredientVo" alias="ivo"/>
 		<typeAlias type="com.kh.everyrecipe.board.vo.HashtagVo" alias="hvo"/>
 		<typeAlias type="com.kh.everyrecipe.weekboard.vo.weekVo" alias="wvo"/>
+		<typeAlias type="com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo" alias="rcvo"/>
 	</typeAliases>
 	
 	<mappers>

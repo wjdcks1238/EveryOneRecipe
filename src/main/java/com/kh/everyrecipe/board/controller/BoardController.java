@@ -24,6 +24,8 @@ import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.comment.replycomment.service.ReplyCommentService;
+import com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo;
 import com.kh.everyrecipe.comment.service.CommentService;
 import com.kh.everyrecipe.comment.vo.CommentVo;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
@@ -44,6 +46,8 @@ public class BoardController {
 		private PostLikeService pService;
 		@Autowired
 		private CommentService cmtService;
+		@Autowired
+		private ReplyCommentService rcmtService;
 		@Autowired
 		private PostBookmarkService bmService;
 		@Autowired
