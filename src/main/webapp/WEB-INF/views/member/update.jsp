@@ -39,12 +39,12 @@
 				<ul class="navbar-nav">
 					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
-					<li class="nav-item "><a class="nav-link" href="#">내 정보 보기</a></li>
+					<li class="nav-item "><a class="nav-link" href="#">프로필 사진 변경</a></li>
 				</ul>
 			</div>
 				<div class="container">
 				
-					<form action="profile" method="post" enctype="multipart/form-data">
+					<form action="update" method="post" enctype="multipart/form-data">
 						<label>아이디</label>
 						<input type="text" name="id" value="${memberDto.userId }" readonly="readonly">
 						<label>닉네임</label>
@@ -57,7 +57,7 @@
 						<img alt="../resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
 						<input type="file" name="report" placeholder="첨부파일">
 						<br>
-						<button type="submit">사진 등록</button>
+						<button type="submit">프로필 업데이트</button>
 					</form>
 					<!-- 
 					<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">

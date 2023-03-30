@@ -45,6 +45,9 @@ public class BoardDao {
 	public int updatePost(BoardVo bvo) {
 		return sqlSession.update("boardMapper.updatePost",bvo);
 	}
+	public int upView(int postId) {
+		return sqlSession.update("boardMapper.upView",postId);
+	}
 	
 	
 	//Ingredient
@@ -81,6 +84,7 @@ public class BoardDao {
 	public int deleteHashtagList(int postId) {
 		return sqlSession.delete("boardMapper.deleteHashtagList",postId);
 	}
+	
 	
 	
 	

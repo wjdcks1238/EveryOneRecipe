@@ -121,10 +121,10 @@ public class MemberController {
 			) throws Exception {
 		Map<String, String> uploadResult;
 		
-		if(multi!=null) {
+		if(multi.getSize()!=0) {
 			uploadResult = fileUtil.saveFile(multi);
-//			System.out.println(uploadResult.get("original"));
-//			System.out.println(uploadResult.get("url"));			
+			System.out.println(uploadResult.get("original"));
+			System.out.println(uploadResult.get("url"));			
 		}
 		System.out.println(mvo);
 
