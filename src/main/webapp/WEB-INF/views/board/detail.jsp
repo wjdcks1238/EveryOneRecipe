@@ -187,7 +187,7 @@ ${hashtags }
 		</div>
 		
 		<div id="like">
-		좋아요:
+		좋아요 :
 				<c:if test="${isLiked }">
 				 	<span id="isLiked">O</span> 
 					<button id="likeBtn">좋아요 취소</button>
@@ -198,7 +198,7 @@ ${hashtags }
 				</c:if>
 		</div>
 		<div>
-			좋아요 수:${likeCount } 
+			좋아요 수 : ${likeCount } 
 		</div> 
 	
 	</c:if>
@@ -413,7 +413,7 @@ function displayReply(result) {
 	$("#tb_comment").html(htmlval);
 }
 
-$(document).on("click","#bookmark" ,function() {
+$(document).on("click","#bookmarkBtn" ,function() {
 	$.ajax({
 		url: "<%=request.getContextPath()%>/bookmark",
 		type: "POST", 
@@ -454,7 +454,7 @@ $(document).on("click","#followBtn" ,function() {
 });
 
 
-$(document).on("click","#like" ,function() {
+$(document).on("click","#likeBtn" ,function() {
 	$.ajax({
 		url: "<%=request.getContextPath()%>/like",
 		type: "POST", 

@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>내 정보</title>
+<title>회원 정보</title>
 
 <link rel="icon" href="<%=request.getContextPath()%>/resources/mediumish/assets/img/favicon.ico">
 <!-- Fonts -->
@@ -86,17 +86,11 @@
 ================================================== -->
 	<div class="container-fluid">
 		<div class="row flex-nowrap">
-			<div class="col-1 bd-sidebar">
-				<ul class="navbar-nav">
-					<li class="nav-item active" ><a class="nav-link" href="#">1</a></li>
-					<li class="nav-item "><a class="nav-link" href="#">2</a></li>
-					<li class="nav-item "><a class="nav-link" href="#">3</a></li>
-				</ul>
-			</div>
-				<div class="container">
+			
+				<div class="container row col-12">
+					<div class="col-3"></div>
 				
-				
-					<div>
+					<div class="col-2">
 						프로필 이미지
 						<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">
 						<!-- 
@@ -104,50 +98,56 @@
 						 -->
 				 
 					</div>
-					<div>
-						아이디: ${memberDto.userId }
-					</div>
-					<div>
-						닉네임: ${memberDto.nickName }
-					</div>
-					<div>
-						프로필 설명: ${memberDto.profile }
-					</div>
-					<div>
-						가입일: ${memberDto.createAt }
-					</div>
-					<div>
-					    <a href="<%=request.getContextPath()%>/member/follower/${memberDto.userId } ">팔로워: ${followerCount }</a>	
-					</div>
-					<div>
-					    <a href="<%=request.getContextPath()%>/member/following/${memberDto.userId } ">팔로잉: ${followingCount }</a>	
-					</div>
-					
-	
-					<sec:authorize var="loggedIn" access="isAuthenticated()" />
-					<c:if test="${loggedIn}">
-						<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
-						<c:if test="${user ne memberDto.userId}">
-							<div id="follow">
-							팔로우 :
-								<c:if test="${isFollowed }">
-									<span id="isFollowed">O</span>
-									<button id="followBtn">팔로우 취소</button>
-								</c:if>
-								<c:if test="${isFollowed eq false }">
-									<span id="isFollowed">X</span>
-									<button id="followBtn">팔로우</button>
-								</c:if>
+					<div class="col-4">
+						<div>
+							<h3>아이디: ${memberDto.userId }</h3> 
+						</div>
+						<div class="row">
+							<div class="col-4">
+							    <a href="<%=request.getContextPath()%>/member/follower/${memberDto.userId } ">팔로워: ${followerCount }</a>	
 							</div>
+							<div class="col-4">
+							    <a href="<%=request.getContextPath()%>/member/following/${memberDto.userId } ">팔로잉: ${followingCount }</a>	
+							</div>
+						</div>
+						<div>
+							닉네임: ${memberDto.nickName }
+						</div>
+						<div>
+							프로필 설명: ${memberDto.profile }
+						</div>
+						<div>
+							가입일: ${memberDto.createAt }
+						</div>
+						
+					
+						<sec:authorize var="loggedIn" access="isAuthenticated()" />
+						<c:if test="${loggedIn}">
+							<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+							<c:if test="${user ne memberDto.userId}">
+								<div id="follow">
+								팔로우 :
+									<c:if test="${isFollowed }">
+										<span id="isFollowed">O</span>
+										<button id="followBtn">팔로우 취소</button>
+									</c:if>
+									<c:if test="${isFollowed eq false }">
+										<span id="isFollowed">X</span>
+										<button id="followBtn">팔로우</button>
+									</c:if>
+								</div>
+							</c:if>
 						</c:if>
-					</c:if>
+					</div>
+	
 				
 				</div>
 		</div>
 	</div>
+
     <main role="main">
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: 10%">
     	
     		<div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
     			<c:forEach items="${postList }" var="list" >
@@ -263,7 +263,7 @@
             	$.ajax({
             		url: "<%=request.getContextPath()%>/follow",
             		type: "POST", 
-            		data: {fwId: "${post.userId }" },
+            		data: {fwId: "${memberDto.userId }" },
             		async : false,
             		success:function(result){
             			if(result==false){
