@@ -38,7 +38,7 @@
 				<ul class="navbar-nav">
 					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
-					<li class="nav-item "><a class="nav-link" href="#">내 정보 보기</a></li>
+					<li class="nav-item "><a class="nav-link" href="#">비밀번호 변경</a></li>
 				</ul>
 			</div>
 				<div class="container">

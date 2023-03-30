@@ -95,9 +95,9 @@
 		<div class="row flex-nowrap">
 			<div class="col-1 bd-sidebar">
 				<ul class="navbar-nav">
-					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
-					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
-					<li class="nav-item "><a class="nav-link" href="#">비밀번호 변경</a></li>
+					<li class="nav-item active" ><a class="nav-link" href="#">1</a></li>
+					<li class="nav-item "><a class="nav-link" href="#">2</a></li>
+					<li class="nav-item "><a class="nav-link" href="#">3</a></li>
 				</ul>
 			</div>
 				<div class="container">
@@ -117,9 +117,6 @@
 					<div>
 						닉네임: ${memberDto.nickName }
 					</div>
-					<div>	
-						이메일: ${memberDto.email }
-					</div>
 					<div>
 						프로필 설명: ${memberDto.profile }
 					</div>
@@ -133,7 +130,7 @@
 					    <a href="<%=request.getContextPath()%>/member/following ">팔로잉: ${followingCount }</a>	
 					</div>
 					
-					<!-- 
+	
 					<sec:authorize var="loggedIn" access="isAuthenticated()" />
 					<c:if test="${loggedIn}">
 						<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
@@ -151,7 +148,7 @@
 							</div>
 						</c:if>
 					</c:if>
-					 -->
+				
 				</div>
 		</div>
 	</div>
@@ -272,6 +269,25 @@
                 }
             }
             
+            $(document).on("click","#followBtn" ,function() {
+            	var isFollowed = $("#isFollowed").text();
+            	$.ajax({
+            		url: "<%=request.getContextPath()%>/follow",
+            		type: "POST", 
+            		data: {fwId: "${post.userId }" },
+            		async : false,
+            		success:function(result){
+            			if(result==false){
+            				var htmlVal= "팔로우 : <span id='isFollowed'> X </span><button id='followBtn'>팔로우</button>";
+            				$("#follow").html(htmlVal);
+            			}else if(result==true){
+            				var htmlVal= "팔로우 : <span id='isFollowed'> O </span><button id='followBtn'>팔로우 취소</button>";
+            				$("#follow").html(htmlVal);
+            			}
+            		}
+            		
+            	});
+            });
 
     }
 

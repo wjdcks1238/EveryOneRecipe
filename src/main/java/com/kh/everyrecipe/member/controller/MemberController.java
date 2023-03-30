@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -111,8 +112,38 @@ public class MemberController {
 	}
 	
 	
+	@GetMapping("/info/{userId}")
+	public ModelAndView info(ModelAndView mv, Principal principal, @PathVariable String userId) throws Exception {
+
+		//회원 포스트 목록
+		String id = userId;
+		Map<String, String> map = new HashMap<>();
+		map.put("from", 0+"");
+		map.put("to", 20+""); 
+		map.put("userId",id);
+		mv.addObject("postList", bService.pagingList(map));
+		
+		mv.addObject("memberDto", mService.selectOne(id));
+		mv.addObject("followingCount",fService.getFollowingCount(id));
+		mv.addObject("followerCount",fService.getFollowerCount(id));
+
+		Map<String, String> map1 = new HashMap<String, String>();
+		if(principal!=null) {
+			map1.put("userId",userId ); 
+			map1.put("fwId", principal.getName() ); 
+			
+			mv.addObject("isFollowed", fService.isFollowed(map1));
+		}
+		
+		mv.setViewName("member/info");
+		return mv;
+	}
 	
 	
+	
+	
+	
+	//TODO 다른 회원도 접근 가능하게 변경
 	@GetMapping("/following")
 	public ModelAndView following(ModelAndView mv, Principal principal) throws Exception {
 
