@@ -59,13 +59,15 @@
 									<tr>
 										<td>${cvo.updateAt }</td>
 										<td>
+										<sec:authorize var="loggedIn" access="isAuthenticated()" />
 										<c:if test="${loggedIn }">
 											<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
 										</c:if>
 											<c:choose>
+												
 												<c:when test="${loggedIn}">
 													<c:if test="${lgnuser eq cvo.userId }">
-														댓글쓰기  | 댓글수정 | 댓글삭제
+														댓글쓰기 | 댓글수정 | 댓글삭제
 													</c:if>
 												</c:when>
 												<c:otherwise />
@@ -84,6 +86,22 @@
 							</table>
 	   					</fieldset>
     				</div>
+    				<div>
+						<sec:authorize var="loggedIn" access="isAuthenticated()" />
+						<c:choose>
+							<c:when test="${loggedIn}">
+								<form id="frmReply">
+									<fieldset>
+										<legend>댓글 작성</legend>
+										<div><textarea rows="3" cols="64" name="commentContent" ></textarea></div>
+										<input type="hidden" name="boardNum" value="${post.postId }">
+										<button type="button" class="btn reply">댓글 작성</button>
+									</fieldset>
+								</form>
+							</c:when>
+							<c:otherwise />
+						</c:choose>
+					</div>
     				<!--End Comments
                     ================================================== -->
     			</div>
@@ -191,7 +209,7 @@ ${hashtags }
 				<td>
 				댓글쓰기
 				<c:if test="${loggedIn }">
-					<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
+					<c:set var="lgnuser23"><%=request.getUserPrincipal().getName() %></c:set>
 				</c:if>
 					<c:choose>
 						<c:when test="${loggedIn}">
@@ -218,7 +236,7 @@ ${hashtags }
 	<sec:authorize var="loggedIn" access="isAuthenticated()" />
 	<c:choose>
 		<c:when test="${loggedIn}">
-			<form id="frmReply">
+			<form id="frmReply42">
 				<fieldset>
 					<legend>댓글 작성</legend>
 					<div><textarea rows="3" cols="70" name="commentContent" ></textarea></div>
