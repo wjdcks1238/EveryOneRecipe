@@ -17,9 +17,11 @@ public class weekVo {
 	private int postId;
 	private String userId;
 	private String nickname;	
-	private String foodName;	
+	private String foodName;
+	private int lookUp;
 	private Date createAt;
 	private Date updateAt;
+	private String isDeleted; 
 	private String dateWrite;
 	
 	public String getDateWrite() {
@@ -43,12 +45,10 @@ public class weekVo {
 			this.dateWrite = new SimpleDateFormat("YYYY-MM-dd").format(createDate);
 			return dateWrite;
 		}	
-	}
-	
+	}	
 	public void setDateWrite(String dateWrite) {
 		this.dateWrite = dateWrite;
-	}
-	
+	}	
 	public int getPostId() {
 		return postId;
 	}
@@ -73,6 +73,15 @@ public class weekVo {
 	public void setFoodName(String foodName) {
 		this.foodName = foodName;
 	}
+	
+	public int getLookUp() {
+		return lookUp;
+	}
+
+	public void setLookUp(int lookUp) {
+		this.lookUp = lookUp;
+	}
+	
 	public Date getCreateAt() {
 		return createAt;
 	}
@@ -85,8 +94,10 @@ public class weekVo {
 	public void setUpdateAt(Date updateAt) {
 		this.updateAt = updateAt;
 	}
-	
-	
-	
-
+	public String getIsDeleted() {
+		return isDeleted;
+	}
+	public void setIsDeleted(String isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 }
