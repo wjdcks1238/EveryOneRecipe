@@ -126,6 +126,32 @@
 					<div>
 						가입일: ${memberDto.createAt }
 					</div>
+					<div>
+					    <a href="<%=request.getContextPath()%>/member/follower ">팔로워: ${followerCount }</a>	
+					</div>
+					<div>
+					    <a href="<%=request.getContextPath()%>/member/following ">팔로잉: ${followingCount }</a>	
+					</div>
+					
+					<!-- 
+					<sec:authorize var="loggedIn" access="isAuthenticated()" />
+					<c:if test="${loggedIn}">
+						<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+						<c:if test="${user ne memberDto.userId}">
+							<div id="follow">
+							팔로우 :
+								<c:if test="${isFollowed }">
+									<span id="isFollowed">O</span>
+									<button id="followBtn">팔로우 취소</button>
+								</c:if>
+								<c:if test="${isFollowed eq false }">
+									<span id="isFollowed">X</span>
+									<button id="followBtn">팔로우</button>
+								</c:if>
+							</div>
+						</c:if>
+					</c:if>
+					 -->
 				</div>
 		</div>
 	</div>

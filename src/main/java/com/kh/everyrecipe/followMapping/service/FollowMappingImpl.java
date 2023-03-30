@@ -1,6 +1,7 @@
 package com.kh.everyrecipe.followMapping.service;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.everyrecipe.followMapping.dao.FollowMappingDao;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
+import com.kh.everyrecipe.member.vo.MemberVo;
 
 @Service
 public class FollowMappingImpl implements FollowMappingService{
@@ -47,6 +49,30 @@ public class FollowMappingImpl implements FollowMappingService{
 	@Override
 	public int removeFollower(Map<String, String> map) {
 		return dao.removeFollower(map);
+	}
+
+
+	@Override
+	public int getFollowerCount(String userId) throws Exception {
+		return dao.getFollowerCount(userId);
+	}
+
+
+	@Override
+	public int getFollowingCount(String userId) throws Exception {
+		return dao.getFollowingCount(userId);
+	}
+
+
+	@Override
+	public List<String> getFollower(String userId) throws Exception {
+		return dao.getFollower(userId);
+	}
+
+
+	@Override
+	public List<String> getFollowing(String userId) throws Exception {
+		return dao.getFollowing(userId);
 	}
 
 

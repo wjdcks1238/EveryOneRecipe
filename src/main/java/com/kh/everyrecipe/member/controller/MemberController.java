@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.everyrecipe.board.service.BoardService;
 import com.kh.everyrecipe.fileutil.FileUtil;
+import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
@@ -34,6 +35,8 @@ public class MemberController {
 	private MemberService mService;
 	@Autowired
 	private BoardService bService;
+	@Autowired
+	private FollowMappingService fService;
 	
 	@Autowired
 	@Qualifier("fileUtil")
@@ -76,9 +79,15 @@ public class MemberController {
 		map.put("userId",id);
 		mv.addObject("postList", bService.pagingList(map));
 		
-		if(id != null) {
-			mv.addObject("memberDto", mService.selectOne(id));
-		}
+		mv.addObject("memberDto", mService.selectOne(id));
+		mv.addObject("followingCount",fService.getFollowingCount(id));
+		mv.addObject("followerCount",fService.getFollowerCount(id));
+
+		
+		
+		//팔로워 수, 팔로잉 수 
+
+		
 		mv.setViewName("member/myinfo");
 		return mv;
 	}	
@@ -100,6 +109,31 @@ public class MemberController {
 		System.out.println(mvo);
 		return mv;
 	}
+	
+	
+	
+	
+	@GetMapping("/following")
+	public ModelAndView following(ModelAndView mv, Principal principal) throws Exception {
+
+		
+		String id = principal.getName();
+		mv.addObject("following",fService.getFollowing(id));
+		
+		mv.setViewName("member/followMember");
+		return mv;
+	}
+	@GetMapping("/follower")
+	public ModelAndView follower(ModelAndView mv, Principal principal) throws Exception {
+		
+		String id = principal.getName();
+		mv.addObject("follower",fService.getFollower(id));
+		
+		mv.setViewName("member/followMember");
+		return mv;
+	}
+	
+	
 	
 	@GetMapping("/update")
 	public ModelAndView profile(ModelAndView mv, Principal principal) throws Exception {

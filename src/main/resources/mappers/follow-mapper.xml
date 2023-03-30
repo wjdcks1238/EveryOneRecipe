@@ -23,7 +23,18 @@
 	</update>
 	
 
-
+	<select id="getFollowerCount" parameterType="string" resultType="_int">
+		select count(*) from FOLLOWMAPPING where userid=#{userId} and ISDELETED ='N'
+	</select>
+	<select id="getFollowingCount" parameterType="string" resultType="_int">
+		select count(*) from FOLLOWMAPPING where fwid=#{userId} and ISDELETED ='N'
+	</select>
+	<select id="getFollower" parameterType="string" resultType="string">
+		select fwid from FOLLOWMAPPING where USERID=#{userId} and ISDELETED ='N'
+	</select>
+	<select id="getFollowing" parameterType="string" resultType="string">
+		select userId from FOLLOWMAPPING where FWID=#{fwId} and ISDELETED ='N'
+	</select>
 	
 	
 </mapper>
