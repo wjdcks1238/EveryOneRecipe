@@ -24,7 +24,7 @@
   
  
 <!-- 내용입력 -->
-                <div id="wrapper">
+                
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -79,7 +79,7 @@
 
                 </div>
                 <!-- /.container-fluid -->
-</div>
+
 
 	<!--  -->
     <!-- Bootstrap core JavaScript-->
