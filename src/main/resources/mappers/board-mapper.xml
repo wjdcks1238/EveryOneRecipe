@@ -86,13 +86,18 @@
 		UPDATE post SET isdeleted='Y' WHERE postid=#{postId}
 	</update>
 	<update id="updatePost" parameterType="bvo">
-		UPDATE post 
+		UPDATE POST 
 		   SET FOODNAME=#{foodName}
 		     , CONTENT =#{content} 
 		     , UPDATEAT = default
-		 WHERE postid=#{postId}
+		 WHERE POSTID=#{postId}
 	</update>
 	
+	<update id="upView">
+		UPDATE POST 
+		   SET LOOKUP =NVL(LOOKUP, 0) +1
+		 WHERE POSTID=#{postId}
+	</update>
 	
 	
 	<!--Ingredients  -->

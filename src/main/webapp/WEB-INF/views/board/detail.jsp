@@ -64,10 +64,10 @@
 										</c:if>
 											<c:choose>
 												<c:when test="${loggedIn}">
-													<button type="button" style="border-style: none; background-color: white; font-size: xx-small;">댓글 쓰기</button>
+													<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openInsert(${cvo.cmtId})">답글 쓰기</button>
 													<c:if test="${lgnuser eq cvo.userId }">
 														<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openEdit(${cvo.cmtId})">댓글 수정</button> 
-														<button type="button" style="border-style: none; background-color: white; font-size: xx-small;">댓글 삭제</button>
+														<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="deleteCmt(${cvo.cmtId}, ${cvo.postId})">댓글 삭제</button>
 													</c:if>
 												</c:when>
 												<c:otherwise />
@@ -76,10 +76,18 @@
 									</tr>
 									<tr class="editbox ${cvo.cmtId }">
 										<td colspan="2">
-											<textarea rows="3" cols="64">${cvo.content }</textarea>
+											<textarea rows="3" cols="64" id="editBox">${cvo.content }</textarea>
 											<br>
 											<button type="button">수정</button>
 											<button type="button" onclick="closeEdit(${cvo.cmtId})">취소</button>
+										</td>
+									</tr>
+									<tr class="insertbox ${cvo.cmtId }">
+										<td colspan="2">
+											<textarea rows="3" cols="64" id="insertBox"></textarea>
+											<br>
+											<button type="button">작성</button>
+											<button type="button" onclick="closeInsert(${cvo.cmtId})">취소</button>
 										</td>
 									</tr>
 								</c:forEach>
@@ -263,6 +271,7 @@ ${hashtags }
 <script type="text/javascript">
 $(document).ready(function() {
 	$(".editbox").hide();
+	$(".insertbox").hide();
 });
 
 function openEdit(num) {
@@ -273,6 +282,36 @@ function closeEdit(num) {
 	$(".editbox."+num).hide();
 }
 
+function openInsert(num) {
+	$(".insertbox."+num).show();
+}
+
+function closeInsert(num) {
+	$(".insertbox."+num).hide();
+}
+
+function deleteCmt(cid, pid) {
+	$.ajax({
+		url: "<%=request.getContextPath() %>/board/deleteReplyAjax",
+		type: "POST",
+		data: {cmtId: cid
+			  , postId: pid
+		},
+		async: false,
+		success: function(result) {
+			if(result.length > 0) {
+				alert("댓글이 삭제되었습니다.")
+			} else {
+				alert("댓글이삭제 되지 않았습니다. 확인하시고 다시 삭제해주세요.")
+			}
+			
+			displayReply(result);
+		},
+		error: function(){
+			
+		}
+	});
+}
 
 $(document).on("click", ".btn.reply", function() {
 	$.ajax({

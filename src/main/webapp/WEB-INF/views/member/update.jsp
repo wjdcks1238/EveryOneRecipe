@@ -24,28 +24,49 @@
 <!-- Custom styles for this template -->
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+.navbar{
+	padding-left:0;
+}
+
+</style>
 </head>
 <body>
 <%@ include file="../header.jsp" %>
-
-	<form action="profile" method="post" enctype="multipart/form-data">
-		<label>아이디</label>
-		<input type="text" name="id" value="${memberDto.userId }" readonly="readonly">
-		<label>닉네임</label>
-		<input type="text" name="nickName" value="${memberDto.nickName }">
-		<label>프로필 설명</label>
-		<input type="text" name="profile" value="${memberDto.profile }">
-		
-		
-		<label>프로필 사진</label>
-		<img alt="../resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
-		<input type="file" name="report" placeholder="첨부파일">
-		<br>
-		<button type="submit">사진 등록</button>
-	</form>
-	<!-- 
-	<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">
-	 -->
+<div class="container-fluid">
+		<div class="row flex-nowrap">
+			<div class="col-1 bd-sidebar">
+				<ul class="navbar-nav">
+					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
+					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
+					<li class="nav-item "><a class="nav-link" href="#">프로필 사진 변경</a></li>
+				</ul>
+			</div>
+				<div class="container">
+				
+					<form action="update" method="post" enctype="multipart/form-data">
+						<label>아이디</label>
+						<input type="text" name="id" value="${memberDto.userId }" readonly="readonly">
+						<label>닉네임</label>
+						<input type="text" name="nickName" value="${memberDto.nickName }">
+						<label>프로필 설명</label>
+						<input type="text" name="profile" value="${memberDto.profile }">
+						
+						
+						<label>프로필 사진</label>
+						<img alt="../resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
+						<input type="file" name="report" placeholder="첨부파일">
+						<br>
+						<button type="submit">프로필 업데이트</button>
+					</form>
+					<!-- 
+					<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">
+					 -->
+				
+					
+				</div>
+		</div>
+	</div>
 <%@ include file="../footer.jsp" %>
 </body>
 </html>

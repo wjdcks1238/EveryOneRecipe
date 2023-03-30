@@ -5,7 +5,10 @@
 	<select id="list" resultType="wvo">
 	select * 
 	from post 
-	where CREATEAT between trunc(sysdate,'iw') AND trunc(sysdate,'iw')+6 order by createat desc
+	where
+	ISDELETED = 'N'
+	AND	
+	CREATEAT between trunc(sysdate,'iw') AND trunc(sysdate,'iw')+6 order by LOOKUP desc
     </select>
     
 </mapper>
