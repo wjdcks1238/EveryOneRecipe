@@ -82,7 +82,7 @@ section.active .right {
   display: flex;
   flex-direction: column;
   width: 340px;
-  gap: 20px;
+  gap: 18px;
 }
 .sign-up form input,
 .sign-in form input {
@@ -136,4 +136,10 @@ section.active .right {
 }
 .left p a:is(:hover, :visited) {
   color: #f95700;
+}
+.error{
+    font-size: 1px;
+    height: 20px;
+    color:red;
+    font-weight: 700;
 }

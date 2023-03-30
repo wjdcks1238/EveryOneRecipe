@@ -20,9 +20,14 @@
       <c:url value="/member/signup" var="signupUrl" />
       <form:form name="signup" action="${signupUrl} " method="POST">
         <input type="text" id="signupId" name="userId" placeholder="아이디" />
-        <input type="email" id="email" name="email" placeholder="이메일" />
-        <input type="password" id="signupPassword" name="password" placeholder="비밀번호" />
-        <input type="password" placeholder="비밀번호를 한번 더 입력해주세요" />
+        
+        <input type="text" id="email" name="email" onblur="vaildateEmail()" placeholder="이메일" />
+        	<div id="emailError" class="error"></div>
+        	
+        	
+        <input type="password" id="signupPassword" name="password" onblur="vaildatePassword()" placeholder="비밀번호" />
+        <input type="password" id="passwordCheck" onblur="vaildatePassword()" placeholder="비밀번호를 한번 더 입력해주세요" />
+        	<div id="passwordCheck" class="error"></div>
         <p>
        <span>개인정보 수집 및 이용에 동의하십니까?</span>
        <input type="checkbox">
