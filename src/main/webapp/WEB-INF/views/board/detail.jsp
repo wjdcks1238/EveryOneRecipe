@@ -57,17 +57,17 @@
 										<td colspan="2">${cvo.content }</td>
 									</tr>
 									<tr>
-										<td>${cvo.updateAt }</td>
-										<td>
+										<td>${cvo.updateAt }&nbsp;
 										<sec:authorize var="loggedIn" access="isAuthenticated()" />
 										<c:if test="${loggedIn }">
 											<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
 										</c:if>
 											<c:choose>
-												
 												<c:when test="${loggedIn}">
+													<button type="button" style="border-style: none; background-color: white; font-size: xx-small;">댓글 쓰기</button>
 													<c:if test="${lgnuser eq cvo.userId }">
-														댓글쓰기 | 댓글수정 | 댓글삭제
+														<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openEdit(${cvo.cmtId})">댓글 수정</button> 
+														<button type="button" style="border-style: none; background-color: white; font-size: xx-small;">댓글 삭제</button>
 													</c:if>
 												</c:when>
 												<c:otherwise />
@@ -75,11 +75,11 @@
 										</td>
 									</tr>
 									<tr class="editbox ${cvo.cmtId }">
-										<td>
-											<textarea rows="3" cols="70">${cvo.content }</textarea>
+										<td colspan="2">
+											<textarea rows="3" cols="64">${cvo.content }</textarea>
 											<br>
 											<button type="button">수정</button>
-											<button type="exit_box_${cvo.cmtId }">취소</button>
+											<button type="button" onclick="closeEdit(${cvo.cmtId})">취소</button>
 										</td>
 									</tr>
 								</c:forEach>
@@ -222,8 +222,8 @@ ${hashtags }
 				</td>
 			</tr>
 			<tr class="editbox ${cvo.cmtId }">
-				<td>
-					<textarea rows="3" cols="70">${cvo.content }</textarea>
+				<td colspan="2">
+					<textarea rows="3" cols="64">${cvo.content }</textarea>
 					<br>
 					<button type="button">수정</button>
 					<button type="exit_box_${cvo.cmtId }">취소</button>
@@ -265,6 +265,13 @@ $(document).ready(function() {
 	$(".editbox").hide();
 });
 
+function openEdit(num) {
+	$(".editbox."+num).show();
+}
+
+function closeEdit(num) {
+	$(".editbox."+num).hide();
+}
 
 
 $(document).on("click", ".btn.reply", function() {
