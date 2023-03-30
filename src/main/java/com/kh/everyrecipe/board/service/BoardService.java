@@ -27,6 +27,7 @@ public interface BoardService {
 	public int updatePost(BoardVo bvo) throws Exception;
 	public int insertBasicPost(List<BoardVo> bvoList) throws Exception;
 	public int delete(int postId ) throws Exception;
+	public int upView(int postId) throws Exception;
 	
 	
 	

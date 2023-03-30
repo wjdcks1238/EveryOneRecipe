@@ -51,6 +51,11 @@ public class BoardServiceImpl implements BoardService{
 	public List<PostVo> pagingList(Map<String, String> map) throws Exception {
 		return dao.pagingList(map);
 	}
+	@Override
+	public int upView(int postId) throws Exception {
+		return dao.upView(postId);
+	}
+	
 	
 	//Ingredient
 	@Override
@@ -90,6 +95,7 @@ public class BoardServiceImpl implements BoardService{
 	public int deleteHashtagList(int postId) throws Exception {
 		return dao.deleteHashtagList(postId);
 	}
+
 
 
 
