@@ -39,7 +39,7 @@ public class PostLikeDao {
 	}
 
 	public int getLikeCount(int postId) {
-		return sqlSession.update("postLikeMapper.getLikeCount",postId);
+		return sqlSession.selectOne("postLikeMapper.getLikeCount",postId);
 	}
 
 	
