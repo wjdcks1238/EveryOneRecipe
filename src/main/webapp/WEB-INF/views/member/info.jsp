@@ -92,7 +92,7 @@
 				
 					<div class="col-2">
 						프로필 이미지
-						<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">
+						<img  width="300" alt="" src="<%=request.getContextPath() %>/resources/tempProfileImg/food.svg">
 						<!-- 
 							<img alt="" src="${memberDto.profileUrl }">
 						 -->

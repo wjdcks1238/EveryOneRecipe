@@ -25,7 +25,7 @@
 			  <c:when test="${pageContext.request.userPrincipal != null and pageContext.request.isUserInRole('MEMBER')}">
 				
 				<li class="nav-item ">
-					<a class="nav-link" href="<%=request.getContextPath()%>/board/list">내 게시글</a>
+					<a class="nav-link" href="<%=request.getContextPath()%>/board/list">전체 게시글</a>
 			    </li>
 			    <li class="nav-item ">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내정보</a>

@@ -8,15 +8,11 @@
     </insert>
 	
 	
-	
-	
-	
-	
-	
-	
 	<update id="update" parameterType="mvo">
-		update members set nickname=#{nickName}
-		, EMAIL=#{email}, password = #{password}, profile=#{profile}, profileurl=#{profileUrl}, updateat= default
+		update members 
+		   set nickname=#{nickName}
+		     , profile=#{profile}
+		     , updateat= default
 		where userid=#{userId}
 	</update>
 	

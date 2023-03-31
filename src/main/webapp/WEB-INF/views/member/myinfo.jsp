@@ -103,41 +103,41 @@
 				</ul>
 			</div>
 				
-				<div class="col-2">
-					<div>
-						프로필 이미지
-						<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">
-						<!-- 
-							<img alt="" src="${memberDto.profileUrl }">
-						 -->
-				 
+			<div class="col-2">
+				<div>
+					프로필 이미지
+					<img  width="300" alt="" src="<%=request.getContextPath() %>/resources/tempProfileImg/food.svg">
+					<!-- 
+						<img alt="" src="${memberDto.profileUrl }">
+					 -->
+			 
+				</div>
+			</div>
+			<div class="col-4">
+				<div>
+					<h3>아이디: ${memberDto.userId }</h3>
+				</div>
+				<div class="row">
+					<div class="col-4">
+					    <a href="<%=request.getContextPath()%>/member/follower/<%=request.getUserPrincipal().getName() %> ">팔로워: ${followerCount }</a>	
+					</div>
+					<div class="col-4">
+					    <a href="<%=request.getContextPath()%>/member/following/<%=request.getUserPrincipal().getName() %> ">팔로잉: ${followingCount }</a>	
 					</div>
 				</div>
-				<div class="col-4">
-					<div>
-						<h3>아이디: ${memberDto.userId }</h3>
-					</div>
-					<div class="row">
-						<div class="col-4">
-						    <a href="<%=request.getContextPath()%>/member/follower/<%=request.getUserPrincipal().getName() %> ">팔로워: ${followerCount }</a>	
-						</div>
-						<div class="col-4">
-						    <a href="<%=request.getContextPath()%>/member/following/<%=request.getUserPrincipal().getName() %> ">팔로잉: ${followingCount }</a>	
-						</div>
-					</div>
-					<div>
-						닉네임: ${memberDto.nickName }
-					</div>
-					<div>	
-						이메일: ${memberDto.email }
-					</div>
-					<div>
-						프로필 설명: ${memberDto.profile }
-					</div>
-					<div>
-						가입일: ${memberDto.createAt }
-					</div>
+				<div>
+					닉네임: ${memberDto.nickName }
 				</div>
+				<div>	
+					이메일: ${memberDto.email }
+				</div>
+				<div>
+					프로필 설명: ${memberDto.profile }
+				</div>
+				<div>
+					가입일: ${memberDto.createAt }
+				</div>
+			</div>
 				
 		</div>
 	</div>
