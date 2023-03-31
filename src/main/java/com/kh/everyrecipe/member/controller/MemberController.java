@@ -129,8 +129,8 @@ public class MemberController {
 
 		Map<String, String> map1 = new HashMap<String, String>();
 		if(principal!=null) {
-			map1.put("userId",principal.getName() ); 
-			map1.put("fwId", userId ); 
+			map1.put("userId",userId); 
+			map1.put("fwId",principal.getName()   ); 
 			
 			mv.addObject("isFollowed", fService.isFollowed(map1));
 		}

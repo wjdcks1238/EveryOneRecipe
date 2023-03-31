@@ -21,13 +21,13 @@ public class FollowMappingController {
 	
 	@PostMapping("/follow")
 	@ResponseBody
-	public boolean follow(Principal principal, String fwId) throws Exception {
+	public boolean follow(Principal principal, String userId) throws Exception {
 
 		
 		Map<String, String> map = new HashMap<String, String>();
 //		회원 id, 작성자 id 전달
-		map.put("userId",principal.getName() ); 
-		map.put("fwId", fwId); 
+		map.put("userId", userId); 
+		map.put("fwId", principal.getName()); 
 		
 		
 		//팔로우 정보를 가져옴
