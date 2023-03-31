@@ -215,8 +215,8 @@ public class BoardController {
 				//회원 id, 작성자 id 전달
 				
 				if(principal!=null) {
-					map1.put("userId",principal.getName() ); 
-					map1.put("fwId", pvo.getUserId() ); 
+					map1.put("userId",  pvo.getUserId()); 
+					map1.put("fwId",principal.getName() ); 
 					
 					mv.addObject("isFollowed", fService.isFollowed(map1));
 					

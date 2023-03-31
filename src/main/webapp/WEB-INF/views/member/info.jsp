@@ -147,7 +147,7 @@
 
     <main role="main">
 
-    <div class="container-fluid" style="margin-top: 10%">
+    <div class="container-fluid" style="margin-top: 10%;padding-left:10%">
     	
     		<div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
     			<c:forEach items="${postList }" var="list" >
@@ -229,7 +229,7 @@
                 		for(i = 0 ; i<data.length;i++){
     	            		var reply = data[i];	
     	            		
-    	            		var card = $('<div class="col-md-2 card card-pin mt-3 ml-3">'+
+    	            		var card = $('<div class="col-md-2 card card-pin mt-3 ml-3" style="padding: 0">'+
     	            				'<img class="card-img" src="https://images.unsplash.com/photo-1489743342057-3448cc7c3bb9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6d284a2efbca5f89528546307f7e7b87&auto=format&fit=crop&w=500&q=60" alt="Card image">'+
     	            				'<div class="overlay">'+
     	            					'<h2 class="card-title title">'+reply.foodName+'</h2>'+
@@ -263,7 +263,7 @@
             	$.ajax({
             		url: "<%=request.getContextPath()%>/follow",
             		type: "POST", 
-            		data: {fwId: "${memberDto.userId }" },
+            		data: {userId: "${memberDto.userId }" },
             		async : false,
             		success:function(result){
             			if(result==false){

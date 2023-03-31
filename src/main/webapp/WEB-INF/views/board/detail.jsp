@@ -508,7 +508,7 @@ $(document).on("click","#followBtn" ,function() {
 	$.ajax({
 		url: "<%=request.getContextPath()%>/follow",
 		type: "POST", 
-		data: {fwId: "${post.userId }" },
+		data: {userId: "${post.userId }" },
 		async : false,
 		success:function(result){
 			if(result==false){
