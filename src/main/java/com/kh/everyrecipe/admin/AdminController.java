@@ -28,14 +28,8 @@ public class AdminController {
 		return "/admin/admin";
 	}
 	
-
-//	@GetMapping("/admin/members")
-//	public String members() {
-//		
-//		return "/admin/members";
-//	}
 	
-	//직원 관리 페이지
+	//회원 관리 페이지
 	@GetMapping("/admin/members")
 	public ModelAndView members(ModelAndView mv, Principal principal) throws Exception {
 
