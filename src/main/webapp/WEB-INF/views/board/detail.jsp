@@ -15,9 +15,16 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/app.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/theme.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/bootstrap.min.css" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+<%@ include file="../header.jsp" %>
 <main role="main">
     <section class="bg-gray200 pt-5 pb-5">
     <div class="container">
@@ -489,6 +496,10 @@ $("#deletePost").click(function(){
 
 
 </script>
-
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="<%=request.getContextPath()%>/resources/mediumish/assets/js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="<%=request.getContextPath()%>/resources/mediumish/assets/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/mediumish/assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
