@@ -140,6 +140,8 @@ update POSTBOOKMARK set ISDELETED='N' where POSTID='&postid' and USERID='&userid
 --COMMENT ON COLUMN "REPORT"."POSTID" IS '신고당한 게시물';
 --COMMENT ON COLUMN "REPORT"."REPORTTIME" IS '신고 시간';
 ----댓글
+--삭제가 되지 않은 댓글 목록만 불러오기:
+select * from TBCOMMENT where POSTID=1 and ISDELETED='N' order by CMTID desc;
 --댓글 삽입
 insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, '&userid', '&postid', '&content', default, default);
 
@@ -173,7 +175,14 @@ update TBCOMMENT set ISDELETED='Y' where CMTID='&cmtid';
 --);
 ----대댓글
 --대댓글 삽입
-insert into REPLYCOMMENT values(SEQ_RCMTID.NEXTVAL, '&cmtid', '&content', default, default);
+desc REPLYCOMMENT;
+select * from TBCOMMENT where POSTID=1 order by CMTID desc;
+select CMTID from TBCOMMENT where POSTID=1 order by CMTID desc;
+select * from REPLYCOMMENT where ISDELETED='N' order by RCMID desc;
+select * from REPLYCOMMENT where CMTID=3 and ISDELETED='N' order by RCMID desc;
+--대댓글 삽입
+insert into REPLYCOMMENT values(SEQ_RCMTID.NEXTVAL, '&cmtid', '&userid', '&content', default, default);
+insert into REPLYCOMMENT values(SEQ_RCMTID.NEXTVAL, 62, 'user04', '댓글테스트5', default, default);
 --대댓글 수정
 update REPLYCOMMENT set CONTENT='&content', UPDATEAT=default where RCMID='&rcmid';
 --대댓글 삭제 <<- 테이블 상에서 완전히 남기는 것이 아닌, 비공개 처리를 위해 ISDELETED를 'Y'로 변경
@@ -181,6 +190,7 @@ update REPLYCOMMENT set ISDELETED='Y' where RCMID='&rcmid';
 --CREATE TABLE "REPLYCOMMENT" (
 --	"RCMID"	NUMBER		NOT NULL,
 --	"CMTID"	NUMBER		NOT NULL,
+--    "USERID" VARCHAR2(20 char)     NOT NULL,
 --	"CONTENT"	VARCHAR2(200 char)		NOT NULL,
 --	"UPDATEAT"	TIMESTAMP	DEFAULT SYSTIMESTAMP	NOT NULL,
 --	"ISDELETED"	VARCHAR2(1 char)	DEFAULT 'N'	NOT NULL
