@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -129,8 +130,8 @@ public class MemberController {
 
 		Map<String, String> map1 = new HashMap<String, String>();
 		if(principal!=null) {
-			map1.put("userId",userId ); 
-			map1.put("fwId", principal.getName() ); 
+			map1.put("userId",principal.getName() ); 
+			map1.put("fwId", userId ); 
 			
 			mv.addObject("isFollowed", fService.isFollowed(map1));
 		}
@@ -176,13 +177,12 @@ public class MemberController {
 		return mv;
 	}
 	
-	@PostMapping("/update")
-	public ModelAndView insertProfile(
+	@PostMapping("/updatepi")
+	public ModelAndView updatePI(
 				MultipartHttpServletRequest multiReq
 			  , @RequestParam(name="report", required = false) MultipartFile multi
 			  , Principal principal
 			  , ModelAndView mv
-			  , MemberVo mvo
 			) throws Exception {
 		Map<String, String> uploadResult;
 		
@@ -191,11 +191,21 @@ public class MemberController {
 			System.out.println(uploadResult.get("original"));
 			System.out.println(uploadResult.get("url"));			
 		}
-		System.out.println(mvo);
 
 	//TODO 업데이트
 		
 		return mv;
+	}
+	@PostMapping("/update")
+	public void updateProfile(
+			Principal principal
+			, MemberVo mvo
+			) throws Exception {
+		//TODO 업데이트
+		mvo.setUserId(principal.getName());
+		
+		mService.update(mvo);
+		
 	}
 	
 	

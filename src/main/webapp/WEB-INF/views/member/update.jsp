@@ -24,49 +24,138 @@
 <!-- Custom styles for this template -->
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
-<style type="text/css">
+ <style>
 .navbar{
 	padding-left:0;
 }
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
 
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+    
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal_body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 400px;
+    height: 600px;
+
+    padding: 40px;
+
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+}
 </style>
 </head>
 <body>
 <%@ include file="../header.jsp" %>
+<div class="modal">
+  	<div class="modal_body">
+		<form action="updatepi" method="post" enctype="multipart/form-data">
+			<div>
+				<input type="file" name="report" placeholder="첨부파일">
+			</div>
+			<div>
+				<button type="submit">이미지 업로드</button>
+			</div>
+		</form>				
+	</div>
+</div>
 <div class="container-fluid">
 		<div class="row flex-nowrap">
-			<div class="col-1 bd-sidebar">
+			<div class="col-3 bd-sidebar">
 				<ul class="navbar-nav">
 					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
 					<li class="nav-item "><a class="nav-link" href="#">비밀번호 변경</a></li>
 				</ul>
 			</div>
-				<div class="container">
-				
-					<form action="update" method="post" enctype="multipart/form-data">
-						<label>아이디</label>
-						<input type="text" name="id" value="${memberDto.userId }" readonly="readonly">
-						<label>닉네임</label>
-						<input type="text" name="nickName" value="${memberDto.nickName }">
-						<label>프로필 설명</label>
-						<input type="text" name="profile" value="${memberDto.profile }">
-						
-						
-						<label>프로필 사진</label>
-						<img alt="../resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
-						<input type="file" name="report" placeholder="첨부파일">
-						<br>
-						<button type="submit">프로필 업데이트</button>
-					</form>
-					<!-- 
-					<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">
-					 -->
+			<div class="col-2">
+					<label>프로필 사진</label>
+					<img alt="../resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
+   	 				<button type="button" class="btn-open-popup">프로필 사진 변경</button>
+			</div>
+			<div class="col-4">
+				<form id="updateForm">
+					<div>
+						<h3>아이디: ${memberDto.userId }</h3>
+					</div>
+					<label>닉네임</label>
+					<input type="text" name="nickName" value="${memberDto.nickName }">
+					<label>프로필 설명</label>
+					<input type="text" name="profile" value="${memberDto.profile }">
+					
+					<button id="updateBtn" type="button">프로필 업데이트</button>
+				</form>
+				<!-- 
+				<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">
+				 -->
+			</div>
 				
 					
-				</div>
 		</div>
 	</div>
 <%@ include file="../footer.jsp" %>
+
+<script>
+      const body = document.querySelector('body');
+      const modal = document.querySelector('.modal');
+      const btnOpenPopup = document.querySelector('.btn-open-popup');
+
+      btnOpenPopup.addEventListener('click', () => {
+        modal.classList.toggle('show');
+
+        if (modal.classList.contains('show')) {
+          body.style.overflow = 'hidden';
+        }
+      });
+
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          modal.classList.toggle('show');
+
+          if (!modal.classList.contains('show')) {
+            body.style.overflow = 'auto';
+          }
+        }
+      });
+      
+      $(document).on("click","#updateBtn" ,function() {
+      	
+      	var map = {nickName:$("input[name=nickName]").val(),profile:$("input[name=profile]").val()};
+      	
+      	console.log(map);
+      	$.ajax({
+      		url: '<%=request.getContextPath()%>/member/update',
+      		type: 'POST', 
+      		data: map,
+      		success:function(result){
+      			
+      			location.href="<%=request.getContextPath()%>/member/myinfo"
+      			
+      		}
+      		
+      	});
+      }); 
+      
+    </script>
 </body>
 </html>
