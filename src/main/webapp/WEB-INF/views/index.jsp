@@ -42,7 +42,8 @@
 		    </li>
 	  		<li class="nav-item">
 	  <c:choose>
-		  <c:when test="${pageContext.request.userPrincipal != null and pageContext.request.isUserInRole('MEMBER')}">
+		  <c:when test="${pageContext.request.userPrincipal != null and pageContex.request.isUserInRole('MEMBER')}">
+
 		    <li class="nav-item ">
 	        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내정보</a>
 		    </li>
