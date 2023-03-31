@@ -55,7 +55,7 @@
 	   					<fieldset>
 	   						<span>댓글</span>
 	   						<span>${cmtCount }</span>
-	   						<table id="tb_comment" style="width: 100%">
+	   						<table id="tb_comment"style="width: 100%">
 								<c:forEach items="${comment }" var="cvo" varStatus="s">
 									<tr>
 										<td colspan="2">${cvo.userId }</td>
@@ -80,6 +80,22 @@
 												<c:otherwise />
 											</c:choose>
 										</td>
+										<tr class="editbox ${cvo.cmtId }">
+											<td colspan="2">
+												<textarea rows="3" cols="61" id="updateBox">${cvo.content }</textarea>
+												<br>
+												<button type="button">수정</button>
+												<button type="button" onclick="closeEdit(${cvo.cmtId})">취소</button>
+											</td>
+										</tr>
+										<tr class="insertbox ${cvo.cmtId }">
+											<td colspan="2">
+												<textarea rows="3" cols="61" id="insertBox"></textarea>
+												<br>
+												<button type="button">작성</button>
+												<button type="button" onclick="closeInsert(${cvo.cmtId})">취소</button>
+											</td>
+										</tr>
 										<c:forEach items="${replyComment }" var="rcvo" varStatus="rs">
 											<c:if test="${cvo.cmtId eq rcvo.cmtId }">
 												<tr>
@@ -92,41 +108,40 @@
 												</tr>
 												<tr>
 													<td style="width: 10%"></td>
-													<td style="width: 90%">${cvo.updateAt }&nbsp;
-														<c:if test="${loggedIn }">
-															<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
-														</c:if>
-															<c:choose>
-																<c:when test="${loggedIn}">
-																	<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openInsert(${cvo.cmtId})">답글 쓰기</button>
-																	<c:if test="${lgnuser eq rcvo.userId }">
-																		<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openEdit(${cvo.cmtId})">댓글 수정</button> 
-																		<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="deleteCmt(${cvo.cmtId})">댓글 삭제</button>
-																	</c:if>
-																</c:when>
-																<c:otherwise />
-															</c:choose>
-														</td>
+													<td style="width: 90%">${rcvo.updateAt }&nbsp;
+													<c:if test="${loggedIn }">
+														<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
+													</c:if>
+													<c:choose>
+														<c:when test="${loggedIn}">
+															<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openReInsert(${rcvo.rcmId})">답글 쓰기</button>
+															<c:if test="${lgnuser eq rcvo.userId }">
+																<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openReEdit(${rcvo.rcmId})">답글 수정</button> 
+																<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="RedeleteCmt(${rcvo.rcmId})">답글 삭제</button>
+															</c:if>
+														</c:when>
+														<c:otherwise />
+													</c:choose>
+													</td>
 												</tr>
-												
+												<tr class="editRebox ${rcvo.rcmId }">
+													<td colspan="2">
+														<textarea rows="3" cols="61" id="updateReBox">${rcvo.content }</textarea>
+														<br>
+														<button type="button">수정</button>
+														<button type="button" onclick="closeReEdit(${rcvo.rcmId})">취소</button>
+													</td>
+												</tr>
+												<tr class="insertRebox ${rcvo.rcmId }">
+													<td colspan="2">
+														<textarea rows="3" cols="61" id="insertReBox"></textarea>
+														<br>
+														<button type="button">작성</button>
+														<button type="button" onclick="closeReInsert(${rcvo.rcmId})">취소</button>
+													</td>
+												</tr>
 											</c:if>
 										</c:forEach>
-									<tr class="editbox ${cvo.cmtId }">
-										<td colspan="2">
-											<textarea rows="3" cols="61" id="updateBox">${cvo.content }</textarea>
-											<br>
-											<button type="button">수정</button>
-											<button type="button" onclick="closeEdit(${cvo.cmtId})">취소</button>
-										</td>
-									</tr>
-									<tr class="insertbox ${cvo.cmtId }">
-										<td colspan="2">
-											<textarea rows="3" cols="61" id="insertBox"></textarea>
-											<br>
-											<button type="button">작성</button>
-											<button type="button" onclick="closeInsert(${cvo.cmtId})">취소</button>
-										</td>
-									</tr>
 								</c:forEach>
 							</table>
 	   					</fieldset>
@@ -311,6 +326,8 @@ ${hashtags }
 $(document).ready(function() {
 	$(".editbox").hide();
 	$(".insertbox").hide();
+	$(".editRebox").hide();
+	$(".insertRebox").hide();
 });
 
 function openEdit(num) {
@@ -327,6 +344,22 @@ function openInsert(num) {
 
 function closeInsert(num) {
 	$(".insertbox."+num).hide();
+}
+
+function openReEdit(num) {
+	$(".editRebox."+num).show();
+}
+
+function closeReEdit(num) {
+	$(".editRebox."+num).hide();
+}
+
+function openReInsert(num) {
+	$(".insertRebox."+num).show();
+}
+
+function closeReInsert(num) {
+	$(".insertRebox."+num).hide();
 }
 
 function updateComment(cid) {
