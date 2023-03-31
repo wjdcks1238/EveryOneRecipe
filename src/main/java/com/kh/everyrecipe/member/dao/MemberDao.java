@@ -41,4 +41,8 @@ public class MemberDao {
 	public int updatePI(Map<String, String> map) {
 		return sqlSession.update("memberMapper.updatePI",map);
 	}
+
+	public int deletePI(MemberVo mvo) {
+		return sqlSession.update("memberMapper.deletePI",mvo);
+	}
 }

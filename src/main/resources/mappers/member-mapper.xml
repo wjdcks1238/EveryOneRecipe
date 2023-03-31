@@ -16,6 +16,13 @@
 		where userid=#{userId}
 	</update>
 	
+	<update id="deletePI" parameterType="mvo">
+		update members 
+		   set profileurl=#{profileUrl}
+		     , updateat= default
+		where userid=#{userId}
+	</update>
+	
 	<update id="updatePI" parameterType="map">
 		update members 
 		   set profileurl=#{profileUrl}

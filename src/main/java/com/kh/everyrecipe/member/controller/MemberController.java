@@ -40,9 +40,12 @@ public class MemberController {
 	@Autowired
 	private FollowMappingService fService;
 	
+	private final String defaultProfileIMG ="/resources/tempProfileImg/defaultUser.svg" ;
+	
 	@Autowired
 	@Qualifier("fileUtil")
 	private FileUtil fileUtil;
+	
 	
 	@GetMapping("/login")
 	public String login() {
@@ -201,6 +204,23 @@ public class MemberController {
 	}
 	
 	
+	@PostMapping("/deletepi")
+	public void deletePI(
+			Principal principal
+			, MemberVo mvo
+			, HttpServletRequest request
+
+			) throws Exception {
+		mvo.setUserId(principal.getName());
+		//TODO 닉네임 중복 또는 비었을 때
+		
+		
+		mvo.setProfileUrl(request.getContextPath()+defaultProfileIMG);
+		System.out.println(mvo);
+		mService.deletePI(mvo);
+
+	
+	}
 	@PostMapping("/update")
 	public void updateProfile(
 			Principal principal

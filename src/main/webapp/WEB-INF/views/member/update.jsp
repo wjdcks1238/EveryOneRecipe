@@ -80,7 +80,7 @@
 			<div id="image_container"></div>
 			<div>
 				<button type="button" id="updatePI">프로필 사진 변경</button>
-			</div>
+							</div>
 			<div id="error"></div>
 		</form>				
 	</div>
@@ -98,6 +98,8 @@
 					<label>프로필 사진</label>
 					<img width="100%" alt="<%=request.getContextPath()%>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
    	 				<button type="button" class="btn-open-popup">프로필 사진 변경</button>
+   	 				<button type="button" id="deletePI">프로필 사진 삭제</button>
+   	 				
 			</div>
 			<div class="col-4">
 				<form id="updateForm">
@@ -112,7 +114,7 @@
 					<button id="updateBtn" type="button">프로필 업데이트</button>
 				</form>
 				<!-- 
-				<img  width="300" alt="" src="../resources/tempProfileImg/food.svg">
+				<img  width="300" alt="" src="<%=request.getContextPath() %>/resources/tempProfileImg/food.svg">
 				 -->
 			</div>
 				
@@ -190,6 +192,19 @@
       		data: map,
       		success:function(result){
       			
+      			location.href="<%=request.getContextPath()%>/member/myinfo"
+      			
+      		}
+      		
+      	});
+      }); 
+      $(document).on("click","#deletePI" ,function() {
+      	$.ajax({
+      		url: '<%=request.getContextPath()%>/member/deletepi',
+      		type: 'POST', 
+      		data: {userId : '${memberDto.userId }'},
+      		success:function(result){
+      			console.log("성공");
       			location.href="<%=request.getContextPath()%>/member/myinfo"
       			
       		}

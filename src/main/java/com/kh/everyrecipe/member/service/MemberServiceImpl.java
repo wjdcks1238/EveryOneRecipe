@@ -46,4 +46,9 @@ public class MemberServiceImpl implements MemberService{
 	public int updatePI(Map<String, String> map) throws Exception {
 		return dao.updatePI(map);
 	}
+
+	@Override
+	public int deletePI(MemberVo mvo) throws Exception {
+		return dao.deletePI(mvo);
+	}
 }

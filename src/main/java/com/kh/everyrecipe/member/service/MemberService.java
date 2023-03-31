@@ -20,4 +20,6 @@ public interface MemberService {
 	public List<MemberVo> selectList() throws Exception;
 
 	public int updatePI(Map<String, String> map) throws Exception;
+
+	public int deletePI(MemberVo mvo) throws Exception;
 }
