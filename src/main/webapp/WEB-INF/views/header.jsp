@@ -22,7 +22,7 @@
 	
 		  		<li class="nav-item">
 		  <c:choose>
-			  <c:when test="${pageContext.request.userPrincipal != null and request.isUserInRole('MEMBER')}">
+			  <c:when test="${pageContext.request.userPrincipal != null and pageContext.request.isUserInRole('MEMBER')}">
 				
 				<li class="nav-item ">
 					<a class="nav-link" href="<%=request.getContextPath()%>/board/list">전체 게시글</a>
