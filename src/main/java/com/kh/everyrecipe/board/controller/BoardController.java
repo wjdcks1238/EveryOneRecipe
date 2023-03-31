@@ -200,6 +200,10 @@ public class BoardController {
 				mv.addObject("comment", cvo);
 				int cmtCount = cmtService.getCountComment(postId);
 				mv.addObject("cmtCount", cmtCount);
+				List<ReplyCommentVo> rcvo = rcmtService.getCommentList();
+				System.out.println(cvo.toString());
+				System.out.println(rcvo.toString());
+				mv.addObject("replyComment", rcvo);
 				
 				
 				//(회원일시) 작성자 팔로우 여부와 좋아요 여부.

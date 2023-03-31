@@ -5,5 +5,5 @@ import java.util.List;
 import com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo;
 
 public interface ReplyCommentService {
-	List<ReplyCommentVo> getCommentList(int postId);
+	List<ReplyCommentVo> getCommentList();
 }

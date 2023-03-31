@@ -10,4 +10,5 @@ public interface CommentService {
 	public int insertComment(CommentVo vo);
 	public int updateComment(CommentVo vo);
 	public int deleteComment(CommentVo vo);
+	public List<CommentVo> getCommentIdList(int postId);
 }

@@ -34,6 +34,10 @@ public class CommentDao {
 		return session.update("commentMapper.updateComment", vo);
 	}
 
+	public List<CommentVo> getCommentIdList(int postId) {
+		return session.selectList("commentMapper.getCommentIdList", postId);
+	}
+
 	
 
 }

@@ -20,11 +20,13 @@ public class ReplyCommentVo {
 //	--------- -------- ------------------ 
 //	RCMID     NOT NULL NUMBER             
 //	CMTID     NOT NULL NUMBER             
+//	USERID    NOT NULL VARCHAR2(20 CHAR)  
 //	CONTENT   NOT NULL VARCHAR2(200 CHAR) 
 //	UPDATEAT  NOT NULL TIMESTAMP(6)       
 //	ISDELETED NOT NULL VARCHAR2(1 CHAR)
 	int rcmId;
 	int cmtId;
+	String userId;
 	String content;
 	Date updateAt;
 	char isDeleted;

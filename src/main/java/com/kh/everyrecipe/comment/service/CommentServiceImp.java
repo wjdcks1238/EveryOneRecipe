@@ -37,5 +37,10 @@ public class CommentServiceImp implements CommentService{
 	public int updateComment(CommentVo vo) {
 		return dao.updateComment(vo);
 	}
+
+	@Override
+	public List<CommentVo> getCommentIdList(int postId) {
+		return dao.getCommentIdList(postId);
+	}
 	
 }

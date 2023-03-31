@@ -13,8 +13,8 @@ public class ReplyCommentDao {
 	@Autowired
 	private SqlSession session;
 
-	public List<ReplyCommentVo> getCommentList(int postId) {
-		return session.selectList(statement, parameter);
-	}
 
+	public List<ReplyCommentVo> getCommentList() {
+		return session.selectList("ReplyCommentMapper.getReplyCommentList");
+	}
 }

@@ -7,6 +7,9 @@
 	<select id="getCommentList" resultType="cvo" parameterType="_int">
 		select * from TBCOMMENT where POSTID=#{postId} and ISDELETED='N' order by CMTID desc
 	</select>
+	<select id="getCommentIdList" resultType="cvo" parameterType="_int">
+		select CMTID from TBCOMMENT where POSTID=#{postId} order by CMTID desc
+	</select>
 	<insert id="insertComment" parameterType="cvo">
 		insert into TBCOMMENT values(
 		SEQ_CMTID.NEXTVAL

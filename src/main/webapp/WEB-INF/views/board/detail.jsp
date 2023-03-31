@@ -55,7 +55,7 @@
 	   					<fieldset>
 	   						<span>댓글</span>
 	   						<span>${cmtCount }</span>
-	   						<table id="tb_comment">
+	   						<table id="tb_comment" style="width: 100%">
 								<c:forEach items="${comment }" var="cvo" varStatus="s">
 									<tr>
 										<td colspan="2">${cvo.userId }</td>
@@ -64,7 +64,7 @@
 										<td colspan="2">${cvo.content }</td>
 									</tr>
 									<tr>
-										<td>${cvo.updateAt }&nbsp;
+										<td  colspan="2">${cvo.updateAt }&nbsp;
 										<sec:authorize var="loggedIn" access="isAuthenticated()" />
 										<c:if test="${loggedIn }">
 											<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
@@ -80,10 +80,40 @@
 												<c:otherwise />
 											</c:choose>
 										</td>
-									</tr>
+										<c:forEach items="${replyComment }" var="rcvo" varStatus="rs">
+											<c:if test="${cvo.cmtId eq rcvo.cmtId }">
+												<tr>
+													<td style="width: 10%">ㄴRe:</td>
+													<td style="width: 90%">${rcvo.userId }</td>
+												</tr>
+												<tr>
+													<td style="width: 10%"></td>
+													<td style="width: 90%">${rcvo.content }</td>
+												</tr>
+												<tr>
+													<td style="width: 10%"></td>
+													<td style="width: 90%">${cvo.updateAt }&nbsp;
+														<c:if test="${loggedIn }">
+															<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
+														</c:if>
+															<c:choose>
+																<c:when test="${loggedIn}">
+																	<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openInsert(${cvo.cmtId})">답글 쓰기</button>
+																	<c:if test="${lgnuser eq rcvo.userId }">
+																		<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openEdit(${cvo.cmtId})">댓글 수정</button> 
+																		<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="deleteCmt(${cvo.cmtId})">댓글 삭제</button>
+																	</c:if>
+																</c:when>
+																<c:otherwise />
+															</c:choose>
+														</td>
+												</tr>
+												
+											</c:if>
+										</c:forEach>
 									<tr class="editbox ${cvo.cmtId }">
 										<td colspan="2">
-											<textarea rows="3" cols="64" id="updateBox">${cvo.content }</textarea>
+											<textarea rows="3" cols="61" id="updateBox">${cvo.content }</textarea>
 											<br>
 											<button type="button">수정</button>
 											<button type="button" onclick="closeEdit(${cvo.cmtId})">취소</button>
@@ -91,7 +121,7 @@
 									</tr>
 									<tr class="insertbox ${cvo.cmtId }">
 										<td colspan="2">
-											<textarea rows="3" cols="64" id="insertBox"></textarea>
+											<textarea rows="3" cols="61" id="insertBox"></textarea>
 											<br>
 											<button type="button">작성</button>
 											<button type="button" onclick="closeInsert(${cvo.cmtId})">취소</button>

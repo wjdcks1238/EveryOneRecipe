@@ -14,8 +14,7 @@ public class ReplyCommentServiceImp implements ReplyCommentService{
 	private ReplyCommentDao dao;
 
 	@Override
-	public List<ReplyCommentVo> getCommentList(int postId) {
-		return dao.getCommentList(postId);
+	public List<ReplyCommentVo> getCommentList() {
+		return dao.getCommentList();
 	}
-
 }
