@@ -86,7 +86,6 @@ public class MemberController {
 		mv.addObject("followerCount",fService.getFollowerCount(id));
 
 		
-		
 		//팔로워 수, 팔로잉 수 
 
 		
@@ -186,24 +185,29 @@ public class MemberController {
 			) throws Exception {
 		Map<String, String> uploadResult;
 		
-		if(multi.getSize()!=0) {
-			uploadResult = fileUtil.saveFile(multi);
-			System.out.println(uploadResult.get("original"));
-			System.out.println(uploadResult.get("url"));			
-		}
+		uploadResult = fileUtil.saveFile(multi);
+		System.out.println(uploadResult.get("original"));	
+		System.out.println(uploadResult.get("url"));			
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", principal.getName());
+		map.put("profileUrl", uploadResult.get("url"));
+		
+		mService.updatePI(map);
 
-	//TODO 업데이트
+		mv.setViewName("redirect:/member/update");
 		
 		return mv;
 	}
+	
+	
 	@PostMapping("/update")
 	public void updateProfile(
 			Principal principal
 			, MemberVo mvo
 			) throws Exception {
-		//TODO 업데이트
 		mvo.setUserId(principal.getName());
-		
+		//TODO 닉네임 중복 또는 비었을 때
 		mService.update(mvo);
 		
 	}

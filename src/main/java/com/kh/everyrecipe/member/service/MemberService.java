@@ -1,6 +1,7 @@
 package com.kh.everyrecipe.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.everyrecipe.member.vo.MemberVo;
 
@@ -17,4 +18,6 @@ public interface MemberService {
 	
 	public MemberVo selectOne(String id) throws Exception ;
 	public List<MemberVo> selectList() throws Exception;
+
+	public int updatePI(Map<String, String> map) throws Exception;
 }
