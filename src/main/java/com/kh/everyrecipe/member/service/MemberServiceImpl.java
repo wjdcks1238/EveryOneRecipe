@@ -1,6 +1,7 @@
 package com.kh.everyrecipe.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,10 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberVo> selectList() throws Exception {
 		
 		return dao.selectList();
+	}
+
+	@Override
+	public int updatePI(Map<String, String> map) throws Exception {
+		return dao.updatePI(map);
 	}
 }

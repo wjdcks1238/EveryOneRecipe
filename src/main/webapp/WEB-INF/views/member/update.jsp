@@ -69,13 +69,19 @@
 <%@ include file="../header.jsp" %>
 <div class="modal">
   	<div class="modal_body">
-		<form action="updatepi" method="post" enctype="multipart/form-data">
+		<form id="uploadPiForm" method="post" enctype="multipart/form-data">
 			<div>
-				<input type="file" name="report" placeholder="첨부파일">
+				<label for="image">
+  					<a  class="btn btn-primary">프로필 이미지 선택</a>
+  					
+				</label>
+				<input style="display: none" type="file" id="image" accept="image/*" onchange="setThumbnail(event);" name="report" >
 			</div>
+			<div id="image_container"></div>
 			<div>
-				<button type="submit">이미지 업로드</button>
+				<button type="button" id="updatePI">프로필 사진 변경</button>
 			</div>
+			<div id="error"></div>
 		</form>				
 	</div>
 </div>
@@ -90,7 +96,7 @@
 			</div>
 			<div class="col-2">
 					<label>프로필 사진</label>
-					<img alt="../resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
+					<img width="100%" alt="<%=request.getContextPath()%>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
    	 				<button type="button" class="btn-open-popup">프로필 사진 변경</button>
 			</div>
 			<div class="col-4">
@@ -116,6 +122,28 @@
 <%@ include file="../footer.jsp" %>
 
 <script>
+
+	function setThumbnail(event) {
+	    var reader = new FileReader();
+	
+	    reader.onload = function(event) {
+	      
+	      var img = document.createElement("img");
+	      img.setAttribute("src", event.target.result);
+	      img.setAttribute("width", '90%');
+	      $("#image_container").html("");
+	      document.querySelector("div#image_container").appendChild(img);
+	    };
+	
+	    reader.readAsDataURL(event.target.files[0]);
+	  }
+
+
+
+
+
+
+
       const body = document.querySelector('body');
       const modal = document.querySelector('.modal');
       const btnOpenPopup = document.querySelector('.btn-open-popup');
@@ -136,6 +164,19 @@
             body.style.overflow = 'auto';
           }
         }
+      });
+      
+      
+      $(document).on("click","#updatePI" ,function() {
+    	  var form = document.getElementById("uploadPiForm");
+    	  if($("#image_container").html()!=""){
+    		  form.action = 'updatepi';
+    		  form.mothod = 'post';
+    		  form.submit();
+    	  }else{
+    		  $("#error").text("이미지를 먼저 업로드 해주세요");
+    	  }
+    	  
       });
       
       $(document).on("click","#updateBtn" ,function() {

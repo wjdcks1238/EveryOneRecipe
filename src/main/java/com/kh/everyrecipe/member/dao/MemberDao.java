@@ -1,6 +1,7 @@
 package com.kh.everyrecipe.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,9 @@ public class MemberDao {
 	public List<MemberVo> selectList() throws Exception {
 		return sqlSession.selectList("memberMapper.selectList");
 		
+	}
+
+	public int updatePI(Map<String, String> map) {
+		return sqlSession.update("memberMapper.updatePI",map);
 	}
 }
