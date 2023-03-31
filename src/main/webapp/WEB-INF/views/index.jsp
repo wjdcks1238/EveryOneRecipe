@@ -44,6 +44,11 @@
 	  <c:choose>
 		  <c:when test="${pageContext.request.userPrincipal != null and pageContex.request.isUserInRole('MEMBER')}">
 
+	  	  <sec:authorize var="loggedIn" access="isAuthenticated()" />
+	  	  <sec:authentication property="principal" var="principal"></sec:authentication>
+	  	  <%
+	  	  	if(request.getUserPrincipal() != null && request.isUserInRole("MEMBER")){;
+	  	  %>
 		    <li class="nav-item ">
 	        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내정보</a>
 		    </li>
@@ -59,13 +64,11 @@
 		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		      </form>
 		    </li>
-		  </c:when>
-		  <c:otherwise>
+		  <%} else {%>
 		    <li class="nav-item">
 		      <a href="<%=request.getContextPath() %>/member/login" class="nav-link btn">로그인</a>
 		    </li>
-		  </c:otherwise>
-	 </c:choose>
+		  <%} %>
 	  		</li>
 		    <li class="nav-item">
 		     <a class="nav-link" href="<%=request.getContextPath()%>/resources/mediumish/author.html">Author</a>
