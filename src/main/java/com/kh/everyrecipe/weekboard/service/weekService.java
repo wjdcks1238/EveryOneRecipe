@@ -8,4 +8,8 @@ import com.kh.everyrecipe.weekboard.vo.weekVo;
 public interface weekService {
 
 	public List<weekVo> weekList();
+	
+	public int count() throws Exception;
+	
+	public List<weekVo> weeklistPage(int displayPost, int postNum) throws Exception;
 }

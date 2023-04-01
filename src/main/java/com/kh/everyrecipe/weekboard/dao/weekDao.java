@@ -1,5 +1,6 @@
 package com.kh.everyrecipe.weekboard.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,5 +18,17 @@ public class weekDao {
 
 	public List<weekVo> weekList() {
 		return sqlSession.selectList("weekMapper.list");
+	}
+	
+	public int count() throws Exception{
+		return sqlSession.selectOne("weekMapper.count");
+	}
+	
+	public List<weekVo> weeklistPage(int displayPost, int postNum) throws Exception{
+		HashMap<String, Integer> data = new HashMap<String, Integer>();
+		data.put("weekPost", displayPost);
+		data.put("postNum", postNum);	
+		
+		return sqlSession.selectList("weekMapper.listpage", data);
 	}
 }
