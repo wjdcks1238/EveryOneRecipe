@@ -2,14 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="weekMapper">	
 	
-	<select id="list" resultType="wvo">
-	select * 
-	from post 
-	where
-	ISDELETED = 'N'
-	AND	
-	CREATEAT between trunc(sysdate,'iw') AND trunc(sysdate,'iw')+6 order by LOOKUP desc
+<!--<select id="list" resultType="wvo">
+		select * 
+		from post 
+		where
+		ISDELETED = 'N'
+		AND	
+		CREATEAT between trunc(sysdate,'iw') AND trunc(sysdate,'iw')+6 order by LOOKUP desc
     </select>
-    
+-->	
+	<select id="count" resultType="_int">
+    	select count(postId) from post
+    </select>
+	
+	  <select id="listpage" resultType="wvo" parameterType="hashMap">
+	select *
+		from( 
+        	SELECT SEQ, POSTID, USERID, NICKNAME, FOODNAME, CONTENT, CREATEAT, UPDATEAT, ISDELETED, LOOKUP
+        	from(
+        		SELECT ROWNUM AS SEQ, POSTID, USERID, NICKNAME, FOODNAME, CONTENT, CREATEAT, UPDATEAT, ISDELETED, LOOKUP
+        		from(
+        			SELECT *
+        			FROM POST
+        			WHERE
+		        	ISDELETED = 'N'
+		        	AND	
+		        	CREATEAT between trunc(sysdate,'iw') AND trunc(sysdate,'iw')+6
+		        	order by LOOKUP DESC			        		        	
+		        	)
+		        )
+		     	WHERE SEQ <![CDATA[>]]>#{weekPost}
+		   )
+		   WHERE ROWNUM <![CDATA[<=]]>#{postNum}		   
+    </select>    
 </mapper>
 
