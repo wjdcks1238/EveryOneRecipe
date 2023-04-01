@@ -33,7 +33,7 @@
 		       		)
 		        WHERE SEQ <![CDATA[>]]>#{weekPost}
 		   )
-	    WHERE ROWNUM <![CDATA[<=]]>#{postNum}		   
+	    WHERE ROWNUM <![CDATA[<=]]>#{postNum}		    
     </select>    
 </mapper>
 
