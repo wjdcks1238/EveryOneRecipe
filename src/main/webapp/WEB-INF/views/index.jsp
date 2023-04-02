@@ -41,9 +41,6 @@
 				<a class="nav-link" href="<%=request.getContextPath()%>/board/list">내 게시글 <span class="sr-only">(current)</span></a>
 		    </li>
 	  		<li class="nav-item">
-	  <c:choose>
-		  <c:when test="${pageContext.request.userPrincipal != null and pageContex.request.isUserInRole('MEMBER')}">
-
 	  	  <sec:authorize var="loggedIn" access="isAuthenticated()" />
 	  	  <sec:authentication property="principal" var="principal"></sec:authentication>
 	  	  <%
