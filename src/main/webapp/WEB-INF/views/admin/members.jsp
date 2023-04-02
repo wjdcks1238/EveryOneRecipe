@@ -20,8 +20,8 @@
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath() %>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
-
 <body id="page-top">
+
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -75,16 +75,14 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
+                    <span>회원관리</span>
+                </a>                
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <h6 class="collapse-header">회원 관리:</h6>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">계정관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">권한관리</a>
                     </div>
                 </div>
             </li>
@@ -170,21 +168,36 @@
                                     </thead>
                                     <tbody>
                                     	<c:forEach var="admin" items="${memberDto}">
-	                                        <tr>
-	                                            <td><c:out value="${admin.userId }"/></td>
+	                                        <tr >
+	                                            <td >
+	                                            <a href="<%=request.getContextPath()%>/admin/details/${admin.userId}" )">
+	                                            <c:out value="${admin.userId }"/>
+	                                            </a>
+	                                            </td>
 	                                            <td><c:out value="${admin.nickName}"/></td>
-	                                            <td><c:out value="${admin.createAt}"/></td>
+	                                            <td ><c:out value="${admin.createAt}"/></td>
 	                                            <td>퇴사</td>
 	                                            <td>2011/04/25</td>
 	                                        </tr>
 	                                    </c:forEach>
                                     </tbody>
                                 </table>
-                                </div>
+                                
+                                <!-- onclick="openPopup(event, '${admin.userId}' 팝업에 페이지 띄우기 계속 실패 -->
+                  </div>
             </div>
             <!-- End of Main Content -->
          </div>
       </div>
+      	
+<script>
+	function openPopup(event, userId) {
+		event.preventDefault();
+		let popOption = "width=600,height=400";
+		let openUrl = `/admin/details/${userId}`;
+		window.open(openUrl, '_blank', popOption);
+	}
+</script> 
 
     <!-- Bootstrap core JavaScript-->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/jquery/jquery.min.js"></script>
@@ -205,5 +218,29 @@
     
 <!-- footer -->    
 <%@ include file="adminFooter.jsp" %>   
+
+		<script>
+			
+
+			
+			<%-- $(document).on("click","#followBtn" ,function() {
+			
+				console.log(<%=request.getContextPath()%>);
+            	
+            	$.ajax({
+            		url: "<%=request.getContextPath()%>/admin/details",
+            		type: "GET", 
+            		data: {userId: "${memberDto.userId}" },
+            		async : false,
+            		success:function(result){
+            			console.log("성공 ");
+            			window.open('/admin/employee', '_blank', 'width=600,height=400');
+            		}
+            		
+            	});
+            }); --%>
+			
+			
+		</script>
 </body>
 </html>

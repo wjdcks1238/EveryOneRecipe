@@ -1,6 +1,7 @@
 package com.kh.everyrecipe.admin;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,5 +43,29 @@ public class AdminController {
 		return mv;
 	}
 	
+	//관리페이지
+	@GetMapping("admin/details/{userId}")
+	public ModelAndView employee(@PathVariable String userId) throws Exception {
+		MemberVo member = mService.selectOne(userId);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("memberDto", member); 
+		
+	    mv.setViewName("admin/details/admindetails");
+
+	    return mv;
+	}
 	
+	@GetMapping("admin/details/admindetails")
+	public ModelAndView admindetails(@PathVariable String userId) throws Exception {
+		MemberVo member = mService.selectOne(userId);
+		List<MemberVo> members = new ArrayList<>();
+		members.add(member);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("members", members);
+		mv.setViewName("admin/details/admindetails");
+		
+		return mv;
+	}
 }
