@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="<%=request.getContextPath()%>/resources/mediumish/assets/img/favicon.ico">
-<title>Mediumish - A Medium style template by WowThemes.net</title>
+<title>every recipe</title>
 <!-- Bootstrap core CSS -->
 <link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/bootstrap.min.css" rel="stylesheet">
 <!-- Fonts -->
@@ -27,9 +27,9 @@
 ================================================== -->
 <div class="container">
 	<div class="mainheading">
-		<h1 class="sitetitle">Mediumish</h1>
+		<h1 class="sitetitle">every recipe</h1>
 		<p class="lead">
-			 Bootstrap theme, medium style, simply perfect for bloggers
+			 소중한 나의 식사 기록장
 		</p>
 	</div>
 <!-- End Site Title
@@ -39,7 +39,7 @@
 	================================================== -->
 	<section class="featured-posts">
 	<div class="section-title">
-		<h2><span>Featured</span></h2>
+		<h2><span>BEST RECIPE</span></h2>
 	</div>
 	<div class="card-columns listfeaturedtag">
 
