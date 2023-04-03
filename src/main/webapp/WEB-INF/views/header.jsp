@@ -46,9 +46,11 @@
 			    <li class="nav-item">
 			      <a href="<%=request.getContextPath() %>/member/login" class="nav-link btn">로그인</a>
 			    </li>
-			    <li class="nav-item ">
+			    <sec:authorize access="hasRole('ADMIN')">
+				<li class="nav-item ">
 					<a class="nav-link" href="<%=request.getContextPath()%>/admin">관리자모드</a>
-			    </li>
+				</li>
+				</sec:authorize>
 			  <%} %>
 		  		</li>
 			    </ul>

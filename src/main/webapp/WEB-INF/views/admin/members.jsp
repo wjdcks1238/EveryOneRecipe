@@ -21,6 +21,17 @@
     <link href="<%=request.getContextPath() %>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 <body id="page-top">
+<script>
+	function openPopup(event, userId) {
+		event.preventDefault();
+		//let openUrl = `/admin/details/admindetails`;
+		let openUrl = "/admin/details/admindetails.jsp";
+		let popOption = "width=600,height=400";
+		
+		window.open(openUrl, '_blank', popOption);
+	}
+</script> 
+
 
 
     <!-- Page Wrapper -->
@@ -170,7 +181,8 @@
                                     	<c:forEach var="admin" items="${memberDto}">
 	                                        <tr >
 	                                            <td >
-	                                            <a href="<%=request.getContextPath()%>/admin/details/${admin.userId}" )">
+	                                            <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~팝업창 여기 -->
+	                                            <a href="<%=request.getContextPath()%>/admin/details/${admin.userId}" onclick="openPopup(event, '${admin.userId}')">
 	                                            <c:out value="${admin.userId }"/>
 	                                            </a>
 	                                            </td>
@@ -190,14 +202,6 @@
          </div>
       </div>
       	
-<script>
-	function openPopup(event, userId) {
-		event.preventDefault();
-		let popOption = "width=600,height=400";
-		let openUrl = `/admin/details/${userId}`;
-		window.open(openUrl, '_blank', popOption);
-	}
-</script> 
 
     <!-- Bootstrap core JavaScript-->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/jquery/jquery.min.js"></script>

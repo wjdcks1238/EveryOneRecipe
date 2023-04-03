@@ -58,14 +58,13 @@ public class AdminController {
 	}
 	
 	@GetMapping("admin/details/admindetails")
-	public ModelAndView admindetails(@PathVariable String userId) throws Exception {
+	public ModelAndView admindetails(ModelAndView mv, @PathVariable("userId") String userId) throws Exception {
 		MemberVo member = mService.selectOne(userId);
-		List<MemberVo> members = new ArrayList<>();
-		members.add(member);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("members", members);
+		
+		mv.addObject("memberDto", member);
 		mv.setViewName("admin/details/admindetails");
 		
 		return mv;
 	}
+	
 }

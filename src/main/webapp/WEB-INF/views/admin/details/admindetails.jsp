@@ -37,59 +37,33 @@
 </head>
 <body>
   <h1>사용자 상세페이지</h1>
-  
-  
-  
-  <!-- 왜 안불러오지..? -->
-  <div>
-  아이디 : ${admin.userId}
-  </div>
-  <div>
-  이메일 : ${admin.email}
-  </div>
-  
-  
-  			<form id="updateForm">
-					<div>
-						<h3>아이디: ${memberDto.userId }</h3>
-					</div>
-					<label>닉네임</label>
-					<input type="text" name="nickName" value="${memberDto.nickName }">
-					<label>프로필 설명</label>
-					<input type="text" name="profile" value="${memberDto.profile }">
-					
-					<button id="updateBtn" type="button">프로필 업데이트</button>
-				</form>
-  
 	  <table>
-	      <c:forEach var="admin" items="${members}">
 	        <tr>
 	          <th>아이디</th>
-	          <td>${admin.userId}</td>
+	          <td>${memberDto.userId}</td>
 	        </tr>
 	        <tr>
 	          <th>닉네임</th>
 	          <td>
-	            <form method="post" action="<%=request.getContextPath()%>/admin/details/${admin.userId}">
-	              <input type="text" name="nickName" value="${admin.nickName}" />
-	              <input type="submit" value="Update" />
+	            <form method="post" action="<%=request.getContextPath()%>/admin/details/${memberDto.userId}">
+	              <input type="text" name="nickName" value="${memberDto.nickName}" />
+	              <input type="submit" value="수정" />
 	            </form>
 	          </td>
 	        </tr>
 	        <tr>
 	          <th>Email</th>
 	          <td>
-	            <form method="post" action="<%=request.getContextPath()%>/admin/details/${admin.userId}">
-	              <input type="text" name="email" value="${admin.email}" />
-	              <input type="submit" value="Update" />
+	            <form method="post" action="<%=request.getContextPath()%>/admin/details/${memberDto.userId}">
+	              <input type="text" name="email" value="${memberDto.email}" />
+	              <input type="submit" value="수정" />
 	            </form>
 	          </td>
 	        </tr>
 	        <tr>
-	          <th>Created At</th>
-	          <td>${admin.createAt}</td>
+	          <th>입사일</th>
+	          <td>${memberDto.createAt}</td>
 	        </tr>
-	      </c:forEach>
 	  </table>
 </body>
 </html>
