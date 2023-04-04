@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.everyrecipe.weekboard.service.weekService;
+import com.kh.everyrecipe.weekboard.vo.popularVo;
 import com.kh.everyrecipe.weekboard.vo.weekVo;
 
 @Controller
@@ -20,7 +21,8 @@ import com.kh.everyrecipe.weekboard.vo.weekVo;
 public class weekController {
 	@Autowired
 	private weekService service;
-	
+	@Autowired
+	private SqlSession sqlSession;
 /*  @RequestMapping(value = "/weekboard", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, ModelAndView mv ) {		
 		List<weekVo> weeklist = service.weekList();
@@ -78,7 +80,9 @@ public class weekController {
 		// 현재 페이지
 		model.addAttribute("select", num);
 		
-		
+		// 실시간 인기 검색어
+		List<popularVo> pwordlist = sqlSession.selectList("weekMapper.pwordlist");
+		model.addAttribute("pword", pwordlist);	
 	}
 	
 	

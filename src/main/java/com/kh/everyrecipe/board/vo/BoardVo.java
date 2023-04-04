@@ -26,4 +26,5 @@ public class BoardVo {
 	private Date createDate;
 	private Date UpdateDate;
 	private String isDeleted;
+	private int lookUp;
 }

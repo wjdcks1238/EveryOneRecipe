@@ -7,25 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
 <title>게시글 목록</title>
-
-<link rel="icon" href="<%=request.getContextPath()%>/resources/mediumish/assets/img/favicon.ico">
-<!-- Fonts -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-
-<!-- Bootstrap core CSS -->
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/bootstrap.min.css" rel="stylesheet">
-<!-- Custom styles for this template -->
-
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 </head>
 <body>
-<%@ include file="../header.jsp" %>
+<%@ include file="/WEB-INF/views/header.jsp" %>
+
 <div id="temp">
 </div>
 <br>
@@ -59,73 +46,9 @@
 
 <div class="list">
 </div>
-<!-- 
-<c:forEach items="${ postList}" var="list" varStatus="status" >
-	<table border="1">
-	<thead>
-		<tr>
-			<th>닉네임 </th>
-			<th>아이디</th>
-			<th>음식 이름</th>
-			<th>음식 재료</th>
-			<th>내용</th>
-			<th>작성일</th>
-		</tr>	
-	</thead>
-	
-	<tr>
-		<td>${list.nickname} </td>
-		<td>${list.userId} </td>
-		<td>${list.foodName} </td>
-		<td>
-	<c:forEach items="${list.ingredients }" var="ing" varStatus="status" >
-		${ing.ingredient } : ${ing.amount } /
-	</c:forEach>
-		</td>
-		<td>${list.content} </td>
-		<td>${list.createDate} </td>
-	</tr>
-	
-	</table>
-</c:forEach>
-
-
-
-<div class="list">
-
-
-</div>
-
-
-
- -->
-<!-- 
-<table>
-<c:forEach items="${boardList}" var="list" varStatus="status" >
-	<tr>
-		<th>닉네임 </th>
-		<th>아이디</th>
-		<th>음식 이름</th>
-		<th>음식 재료</th>
-		<th>음식 수량</th>	
-		<th>내용</th>
-		<th>게시일</th>
-	</tr>	
-	<tr>
-		<td>${list.nickname} </td>
-		<td>${list.userId} </td>
-		<td>${list.foodName} </td>
-		
-		<td>${ingredientList[status.index].ingredient} </td>
-		<td>${ingredientList[status.index].amount} </td>
-		<td>${list.content} </td>
-		<td>${list.createDate} </td>
-	</tr>
-</c:forEach>
-</table>
- -->
  
-
+<%@ include file="/WEB-INF/views/footer.jsp" %>
+<%@ include file="/WEB-INF/views/js_import.jsp" %>
  <script type="text/javascript">
  var scrolltop = $(document).scrollTop();
  console.log(scrolltop);
@@ -264,6 +187,6 @@ var start = {
 
 </script>
 
-<%@ include file="../footer.jsp" %> 
+
 </body>
 </html>

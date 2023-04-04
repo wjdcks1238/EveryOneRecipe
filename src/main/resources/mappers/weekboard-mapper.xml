@@ -26,14 +26,32 @@
 	        			FROM POST
 	        			WHERE
 			        	ISDELETED = 'N'
-			        	AND	
-			        	CREATEAT between trunc(sysdate,'iw') AND trunc(sysdate,'iw')+6
 			        	order by LOOKUP DESC			        		        	
 			        	)
 		       		)
 		        WHERE SEQ <![CDATA[>]]>#{weekPost}
 		   )
 	    WHERE ROWNUM <![CDATA[<=]]>#{postNum}		    
-    </select>    
+    </select>   
+    
+    <select id="pwordlist" resultType="WordVo">
+		select keword
+			from(
+				select SEQ, keword
+					from(
+						select ROWNUM AS SEQ, keword
+						from(
+						select keword
+						from search
+						order by times desc
+					)
+				)
+				where SEQ <![CDATA[>=]]>1
+			)
+		WHERE ROWNUM <![CDATA[<=]]>10
+	</select>
+    
+    
+     
 </mapper>
 

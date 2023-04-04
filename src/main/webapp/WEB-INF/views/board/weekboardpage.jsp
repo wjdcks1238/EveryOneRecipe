@@ -14,33 +14,58 @@ a {
 text-decoration: none;
 }
 
+.main-div{
+height: 450px;
+
+}
+.tbdiv{
+width: 450px;
+font-size: 11px;
+display: inline-block;
+}
+
+.in-div{
+width:450px;
+higth:420px;
+}
+
+.pgnum{
+display: inline-block;
+}
+
+.pop-div{
+display: inline-block;
+}
 </style>
 </head>
 <body>
-<h5>주간 테이블(월요일~일요일)</h5>
-<table class="table table-dark table-hover">
+<h4>주간 게시글(월요일~일요일)</h4>
+
+<div class="main-div">
+<div class="in-div">
+<div class="tbdiv">
+<table class="table table-hover">
+	<thead class="table-primary">
 		<tr>
-			<th>글 번호</th>
 			<th>레시피명</th>
 			<th>닉네임</th>
 			<th>작성일자</th>
-			<th>삭제여부</th>
 			<th>조회수</th>
-		</tr>	
+		</tr>
+	</thead>
+	<tbody>
 		<c:forEach items="${weekboard}" var="list">
 		<tr>
-			<td>${list.postId }</td>
 			<td><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></td>
 			<td>${list.nickname }</td>
 			<td>${list.dateWrite }</td>
-			<td>${list.isDeleted }</td> 
 			<td>${list.lookUp }</td>
 		</tr>
 		</c:forEach>
+	</tbody>	
 </table>
-
-
-<div>
+</div>
+<div class="pgnum">
 	<c:if test="${prev}">
 		<a href="/everyrecipe/board/weekboardpage?num=${startPageNum - 1 }">이전</a>
 	</c:if>
@@ -59,6 +84,25 @@ text-decoration: none;
 		<a href="/everyrecipe/board/weekboardpage?num=${endPageNum + 1 }">다음</a>
 	</c:if>
 </div>
-
+</div>
+<h4>실시간 검색어 순위</h4>
+<div class="tbdiv">
+<table class="table table-hover">
+	<thead class="table-primary">
+	<tr>
+		<th>순위</th>
+		<th>검색어</th>
+	</tr> 
+	</thead>
+	<c:forEach items="${pword}" var="word">
+		<c:set var="i" value="${i+1}"/>
+		<tr>
+			<td>${i}</td>
+			<td>${word.keword}</td>
+		</tr>
+	</c:forEach>
+</table>
+</div>
+</div>
 </body>
 </html>

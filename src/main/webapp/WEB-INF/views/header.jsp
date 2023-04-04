@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
-<header>
+
 <!-- Begin Nav ================================================== -->
 <nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
 	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,9 +30,6 @@
 			    <li class="nav-item ">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내정보</a>
 			    </li>
-			    <li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/member/update">프로필관리</a>
-		        </li>
 			    <li class="nav-item">
 			      <form class="form-logout" method="post" action="/logout">
 			        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token} ">
@@ -66,4 +63,3 @@
 	</div>
 </nav>
 <!-- End Nav-->
-</header>
