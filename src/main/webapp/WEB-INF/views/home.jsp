@@ -21,7 +21,7 @@
 <link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 
 <!-- Begin Site Title
 ================================================== -->
@@ -329,9 +329,11 @@
 	<!-- End List Posts
 	================================================== -->
 
-<%@ include file="footer.jsp" %>
 </div>
 <!-- /.container -->
+
+<%@ include file="/WEB-INF/views/footer.jsp" %>
+
 
 <!-- Bootstrap core JavaScript
     ================================================== -->

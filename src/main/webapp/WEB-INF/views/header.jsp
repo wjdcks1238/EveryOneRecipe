@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
-<header>
+
 <!-- Begin Nav ================================================== -->
 <nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
 	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,4 +63,3 @@
 	</div>
 </nav>
 <!-- End Nav-->
-</header>
