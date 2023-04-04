@@ -10,8 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Post - Pintereso Bootstrap Template</title>
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-<script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/app.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/theme.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -19,12 +18,9 @@
 <!-- Fonts -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-<!-- Custom styles for this template -->
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<%@ include file="../header.jsp" %>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <main role="main">
     <section class="bg-gray200 pt-5 pb-5">
     <div class="container">
@@ -321,6 +317,7 @@ ${hashtags }
 	</c:if>
 </div>
 
+<%@ include file="/WEB-INF/views/footer.jsp" %>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -559,10 +556,6 @@ $("#deletePost").click(function(){
 
 
 </script>
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="<%=request.getContextPath()%>/resources/mediumish/assets/js/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="<%=request.getContextPath()%>/resources/mediumish/assets/js/bootstrap.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/mediumish/assets/js/ie10-viewport-bug-workaround.js"></script>
+
 </body>
 </html>

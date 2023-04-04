@@ -6,31 +6,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<c:choose >
-	<c:when test="${following ne null}">
-		<title>팔로잉 목록</title>
-	</c:when>
-	<c:when test="${follower ne null}">	
-		<title>팔로워 목록</title>
-	</c:when>
-</c:choose>
+<title>
+	<c:choose >
+		<c:when test="${following ne null}">
+			<title>팔로잉 목록</title>
+		</c:when>
+		<c:when test="${follower ne null}">	
+			<title>팔로워 목록</title>
+		</c:when>
+	</c:choose>
+</title>
+<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
 
-<link rel="icon" href="<%=request.getContextPath()%>/resources/mediumish/assets/img/favicon.ico">
-<!-- Fonts -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-
-<!-- Bootstrap core CSS -->
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/bootstrap.min.css" rel="stylesheet">
-
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-
-<!-- Custom styles for this template -->
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<%@ include file="../header.jsp" %>
+<%@ include file="/WEB-INF/views/header.jsp" %>
+
 
 <div class="container-fluid">
 		<div class="row flex-nowrap">
@@ -70,6 +61,6 @@
 	</div>
 
 
-
+<%@ include file="/WEB-INF/views/footer.jsp" %>
 </body>
 </html>

@@ -3,26 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 <title>회원 정보</title>
-
-<link rel="icon" href="<%=request.getContextPath()%>/resources/mediumish/assets/img/favicon.ico">
-<!-- Fonts -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-
-<!-- Bootstrap core CSS -->
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
- 
-<!-- Custom styles for this template -->
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
+<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
 
 
 <style type="text/css">
@@ -80,10 +68,10 @@
 </style>
 </head>
 <body>
-<%@ include file="../header.jsp" %>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 
-<!-- Begin Top Author Page
-================================================== -->
+
+
 	<div class="container-fluid">
 		<div class="row flex-nowrap">
 			
@@ -93,9 +81,6 @@
 					<div class="col-2">
 						프로필 이미지
 						<img  width="100%" alt="<%=request.getContextPath() %>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
-						<!-- 
-							<img alt="" src="${memberDto.profileUrl }">
-						 -->
 				 
 					</div>
 					<div class="col-4">
@@ -169,11 +154,7 @@
 
     </main>
 	
-
-	<!-- End Top Author Meta
-================================================== -->
-
-<%@ include file="../footer.jsp" %>
+<%@ include file="/WEB-INF/views/footer.jsp" %>
 
     
     <script type="text/javascript">$(document).ready(function(){

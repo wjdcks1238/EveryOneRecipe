@@ -17,12 +17,14 @@
 
 }
 </style>
-<title>Insert title here</title>
+<title>게시글 수정</title>
+<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/ckeditor/ckeditor.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 </head>
 
 <body>
+<%@ include file="/WEB-INF/views/header.jsp" %>
+
 <div style="width: 1000px;">
 <form id="frm" action="./" method="POST">
 	
@@ -66,6 +68,7 @@
 	<button>게시글 수정</button>
 </div>
 
+<%@ include file="/WEB-INF/views/footer.jsp" %>
 
 <script type="text/javascript">
 $(function() {

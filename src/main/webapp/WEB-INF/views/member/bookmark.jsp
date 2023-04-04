@@ -10,20 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>프로필 수정</title>
-
-<link rel="icon" href="<%=request.getContextPath()%>/resources/mediumish/assets/img/favicon.ico">
-<!-- Fonts -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-
-<!-- Bootstrap core CSS -->
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/bootstrap.min.css" rel="stylesheet">
-
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-
-<!-- Custom styles for this template -->
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
+<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
  <style>
 .navbar{
 	padding-left:0;
@@ -32,7 +19,7 @@
 </style>
 </head>
 <body>
-<%@ include file="../header.jsp" %>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <div class="container-fluid">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
@@ -70,7 +57,7 @@
 					
 		</div>
 	</div>
-<%@ include file="../footer.jsp" %>
+<%@ include file="/WEB-INF/views/footer.jsp" %>
 
 </body>
 </html>

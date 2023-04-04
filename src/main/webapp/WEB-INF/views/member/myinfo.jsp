@@ -3,33 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html >
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 <title>내 정보</title>
-
-<link rel="icon" href="<%=request.getContextPath()%>/resources/mediumish/assets/img/favicon.ico">
-<!-- Fonts -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-
-<!-- Bootstrap core CSS -->
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-
-<!-- !!!!!!!!!!!! ===================app.css 파일의 nav와 충돌함 !!!!!!!!!
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/template-pintereso/assets/css/app.css">-->
-<!-- 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/template-pintereso/assets/css/theme.css">
- -->
- 
-<!-- Custom styles for this template -->
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/mediumish.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
-
+<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
 
 
 <style type="text/css">
@@ -91,11 +72,9 @@
 <body>
 <%@ include file="../header.jsp" %>
 
-<!-- Begin Top Author Page
-================================================== -->
-	<div class="container-fluid">
-		<div class="row flex-nowrap">
-			<div class="col-3 bd-sidebar">
+
+		<div class="d-flex flex-row flex-nowrap">
+			<div class="bd-sidebar">
 				<ul class="navbar-nav">
 					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
@@ -105,44 +84,45 @@
 				</ul>
 			</div>
 				
-			<div class="col-2">
-				<div>
-					프로필 이미지
-					<img  width="100%" alt="<%=request.getContextPath() %>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
-					<!-- 
-						<img alt="" src="${memberDto.profileUrl }">
-					 -->
-			 
-				</div>
-			</div>
-			<div class="col-4">
-				<div>
-					<h3>아이디: ${memberDto.userId }</h3>
-				</div>
+			<div class="container">	
 				<div class="row">
-					<div class="col-4">
-					    <a href="<%=request.getContextPath()%>/member/follower/<%=request.getUserPrincipal().getName() %> ">팔로워: ${followerCount }</a>	
+					<div class="col-2">
+						<div>
+							프로필 이미지
+							<img  width="100%" alt="<%=request.getContextPath() %>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
+						
+					 
+						</div>
 					</div>
 					<div class="col-4">
-					    <a href="<%=request.getContextPath()%>/member/following/<%=request.getUserPrincipal().getName() %> ">팔로잉: ${followingCount }</a>	
+						<div>
+							<h3>아이디: ${memberDto.userId }</h3>
+						</div>
+						<div class="row">
+							<div class="col-4">
+							    <a href="<%=request.getContextPath()%>/member/follower/<%=request.getUserPrincipal().getName() %> ">팔로워: ${followerCount }</a>	
+							</div>
+							<div class="col-4">
+							    <a href="<%=request.getContextPath()%>/member/following/<%=request.getUserPrincipal().getName() %> ">팔로잉: ${followingCount }</a>	
+							</div>
+						</div>
+						<div>
+							닉네임: ${memberDto.nickName }
+						</div>
+						<div>	
+							이메일: ${memberDto.email }
+						</div>
+						<div>
+							프로필 설명: ${memberDto.profile }
+						</div>
+						<div>
+							가입일: ${memberDto.createAt }
+						</div>
 					</div>
 				</div>
-				<div>
-					닉네임: ${memberDto.nickName }
-				</div>
-				<div>	
-					이메일: ${memberDto.email }
-				</div>
-				<div>
-					프로필 설명: ${memberDto.profile }
-				</div>
-				<div>
-					가입일: ${memberDto.createAt }
-				</div>
-			</div>
-				
+			</div>	
 		</div>
-	</div>
+
     <main role="main">
 
     <div class="container-fluid" style="margin-top: 10%;padding-left:10%">
@@ -168,16 +148,10 @@
     </main>
 	
 
-	<!-- End Top Author Meta
-================================================== -->
 
-<%@ include file="../footer.jsp" %>
+<%@ include file="/WEB-INF/views/footer.jsp" %>
 
-<!-- Bootstrap core JavaScript 
-================================================== 
-    <script src="<%=request.getContextPath()%>/resources/template-pintereso/assets/js/app.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/template-pintereso/assets/js/theme.js"></script>
--->
+
 
     
     <script type="text/javascript">$(document).ready(function(){
