@@ -24,9 +24,9 @@ public class weekDao {
 		return sqlSession.selectOne("weekMapper.count");
 	}
 	
-	public List<weekVo> weeklistPage(int displayPost, int postNum) throws Exception{
+	public List<weekVo> weeklistPage(int weekPost, int postNum) throws Exception{
 		HashMap<String, Integer> data = new HashMap<String, Integer>();
-		data.put("weekPost", displayPost);
+		data.put("weekPost", weekPost);
 		data.put("postNum", postNum);	
 		
 		return sqlSession.selectList("weekMapper.listpage", data);
