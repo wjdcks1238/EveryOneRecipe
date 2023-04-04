@@ -23,16 +23,17 @@
 <body id="page-top">
 <script>
 	function openPopup(event, userId) {
+		let newPopup;
 		event.preventDefault();
-		//let openUrl = `/admin/details/admindetails`;
-		let openUrl = "/admin/details/admindetails.jsp";
-		let popOption = "width=600,height=400";
+		let openUrl = "${pageContext.request.contextPath}/admin/details/"+userId;
+		let popOption = "width=700,height=700";
 		
-		window.open(openUrl, '_blank', popOption);
+		newPopup = window.open(openUrl, "_blank", popOption);
 	}
-</script> 
-
-
+	function closePopup(){
+		newPopup.close();
+	}
+</script>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -181,7 +182,6 @@
                                     	<c:forEach var="admin" items="${memberDto}">
 	                                        <tr >
 	                                            <td >
-	                                            <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~팝업창 여기 -->
 	                                            <a href="<%=request.getContextPath()%>/admin/details/${admin.userId}" onclick="openPopup(event, '${admin.userId}')">
 	                                            <c:out value="${admin.userId }"/>
 	                                            </a>
@@ -194,8 +194,6 @@
 	                                    </c:forEach>
                                     </tbody>
                                 </table>
-                                
-                                <!-- onclick="openPopup(event, '${admin.userId}' 팝업에 페이지 띄우기 계속 실패 -->
                   </div>
             </div>
             <!-- End of Main Content -->
@@ -223,28 +221,5 @@
 <!-- footer -->    
 <%@ include file="adminFooter.jsp" %>   
 
-		<script>
-			
-
-			
-			<%-- $(document).on("click","#followBtn" ,function() {
-			
-				console.log(<%=request.getContextPath()%>);
-            	
-            	$.ajax({
-            		url: "<%=request.getContextPath()%>/admin/details",
-            		type: "GET", 
-            		data: {userId: "${memberDto.userId}" },
-            		async : false,
-            		success:function(result){
-            			console.log("성공 ");
-            			window.open('/admin/employee', '_blank', 'width=600,height=400');
-            		}
-            		
-            	});
-            }); --%>
-			
-			
-		</script>
-</body>
+		</body>
 </html>

@@ -44,7 +44,7 @@ public class AdminController {
 	}
 	
 	//관리페이지
-	@GetMapping("admin/details/{userId}")
+	@GetMapping("/admin/details/{userId}")
 	public ModelAndView employee(@PathVariable String userId) throws Exception {
 		MemberVo member = mService.selectOne(userId);
 		
@@ -57,14 +57,6 @@ public class AdminController {
 	    return mv;
 	}
 	
-	@GetMapping("admin/details/admindetails")
-	public ModelAndView admindetails(ModelAndView mv, @PathVariable("userId") String userId) throws Exception {
-		MemberVo member = mService.selectOne(userId);
-		
-		mv.addObject("memberDto", member);
-		mv.setViewName("admin/details/admindetails");
-		
-		return mv;
-	}
+
 	
 }

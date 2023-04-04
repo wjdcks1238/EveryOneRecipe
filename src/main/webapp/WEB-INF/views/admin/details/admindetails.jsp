@@ -36,6 +36,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstl/1.2/jstl.min.js"></script>
 </head>
 <body>
+<script>
+	function openPopup(event, userId) {
+		let newPopup;
+		event.preventDefault();
+		let openUrl = "${pageContext.request.contextPath}/admin/details/"+userId;
+		let popOption = "width=700,height=700";
+		
+		newPopup = window.open(openUrl, "_blank", popOption);
+	}
+	function closePopup(){
+		newPopup.close();
+	}
+</script>
   <h1>사용자 상세페이지</h1>
 	  <table>
 	        <tr>
@@ -47,7 +60,6 @@
 	          <td>
 	            <form method="post" action="<%=request.getContextPath()%>/admin/details/${memberDto.userId}">
 	              <input type="text" name="nickName" value="${memberDto.nickName}" />
-	              <input type="submit" value="수정" />
 	            </form>
 	          </td>
 	        </tr>
@@ -56,7 +68,6 @@
 	          <td>
 	            <form method="post" action="<%=request.getContextPath()%>/admin/details/${memberDto.userId}">
 	              <input type="text" name="email" value="${memberDto.email}" />
-	              <input type="submit" value="수정" />
 	            </form>
 	          </td>
 	        </tr>
@@ -64,6 +75,9 @@
 	          <th>입사일</th>
 	          <td>${memberDto.createAt}</td>
 	        </tr>
+	        
 	  </table>
+	       	<input type="submit" value="수정" />
+	        <div><button onclick='closePopup()'>닫기</button></div>
 </body>
 </html>
