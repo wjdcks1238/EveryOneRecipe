@@ -4,8 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>게시글 수정</title>
 <meta charset="UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 .ck-editor__editable {
 	height: 400px;
@@ -17,8 +18,8 @@
 
 }
 </style>
-<title>게시글 수정</title>
-<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
+
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/ckeditor/ckeditor.js"></script>
 </head>
 
@@ -69,6 +70,7 @@
 </div>
 
 <%@ include file="/WEB-INF/views/footer.jsp" %>
+<%@ include file="/WEB-INF/views/js_import.jsp" %>
 
 <script type="text/javascript">
 $(function() {

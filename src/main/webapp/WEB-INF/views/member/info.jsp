@@ -7,11 +7,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
 <title>회원 정보</title>
-<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
-
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 
 <style type="text/css">
 
@@ -155,6 +152,7 @@
     </main>
 	
 <%@ include file="/WEB-INF/views/footer.jsp" %>
+<%@ include file="/WEB-INF/views/js_import.jsp" %>
 
     
     <script type="text/javascript">$(document).ready(function(){

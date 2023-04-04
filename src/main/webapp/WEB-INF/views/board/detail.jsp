@@ -8,16 +8,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Post - Pintereso Bootstrap Template</title>
-<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
+<title>게시글 상세</title>
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/app.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/theme.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-<link href="<%=request.getContextPath()%>/resources/mediumish/assets/css/bootstrap.min.css" rel="stylesheet">
 <!-- Fonts -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
@@ -318,7 +313,7 @@ ${hashtags }
 </div>
 
 <%@ include file="/WEB-INF/views/footer.jsp" %>
-
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script type="text/javascript">
 $(document).ready(function() {
 	$(".editbox").hide();

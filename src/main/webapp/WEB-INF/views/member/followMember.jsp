@@ -16,8 +16,7 @@
 		</c:when>
 	</c:choose>
 </title>
-<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
-
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
@@ -62,5 +61,6 @@
 
 
 <%@ include file="/WEB-INF/views/footer.jsp" %>
+<%@ include file="/WEB-INF/views/js_import.jsp" %>
 </body>
 </html>

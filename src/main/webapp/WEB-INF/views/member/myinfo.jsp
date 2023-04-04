@@ -5,14 +5,10 @@
 <!DOCTYPE html>
 <html >
 <head>
+<title>내 정보</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<title>내 정보</title>
-<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
-
-
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 <style type="text/css">
 
 
@@ -36,12 +32,10 @@
   text-align: center;
   font-size: 1.2em; }
 
-/* line 73, src/assets/scss/theme.scss */
 .card-pin:hover .more a {
   text-decoration: none;
   color: #ffffff; }
 
-/* line 78, src/assets/scss/theme.scss */
 .card-pin:hover .download a {
   text-decoration: none;
   color: #ffffff; }
@@ -70,9 +64,7 @@
 </style>
 </head>
 <body>
-<%@ include file="../header.jsp" %>
-
-
+<%@ include file="/WEB-INF/views/header.jsp" %>
 		<div class="d-flex flex-row flex-nowrap">
 			<div class="bd-sidebar">
 				<ul class="navbar-nav">
@@ -150,7 +142,7 @@
 
 
 <%@ include file="/WEB-INF/views/footer.jsp" %>
-
+<%@ include file="/WEB-INF/views/js_import.jsp" %>
 
 
     

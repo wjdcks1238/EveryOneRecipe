@@ -7,10 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
 <title>좋아요 표시한 게시물</title>
-<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 
  <style>
 .navbar{
@@ -20,7 +18,7 @@
 </style>
 </head>
 <body>
-<%@ include file="../header.jsp" %>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <div class="container-fluid">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
@@ -59,6 +57,7 @@
 		</div>
 	</div>
 <%@ include file="/WEB-INF/views/footer.jsp" %>
+<%@ include file="/WEB-INF/views/js_import.jsp" %>
 
 </body>
 </html>

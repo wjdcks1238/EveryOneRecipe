@@ -7,10 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
 <title>게시글 목록</title>
-<%@ include file="/WEB-INF/views/css_js_import.jsp" %>
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
@@ -49,7 +47,8 @@
 <div class="list">
 </div>
  
-
+<%@ include file="/WEB-INF/views/footer.jsp" %>
+<%@ include file="/WEB-INF/views/js_import.jsp" %>
  <script type="text/javascript">
  var scrolltop = $(document).scrollTop();
  console.log(scrolltop);
@@ -188,6 +187,6 @@ var start = {
 
 </script>
 
-<%@ include file="/WEB-INF/views/footer.jsp" %>
+
 </body>
 </html>
