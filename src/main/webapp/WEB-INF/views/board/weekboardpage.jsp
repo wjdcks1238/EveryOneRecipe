@@ -95,10 +95,11 @@ display: inline-block;
 	</tr> 
 	</thead>
 	<c:forEach items="${pword}" var="word">
-	<tr>
-		<td>1</td>
-		<td>${word.keword}</td>
-	</tr>
+		<c:set var="i" value="${i+1}"/>
+		<tr>
+			<td>${i}</td>
+			<td>${word.keword}</td>
+		</tr>
 	</c:forEach>
 </table>
 </div>
