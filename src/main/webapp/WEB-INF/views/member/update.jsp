@@ -12,9 +12,7 @@
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 
  <style>
-.navbar{
-	padding-left:0;
-}
+
 .modal {
     position: absolute;
     top: 0;
@@ -66,15 +64,22 @@
 			</div>
 			<div id="image_container"></div>
 			<div>
-				<button type="button" id="updatePI">프로필 사진 변경</button>
+				<button type="button" id="updatePI">프로필 이미지 변경</button>
 							</div>
 			<div id="error"></div>
 		</form>				
 	</div>
 </div>
-<div class="container-fluid">
-		<div class="row flex-nowrap">
-			<div class="col-3 bd-sidebar">
+
+
+
+
+
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-2 col-xs-12">
 				<ul class="navbar-nav">
 					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
@@ -82,34 +87,41 @@
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/bookmark">북마크한 게시물</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/like">좋아요 표시한 게시물</a></li>
 				</ul>
+			
+		</div>
+
+
+		<div class="col-md-10 col-md-offset-2 col-xs-12">
+			<div class="row">
+				<div class="col-4">
+						<label>프로필 이미지</label>
+						<img width="100%" alt="<%=request.getContextPath()%>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
+   	 					<button type="button" class="btn-open-popup">프로필 이미지 변경</button>
+   	 					<button type="button" id="deletePI">삭제</button>
+				</div>
+				<div class="col-8">
+					<form id="updateForm">
+						<div>
+							<h3>아이디: ${memberDto.userId }</h3>
+						</div>
+						<label>닉네임</label>
+						<input type="text" name="nickName" value="${memberDto.nickName }">
+						<label>프로필 설명</label>
+						<input type="text" name="profile" value="${memberDto.profile }">
+						
+						<button id="updateBtn" type="button">프로필 업데이트</button>
+					</form>
+				</div>
 			</div>
-			<div class="col-2">
-					<label>프로필 사진</label>
-					<img width="100%" alt="<%=request.getContextPath()%>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
-   	 				<button type="button" class="btn-open-popup">프로필 사진 변경</button>
-   	 				<button type="button" id="deletePI">프로필 사진 삭제</button>
-   	 				
-			</div>
-			<div class="col-4">
-				<form id="updateForm">
-					<div>
-						<h3>아이디: ${memberDto.userId }</h3>
-					</div>
-					<label>닉네임</label>
-					<input type="text" name="nickName" value="${memberDto.nickName }">
-					<label>프로필 설명</label>
-					<input type="text" name="profile" value="${memberDto.profile }">
-					
-					<button id="updateBtn" type="button">프로필 업데이트</button>
-				</form>
-				<!-- 
-				<img  width="300" alt="" src="<%=request.getContextPath() %>/resources/tempProfileImg/food.svg">
-				 -->
-			</div>
-				
-					
+
+
 		</div>
 	</div>
+</div>
+
+
+
+
 <%@ include file="/WEB-INF/views/footer.jsp" %>
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 

@@ -65,8 +65,11 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
-		<div class="d-flex flex-row flex-nowrap">
-			<div class="bd-sidebar">
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-2 col-xs-12">
 				<ul class="navbar-nav">
 					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
@@ -74,19 +77,19 @@
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/bookmark">북마크한 게시물</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/like">좋아요 표시한 게시물</a></li>
 				</ul>
-			</div>
-				
-			<div class="container">	
-				<div class="row">
-					<div class="col-2">
+			
+		</div>
+
+
+		<div class="col-md-8 col-md-offset-2 col-xs-12">
+			<div class="row">
+				<div class="col-4">
 						<div>
 							프로필 이미지
 							<img  width="100%" alt="<%=request.getContextPath() %>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
-						
-					 
 						</div>
-					</div>
-					<div class="col-4">
+				</div>
+				<div class="col-8">
 						<div>
 							<h3>아이디: ${memberDto.userId }</h3>
 						</div>
@@ -110,11 +113,13 @@
 						<div>
 							가입일: ${memberDto.createAt }
 						</div>
-					</div>
 				</div>
-			</div>	
-		</div>
+			</div>
 
+
+		</div>
+	</div>
+</div>
     <main role="main">
 
     <div class="container-fluid" style="margin-top: 10%;padding-left:10%">
