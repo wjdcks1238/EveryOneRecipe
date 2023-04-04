@@ -11,5 +11,5 @@ public interface weekService {
 	
 	public int count() throws Exception;
 	
-	public List<weekVo> weeklistPage(int displayPost, int postNum) throws Exception;
+	public List<weekVo> weeklistPage(int weekPost, int postNum) throws Exception;
 }

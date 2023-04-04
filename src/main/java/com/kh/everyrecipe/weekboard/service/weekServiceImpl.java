@@ -25,7 +25,7 @@ public class weekServiceImpl implements weekService {
 	}
 	
 	@Override
-	public List<weekVo> weeklistPage(int displayPost, int postNum) throws Exception{
-		return dao.weeklistPage(displayPost, postNum);
+	public List<weekVo> weeklistPage(int weekPost, int postNum) throws Exception{
+		return dao.weeklistPage(weekPost, postNum);
 	}
 }
