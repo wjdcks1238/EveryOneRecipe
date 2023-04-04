@@ -31,9 +31,6 @@
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내정보</a>
 			    </li>
 			    <li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/member/update">프로필관리</a>
-		        </li>
-			    <li class="nav-item">
 			      <form class="form-logout" method="post" action="/logout">
 			        <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token} ">
 			        <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</a>

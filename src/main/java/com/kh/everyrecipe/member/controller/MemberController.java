@@ -2,6 +2,7 @@ package com.kh.everyrecipe.member.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +23,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.everyrecipe.board.service.BoardService;
+import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.fileutil.FileUtil;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
+import com.kh.everyrecipe.postBookmark.service.PostBookmarkService;
+import com.kh.everyrecipe.postLike.service.PostLikeService;
 
 
 
@@ -33,12 +37,11 @@ import com.kh.everyrecipe.member.vo.MemberVo;
 @RequestMapping("/member")
 public class MemberController {	
 	
-	@Autowired 
-	private MemberService mService;
-	@Autowired
-	private BoardService bService;
-	@Autowired
-	private FollowMappingService fService;
+	@Autowired private MemberService mService;
+	@Autowired private BoardService bService;
+	@Autowired private FollowMappingService fService;
+	@Autowired private PostLikeService plService;
+	@Autowired private PostBookmarkService pbService;
 	
 	private final String defaultProfileIMG ="/resources/tempProfileImg/defaultUser.svg" ;
 	
@@ -69,7 +72,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	//TODO
+	//내 정보 페이지
 	@GetMapping("/myinfo")
 	public ModelAndView myinfo(ModelAndView mv, Principal principal) throws Exception {
 		
@@ -95,6 +98,7 @@ public class MemberController {
 		mv.setViewName("member/myinfo");
 		return mv;
 	}	
+	//내 정보 업데이트
 	@PostMapping("/myinfo")
 	public ModelAndView insertMyinfo(
 				MultipartHttpServletRequest multiReq
@@ -115,6 +119,7 @@ public class MemberController {
 	}
 	
 	
+	//회원 정보
 	@GetMapping("/info/{userId}")
 	public ModelAndView info(ModelAndView mv, Principal principal, @PathVariable String userId) throws Exception {
 
@@ -145,8 +150,8 @@ public class MemberController {
 	
 	
 	
-	
-	//TODO 다른 회원도 접근 가능하게 변경
+	//팔로잉 목록 페이지
+	//다른 회원도 접근 가능
 	@GetMapping("/following/{userId}")
 	public ModelAndView following(ModelAndView mv, Principal principal, @PathVariable String userId) throws Exception {
 
@@ -157,6 +162,7 @@ public class MemberController {
 		mv.setViewName("member/followMember");
 		return mv;
 	}
+	//팔로워 목록 페이지
 	@GetMapping("/follower/{userId}")
 	public ModelAndView follower(ModelAndView mv, Principal principal, @PathVariable String userId) throws Exception {
 		
@@ -168,7 +174,7 @@ public class MemberController {
 	}
 	
 	
-	
+	//프로필 업데이트 페이지
 	@GetMapping("/update")
 	public ModelAndView profile(ModelAndView mv, Principal principal) throws Exception {
 		String id = principal.getName();
@@ -179,6 +185,8 @@ public class MemberController {
 		return mv;
 	}
 	
+	
+	//프로필 사진 업데이트
 	@PostMapping("/updatepi")
 	public ModelAndView updatePI(
 				MultipartHttpServletRequest multiReq
@@ -203,7 +211,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	
+	//프로필 사진 삭제
 	@PostMapping("/deletepi")
 	public void deletePI(
 			Principal principal
@@ -221,6 +229,7 @@ public class MemberController {
 
 	
 	}
+	//프로필 정보 업데이트
 	@PostMapping("/update")
 	public void updateProfile(
 			Principal principal
@@ -232,5 +241,34 @@ public class MemberController {
 		
 	}
 	
+	
+	//좋아요 목록 페이지
+	@GetMapping("/like")
+	public ModelAndView likeList(ModelAndView mv, Principal principal)throws Exception {
+
+		//좋아요 표시된 게시글 id 가져오기
+		List<Integer> list= plService.getLikeList(principal.getName());
+		//가져온 id들로 게시글 정보 가져오기
+		if(!list.isEmpty()) {
+			List<BoardVo> bList = plService.getLikePosts(list);
+			mv.addObject("bList", bList);			
+		}
+		
+		mv.setViewName("member/like");
+		return mv;
+	}
+	
+	//북마크 목록 페이지
+	@GetMapping("/bookmark")
+	public ModelAndView bookmarkList(ModelAndView mv, Principal principal)throws Exception {
+		
+		List<Integer> list= pbService.getBookmarkList(principal.getName());
+		if(!list.isEmpty()) {
+			List<BoardVo> bList = pbService.getBookmarkPosts(list);
+			mv.addObject("bList", bList);
+		}
+		mv.setViewName("member/bookmark");
+		return mv;
+	}
 	
 }

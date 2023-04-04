@@ -1,12 +1,14 @@
 package com.kh.everyrecipe.postLike.dao;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
 import com.kh.everyrecipe.postLike.vo.PostLikeVo;
 
@@ -40,6 +42,16 @@ public class PostLikeDao {
 
 	public int getLikeCount(int postId) {
 		return sqlSession.selectOne("postLikeMapper.getLikeCount",postId);
+	}
+
+
+
+	public List<Integer> getLikeList(String userId) {
+		return sqlSession.selectList("postLikeMapper.getLikeList",userId);
+	}
+
+	public List<BoardVo> getLikePosts(List<Integer> list) {
+		return sqlSession.selectList("postLikeMapper.getLikePosts",list);
 	}
 
 	

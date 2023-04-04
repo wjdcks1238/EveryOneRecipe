@@ -26,6 +26,17 @@
 	<select id="getLikeCount" parameterType="_int" resultType="_int">
 		select COUNT(*) from POSTLIKE where POSTID=#{postId} and ISDELETED='N'
 	</select>
+	
+	<select id="getLikeList" parameterType="string" resultType="_int">
+		select postid from postlike where userid=#{userId} and isdeleted='N'
+	</select>
+	
+	<select id="getLikePosts" resultType="bvo">
+		select postid, userid, nickname, foodname, createat, lookup from post where
+		<foreach collection="list" item="item" open="(" separator=")or(" close=")">
+			 postid=#{item}
+		</foreach>
+	</select>
 
 	
 	

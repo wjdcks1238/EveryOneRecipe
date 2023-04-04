@@ -22,6 +22,16 @@
 		update POSTBOOKMARK set ISDELETED='Y' where POSTID=#{postId} and USERID=#{userId}
 	</update>
 	
+	<select id="getBookmarkList" parameterType="string" resultType="_int">
+		select POSTID from POSTBOOKMARK where USERID=#{userId} and ISDELETED='N'
+	</select>
+	
+	<select id="getBookmarkPosts" resultType="bvo">
+		select POSTID, USERID, NICKNAME, FOODNAME, CREATEAE, LOOKUP from POST where
+		<foreach collection="list" item="item" open="(" separator=")or(" close=")">
+			 POSTID=#{item}
+		</foreach>
+	</select>
 	
 
 	

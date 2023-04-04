@@ -1,12 +1,13 @@
 package com.kh.everyrecipe.postLike.service;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.postLike.dao.PostLikeDao;
 import com.kh.everyrecipe.postLike.vo.PostLikeVo;
 
@@ -47,6 +48,16 @@ public class PostLikeServiceImpl implements PostLikeService{
 	@Override
 	public int getLikeCount(int postId) throws Exception {
 		return dao.getLikeCount(postId);
+	}
+
+	@Override
+	public List<Integer> getLikeList(String userId) throws Exception {
+		return dao.getLikeList(userId);
+	}
+
+	@Override
+	public List<BoardVo> getLikePosts(List<Integer> list) throws Exception {
+		return dao.getLikePosts(list);
 	}
 
 	
