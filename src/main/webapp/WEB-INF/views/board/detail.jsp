@@ -313,7 +313,7 @@ ${hashtags }
 </div>
 
 <%@ include file="/WEB-INF/views/footer.jsp" %>
-<%@ include file="/WEB-INF/views/css_import.jsp" %>
+<%@ include file="/WEB-INF/views/js_import.jsp" %>
 <script type="text/javascript">
 $(document).ready(function() {
 	$(".editbox").hide();
