@@ -96,28 +96,23 @@
 	<div class="row justify-content-center">
 		<c:if test="${user ne post.userId}">
 			<div class="col-2" id="bookmark">
-			북마크 :
 			
 				<c:if test="${isBookmarked }">
-					<span id="isBookmarked">O</span>
-					<button id="bookmarkBtn">북마크 취소</button>
+					<img id="bookmarkBtn" style="cursor: pointer;" alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addedB.png">
 				</c:if>
 				<c:if test="${isBookmarked eq false }">
-					<span id="isBookmarked">X</span>
-					<button id="bookmarkBtn">북마크 하기</button>
+					<img id="bookmarkBtn" style="cursor: pointer;" alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addB.png">
 				</c:if>
 			
 			</div>
 			
 			<div class="col-2" id="like">
-			좋아요 :
+			
 					<c:if test="${isLiked }">
-					 	<span id="isLiked">O</span> 
-						<button id="likeBtn">좋아요 취소</button>
+					 	<img id="likeBtn" style="cursor: pointer;" alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addedL.png">
 					</c:if>
 					<c:if test="${isLiked eq false }">
-						<span id="isLiked">X</span>
-						<button id="likeBtn">좋아요</button>
+						<img id="likeBtn" style="cursor: pointer;" alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addL.png">
 					</c:if>
 			</div>
 			<div>
@@ -607,10 +602,12 @@ $(document).on("click","#bookmarkBtn" ,function() {
 		async : false,
 		success:function(result){
 			if(result==false){
-				var htmlVal= "북마크 : <span id='isBookmarked'> X </span><button id='bookmarkBtn'>북마크</button>";
+				var htmlVal= "<img id='bookmarkBtn' style='cursor: pointer;' alt='' width='60px' src='<%=request.getContextPath()%>/resources/icons/addB.png'>";
+				//var htmlVal= "북마크 : <span id='isBookmarked'> X </span><button id='bookmarkBtn'>북마크</button>";
 				$("#bookmark").html(htmlVal);
 			}else if(result==true){
-				var htmlVal= "북마크 : <span id='isBookmarked'> O </span><button id='bookmarkBtn'>북마크 취소</button>";
+				var htmlVal= "<img id='bookmarkBtn' style='cursor: pointer;' alt='' width='60px' src='<%=request.getContextPath()%>/resources/icons/addedB.png'>";
+				//var htmlVal= "북마크 : <span id='isBookmarked'> O </span><button id='bookmarkBtn'>북마크 취소</button>";
 				$("#bookmark").html(htmlVal);
 			}
 		}
@@ -649,10 +646,10 @@ $(document).on("click","#likeBtn" ,function() {
 		async : false,
 		success:function(result){
 			if(result==false){
-				var htmlVal= "좋아요 : <span id='isLiked'> X </span><button id='likeBtn'>좋아요</button>";
+				var htmlVal= "<img id='likeBtn' style='cursor: pointer;' alt='' width='60px' src='<%=request.getContextPath()%>/resources/icons/addL.png'>";
 				$("#like").html(htmlVal);
 			}else if(result==true){
-				var htmlVal= "좋아요 : <span id='isLiked'> O </span><button id='likeBtn'>좋아요 취소</button>";
+				var htmlVal="<img id='likeBtn' style='cursor: pointer;' alt='' width='60px' src='<%=request.getContextPath()%>/resources/icons/addedL.png'>";
 				$("#like").html(htmlVal);
 			}
 		}
