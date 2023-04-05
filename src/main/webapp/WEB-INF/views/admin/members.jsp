@@ -22,17 +22,19 @@
 </head>
 <body id="page-top">
 <script>
-	function openPopup(event, userId) {
-		let newPopup;
-		event.preventDefault();
-		let openUrl = "${pageContext.request.contextPath}/admin/details/"+userId;
-		let popOption = "width=700,height=700";
-		
-		newPopup = window.open(openUrl, "_blank", popOption);
-	}
-	function closePopup(){
-		newPopup.close();
-	}
+let newPopup;
+function openPopup(event, userId) {
+    event.preventDefault();
+    let openUrl = "${pageContext.request.contextPath}/admin/details/"+userId;
+    let popOption = "width=700,height=700";
+    
+    newPopup = window.open(openUrl, "_blank", popOption);
+}
+function closePopup() {
+    if (newPopup && !newPopup.closed) {
+        newPopup.close();
+    }
+}
 </script>
 
     <!-- Page Wrapper -->

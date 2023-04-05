@@ -29,17 +29,14 @@
 </head>
 <body>
 <script>
-	function openPopup(event, userId) {
-		let newPopup;
-		event.preventDefault();
-		let openUrl = "${pageContext.request.contextPath}/admin/details/"+userId;
-		let popOption = "width=700,height=700";
-		
-		newPopup = window.open(openUrl, "_blank", popOption);
-	}
-	function closePopup(){
-		newPopup.close();
-	}
+function openPopup(event, userId) {
+	let newPopup;
+    event.preventDefault();
+    let openUrl = "${pageContext.request.contextPath}/admin/details/"+userId;
+    let popOption = "width=700,height=700";
+    
+    newPopup = window.open(openUrl, "_blank", popOption);
+}
 </script>
   <h1 class="h3 mb-3 text-gray-800 text-center mt-3">상세페이지</h1>
 	  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -81,7 +78,7 @@
 	          </th>
 	          <td>
 	       		 <button type="submit">수정</button>
-	       		 <button onclick='closePopup()'>닫기</button>
+				 <button onclick='window.close()'>닫기</button>
 	          </td>
 	        </tr>
 	  </table>
