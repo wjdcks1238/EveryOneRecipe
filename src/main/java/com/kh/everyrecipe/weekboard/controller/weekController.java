@@ -21,8 +21,6 @@ import com.kh.everyrecipe.weekboard.vo.weekVo;
 public class weekController {
 	@Autowired
 	private weekService service;
-	@Autowired
-	private SqlSession sqlSession;
 /*  @RequestMapping(value = "/weekboard", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, ModelAndView mv ) {		
 		List<weekVo> weeklist = service.weekList();
@@ -32,6 +30,8 @@ public class weekController {
 		return mv;
 	}
 */
+	
+	// 주간 게시물 + 페이징 처리
 	@RequestMapping(value = "/weekboardpage", method = RequestMethod.GET)
 	public void weekboardPage(Model model, @RequestParam(value="num", defaultValue = "1") int num) throws Exception {
 		// 게시물 총 갯수
@@ -80,8 +80,9 @@ public class weekController {
 		// 현재 페이지
 		model.addAttribute("select", num);
 		
+	/*--------------------------------------------------------------------*/	
 		// 실시간 인기 검색어
-		List<popularVo> pwordlist = sqlSession.selectList("weekMapper.pwordlist");
+		List<popularVo> pwordlist = service.popularWord();
 		model.addAttribute("pword", pwordlist);	
 	}
 	

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.everyrecipe.weekboard.dao.weekDao;
+import com.kh.everyrecipe.weekboard.vo.popularVo;
 import com.kh.everyrecipe.weekboard.vo.weekVo;
 
 @Service
@@ -14,10 +15,10 @@ public class weekServiceImpl implements weekService {
 	@Autowired
 	private weekDao dao;
 	
-	@Override
+/*	@Override
 	public List<weekVo> weekList(){
 		return dao.weekList();
-	}
+	}*/
 	
 	@Override
 	public int count() throws Exception{
@@ -28,4 +29,11 @@ public class weekServiceImpl implements weekService {
 	public List<weekVo> weeklistPage(int weekPost, int postNum) throws Exception{
 		return dao.weeklistPage(weekPost, postNum);
 	}
+
+	@Override
+	public List<popularVo> popularWord() {		
+		return dao.popularWord();
+	}
+	
+	
 }
