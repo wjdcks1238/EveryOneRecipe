@@ -10,7 +10,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath() %>/admin">
+            <!-- 로고 클릭시 메인페이지로 이동 -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath() %>/">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -22,7 +23,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="<%=request.getContextPath() %>/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>관리자 모드</span></a>
             </li>
@@ -46,7 +47,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/employee">계정관리</a>
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/employee">권한관리</a>
                     </div>
                 </div>
             </li>
@@ -94,13 +94,6 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -117,9 +110,26 @@
 
             <!-- Main Content -->
             <div id="content">
-
                <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
+                
+                 <div class="container-fluid">
+                
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">실시간 검색어 차트</h1>
+                
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                   <tr>
+                                   	<td>
+                                   	차트 삽입 위치
+                                   	</td>
+                                   	<td>
+                                   	차트 삽입 위치
+                                   	</td>
+                                   </tr>
+                                </table>
+                  </div>
+                
                 <!-- End of Topbar -->
             </div>
             <!-- End of Main Content -->

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.everyrecipe.member.dao.MemberDao;
@@ -18,20 +19,33 @@ import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 	
 	@Autowired 
 	private MemberService mService;
 	
-	@GetMapping("/admin")
-	public String adminTest() {
-		
-		return "/admin/admin";
+	@GetMapping("")
+	public String admin() {
+		return "admin/admin";
 	}
 	
+	//
+	//직원 관리 페이
+	@GetMapping("/employee")
+	public ModelAndView employee(ModelAndView mv, Principal principal) throws Exception {
+
+		List<MemberVo> list = mService.selectList();
+		
+		mv.addObject("memberDto", list);
+		
+		mv.setViewName("admin/employee");
+		
+		return mv;
+	}
 	
 	//회원 관리 페이지
-	@GetMapping("/admin/members")
+	@GetMapping("/members")
 	public ModelAndView members(ModelAndView mv, Principal principal) throws Exception {
 
 		List<MemberVo> list = mService.selectList();
@@ -44,7 +58,7 @@ public class AdminController {
 	}
 	
 	//관리페이지
-	@GetMapping("/admin/details/{userId}")
+	@GetMapping("/details/{userId}")
 	public ModelAndView employee(@PathVariable String userId) throws Exception {
 		MemberVo member = mService.selectOne(userId);
 		

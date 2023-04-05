@@ -21,20 +21,6 @@
     <link href="<%=request.getContextPath() %>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 <body id="page-top">
-<script>
-	function openPopup(event, userId) {
-		let newPopup;
-		event.preventDefault();
-		let openUrl = "${pageContext.request.contextPath}/admin/details/"+userId;
-		let popOption = "width=700,height=700";
-		
-		newPopup = window.open(openUrl, "_blank", popOption);
-	}
-	function closePopup(){
-		newPopup.close();
-	}
-</script>
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -54,7 +40,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-            	<a class="nav-link" href="<%=request.getContextPath() %>/admin">
+                <a class="nav-link" href="<%=request.getContextPath() %>/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>관리자 모드</span></a>
             </li>
@@ -157,19 +143,16 @@
                 <div class="container-fluid">
                 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">회원목록</h1>
+                    <h1 class="h3 mb-2 text-gray-800">직원목록</h1>
                 
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>직원ID</th>
                                             <th>닉네임</th>
-                                            <th>가입일</th>
-                                            <th>작성한 게시글</th>
-                                           	<th>차단권한</th>
-                                            <th>탈퇴일</th>
-                                            <th>게시글 신고여부</th>
-                                            <th>댓글 	신고여부</th>
+                                            <th>입사일</th>
+                                            <th>퇴사일</th>
+                                            <th>권한여부</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -182,20 +165,9 @@
 	                                            </td>
 	                                            <td><c:out value="${admin.nickName}"/></td>
 	                                            <td ><c:out value="${admin.createAt}"/></td>
-	
-												<!-- 작성한 게시글 표현 -->
-	                                            <td>0</td>
+	                                            <td>퇴사</td>
 	                                            
-												<!-- 차단 상태 표현 (댓글차단, 게시글작성 차단)	-->
-	                                            <td>0</td>
-	                                            
-												<!-- 탈퇴일 표현 -->
-	                                            <td>탈퇴</td>
-	                                            
-	                                            <!-- 게시글 신고여부 표시 코드 구현-->
-	                                            <td>2011/04/25</td>
-	                                            
-	                                            <!-- 댓글 신고여부 표시 코드 구현-->
+	                                            <!-- 권한여부 표시 코드 구현-->
 	                                            <td>2011/04/25</td>
 	                                        </tr>
 	                                    </c:forEach>
