@@ -39,20 +39,18 @@
 					<div class="col-md-10">
 						<a class="link-dark" href="<%=request.getContextPath()%>/member/info/${post.userId}">작성자 : ${post.nickname } </a>
 							<c:if test="${loggedIn}">
-								<span class="row"> 
+								<span class="row ml-1"> 
 									<c:if test="${loggedIn}">
 										<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
 										<c:if test="${user ne post.userId}">
 											<div id="follow">
-												팔로우 :
-	
 												<c:if test="${isFollowed }">
-													<span id="isFollowed">O</span>
-													<button id="followBtn">팔로우 취소</button>
+													
+													 <img id="followBtn" style="cursor: pointer;" alt="" width="30px" src="<%=request.getContextPath()%>/resources/icons/added.png">
 												</c:if>
-												<c:if test="${isFollowed eq false }">
-													<span id="isFollowed">X</span>
-													<button id="followBtn">팔로우</button>
+												<c:if test="${isFollowed eq false }">													
+													 <img id="followBtn" style="cursor: pointer;" alt="" width="30px" src="<%=request.getContextPath()%>/resources/icons/add.png">
+													 
 												</c:if>
 	
 											</div>
@@ -60,7 +58,9 @@
 									</c:if>
 								</span>
 							</c:if>
+							<!-- 
 							<a href="#" class="btn follow">Follow</a>
+							 -->
 						<div>
 							<span class="author-description">${member.profile }</span>
 						</div>
@@ -94,20 +94,20 @@
 <c:if test="${loggedIn}">
 	<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
 	<div class="row justify-content-center">
-		<div class="col-2" id="bookmark">
-		북마크 :
-		
-			<c:if test="${isBookmarked }">
-				<span id="isBookmarked">O</span>
-				<button id="bookmarkBtn">북마크 취소</button>
-			</c:if>
-			<c:if test="${isBookmarked eq false }">
-				<span id="isBookmarked">X</span>
-				<button id="bookmarkBtn">북마크 하기</button>
-			</c:if>
-		
-		</div>
 		<c:if test="${user ne post.userId}">
+			<div class="col-2" id="bookmark">
+			북마크 :
+			
+				<c:if test="${isBookmarked }">
+					<span id="isBookmarked">O</span>
+					<button id="bookmarkBtn">북마크 취소</button>
+				</c:if>
+				<c:if test="${isBookmarked eq false }">
+					<span id="isBookmarked">X</span>
+					<button id="bookmarkBtn">북마크 하기</button>
+				</c:if>
+			
+			</div>
 			
 			<div class="col-2" id="like">
 			좋아요 :
@@ -424,88 +424,7 @@
         
     
 </main>
-<table border="1">
-		<tr>
-			<th>글번호</th>
-			<th>닉네임 </th>
-			<th>음식 이름</th>
-			<th>음식 재료</th>
-			<th>내용</th>
-			<th>작성일</th>
-		</tr>
 
-		<tr>
-			<td>${post.postId }</td>
-			<td>${post.nickname }</td>
-			<td>${post.foodName }</td>
-			<td>
-				<c:forEach items="${post.ingredients }" var="ing" varStatus="status">
-					${ing.ingredient } : ${ing.amount } /
-				</c:forEach>
-			</td>
-			<td>${post.content }</td>
-			<td>${post.createDate }</td>
-		</tr>
-</table>
-<div>
-${hashtags } 
-</div>
-
-아이콘으로 대체 예정
-
-
-<div>
-	<table id="tb_comment">
-		<c:forEach items="${comment }" var="cvo" varStatus="s">
-			<tr>
-				<td colspan="2">${cvo.userId }</td>
-			</tr>
-			<tr>
-				<td colspan="2">${cvo.content }</td>
-			</tr>
-			<tr>
-				<td>${cvo.updateAt }</td>
-				<td>
-				댓글쓰기
-				<c:if test="${loggedIn }">
-					<c:set var="lgnuser23"><%=request.getUserPrincipal().getName() %></c:set>
-				</c:if>
-					<c:choose>
-						<c:when test="${loggedIn}">
-							<c:if test="${lgnuser eq cvo.userId }">
-								| 댓글수정 | 댓글삭제
-							</c:if>
-						</c:when>
-						<c:otherwise />
-					</c:choose>
-				</td>
-			</tr>
-			<tr class="editbox ${cvo.cmtId }">
-				<td colspan="2">
-					<textarea rows="3" cols="64">${cvo.content }</textarea>
-					<br>
-					<button type="button">수정</button>
-					<button type="exit_box_${cvo.cmtId }">취소</button>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-</div>
-<div>
-	<c:choose>
-		<c:when test="${loggedIn}">
-			<form id="frmReply42">
-				<fieldset>
-					<legend>댓글 작성</legend>
-					<div><textarea rows="3" cols="70" name="commentContent" ></textarea></div>
-					<input type="hidden" name="boardNum" value="${post.postId }">
-					<button type="button" class="btn reply">댓글 작성</button>
-				</fieldset>
-			</form>
-		</c:when>
-		<c:otherwise />
-	</c:choose>
-</div>
 
 <div>
 	<c:if test="${loggedIn}">
@@ -709,10 +628,11 @@ $(document).on("click","#followBtn" ,function() {
 		async : false,
 		success:function(result){
 			if(result==false){
-				var htmlVal= "팔로우 : <span id='isFollowed'> X </span><button id='followBtn'>팔로우</button>";
+				
+				var htmlVal= "<img id='followBtn' style='cursor: pointer;' alt='' width='30px' src='<%=request.getContextPath()%>/resources/icons/add.png'>";
 				$("#follow").html(htmlVal);
 			}else if(result==true){
-				var htmlVal= "팔로우 : <span id='isFollowed'> O </span><button id='followBtn'>팔로우 취소</button>";
+				var htmlVal= "<img id='followBtn' style='cursor: pointer;' alt='' width='30px' src='<%=request.getContextPath()%>/resources/icons/added.png'>";
 				$("#follow").html(htmlVal);
 			}
 		}

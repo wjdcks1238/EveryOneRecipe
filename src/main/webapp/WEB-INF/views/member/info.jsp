@@ -68,7 +68,7 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 
 
-
+<sec:authorize var="loggedIn" access="isAuthenticated()" />
 	<div class="container-fluid">
 		<div class="row flex-nowrap">
 			
@@ -81,8 +81,22 @@
 				 
 					</div>
 					<div class="col-4">
-						<div>
-							<h3>아이디: ${memberDto.userId }</h3> 
+						<div class="row ml-0">
+							<h3>닉네임: ${memberDto.nickName }</h3> 
+							<c:if test="${loggedIn}">
+								<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+								<c:if test="${user ne memberDto.userId}">
+								<div id="follow">
+									<c:if test="${isFollowed }">
+										<img id="followBtn" style="cursor: pointer;" alt="" width="30px" src="<%=request.getContextPath()%>/resources/icons/added.png">
+									</c:if>
+									<c:if test="${isFollowed eq false }">
+										<img id="followBtn" style="cursor: pointer;" alt="" width="30px"	src="<%=request.getContextPath()%>/resources/icons/add.png">
+									</c:if>
+	
+								</div>
+								</c:if>
+							</c:if>
 						</div>
 						<div class="row">
 							<div class="col-4">
@@ -93,7 +107,7 @@
 							</div>
 						</div>
 						<div>
-							닉네임: ${memberDto.nickName }
+							아이디: ${memberDto.userId }
 						</div>
 						<div>
 							프로필 설명: ${memberDto.profile }
@@ -103,23 +117,8 @@
 						</div>
 						
 					
-						<sec:authorize var="loggedIn" access="isAuthenticated()" />
-						<c:if test="${loggedIn}">
-							<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
-							<c:if test="${user ne memberDto.userId}">
-								<div id="follow">
-								팔로우 :
-									<c:if test="${isFollowed }">
-										<span id="isFollowed">O</span>
-										<button id="followBtn">팔로우 취소</button>
-									</c:if>
-									<c:if test="${isFollowed eq false }">
-										<span id="isFollowed">X</span>
-										<button id="followBtn">팔로우</button>
-									</c:if>
-								</div>
-							</c:if>
-						</c:if>
+						
+						
 					</div>
 	
 				
@@ -237,25 +236,26 @@
             
 
     }
-            $(document).on("click","#followBtn" ,function() {
-            	var isFollowed = $("#isFollowed").text();
-            	$.ajax({
-            		url: "<%=request.getContextPath()%>/follow",
-            		type: "POST", 
-            		data: {userId: "${memberDto.userId }" },
-            		async : false,
-            		success:function(result){
-            			if(result==false){
-            				var htmlVal= "팔로우 : <span id='isFollowed'> X </span><button id='followBtn'>팔로우</button>";
-            				$("#follow").html(htmlVal);
-            			}else if(result==true){
-            				var htmlVal= "팔로우 : <span id='isFollowed'> O </span><button id='followBtn'>팔로우 취소</button>";
-            				$("#follow").html(htmlVal);
-            			}
-            		}
-            		
-            	});
-            });
+    $(document).on("click","#followBtn" ,function() {
+    	var isFollowed = $("#isFollowed").text();
+    	$.ajax({
+    		url: "<%=request.getContextPath()%>/follow",
+    		type: "POST", 
+    		data: {userId: "${memberDto.userId }" },
+    		async : false,
+    		success:function(result){
+    			if(result==false){
+    				
+    				var htmlVal= "<img id='followBtn' style='cursor: pointer;' alt='' width='30px' src='<%=request.getContextPath()%>/resources/icons/add.png'>";
+    				$("#follow").html(htmlVal);
+    			}else if(result==true){
+    				var htmlVal= "<img id='followBtn' style='cursor: pointer;' alt='' width='30px' src='<%=request.getContextPath()%>/resources/icons/added.png'>";
+    				$("#follow").html(htmlVal);
+    			}
+    		}
+    		
+    	});
+    });
 
 
     </script>

@@ -91,7 +91,7 @@
 				</div>
 				<div class="col-8">
 						<div>
-							<h3>아이디: ${memberDto.userId }</h3>
+							<h3>닉네임: ${memberDto.nickName }</h3>
 						</div>
 						<div class="row">
 							<div class="col-4">
@@ -102,7 +102,7 @@
 							</div>
 						</div>
 						<div>
-							닉네임: ${memberDto.nickName }
+							아이디: ${memberDto.userId }
 						</div>
 						<div>	
 							이메일: ${memberDto.email }
