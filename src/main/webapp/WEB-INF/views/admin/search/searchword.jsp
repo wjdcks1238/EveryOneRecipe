@@ -50,7 +50,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Management
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -62,7 +62,6 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/employee">계정관리</a>
                     </div>
                 </div>
@@ -78,7 +77,6 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">회원 관리:</h6>
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">계정관리</a>
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">권한관리</a>
                     </div>
@@ -89,35 +87,24 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">Addons</div>
+            <div class="sidebar-heading">Ranking</div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+			<!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                    <span>검색어</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchword">검색어 관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchrank">검색어 순위</a>s
                         <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -143,34 +130,34 @@
                 <div class="container-fluid">
                 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">직원목록</h1>
+                    <h1 class="h3 mb-2 text-gray-800">검색어 관리</h1>
                 
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>직원ID</th>
-                                            <th>닉네임</th>
-                                            <th>입사일</th>
-                                            <th>퇴사일</th>
-                                            <th>권한여부</th>
+                                            <th>순위</th>
+                                            <th>검색어</th>
+                                            
+                                            <!-- 클릭시 순위에서 제외됨 -->
+                                            <th>제외</th>
+                                            
+                                            <th>조회수</th>
+                                            
+	                                        <!-- 제외처리한 관리자 표시됨 -->
+                                            <th>작업자</th>
+                                            
+                                            <th>마지막 검색 시간</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    	<c:forEach var="admin" items="${memberDto}">
 	                                        <tr >
-	                                            <td >
-	                                            <a href="<%=request.getContextPath()%>/admin/details/${admin.userId}" onclick="openPopup(event, '${admin.userId}')">
-	                                            <c:out value="${admin.userId }"/>
-	                                            </a>
-	                                            </td>
-	                                            <td><c:out value="${admin.nickName}"/></td>
-	                                            <td ><c:out value="${admin.createAt}"/></td>
-	                                            <td>퇴사</td>
-	                                            
-	                                            <!-- 권한여부 표시 코드 구현-->
-	                                            <td>2011/04/25</td>
+	                                            <td></td>
+	                                            <td></td>
+	                                            <td></td>
+	                                            <td ></td>
+	                                            <td ></td>
+	                                            <td ></td>
 	                                        </tr>
-	                                    </c:forEach>
                                     </tbody>
                                 </table>
                   </div>
@@ -197,8 +184,9 @@
     <!-- Page level custom scripts -->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
     
-<!-- footer -->    
-<%@ include file="adminFooter.jsp" %>   
+<!-- footer -->   
+<%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %> 
 
-		</body>
+
+</body>
 </html>

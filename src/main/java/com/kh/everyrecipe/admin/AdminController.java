@@ -30,8 +30,25 @@ public class AdminController {
 		return "admin/admin";
 	}
 	
-	//
-	//직원 관리 페이
+	
+	//검색어 관리 페이지
+	@GetMapping("/search/searchword")
+	public ModelAndView searchword(ModelAndView mv) throws Exception {
+		
+		//TODO
+		
+		return mv;
+	}
+	
+	//검색어순위 관리 페이지
+	@GetMapping("/search/searchrank")
+	public ModelAndView searchrank(ModelAndView mv) throws Exception {
+
+		//TODO
+		return mv;
+	}
+	
+	//직원 관리 페이지
 	@GetMapping("/employee")
 	public ModelAndView employee(ModelAndView mv, Principal principal) throws Exception {
 

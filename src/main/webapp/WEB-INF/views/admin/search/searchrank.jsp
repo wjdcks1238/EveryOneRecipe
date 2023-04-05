@@ -1,8 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<header>
+    <title>모두의 레시피 관리자 모드</title>
 
+    <!-- Custom fonts for this template -->
+    <link href="<%=request.getContextPath() %>/resources/sbadmin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="<%=request.getContextPath() %>/resources/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="<%=request.getContextPath() %>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+<body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -10,8 +28,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <!-- 로고 클릭시 메인페이지로 이동 -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath() %>/">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath() %>/admin">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -56,7 +73,7 @@
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>회원관리</span>
-                </a>
+                </a>                
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -72,7 +89,7 @@
             <!-- Heading -->
             <div class="sidebar-heading">Ranking</div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+			<!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
@@ -82,11 +99,12 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchword">검색어 관리</a>
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchrank">검색어 순위</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchrank">검색어 순위</a>s
                         <div class="collapse-divider"></div>
                     </div>
                 </div>
             </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -104,30 +122,61 @@
 
             <!-- Main Content -->
             <div id="content">
+
                <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
+                <!-- End of Topbar -->
                 
-                 <div class="container-fluid">
+                <div class="container-fluid">
                 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">실시간 검색어 차트</h1>
+                    <h1 class="h3 mb-2 text-gray-800">검색어 순위</h1>
                 
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                   <tr>
-                                   	<td>
-                                   	차트 삽입 위치
-                                   	</td>
-                                   	<td>
-                                   	차트 삽입 위치
-                                   	</td>
-                                   </tr>
+                                    <thead>
+                                        <tr>
+                                            <th>순위</th>
+                                            <th>검색어</th>
+                                            <th>조회수</th>
+                                            <th>마지막 검색 시간</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+	                                        <tr >
+	                                            <td></td>
+	                                            <td></td>
+	                                            <td ></td>
+	                                            <td ></td>
+	                                        </tr>
+                                    </tbody>
                                 </table>
                   </div>
-                
-                <!-- End of Topbar -->
             </div>
             <!-- End of Main Content -->
          </div>
       </div>
+      	
 
-</header>
+    <!-- Bootstrap core JavaScript-->
+    <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/jquery/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
+    
+<!-- footer -->   
+<%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %> 
+
+
+</body>
+</html>
