@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="weekMapper">	
 	
-<!--<select id="list" resultType="wvo">
+<!-- 주간 게시물 출력
+	<select id="list" resultType="wvo">
 		select * 
 		from post 
 		where
@@ -11,6 +12,8 @@
 		CREATEAT between trunc(sysdate,'iw') AND trunc(sysdate,'iw')+6 order by LOOKUP desc
     </select>
 -->	
+
+	<!-- 주간 게시물 + 페이징 처리 추가 -->
 	<select id="count" resultType="_int">
     	select count(CASE WHEN ISDELETED = 'N' THEN 1 END) from post
     </select>
@@ -34,6 +37,7 @@
 	    WHERE ROWNUM <![CDATA[<=]]>#{postNum}		    
     </select>   
     
+    <!-- 인기 검색어 (1~10위) 출력 -->
     <select id="pwordlist" resultType="WordVo">
 		select keword
 			from(
