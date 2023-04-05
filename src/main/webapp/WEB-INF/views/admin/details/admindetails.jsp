@@ -5,26 +5,18 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>User Details</title>
+	<title>직원 상세페이지</title>
+	    <!-- Custom fonts for this template -->
+    <link href="<%=request.getContextPath()%>/resources/sbadmin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="<%=request.getContextPath()%>/resources/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="<%=request.getContextPath()%>/resources/sbadmin2/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	<style>
-		table {
-			border-collapse: collapse;
-			width: 50%;
-			margin: 20px;
-		}
-		th, td {
-			padding: 8px;
-			text-align: left;
-			border-bottom: 1px solid #ddd;
-		}
-		input[type=text], select {
-			padding: 6px 10px;
-			margin: 8px 0;
-			border: 1px solid #ccc;
-			border-radius: 4px;
-			box-sizing: border-box;
-		}
-		input[type=submit] {
+		button {
 			background-color: #4CAF50;
 			color: white;
 			padding: 10px 20px;
@@ -49,8 +41,8 @@
 		newPopup.close();
 	}
 </script>
-  <h1>사용자 상세페이지</h1>
-	  <table>
+  <h1 class="h3 mb-3 text-gray-800 text-center mt-3">상세페이지</h1>
+	  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	        <tr>
 	          <th>아이디</th>
 	          <td>${memberDto.userId}</td>
@@ -72,12 +64,26 @@
 	          </td>
 	        </tr>
 	        <tr>
+	        	<th>권한부여</th>
+	        	<td>${memberDto.status }</td>
+	        </tr>
+	        <tr>
 	          <th>입사일</th>
 	          <td>${memberDto.createAt}</td>
 	        </tr>
+	        <tr>
+	          <th>퇴사일</th>
+	          <td>${memberDto.createAt}</td>
+	        </tr>
 	        
+	        <tr>
+	          <th>
+	          </th>
+	          <td>
+	       		 <button type="submit">수정</button>
+	       		 <button onclick='closePopup()'>닫기</button>
+	          </td>
+	        </tr>
 	  </table>
-	       	<input type="submit" value="수정" />
-	        <div><button onclick='closePopup()'>닫기</button></div>
 </body>
 </html>
