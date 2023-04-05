@@ -12,15 +12,19 @@
 <style>
 a {
 text-decoration: none;
+color: gray;
+}
+a:hover{
+color: red;
 }
 
 .main-div{
-height: 450px;
+height: 425px;
 
 }
 .tbdiv{
 width: 450px;
-font-size: 11px;
+font-size: 14px;
 display: inline-block;
 }
 
@@ -30,8 +34,11 @@ higth:420px;
 }
 
 .pgnum{
+width: 450px;
 display: inline-block;
 }
+
+
 
 .pop-div{
 display: inline-block;
@@ -44,7 +51,7 @@ display: inline-block;
 <div class="main-div">
 <div class="in-div">
 <div class="tbdiv">
-<table class="table table-hover">
+<table class="table table-hover" style="text-align: center; margin-bottom: 0px;">
 	<thead class="table-primary">
 		<tr>
 			<th>레시피명</th>
@@ -55,7 +62,7 @@ display: inline-block;
 	</thead>
 	<tbody>
 		<c:forEach items="${weekboard}" var="list">
-		<tr>
+		<tr class="table-secondary">
 			<td><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></td>
 			<td>${list.nickname }</td>
 			<td>${list.dateWrite }</td>
@@ -65,7 +72,7 @@ display: inline-block;
 	</tbody>	
 </table>
 </div>
-<div class="pgnum">
+<div align="center" class="pgnum">
 	<c:if test="${prev}">
 		<a href="/everyrecipe/board/weekboardpage?num=${startPageNum - 1 }">이전</a>
 	</c:if>
@@ -90,14 +97,27 @@ display: inline-block;
 <table class="table table-hover">
 	<thead class="table-primary">
 	<tr>
-		<th>순위</th>
-		<th>검색어</th>
+		<th scope="col">순위</th>
+		<th scope="col">검색어</th>
 	</tr> 
 	</thead>
 	<c:forEach items="${pword}" var="word">
 		<c:set var="i" value="${i+1}"/>
-		<tr>
-			<td>${i}</td>
+		<tr class="table-secondary">
+			<td>
+				<c:if test="${i <= 3 }">
+					<button type="button" class="btn btn-success"
+					style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+					${i}
+					</button>
+				</c:if>
+				<c:if test="${i > 3 }">
+					<button type="button" class="btn btn-light"
+					style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+					${i}
+					</button>
+				</c:if>
+			</td>
 			<td>${word.keword}</td>
 		</tr>
 	</c:forEach>
