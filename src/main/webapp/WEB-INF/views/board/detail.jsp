@@ -10,12 +10,273 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>게시글 상세</title>
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/app.css">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/template-pintereso/assets/css/theme.css">
 <!-- Fonts -->
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
+
+
+
+<sec:authorize var="loggedIn" access="isAuthenticated()" />
+
+
+
+
+
+
+<div class="container">
+	
+		<!-- Begin Post -->
+		
+			<div class="mainheading">
+
+				<!-- Begin Top Meta -->
+				<h1 class="posttitle">${post.foodName }</h1>
+				<div class="row post-top-meta">
+					<div class="col-md-2">
+						<a href="author.html"><img class="author-thumb" src="${member.profileUrl}" alt="Sal"></a>
+					</div>
+					<div class="col-md-10">
+						<a class="link-dark" href="<%=request.getContextPath()%>/member/info/${post.userId}">작성자 : ${post.nickname } </a>
+							<c:if test="${loggedIn}">
+								<span class="row"> 
+									<c:if test="${loggedIn}">
+										<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+										<c:if test="${user ne post.userId}">
+											<div id="follow">
+												팔로우 :
+	
+												<c:if test="${isFollowed }">
+													<span id="isFollowed">O</span>
+													<button id="followBtn">팔로우 취소</button>
+												</c:if>
+												<c:if test="${isFollowed eq false }">
+													<span id="isFollowed">X</span>
+													<button id="followBtn">팔로우</button>
+												</c:if>
+	
+											</div>
+										</c:if>
+									</c:if>
+								</span>
+							</c:if>
+							<a href="#" class="btn follow">Follow</a>
+						<div>
+							<span class="author-description">${member.profile }</span>
+						</div>
+						<span class="post-date">작성일자 : ${post.createDate }</span><span class="dot"></span><span class="post-read">조회수 : ${post.lookUp }</span>
+					</div>
+				</div>
+				<!-- End Top Menta -->
+
+
+			</div>
+
+			<!-- Begin Featured Image -->
+			<img class="featured-image img-fluid" src="assets/img/demopic/10.jpg" alt="">
+			<!-- End Featured Image -->
+
+			<!-- Begin Post Content -->
+			<div class="article-post">
+				<blockquote>
+					<ul>
+	    				<c:forEach items="${post.ingredients }" var="ing" varStatus="status">
+							<li><a href="#"> ${ing.ingredient } </a> : ${ing.amount }</li>
+						</c:forEach>
+    				</ul>
+				</blockquote>
+				<div id="post_content">    				
+	    				${post.content }
+    			</div>
+			</div>
+			<!-- End Post Content -->
+
+<c:if test="${loggedIn}">
+	<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+	<div class="row justify-content-center">
+		<div class="col-2" id="bookmark">
+		북마크 :
+		
+			<c:if test="${isBookmarked }">
+				<span id="isBookmarked">O</span>
+				<button id="bookmarkBtn">북마크 취소</button>
+			</c:if>
+			<c:if test="${isBookmarked eq false }">
+				<span id="isBookmarked">X</span>
+				<button id="bookmarkBtn">북마크 하기</button>
+			</c:if>
+		
+		</div>
+		<c:if test="${user ne post.userId}">
+			
+			<div class="col-2" id="like">
+			좋아요 :
+					<c:if test="${isLiked }">
+					 	<span id="isLiked">O</span> 
+						<button id="likeBtn">좋아요 취소</button>
+					</c:if>
+					<c:if test="${isLiked eq false }">
+						<span id="isLiked">X</span>
+						<button id="likeBtn">좋아요</button>
+					</c:if>
+			</div>
+			<div>
+				좋아요 수 : ${likeCount } 
+			</div> 
+		
+		</c:if>
+	</div>
+</c:if>
+
+
+
+
+
+
+
+
+			<!-- Begin Tags -->
+			<div class="after-post-tags">
+				<ul class="tags">
+					<c:forEach items="${hashtags }" var="hashtag" >
+							<li><a href="#">${hashtag }</a> </li>
+					</c:forEach>
+					
+				</ul>
+			</div>
+			<!-- End Tags -->
+
+		<!-- End Post -->
+
+
+		<div id="comments" class="mt-4">
+			<fieldset>
+				<span>댓글</span> <span>${cmtCount }</span>
+				<table id="tb_comment" style="width: 100%">
+					<c:forEach items="${comment }" var="cvo" varStatus="s">
+						<tr>
+							<td colspan="2">${cvo.userId }</td>
+						</tr>
+						<tr>
+							<td colspan="2">${cvo.content }</td>
+						</tr>
+						<tr>
+							<td colspan="2">${cvo.updateAt }&nbsp;
+							 	<c:if test="${loggedIn }">
+									<c:set var="lgnuser"><%=request.getUserPrincipal().getName()%></c:set>
+								</c:if> <c:choose>
+									<c:when test="${loggedIn}">
+										<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="openInsert(${cvo.cmtId})">답글 쓰기</button>
+										<c:if test="${lgnuser eq cvo.userId }">
+											<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="openEdit(${cvo.cmtId})">댓글 수정</button>
+											<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="deleteCmt(${cvo.cmtId})">댓글 삭제</button>
+										</c:if>
+									</c:when>
+								</c:choose>
+							</td>
+						<tr class="editbox ${cvo.cmtId }">
+							<td colspan="2"><textarea rows="3" cols="61" id="updateBox">${cvo.content }</textarea>
+								<br>
+								<button type="button">수정</button>
+								<button type="button" onclick="closeEdit(${cvo.cmtId})">취소</button>
+							</td>
+						</tr>
+						<tr class="insertbox ${cvo.cmtId }">
+							<td colspan="2"><textarea rows="3" cols="61" id="insertBox"></textarea>
+								<br>
+								<button type="button">작성</button>
+								<button type="button" onclick="closeInsert(${cvo.cmtId})">취소</button>
+							</td>
+						</tr>
+						<c:forEach items="${replyComment }" var="rcvo" varStatus="rs">
+							<c:if test="${cvo.cmtId eq rcvo.cmtId }">
+								<tr>
+									<td style="width: 10%">ㄴRe:</td>
+									<td style="width: 90%">${rcvo.userId }</td>
+								</tr>
+								<tr>
+									<td style="width: 10%"></td>
+									<td style="width: 90%">${rcvo.content }</td>
+								</tr>
+								<tr>
+									<td style="width: 10%"></td>
+									<td style="width: 90%">${rcvo.updateAt }&nbsp;
+										<c:if test="${loggedIn }">
+											<c:set var="lgnuser"><%=request.getUserPrincipal().getName()%></c:set>
+										</c:if> <c:choose>
+											<c:when test="${loggedIn}">
+												<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="openReInsert(${rcvo.rcmId})">답글 쓰기</button>
+												<c:if test="${lgnuser eq rcvo.userId }">
+													<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="openReEdit(${rcvo.rcmId})">답글 수정</button>
+													<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="RedeleteCmt(${rcvo.rcmId})">답글 삭제</button>
+												</c:if>
+											</c:when>
+										</c:choose>
+									</td>
+								</tr>
+								<tr class="editRebox ${rcvo.rcmId }">
+									<td colspan="2"><textarea rows="3" cols="100%" id="updateReBox">${rcvo.content }</textarea> <br>
+										<button type="button">수정</button>
+										<button type="button" onclick="closeReEdit(${rcvo.rcmId})">취소</button>
+									</td>
+								</tr>
+								<tr class="insertRebox ${rcvo.rcmId }">
+									<td colspan="2"><textarea rows="3" cols="100%" id="insertReBox"></textarea> <br>
+										<button type="button">작성</button>
+										<button type="button" onclick="closeReInsert(${rcvo.rcmId})">취소</button>
+									</td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</c:forEach>
+				</table>
+			</fieldset>
+		</div>
+		<div>
+			<c:choose>
+				<c:when test="${loggedIn}">
+					<form id="frmReply">
+						<fieldset>
+						<legend>댓글 작성</legend>
+						<div><textarea rows="3"   style="width:80%;" name="commentContent" ></textarea></div>
+						<input type="hidden" name="boardNum" value="${post.postId }">
+						<button type="button" class="btn reply">댓글 작성</button>
+						</fieldset>
+					</form>
+				</c:when>
+			</c:choose>
+		</div>
+
+
+
+
+
+	
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <main role="main">
     <section class="bg-gray200 pt-5 pb-5">
     <div class="container">
@@ -56,7 +317,6 @@
 									</tr>
 									<tr>
 										<td  colspan="2">${cvo.updateAt }&nbsp;
-										<sec:authorize var="loggedIn" access="isAuthenticated()" />
 										<c:if test="${loggedIn }">
 											<c:set var="lgnuser"><%=request.getUserPrincipal().getName() %></c:set>
 										</c:if>
@@ -138,7 +398,7 @@
 	   					</fieldset>
     				</div>
     				<div>
-						<sec:authorize var="loggedIn" access="isAuthenticated()" />
+						
 						<c:choose>
 							<c:when test="${loggedIn}">
 								<form id="frmReply">
@@ -192,61 +452,7 @@ ${hashtags }
 </div>
 
 아이콘으로 대체 예정
-<sec:authorize var="loggedIn" access="isAuthenticated()" />
-<c:if test="${loggedIn}">
-	<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
 
-		<div id="bookmark">
-		북마크 :
-		
-			<c:if test="${isBookmarked }">
-				<span id="isBookmarked">O</span>
-				<button id="bookmarkBtn">북마크 취소</button>
-			</c:if>
-			<c:if test="${isBookmarked eq false }">
-				<span id="isBookmarked">X</span>
-				<button id="bookmarkBtn">북마크 하기</button>
-			</c:if>
-		
-		</div>
-	<c:if test="${user ne post.userId}">
-		
-		
-		
-		<div id="follow">
-		팔로우 :
-		
-			<c:if test="${isFollowed }">
-				<span id="isFollowed">O</span>
-				<button id="followBtn">팔로우 취소</button>
-			</c:if>
-			<c:if test="${isFollowed eq false }">
-				<span id="isFollowed">X</span>
-				<button id="followBtn">팔로우</button>
-			</c:if>
-		
-		
-		
-		</div>
-		
-		<div id="like">
-		좋아요 :
-				<c:if test="${isLiked }">
-				 	<span id="isLiked">O</span> 
-					<button id="likeBtn">좋아요 취소</button>
-				</c:if>
-				<c:if test="${isLiked eq false }">
-					<span id="isLiked">X</span>
-					<button id="likeBtn">좋아요</button>
-				</c:if>
-		</div>
-		<div>
-			좋아요 수 : ${likeCount } 
-		</div> 
-	
-	</c:if>
-
-</c:if>
 
 <div>
 	<table id="tb_comment">
@@ -286,7 +492,6 @@ ${hashtags }
 	</table>
 </div>
 <div>
-	<sec:authorize var="loggedIn" access="isAuthenticated()" />
 	<c:choose>
 		<c:when test="${loggedIn}">
 			<form id="frmReply42">
@@ -412,7 +617,7 @@ $(document).on("click", ".btn.reply", function() {
 		async:false,
 		success: function(result){
 			console.log(result.length);
-			frmReply.reset();
+			$("#frmReply")[0].reset();
 			if(result.length > 0) {
 				alert("댓글이 작성되었습니다.")
 			} else {

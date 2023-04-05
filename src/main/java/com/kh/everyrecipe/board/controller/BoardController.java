@@ -189,13 +189,17 @@ public class BoardController {
 					mv.setViewName("errors/deletedPost");
 					return mv;
 				}
-				String hashtags= "";
 				mv.addObject("post",pvo);
+				MemberVo mvo = mService.selectOne(pvo.getUserId());
+				mv.addObject("member", mvo);
+				
+				
 				List<HashtagVo> hvoList= bService.getHashtags(postId);
+				List<String> hashtagList = new ArrayList<String>();
 				for(HashtagVo hvo : hvoList) {
-					hashtags += "#"+hvo.getHashtag();
+					hashtagList.add("#"+hvo.getHashtag()) ;
 				}
-				mv.addObject("hashtags",hashtags );
+				mv.addObject("hashtags",hashtagList );
 				List<CommentVo> cvo = cmtService.getCommentList(postId);
 				mv.addObject("comment", cvo);
 				int cmtCount = cmtService.getCountComment(postId);
@@ -266,14 +270,16 @@ public class BoardController {
 					mv.setViewName("errors/deletedPost");
 					return mv;
 				}
-				mv.addObject("post",pvo);
+				
+				
+				
 		 		//List<HashtagVo>가 아닌 List<String>이 나을 수 있음
 				List<HashtagVo> hvoList= bService.getHashtags(postId);
 				for(HashtagVo hvo : hvoList) {
 					hashtags += "#"+hvo.getHashtag();
 				}
 				
-			
+				
 				mv.addObject("hashtags",hashtags );
 				mv.addObject("ingredients", bService.getIngredients(postId));
 				mv.addObject("post", pvo);
