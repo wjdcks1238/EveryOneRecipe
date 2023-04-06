@@ -10,11 +10,39 @@
 </head>
 <body>
 <h1>네이버쇼핑 API</h1>
+
+<!-- 
 <form action="/everyrecipe/shopdata" method="GET">
 	<input type="text" name="query">
 	<button type="submit">검색</button>
 </form>
+ -->
 
+<input type="text" name="query">
+<button type="button" id="ingbtn">구매</button>
+
+<div id="Context">
+</div>
+
+
+<script>
+$("#ingbtn").on("click", getShopList);
+function getShopList(){
+	var querys = $("input[name=query]").val();
+	console.log(querys);
+	$.ajax({
+		type : "GET"
+		, url : "<%=request.getContextPath()%>/shopdata"
+		, async: false
+		, dataType: "text"
+		, data: 'query=' + querys
+		, success:function(data){
+			console.log(data)
+			$('#Context').html(data);
+		}
+	});
+}
+</script>
 </body>
 </html>
 
