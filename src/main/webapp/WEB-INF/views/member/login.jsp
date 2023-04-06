@@ -19,15 +19,20 @@
       <h1>회원가입</h1>
       <c:url value="/member/signup" var="signupUrl" />
       <form:form name="signup" action="${signupUrl} " method="POST">
-        <input type="text" id="signupId" name="userId" placeholder="아이디" />
+        <input type="text" id="userid" name="userId" onblur="validation()" placeholder="아이디" />
+        	<div id="error" class="error"></div>
         
-        <input type="text" id="email" name="email" onblur="vaildateEmail()" placeholder="이메일" />
-        	<div id="emailError" class="error"></div>
+        <input type="text" id="email" name="email" onblur="validation()" placeholder="이메일" />
+        	<div id="error" class="error">엥 틀ㄹ렸슴</div>
         	
         	
-        <input type="password" id="signupPassword" name="password" onblur="vaildatePassword()" placeholder="비밀번호" />
-        <input type="password" id="passwordCheck" onblur="vaildatePassword()" placeholder="비밀번호를 한번 더 입력해주세요" />
-        	<div id="passwordCheck" class="error"></div>
+        <!-- 정규표현식으로 비밀번호 검증하기
+        	 공백없이 영어, 숫자, 특수문자(!,@,#)조합하여 8자 이상 16자 이하
+         -->
+        <input type="password" id="signupPassword" name="password" onblur="validation()" placeholder="비밀번호" />
+        	<div id="error" class="error">엥 틀ㄹ렸슴</div>
+        <input type="password" id="passwordCheck" onblur="validation()" placeholder="비밀번호를 한번 더 입력해주세요" />
+        	<div id="error" class="error">엥 틀ㄹ렸슴</div>
         <p>
        <span>개인정보 수집 및 이용에 동의하십니까?</span>
        <input type="checkbox">
@@ -54,7 +59,7 @@
       </form:form>
       
 	 <!-- 네이버 로그인 창으로 이동 -->
- 	 <div id="naver_id_login" style="text-align:center"><a href="${url}">
+ 	 <div id="naver_id_login" style="text-align:left"><a href="${url}">
 	 <img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
       <hr>
       <p>
