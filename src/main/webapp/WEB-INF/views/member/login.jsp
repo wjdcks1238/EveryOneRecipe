@@ -19,26 +19,24 @@
       <h1>회원가입</h1>
       <c:url value="/member/signup" var="signupUrl" />
       <form:form name="signup" action="${signupUrl} " method="POST">
-        <input type="text" id="userid" name="userId" onblur="validation()" placeholder="아이디" />
-        	<div id="error" class="error"></div>
-        
-        <input type="text" id="email" name="email" onblur="validation()" placeholder="이메일" />
-        	<div id="error" class="error">엥 틀ㄹ렸슴</div>
-        	
-        	
+        <input type="text" id="userid" name="userId" onkeyup="validation()" placeholder="아이디" />
+        	<div class="error-message hide error" id="userid-error"></div>
         <!-- 정규표현식으로 비밀번호 검증하기
         	 공백없이 영어, 숫자, 특수문자(!,@,#)조합하여 8자 이상 16자 이하
          -->
-        <input type="password" id="signupPassword" name="password" onblur="validation()" placeholder="비밀번호" />
-        	<div id="error" class="error">엥 틀ㄹ렸슴</div>
-        <input type="password" id="passwordCheck" onblur="validation()" placeholder="비밀번호를 한번 더 입력해주세요" />
-        	<div id="error" class="error">엥 틀ㄹ렸슴</div>
+        <input type="password" id="password" name="password" onkeyup="validation()" placeholder="비밀번호" />
+			<div class="error-message hide error" id="password-error"></div>
+		<input type="password" id="checkpw" onkeyup="validation()" placeholder="비밀번호를 한번 더 입력해주세요" />
+			<div class="error-message hide error" id="passwordCheck-error"></div>
+
+        <input type="text" id="email" name="email" onkeyup="validation()" placeholder="이메일" />
+        	<div class="error-message hide error" id="email-error"></div>
         <p>
        <span>개인정보 수집 및 이용에 동의하십니까?</span>
        <input type="checkbox">
        <label>동의함</label>
         </p>
-        <input type="submit" value="가입하기" />
+        <input type="submit" value="가입하기" id="submitBtn" disabled/>
       </form:form>
       <p>
         이미 계정이 있으신가요?

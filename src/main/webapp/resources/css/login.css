@@ -70,7 +70,6 @@ section.active .right {
   display: grid;
   place-content: center;
   width: 400px;
-  height: 400px;
 }
 .sign-up h1,
 .sign-in h1 {
@@ -91,6 +90,14 @@ section.active .right {
   background: #f5f5f5;
   padding: 10px 5px;
   border-radius: 5px;
+  padding-left: 10px;
+}
+.sign-up span p,
+.sign-in span p{
+  border: 0;
+  outline: 0;
+  padding: 10px 5px;
+  border-radius: 2px;
   padding-left: 10px;
 }
 .sign-up form input::placeholder,
@@ -138,8 +145,10 @@ section.active .right {
   color: #f95700;
 }
 .error{
-    font-size: 1px;
-    height: 20px;
+    font-size: 13px;
     color:red;
-    font-weight: 700;
+    font-weight: 500;
+}
+.hide{
+	display: none;
 }
