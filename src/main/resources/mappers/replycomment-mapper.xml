@@ -4,5 +4,7 @@
 	<select id="getReplyCommentList" resultType="rcvo">
 		select * from REPLYCOMMENT where ISDELETED='N' order by RCMID desc
 	</select>
-	
+	<insert id="insertReplyComment" parameterType="rcvo">
+		insert into REPLYCOMMENT values(SEQ_RCMTID.NEXTVAL, #{cmtId}, #{userId}, #{content}, default, default)
+	</insert>
 </mapper>

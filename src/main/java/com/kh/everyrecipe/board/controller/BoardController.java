@@ -402,4 +402,22 @@ public class BoardController {
 			
 			return new Gson().toJson(replyList);
 		}
+		
+		@PostMapping("/insertReplyCommentAjax")
+		@ResponseBody
+		public String insertReplyCommentAjax(
+				CommentVo cvo
+				) {
+			ReplyCommentVo vo = new ReplyCommentVo();
+			vo.setCmtId(cvo.getCmtId());
+			vo.setContent(cvo.getContent());
+			vo.setUserId(cvo.getUserId());
+			int postId = cvo.getPostId();
+			
+			rcmtService.insertComment(vo);
+			
+			List<CommentVo> replyList = cmtService.getCommentList(postId);
+			
+			return new Gson().toJson(replyList);
+		}
 }

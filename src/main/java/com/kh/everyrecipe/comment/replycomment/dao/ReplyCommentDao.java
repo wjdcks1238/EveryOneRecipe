@@ -17,4 +17,9 @@ public class ReplyCommentDao {
 	public List<ReplyCommentVo> getCommentList() {
 		return session.selectList("ReplyCommentMapper.getReplyCommentList");
 	}
+
+
+	public int insertComment(ReplyCommentVo vo) {
+		return session.insert("ReplyCommentMapper.insertReplyComment", vo);
+	}
 }

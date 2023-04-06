@@ -17,4 +17,9 @@ public class ReplyCommentServiceImp implements ReplyCommentService{
 	public List<ReplyCommentVo> getCommentList() {
 		return dao.getCommentList();
 	}
+
+	@Override
+	public int insertComment(ReplyCommentVo vo) {
+		return dao.insertComment(vo);
+	}
 }
