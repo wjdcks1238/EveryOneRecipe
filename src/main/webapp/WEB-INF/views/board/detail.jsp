@@ -157,12 +157,10 @@
 						</tr>
 						<tr>
 							<td colspan="2">${cvo.updateAt }&nbsp;
-							 	<c:if test="${loggedIn }">
-									<c:set var="lgnuser"><%=request.getUserPrincipal().getName()%></c:set>
-								</c:if> <c:choose>
+								<c:choose>
 									<c:when test="${loggedIn}">
 										<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="openInsert(${cvo.cmtId})">답글 쓰기</button>
-										<c:if test="${lgnuser eq cvo.userId }">
+										<c:if test="${uName eq cvo.userId }">
 											<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="openEdit(${cvo.cmtId})">댓글 수정</button>
 											<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="deleteCmt(${cvo.cmtId})">댓글 삭제</button>
 										</c:if>
@@ -560,13 +558,11 @@ function displayReply(result) {
 		htmlval +='</tr>';
 		htmlval +='<tr>';
 		htmlval +='<td>'+reply.updateAt+'&nbsp;';
-		var aaa = "${loggedIn}";
-		if(aaa) {
-			var lgnuser = '<%=request.getUserPrincipal().getName() %>';
-		}
+		var aaa = ${loggedIn};
+		var userName = "${uName}";
 		if(aaa) {
 			htmlval += '<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openInsert('+reply.cmtId+')">답글 쓰기</button>';
-			if(lgnuser === reply.userId) {
+			if(userName === reply.userId) {
 				htmlval += '<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openEdit('+reply.cmtId+')">댓글 수정</button> <button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="deleteCmt('+reply.cmtId+', '+reply.postId+')">댓글 삭제</button>';
 			}
 		}

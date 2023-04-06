@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-
+<sec:authorize var="loggedIn" access="isAuthenticated()" />
+<c:set var="uName" value="${pageContext.request.userPrincipal.name }"></c:set>
 
 <!-- Begin Nav ================================================== -->
 <nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
