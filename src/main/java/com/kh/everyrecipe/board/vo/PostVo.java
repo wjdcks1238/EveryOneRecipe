@@ -26,6 +26,7 @@ public class PostVo {
 	private Date UpdateDate;
 	private String isDeleted;
 	private String profileUrl;
+	private String profile;
 	private List<IngredientVo> ingredients;
 	private int lookUp;
 	private int likeCnt;
@@ -34,7 +35,7 @@ public class PostVo {
 	public String toString() {
 		return "PostVo [postId=" + postId + ", userId=" + userId + ", nickname=" + nickname + ", foodName=" + foodName
 				+ ", createDate=" + createDate + ", UpdateDate=" + UpdateDate + ", isDeleted=" + isDeleted
-				+ ", ingredients=" + ingredients +", lookUp=" + lookUp + ", profileUrl=" + profileUrl +", likeCnt=" + likeCnt+", followCnt=" + followCnt+"]";
+				+ ", ingredients=" + ingredients +", lookUp=" + lookUp + ", profileUrl=" + profileUrl +", profile=" + profile +", likeCnt=" + likeCnt+", followCnt=" + followCnt+"]";
 	}
 	
 }

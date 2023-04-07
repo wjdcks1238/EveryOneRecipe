@@ -35,7 +35,7 @@
 				<h1 class="posttitle">${post.foodName }</h1>
 				<div class="row post-top-meta">
 					<div class="col-md-2">
-						<a href="author.html"><img class="author-thumb" src="${member.profileUrl}" alt="Sal"></a>
+						<a href="author.html"><img class="author-thumb" src="${post.profileUrl}" alt="Sal"></a>
 					</div>
 					<div class="col-md-10">
 						<a class="link-dark" href="<%=request.getContextPath()%>/member/info/${post.userId}">작성자 : ${post.nickname } </a>
@@ -63,7 +63,7 @@
 							<a href="#" class="btn follow">Follow</a>
 							 -->
 						<div>
-							<span class="author-description">${member.profile }</span>
+							<span class="author-description">${post.profile }</span>
 						</div>
 						<span class="post-date">작성일자 : ${post.createDate }</span><span class="dot"></span><span class="post-read">조회수 : ${post.lookUp }</span>
 					</div>

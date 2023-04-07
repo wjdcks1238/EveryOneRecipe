@@ -12,6 +12,7 @@
 		<result property="isDeleted" column="ISDELETED"/>
 		<result property="lookUp" column="LOOKUP"/>
 		<result property="profileUrl" column="PROFILEURL"/>
+		<result property="profile" column="PROFILE"/>
 		<result property="likeCnt" column="LIKECNT"/>
 		<result property="followCnt" column="FOLLOWCNT"/>
 		<collection property="ingredients" ofType="ivo">
@@ -38,28 +39,7 @@
     ON p.POSTID = i.POSTID
  WHERE p.ISDELETED = 'N'
 	</select>
-	<!-- 
 
-	<select id="pagingList" parameterType="map" resultMap="postResultMap">
-	SELECT p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p2.UPDATEAT 
-	 	 , p2.ISDELETED , p2.LOOKUP, i.INGREDIENT , i.AMOUNT, m.PROFILEURL
-	 	 <if test="userId != null">select count(*) from POSTLIKE where USERID=#{userId} AND POSTID=p2.POSTID   AND ISDELETED='N'
-	 	 						 , select count(*) from FOLLOWMAPPING where FWID=#{fwId} and USERID=#{userId} and ISDELETED='N'
-	 	 						 </if>
-	  FROM
-			(SELECT * 
-			   FROM (SELECT p.*
-			              , ROWNUM AS RNUM
-			           FROM (SELECT * FROM post <if test="userId != null">where USERID = #{userId} </if> ORDER BY postid ) p) 
-		   <![CDATA[  WHERE RNUM> #{from} AND RNUM<=#{to})]]> p2 JOIN ingredient i 
-		   														   ON p2.POSTID = i.POSTID 
-		   														 JOIN members m 
-		   														   ON p2.USERID = m.USERID 
-	 WHERE p2.ISDELETED = 'N' 
-		
-
-	</select>
-		 -->
 <select id="pagingList" parameterType="map" resultMap="postResultMap">
 	SELECT 
 <if test="userId !=null">
@@ -97,9 +77,13 @@ p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p
      , p.LOOKUP
      , i.INGREDIENT
      , i.AMOUNT
+     , m.PROFILEURL
+     , m.PROFILE
   FROM post p
- INNER JOIN ingredient i
+  JOIN ingredient i
     ON p.POSTID = i.POSTID
+  JOIN members m
+    ON p.USERID = m.USERID
  WHERE p.POSTID = #{postId}
 	</select>
 
