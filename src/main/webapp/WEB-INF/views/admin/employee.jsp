@@ -171,7 +171,7 @@
 	                                            <td>퇴사</td>
 	                                            
 	                                            <!-- 권한여부 표시 코드 구현-->
-	                                            <td>2011/04/25</td>
+	                                            <td><c:out value="${admin.authority }"/></td>
 	                                        </tr>
 	                                    </c:forEach>
                                     </tbody>

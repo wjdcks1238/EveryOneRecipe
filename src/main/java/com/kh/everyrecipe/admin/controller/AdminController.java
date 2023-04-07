@@ -1,4 +1,4 @@
-package com.kh.everyrecipe.admin;
+package com.kh.everyrecipe.admin.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;

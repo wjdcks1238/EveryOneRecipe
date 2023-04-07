@@ -37,6 +37,16 @@ function openPopup(event, userId) {
     
     newPopup = window.open(openUrl, "_blank", popOption);
 }
+$('input[name="${memberDto.authority }"]').change(fuction(){
+	var value = $(this).val();
+	var checked = $(this).prop('checked');
+	if(value =='ROLE_ADMIN'){
+		document.getElementById('${memberDto.authority }').disabled=true;
+	}else{
+		document.getElementById('${memberDto.authority }').disabled=false;
+	}
+
+});
 </script>
   <h1 class="h3 mb-3 text-gray-800 text-center mt-3">상세페이지</h1>
 	  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -62,7 +72,11 @@ function openPopup(event, userId) {
 	        </tr>
 	        <tr>
 	        	<th>권한부여</th>
-	        	<td>${memberDto.status }</td>
+	        	<td>
+	        		${memberDto.authority }
+	        		승인 <input type="radio" name="authority" value="ROLE_ADMIN"/>
+	        		회수 <input type="radio" name="authority" value="ROLE_MEMBER"/>
+	        	</td>
 	        </tr>
 	        <tr>
 	          <th>입사일</th>

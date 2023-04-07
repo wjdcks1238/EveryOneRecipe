@@ -11,6 +11,7 @@
 		<result property="UpdateDate" column="UPDATEAT"/>
 		<result property="isDeleted" column="ISDELETED"/>
 		<result property="lookUp" column="LOOKUP"/>
+		<result property="profileUrl" column="PROFILEURL"/>
 		<collection property="ingredients" ofType="ivo">
 			<result property="ingredient" column="INGREDIENT"/>
 			<result property="amount" column="AMOUNT"/>
@@ -38,14 +39,17 @@
 	
 	<select id="pagingList" parameterType="map" resultMap="postResultMap">
 	SELECT p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p2.UPDATEAT 
-	, p2.ISDELETED , p2.LOOKUP, i.INGREDIENT , i.AMOUNT FROM
-	(SELECT * 
-	  FROM (SELECT p.*
-	             , ROWNUM AS RNUM
-	          FROM (SELECT * FROM post <if test="userId != null">where USERID = #{userId} </if> ORDER BY postid ) p) 
-	  <![CDATA[  WHERE RNUM> #{from}
-	    AND RNUM<=#{to}) p2 INNER JOIN ingredient i ON p2.POSTID = i.POSTID  ]]>
-		WHERE p2.ISDELETED = 'N' 
+	 	 , p2.ISDELETED , p2.LOOKUP, i.INGREDIENT , i.AMOUNT, m.PROFILEURL
+	  FROM
+			(SELECT * 
+			   FROM (SELECT p.*
+			              , ROWNUM AS RNUM
+			           FROM (SELECT * FROM post <if test="userId != null">where USERID = #{userId} </if> ORDER BY postid ) p) 
+		   <![CDATA[  WHERE RNUM> #{from} AND RNUM<=#{to})]]> p2 JOIN ingredient i 
+		   														   ON p2.POSTID = i.POSTID 
+		   														 JOIN members m 
+		   														   ON p2.USERID = m.USERID 
+	 WHERE p2.ISDELETED = 'N' 
 		
 
 	</select>
