@@ -10,7 +10,7 @@
 <title>프로필 수정</title>
 
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
-
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
  <style>
 
 .modal {
@@ -185,20 +185,23 @@
       
       $(document).on("click","#updateBtn" ,function() {
       	
-      	var map = {nickName:$("input[name=nickName]").val(),profile:$("input[name=profile]").val()};
+      	var map = {nickName: $.trim($("input[name=nickName]").val()),profile:$("input[name=profile]").val()};
+      	if($.trim($("input[name=nickName]").val()).length !== 0){
+	      	$.ajax({
+	      		url: '<%=request.getContextPath()%>/member/update',
+	      		type: 'POST', 
+	      		data: map,
+	      		success:function(result){
+	      			
+	      			location.href="<%=request.getContextPath()%>/member/myinfo"
+	      			
+	      		}
+	      		
+	      	});
+      	}else{
+      		alert("닉네임을 입력해 주세요");
+      	}
       	
-      	console.log(map);
-      	$.ajax({
-      		url: '<%=request.getContextPath()%>/member/update',
-      		type: 'POST', 
-      		data: map,
-      		success:function(result){
-      			
-      			location.href="<%=request.getContextPath()%>/member/myinfo"
-      			
-      		}
-      		
-      	});
       }); 
       $(document).on("click","#deletePI" ,function() {
       	$.ajax({

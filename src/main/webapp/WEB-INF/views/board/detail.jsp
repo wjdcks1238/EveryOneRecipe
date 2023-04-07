@@ -10,6 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>게시글 상세</title>
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <!-- Fonts -->
 </head>
 <body>
@@ -216,7 +217,7 @@
 								<tr class="insertRebox ${rcvo.rcmId }">
 									<td colspan="2">
 											<textarea rows="3" cols="100%" name="insertReBox"></textarea> <br>
-											<button type="button" onclick="insReply(${cvo.cmtId})">작성</button>
+											<button type="button" onclick="insReply(${rcvo.rcmId})">작성</button>
 											<button type="button" onclick="closeReInsert(${rcvo.rcmId})">취소</button>
 									</td>
 								</tr>
@@ -554,9 +555,6 @@ $("#deletePost").click(function(){
 	});
 
 })
-
-
-
 </script>
 
 </body>
