@@ -52,7 +52,7 @@ public class AdminController {
 	@GetMapping("/employee")
 	public ModelAndView employee(ModelAndView mv, Principal principal) throws Exception {
 
-		List<MemberVo> list = mService.selectList();
+		List<MemberVo> list = mService.selectAuth();
 		
 		mv.addObject("memberDto", list);
 		

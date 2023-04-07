@@ -27,7 +27,6 @@ commit;
 
 --select * from members;
 
-
 --회원정보 수정
 --UPDATE MEMBERS SET (PASSWORD, EMAIL, ) = ();
 --CREATE TABLE "MEMBERS" (
@@ -57,6 +56,14 @@ commit;
 --COMMENT ON COLUMN "MEMBERS"."POSTBLOCKYN" IS 'N';
 --COMMENT ON COLUMN "MEMBERS"."REPLYBLOCKYN" IS 'N';
 --
+
+--직원 권한 부여(AUTHORITY : 'ROLE_MEMBER: 멤버, ROLE_ADMIN:운영자')
+select * from members;
+update members set AUTHORITY = 'ROLE_ADMIN'  where  userid = 'user02';
+
+select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, postblockyn, replyblockyn, blockstartdt, blockenddt from members where authority='ROLE_ADMIN';
+
+
 ----게시물
 --
 --/temp로 기본 db 삽입
