@@ -11,6 +11,7 @@
 <title>게시글 상세</title>
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<link href="${pageContext.request.contextPath}/resources/css/detail.css" rel="stylesheet">
 <!-- Fonts -->
 </head>
 <body>
@@ -82,9 +83,22 @@
 				<blockquote>
 					<ul>
 	    				<c:forEach items="${post.ingredients }" var="ing" varStatus="status">
-							<li><a href="#"> ${ing.ingredient } </a> : ${ing.amount }</li>
-						</c:forEach>
+							<li><a href="#"> ${ing.ingredient } </a> : ${ing.amount }
+							<button type="button" class="btn_open" value="${ing.ingredient }" 
+							onclick="javascript:openPopup('shop');">구매</button>
+							</li>
+							
+						</c:forEach>						
     				</ul>
+    				<div id="wrap">
+    				<div class="shadow"></div>
+					<div class="popup shop" style="height:700px; overflow:auto; ">
+						<button type="button" class="close" onclick="closePopup()">			
+						</button>
+						<div id="Context">
+						</div>
+					</div>
+					</div>
 				</blockquote>
 				<div id="post_content">    				
 	    				${post.content }
@@ -555,6 +569,56 @@ $("#deletePost").click(function(){
 	});
 
 })
+
+
+// 연관상품 관련
+// 팝업창 열기
+function openPopup(name){
+	document.get
+	$('.'+ name).show();
+	$(".shadow").show();	
+	
+};
+
+// 팝업창 닫기
+function closePopup(cl){
+	$('.popup').hide();
+	$('.shadow').hide();
+};
+
+// esc 누르면 팝업창 닫힘
+$(document).keydown(function(e){
+	var code = e.keyCode || e.which;
+	if(code == 27){
+		$('.popup').hide();
+		$('.shadow').hide();
+	}	
+});
+
+// 팝업 외부영역 누르면 팝업창 닫힘
+$(document).mouseup(function(e){
+	if($('.popup').has(e.target).length ===0){
+		$('.popup').hide();
+		$('.shadow').hide();
+	}
+});
+
+// 버튼을 누르면 검색값 가져오기
+$(document).ready(function(){
+	$(".btn_open").click(function(){
+		var querys = $(this).attr('value');		
+	$.ajax({
+		type : "GET"
+		, url : "<%=request.getContextPath()%>/shopdata"
+		, async: false
+		, dataType: "text"
+		, data: 'query=' + querys
+		, success:function(data){
+			$('#Context').html(data);
+		}
+	});
+	});
+});	
 </script>
 
 </body>
