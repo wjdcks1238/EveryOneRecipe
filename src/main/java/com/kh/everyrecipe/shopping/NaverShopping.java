@@ -30,7 +30,7 @@ public class NaverShopping {
         headers.add("X-Naver-Client-Secret", shopSecret);	//Client Secret
         String body = "";
 
-        String num = "display=20"; // 출력 할 품목 갯수    
+        String num = "display=10"; // 출력 할 품목 갯수    
         // 정렬 기준 (sim = 정확도순, date = 날짜순으로 내림차순, asc = 가격 오름차순, dsc = 가격 내림차순)
         String sort = "sort=sim";
         // 검색 시작위치(기본값: 1, 최댓값: 1000)
