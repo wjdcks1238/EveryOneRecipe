@@ -129,6 +129,7 @@ public class BoardController {
 		
 		@GetMapping("/list")
 		public ModelAndView boardList(ModelAndView mv
+				, Principal principal
 				) throws Exception {
 				
 			
@@ -137,6 +138,9 @@ public class BoardController {
 				Map<String, String> map = new HashMap<>();
 				map.put("from", 0+"");
 				map.put("to", 20+"");
+				if(principal!=null) {
+					map.put("userId",principal.getName());					
+				}
 				mv.addObject("postList", bService.pagingList(map));
 				
 	
@@ -190,9 +194,9 @@ public class BoardController {
 					return mv;
 				}
 				mv.addObject("post",pvo);
-				MemberVo mvo = mService.selectOne(pvo.getUserId());
-				mv.addObject("member", mvo);
-				
+//				MemberVo mvo = mService.selectOne(pvo.getUserId());
+//				mv.addObject("member", mvo);
+//				bService.selectOne(postId) - id, nickname --> join 
 				
 				List<HashtagVo> hvoList= bService.getHashtags(postId);
 				List<String> hashtagList = new ArrayList<String>();

@@ -28,11 +28,13 @@ public class PostVo {
 	private String profileUrl;
 	private List<IngredientVo> ingredients;
 	private int lookUp;
+	private int likeCnt;
+	private int followCnt;
 	@Override
 	public String toString() {
 		return "PostVo [postId=" + postId + ", userId=" + userId + ", nickname=" + nickname + ", foodName=" + foodName
 				+ ", createDate=" + createDate + ", UpdateDate=" + UpdateDate + ", isDeleted=" + isDeleted
-				+ ", ingredients=" + ingredients +", lookUp=" + lookUp + ", profileUrl=" + profileUrl +"]";
+				+ ", ingredients=" + ingredients +", lookUp=" + lookUp + ", profileUrl=" + profileUrl +", likeCnt=" + likeCnt+", followCnt=" + followCnt+"]";
 	}
 	
 }
