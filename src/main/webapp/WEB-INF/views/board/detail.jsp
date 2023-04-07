@@ -85,15 +85,15 @@
 	    				<c:forEach items="${post.ingredients }" var="ing" varStatus="status">
 							<li><a href="#"> ${ing.ingredient } </a> : ${ing.amount }
 							<button type="button" class="btn_open" value="${ing.ingredient }" 
-							onclick="javascript:openPopup('shop');">구매</button>
+							onclick="openPopup();">구매</button>
 							</li>
 							
 						</c:forEach>						
     				</ul>
     				<div id="wrap">
     				<div class="shadow"></div>
-					<div class="popup shop" style="height:700px; overflow:auto; ">
-						<button type="button" class="close" onclick="closePopup()">			
+					<div class="popup" style="height:700px; overflow:auto; ">
+						<button type="button" class="close" onclick="closePopup();">			
 						</button>
 						<div id="Context">
 						</div>
@@ -573,15 +573,14 @@ $("#deletePost").click(function(){
 
 // 연관상품 관련
 // 팝업창 열기
-function openPopup(name){
-	document.get
-	$('.'+ name).show();
-	$(".shadow").show();	
+function openPopup(){
+	$('.popup').show();
+	$('.shadow').show();	
 	
 };
 
 // 팝업창 닫기
-function closePopup(cl){
+function closePopup(){
 	$('.popup').hide();
 	$('.shadow').hide();
 };
