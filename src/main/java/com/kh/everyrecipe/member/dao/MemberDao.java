@@ -45,4 +45,8 @@ public class MemberDao {
 	public int deletePI(MemberVo mvo) {
 		return sqlSession.update("memberMapper.deletePI",mvo);
 	}
+	
+	public int updateAdmin(MemberVo vo) throws Exception {
+		return sqlSession.update("memberMapper.updateAdmin", vo);
+	}
 }

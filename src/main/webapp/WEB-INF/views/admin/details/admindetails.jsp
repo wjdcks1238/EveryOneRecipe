@@ -37,14 +37,15 @@ function openPopup(event, userId) {
     
     newPopup = window.open(openUrl, "_blank", popOption);
 }
-$('input[name="${memberDto.authority }"]').change(fuction(){
+
+$('input[name="${memberDto.authority }"]').change(function(){
 	var value = $(this).val();
 	var checked = $(this).prop('checked');
-	if(value =='ROLE_ADMIN'){
-		document.getElementById('${memberDto.authority }').disabled=true;
-	}else{
-		document.getElementById('${memberDto.authority }').disabled=false;
-	}
+	if(value === 'ROLE_ADMIN'){
+	    $(this).closest('td').prev('td').find('input').prop('disabled', true);
+    } else {
+        $(this).closest('td').prev('td').find('input').prop('disabled', false);
+    }
 
 });
 </script>
@@ -73,7 +74,6 @@ $('input[name="${memberDto.authority }"]').change(fuction(){
 	        <tr>
 	        	<th>권한부여</th>
 	        	<td>
-	        		${memberDto.authority }
 	        		승인 <input type="radio" name="authority" value="ROLE_ADMIN"/>
 	        		회수 <input type="radio" name="authority" value="ROLE_MEMBER"/>
 	        	</td>

@@ -22,4 +22,6 @@ public interface MemberService {
 	public int updatePI(Map<String, String> map) throws Exception;
 
 	public int deletePI(MemberVo mvo) throws Exception;
+	
+	public int updateAdmin(MemberVo vo) throws Exception;
 }

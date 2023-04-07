@@ -155,6 +155,7 @@
                                             <th>닉네임</th>
                                             <th>입사일</th>
                                             <th>퇴사일</th>
+                                            <th>권한</th>
                                             <th>권한여부</th>
                                         </tr>
                                     </thead>
@@ -162,16 +163,30 @@
                                     	<c:forEach var="admin" items="${memberDto}">
 	                                        <tr >
 	                                            <td >
-	                                            <a href="<%=request.getContextPath()%>/admin/details/${admin.userId}" onclick="openPopup(event, '${admin.userId}')">
-	                                            <c:out value="${admin.userId }"/>
-	                                            </a>
+		                                            <a href="<%=request.getContextPath()%>/admin/details/${admin.userId}" onclick="openPopup(event, '${admin.userId}')">
+		                                      	      <c:out value="${admin.userId }"/>
+		                                            </a>
 	                                            </td>
-	                                            <td><c:out value="${admin.nickName}"/></td>
-	                                            <td ><c:out value="${admin.createAt}"/></td>
+	                                            <td>
+	                                            	<c:out value="${admin.nickName}"/>
+	                                            </td>
+	                                            <td >
+	                                            	<c:out value="${admin.createAt}"/>
+	                                            </td>
 	                                            <td>퇴사</td>
 	                                            
+	                                            <!-- 권한이 ROLE_ADMIN인 userid만 조회 -->
+	                                            <c:if test="${admin.authority == 'ROLE_ADMIN' }">
+		                                           	 <td>권한에 ROLE ADMIN인것만 출력하기
+		                                            	<c:out value="${admin.authority }"/>
+		                                          	 </td>
+	                                            </c:if>
+	                                            
 	                                            <!-- 권한여부 표시 코드 구현-->
-	                                            <td><c:out value="${admin.authority }"/></td>
+	                                            <td>
+	                                            	<c:out value=""/>
+	                                            </td>
+	                                            	
 	                                        </tr>
 	                                    </c:forEach>
                                     </tbody>

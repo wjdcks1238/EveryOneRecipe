@@ -27,6 +27,7 @@ commit;
 
 --select * from members;
 
+
 --회원정보 수정
 --UPDATE MEMBERS SET (PASSWORD, EMAIL, ) = ();
 --CREATE TABLE "MEMBERS" (

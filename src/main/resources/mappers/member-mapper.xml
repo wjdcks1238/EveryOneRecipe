@@ -29,17 +29,27 @@
 		     , updateat= default
 		where userid=#{userId}
 	</update>
+	
+	<update id="updateAdmin" parameterType="map">
+		update members 
+		   set AUTHORITY = #{authority}  
+		 where  userid = #{userId}
+	</update>
+	
+	
 	<delete id="delete" parameterType="string">
 		delete from members where userid=#{userId}
 	</delete>
 	
 	<select id="selectOne" parameterType="String" resultType="mvo">
-		select userid, email, nickname, profile, profileurl, createat, updateat, status, postblockyn, replyblockyn, blockstartdt, blockenddt from members where userid=#{userId}
+		select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, postblockyn, replyblockyn, blockstartdt, blockenddt from members where userid=#{userId}
 	</select>
 	
 	<select id="selectList" resultType="mvo">
-		select userid, email, nickname, profile, profileurl, createat, updateat, status, postblockyn, replyblockyn, blockstartdt, blockenddt from members
+		select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, postblockyn, replyblockyn, blockstartdt, blockenddt from members
 	</select>
+	
+	
 	
 	
 </mapper>
