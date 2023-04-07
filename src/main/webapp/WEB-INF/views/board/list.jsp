@@ -13,6 +13,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
+<sec:authorize var="loggedIn" access="isAuthenticated()" />
 
 <div id="temp">
 </div>
@@ -31,15 +32,30 @@
 				<div class="wrapfooter">
 					<span class="meta-footer-thumb">
 						프로필이미지
+						<img class="author-thumb" alt="" src="${list.profileUrl }">
 					</span>
 					<span class="author-meta">
 						<span class="post-name">${list.nickname }</span>
 						<span class="post-date">${list.createDate }</span><span class="post-read"></span>
 					</span>
 					<span class="post-read-more">
-						<a href="<%=request.getContextPath()%>/board/list/${list.postId}" title="Read Story"> 
-							<img class="svgIcon-use" id="bookmarkBtn" style="cursor: pointer;" alt="" width="25" height="25" src="<%=request.getContextPath()%>/resources/icons/addB.png">					
-						</a>
+						<c:if test="${loggedIn}">
+										<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+										<c:if test="${user ne list.userId}">
+											<div id="follow">
+												<c:if test="${isFollowed }">
+													 <img id="followBtn" style="cursor: pointer;" alt="" width="30px" src="<%=request.getContextPath()%>/resources/icons/added.png">
+												</c:if>
+												<c:if test="${isFollowed eq false }">													
+													 <img id="followBtn" style="cursor: pointer;" alt="" width="30px" src="<%=request.getContextPath()%>/resources/icons/add.png">
+													 
+												</c:if>
+	
+											</div>
+										</c:if>
+						</c:if>
+						<img class="svgIcon-use" id="bookmarkBtn" style="cursor: pointer;" alt="" width="25" height="25" src="<%=request.getContextPath()%>/resources/icons/addB.png">					
+						<img class="svgIcon-use" id="bookmarkBtn" style="cursor: pointer;" alt="" width="25" height="25" src="<%=request.getContextPath()%>/resources/icons/addL.png">					
 					</span>
 				</div>
 			</div>

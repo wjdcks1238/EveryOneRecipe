@@ -147,7 +147,7 @@ create table POSTLIKE(
 
 select * from POSTLIKE;
 
-
+select * from members;
 --<<댓글 테이블>>--
 drop table TBCOMMENT;
 
@@ -173,3 +173,32 @@ select * from TBCOMMENT;
 --댓글 수정
 
 --댓글 삭제
+
+
+
+
+
+
+
+SELECT 
+--	 	 <if test="userId != null">
+--	 	 						 </if>
+(select count(*) from POSTLIKE where USERID='user01' AND POSTID=p2.POSTID  AND ISDELETED='N') as likecnt
+, (select count(*) from FOLLOWMAPPING where FWID='user01' and USERID=p2.USERID and ISDELETED='N') as followcnt
+,
+p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p2.UPDATEAT 
+	 	 , p2.ISDELETED , p2.LOOKUP, i.INGREDIENT , i.AMOUNT, m.PROFILEURL
+	  FROM
+			(SELECT * 
+			   FROM (SELECT p.*
+			              , ROWNUM AS RNUM
+			           FROM (SELECT * FROM post WHERE 
+                       --여기는..                        
+                       ISDELETED = 'N' ORDER BY postid ) p) 
+             WHERE RNUM> 1 AND RNUM<=10) p2
+             JOIN ingredient i 
+                   ON p2.POSTID = i.POSTID 
+             JOIN members m 
+                   ON p2.USERID = m.USERID 
+ 
+     ;
