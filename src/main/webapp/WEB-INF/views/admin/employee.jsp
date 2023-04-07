@@ -19,6 +19,7 @@
     <link href="<%=request.getContextPath() %>/resources/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath() %>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    
 </head>
 <body id="page-top">
 <script>
@@ -34,6 +35,7 @@
 		newPopup.close();
 	}
 </script>
+
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -147,7 +149,30 @@
                 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">직원목록</h1>
-                
+                	
+                	<button id="open-modal" type="button" class="btn btn-primary">회원목록 임시위치</button>
+					<div id="modal" class="modal">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title">회원목록</h5>
+					        <button type="button" class="close" data-dismiss="modal">&times;</button>
+					      </div>
+					      <div class="modal-body">
+                            테이블을 삽입하면 기존 페이지 테이블이 망가짐
+                            <table>
+                            </table>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+					        <button type="button" class="btn btn-primary">저장</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+                	
+                	
+                	
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -218,6 +243,20 @@
     
 <!-- footer -->    
 <%@ include file="adminFooter.jsp" %>   
+<script>
+const openModalBtn = document.getElementById('open-modal');
+const modal = document.getElementById('modal');
+
+openModalBtn.addEventListener('click', ()=> {
+  modal.style.display = 'block';
+});
+
+window.addEventListener('click', (event) => {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+});
+</script>
 
 		</body>
 </html>
