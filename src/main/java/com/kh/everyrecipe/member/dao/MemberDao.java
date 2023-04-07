@@ -49,4 +49,9 @@ public class MemberDao {
 	public int updateAdmin(MemberVo vo) throws Exception {
 		return sqlSession.update("memberMapper.updateAdmin", vo);
 	}
+	
+	public List<MemberVo> selectAuth() throws Exception {
+		return sqlSession.selectList("memberMapper.selectAuth");
+		
+	}
 }

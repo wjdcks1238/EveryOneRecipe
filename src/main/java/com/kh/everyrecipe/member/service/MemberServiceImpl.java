@@ -56,5 +56,10 @@ public class MemberServiceImpl implements MemberService{
 	public int updateAdmin(MemberVo vo) throws Exception {
 		return dao.updateAdmin(vo);
 	}
+
+	@Override
+	public List<MemberVo> selectAuth() throws Exception {
+		return dao.selectAuth();
+	}
 	
 }

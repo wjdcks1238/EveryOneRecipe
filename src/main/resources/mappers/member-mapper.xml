@@ -49,7 +49,9 @@
 		select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, postblockyn, replyblockyn, blockstartdt, blockenddt from members
 	</select>
 	
-	
+	<select id="selectAuth" resultType="mvo">
+				select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, postblockyn, replyblockyn, blockstartdt, blockenddt from members where authority='ROLE_ADMIN'
+	</select>
 	
 	
 </mapper>

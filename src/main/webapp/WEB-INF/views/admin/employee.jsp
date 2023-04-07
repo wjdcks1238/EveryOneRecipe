@@ -174,17 +174,18 @@
 	                                            	<c:out value="${admin.createAt}"/>
 	                                            </td>
 	                                            <td>퇴사</td>
-	                                            
-	                                            <!-- 권한이 ROLE_ADMIN인 userid만 조회 -->
-	                                            <c:if test="${admin.authority == 'ROLE_ADMIN' }">
-		                                           	 <td>권한에 ROLE ADMIN인것만 출력하기
-		                                            	<c:out value="${admin.authority }"/>
-		                                          	 </td>
-	                                            </c:if>
-	                                            
+	                                            <!-- 관리자 -->
+	                                            <td>
+	                                            	<c:if test="${admin.authority =='ROLE_ADMIN' }">
+	                                            		<c:out value="관리자"/>
+	                                            	</c:if>
+	                                            	<c:if test="${admin.authority != 'ROLE_ADMIN' }">
+	                                            		<c:out value="${admin.authority}"/>
+	                                            	</c:if>
+	                                            </td>
 	                                            <!-- 권한여부 표시 코드 구현-->
 	                                            <td>
-	                                            	<c:out value=""/>
+	                                            	<c:out value="${admin.authority}"/>
 	                                            </td>
 	                                            	
 	                                        </tr>
