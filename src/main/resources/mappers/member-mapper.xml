@@ -34,11 +34,11 @@
 	</delete>
 	
 	<select id="selectOne" parameterType="String" resultType="mvo">
-		select * from members where userid=#{userId}
+		select userid, email, nickname, profile, profileurl, createat, updateat, status, postblockyn, replyblockyn, blockstartdt, blockenddt from members where userid=#{userId}
 	</select>
 	
 	<select id="selectList" resultType="mvo">
-		select * from members
+		select userid, email, nickname, profile, profileurl, createat, updateat, status, postblockyn, replyblockyn, blockstartdt, blockenddt from members
 	</select>
 	
 	
