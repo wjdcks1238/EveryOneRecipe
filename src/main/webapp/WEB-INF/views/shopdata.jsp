@@ -51,7 +51,7 @@ font-size: 22px;
 <div>
 <ul style="padding-top: 10px;">
 <c:forEach var="search" items="${query}">
-<li onclick="location.href='${search.link}';" style="display:inline-block; margin:0 20px 45px 7px;
+<li onclick="window.open('${search.link}')" style="display:inline-block; margin:0 20px 45px 7px;
 		float: left; width: 270px; height:350px; cursor: pointer;">
 		<div class="img_div">
 		<img src="${search.image}" class="ing_img"/>
