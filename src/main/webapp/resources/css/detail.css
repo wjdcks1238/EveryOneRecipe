@@ -1,19 +1,20 @@
 @charset "UTF-8";
 .popup{
+	margin: 0;
 	border: 1px solid #dcdcdc;
-	position: fixed;left: 50%;
+	position: fixed;
+	left: 50%;
 	top: 50%;
 	transform: translate(-50%,-50%);
-	padding: 10px;
 	display: none;
-	background: #fff
+	background: #fff;
 }
 .popup .close{
 	background: none;
 	border: 0;
 	position: absolute;
-	right: 10px;
-	top: 10px;
+	right: 20px;
+	top: 14px;
 	font-size: 20px;
 	display:inline-block;
 	*display:inline;
@@ -21,7 +22,7 @@
 .popup .close:after{
 	display: inline-block;
 	content:"\00d7";
-	 font-size:30px;
+	font-size:30px;
 }		
 .shadow{
 	position: fixed;
@@ -30,9 +31,19 @@
 	background: rgba(0, 0, 0, 0.52);
 	width: 100%;
 	height: 100vh;
-	display: none
+	display: none;
 }
 
+#ing_title{
+	margin: 0;
+	padding: 13px 0 13px 40px;
+	font-weight: bolder;
+	font-size: 22px;
+	color: black;
+	font-style: normal;
+	font-family: 'Malgun Gothic';
+	background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+}
 
 
 
