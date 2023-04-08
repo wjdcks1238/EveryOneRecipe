@@ -123,7 +123,18 @@ public class BoardController {
 			
 		}
 		
-		
+		@GetMapping("/search")
+		public ModelAndView searchResult(
+				ModelAndView mv,
+				@RequestParam("keyword") String keyword
+				) {
+			System.out.println(keyword);
+			
+			mv.addObject("keyword", keyword);
+			mv.setViewName("search/result");
+			
+			return mv;
+		}
 		
 		
 		
@@ -132,7 +143,6 @@ public class BoardController {
 				, Principal principal
 				) throws Exception {
 				
-			
 		
 				//isdelete 필드가 'N'인 게시글만 불러온다. 	
 				Map<String, String> map = new HashMap<>();

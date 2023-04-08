@@ -14,10 +14,10 @@ public class BoardSearchController {
 	@GetMapping("/result")
 	public ModelAndView SearchResult(
 				ModelAndView mv,
-				@RequestParam String keyword
+				@RequestParam("keyword") String keyword
 			) {
-		mv.addObject(keyword);
-		mv.setViewName("search/result");
+		System.out.println(keyword);
+		mv.setViewName("search/result?keyword="+keyword);
 		return mv;
 	}
 }

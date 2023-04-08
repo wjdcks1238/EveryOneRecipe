@@ -16,7 +16,7 @@
 <div class="container">
 	<div class="row post-top-meta">
 		<div class="col-md-9">
-		<input type="text" name="keyword" style="height: 60px; width: 100%">
+		<input type="text" name="keyword" style="height: 60px; width: 100%" value="${keyword }">
 		</div>
 		<div class="col-md-3">
 		<button type="button" style="height: 60px; width: 60%">검색</button>
