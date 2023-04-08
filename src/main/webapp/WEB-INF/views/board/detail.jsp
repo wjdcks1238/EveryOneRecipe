@@ -86,17 +86,15 @@
 							<li><a href="#"> ${ing.ingredient } </a> : ${ing.amount }
 							<button type="button" class="btn_open" value="${ing.ingredient }" 
 							onclick="openPopup();">구매</button>
-							</li>
-							
+							</li>							
 						</c:forEach>						
     				</ul>
     				<div id="wrap">
     				<div class="shadow"></div>
-					<div class="popup" style="height:700px; overflow:auto; ">
-						<button type="button" class="close" onclick="closePopup();">			
-						</button>
-						<div id="Context">
-						</div>
+					<div class="popup" style="width:970px; height:800px; overflow:auto;">							
+						<button type="button" class="close" onclick="closePopup();"></button>	
+						<div id="ing_title"></div>					
+						<div id="Context"></div>
 					</div>
 					</div>
 				</blockquote>
@@ -602,10 +600,14 @@ $(document).mouseup(function(e){
 	}
 });
 
-// 버튼을 누르면 검색값 가져오기
+
+
+// 버튼을 누르면 검색 데이터 가져오기 + 검색명 상단 출력
 $(document).ready(function(){
 	$(".btn_open").click(function(){
-		var querys = $(this).attr('value');		
+		var querys = $(this).attr('value');
+		var title = $('#ing_title')[0];		
+		title.innerText = querys
 	$.ajax({
 		type : "GET"
 		, url : "<%=request.getContextPath()%>/shopdata"
@@ -618,6 +620,7 @@ $(document).ready(function(){
 	});
 	});
 });	
+
 </script>
 
 </body>
