@@ -161,7 +161,7 @@ public class BoardController {
 			map.put("from", from);
 			map.put("to", to);
 			if(userId!=null) {				
-				map.put("userId", userId);
+				map.put("myPage", userId);
 			}
 			
 			

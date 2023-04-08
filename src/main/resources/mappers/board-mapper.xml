@@ -42,13 +42,13 @@
 
 <select id="pagingList" parameterType="map" resultMap="postResultMap">
 	SELECT 
-<if test="userId !=null">
-(select count(*) from POSTLIKE where USERID=#{userId} AND POSTID=p2.POSTID  AND ISDELETED='N') as likecnt
-, (select count(*) from FOLLOWMAPPING where FWID=#{userId} and USERID=p2.USERID and ISDELETED='N') as followcnt
-,
-</if>
-p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p2.UPDATEAT 
-, p2.ISDELETED , p2.LOOKUP, i.INGREDIENT , i.AMOUNT, m.PROFILEURL
+		  <if test="userId !=null">
+		   (select count(*) from POSTLIKE where USERID=#{userId} AND POSTID=p2.POSTID  AND ISDELETED='N') as likecnt
+		 , (select count(*) from FOLLOWMAPPING where FWID=#{userId} and USERID=p2.USERID and ISDELETED='N') as followcnt
+		 ,
+		   </if>
+		   p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p2.UPDATEAT 
+         , p2.ISDELETED , p2.LOOKUP, i.INGREDIENT , i.AMOUNT, m.PROFILEURL
 	  FROM
 			(SELECT * 
 			   FROM (SELECT p.*
