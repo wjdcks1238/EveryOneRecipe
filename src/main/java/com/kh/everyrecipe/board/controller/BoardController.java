@@ -24,6 +24,7 @@ import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.boardsearch.service.BoardSearchService;
 import com.kh.everyrecipe.comment.replycomment.service.ReplyCommentService;
 import com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo;
 import com.kh.everyrecipe.comment.service.CommentService;
@@ -52,6 +53,8 @@ public class BoardController {
 		private PostBookmarkService bmService;
 		@Autowired
 		private MemberService mService;
+		@Autowired
+		private BoardSearchService bsService;
 
 		
 		
@@ -126,12 +129,23 @@ public class BoardController {
 		@GetMapping("/search")
 		public ModelAndView searchResult(
 				ModelAndView mv,
-				@RequestParam("keyword") String keyword
-				) {
+				@RequestParam("keyword") String keyword,
+				Principal principal
+				) throws Exception {
+			//검색어를 입력창에 추가
 			System.out.println(keyword);
-			
 			mv.addObject("keyword", keyword);
 			mv.setViewName("search/result");
+			
+			//isdelete 필드가 'N'인 게시글만 불러온다. 	
+			Map<String, String> map = new HashMap<>();
+			map.put("from", 0+"");
+			map.put("to", 20+"");
+			map.put("keyword", keyword);
+			if(principal!=null) {
+				map.put("userId",principal.getName());					
+			}
+			mv.addObject("postList", bsService.pagingList(map));
 			
 			return mv;
 		}

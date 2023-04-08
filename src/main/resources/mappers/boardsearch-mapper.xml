@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="boardSearchMapper">
+	<resultMap type="com.kh.everyrecipe.board.vo.PostVo" id="postResultMap">
+		<id property="postId" column="POSTID"/>
+		<result property="userId" column="USERID"/>
+		<result property="nickname" column="NICKNAME"/>
+		<result property="foodName" column="FOODNAME"/>
+		<result property="content" column="CONTENT"/>
+		<result property="createDate" column="CREATEAT"/>
+		<result property="UpdateDate" column="UPDATEAT"/>
+		<result property="isDeleted" column="ISDELETED"/>
+		<result property="lookUp" column="LOOKUP"/>
+		<result property="profileUrl" column="PROFILEURL"/>
+		<result property="profile" column="PROFILE"/>
+		<result property="likeCnt" column="LIKECNT"/>
+		<result property="followCnt" column="FOLLOWCNT"/>
+		<collection property="ingredients" ofType="ivo">
+			<result property="ingredient" column="INGREDIENT"/>
+			<result property="amount" column="AMOUNT"/>
+		</collection>
+	</resultMap>
+	<select id="pagingList" parameterType="map" resultMap="postResultMap">
+		SELECT 
+		  <if test="userId !=null">
+		   (select count(*) from POSTLIKE where USERID=#{userId} AND POSTID=p2.POSTID  AND ISDELETED='N') as likecnt
+		 , (select count(*) from FOLLOWMAPPING where FWID=#{userId} and USERID=p2.USERID and ISDELETED='N') as followcnt
+		 ,
+		   </if>
+		   p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p2.UPDATEAT 
+         , p2.ISDELETED , p2.LOOKUP, i.INGREDIENT , i.AMOUNT, m.PROFILEURL
+	  FROM
+			(SELECT * 
+			   FROM (SELECT p.*
+			              , ROWNUM AS RNUM
+			           FROM (SELECT * FROM post WHERE
+                       	<if test="myPage != null">
+	                       	USERID=#{myPage} AND		
+                       	</if>                  
+                       ISDELETED = 'N' AND FOODNAME LIKE '%'||#{keyword}||'%' ORDER BY postid ) p) 
+             <![CDATA[ WHERE RNUM> #{from} AND RNUM<=#{to}]]>) p2
+             JOIN ingredient i 
+                   ON p2.POSTID = i.POSTID 
+             JOIN members m 
+                   ON p2.USERID = m.USERID
+	</select>
+</mapper>

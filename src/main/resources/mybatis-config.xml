@@ -27,6 +27,7 @@
 		<mapper resource="mappers/postBookmark-mapper.xml"/>
 		<mapper resource="mappers/weekboard-mapper.xml"/>
 		<mapper resource="mappers/replycomment-mapper.xml"/>
+		<mapper resource="mappers/boardsearch-mapper.xml"/>
 	</mappers>
 	
 </configuration>
