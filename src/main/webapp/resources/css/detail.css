@@ -8,6 +8,7 @@
 	transform: translate(-50%,-50%);
 	display: none;
 	background: #fff;
+	z-index: 1;
 }
 .popup .close{
 	background: none;
@@ -18,6 +19,7 @@
 	font-size: 20px;
 	display:inline-block;
 	*display:inline;
+	z-index: 2;
 }
 .popup .close:after{
 	display: inline-block;
@@ -42,8 +44,23 @@
 	color: black;
 	font-style: normal;
 	font-family: 'Malgun Gothic';
-	background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+	position: relative;
+
 }
 
+/* 가상요소 생성. 배경색 투명도 조절  + 글씨는 그대로 */
+#ing_title::after{
+	width: 100%;
+	height: 100%;
+	margin: 0 0 20px 0;
+	padding: 13px 0 13px 40px;
+	background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	opacity: 0.7;	
+}
 
 
