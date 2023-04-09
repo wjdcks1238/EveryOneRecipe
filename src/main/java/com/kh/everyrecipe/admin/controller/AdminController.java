@@ -6,12 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.everyrecipe.member.dao.MemberDao;
@@ -51,22 +55,39 @@ public class AdminController {
 	//직원 관리 페이지
 	@GetMapping("/employee")
 	public ModelAndView employee(ModelAndView mv, Principal principal) throws Exception {
-
+		
 		List<MemberVo> list = mService.selectAuth();
 		
+		List<MemberVo> list2 = mService.selectList();
+		
 		mv.addObject("memberDto", list);
+		mv.addObject("selectList", list2);
 		
 		mv.setViewName("admin/employee");
 		
 		return mv;
 	}
+	
+	@GetMapping("/search")
+	@ResponseBody
+	public List<MemberVo> searchEmployees(@RequestParam("keyword") String keyword) {
+	  List<MemberVo> employees = new ArrayList<>();
+	  try {
+	    employees = mService.selectList(keyword);
+	  } catch (Exception e) {
+	    e.printStackTrace();
+	    // 예외 처리 코드
+	  }
+	  return employees;
+	}
+
+	
 	//직원 권한 부여 업데이트
 	@PostMapping("/employee")
 	public void updateAuth(MemberVo vo) throws Exception {
 		
 		vo.getAuthority();
 		mService.updateAdmin(vo);
-		
 		
 	}
 	

@@ -26,4 +26,7 @@ public interface MemberService {
 	public int updateAdmin(MemberVo vo) throws Exception;
 	
 	public List<MemberVo> selectAuth() throws Exception;
+	
+	public List<MemberVo> selectList(String keyword) throws Exception;
+
 }

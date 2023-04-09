@@ -149,7 +149,8 @@
                 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">직원목록</h1>
-                	
+
+                	<!--  회원목록 모달창으로 띄우기  -->
                 	<button id="open-modal" type="button" class="btn btn-primary">회원목록 임시위치</button>
 					<div id="modal" class="modal">
 					  <div class="modal-dialog">
@@ -159,9 +160,26 @@
 					        <button type="button" class="close" data-dismiss="modal">&times;</button>
 					      </div>
 					      <div class="modal-body">
-                            테이블을 삽입하면 기존 페이지 테이블이 망가짐
                             <table>
+                            	<form id="searchForm">
+                            		 <form id="searchForm">
+							          <div class="form-group">
+							            <input type="text" class="form-control" id="searchInput" name="keyword">
+                            			<button type="submin" class="btn btn-primary">검색</button>
+							          </div>
+							        </form>
+                            	</form>
+                            	<c:forEach var="admin" items="${selectList}">
+	                                        <tr >
+	                                            <td >
+	                                            <c:out value="${admin.userId }"/>
+	                                            </td>
+	                                            <td><c:out value="${admin.nickName}"/></td>
+	                                            <td ><c:out value="${admin.createAt}"/></td>
+	                                        </tr>
+	                   	     </c:forEach>
                             </table>
+                            <div id="resultList"></div>
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
@@ -221,8 +239,7 @@
             </div>
             <!-- End of Main Content -->
          </div>
-      </div>
-      	
+	</div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/jquery/jquery.min.js"></script>
@@ -256,6 +273,9 @@ window.addEventListener('click', (event) => {
     modal.style.display = 'none';
   }
 });
+
+//모달창 회원 검색 기능
+//TODO:
 </script>
 
 		</body>
