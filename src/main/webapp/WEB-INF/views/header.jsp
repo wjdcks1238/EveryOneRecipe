@@ -40,11 +40,15 @@
 			        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			      </form>
 			    </li>
-			  <%} else {%>
+			  <%} else if(request.getUserPrincipal() == null) {%>
 			    <li class="nav-item">
 			      <a href="<%=request.getContextPath() %>/member/login" class="nav-link btn">로그인</a>
 			    </li>
+			  <%} else{ %>
 			    <sec:authorize access="hasRole('ADMIN')">
+			    <li class="nav-item">
+			      <a href="<%=request.getContextPath() %>/logout" class="nav-link btn">로그아웃</a>
+			    </li>
 				<li class="nav-item ">
 					<a class="nav-link" href="<%=request.getContextPath()%>/admin">관리자모드</a>
 				</li>

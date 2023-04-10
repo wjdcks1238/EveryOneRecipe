@@ -15,6 +15,7 @@
 		<result property="profile" column="PROFILE"/>
 		<result property="likeCnt" column="LIKECNT"/>
 		<result property="followCnt" column="FOLLOWCNT"/>
+		<result property="bookmarkCnt" column="BOOKMARKCNT"/>
 		<collection property="ingredients" ofType="ivo">
 			<result property="ingredient" column="INGREDIENT"/>
 			<result property="amount" column="AMOUNT"/>
@@ -44,6 +45,7 @@
 	SELECT 
 		  <if test="userId !=null">
 		   (select count(*) from POSTLIKE where USERID=#{userId} AND POSTID=p2.POSTID  AND ISDELETED='N') as likecnt
+		 , (select count(*) from POSTBOOKMARK where USERID=#{userId} AND POSTID=p2.POSTID  AND ISDELETED='N') as bookmarkcnt
 		 , (select count(*) from FOLLOWMAPPING where FWID=#{userId} and USERID=p2.USERID and ISDELETED='N') as followcnt
 		 ,
 		   </if>

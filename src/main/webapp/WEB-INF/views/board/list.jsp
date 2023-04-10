@@ -13,7 +13,6 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
-<sec:authorize var="loggedIn" access="isAuthenticated()" />
 
 <div id="temp">
 </div>
@@ -21,7 +20,7 @@
 <div  class="listrecent">
 <div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
 	<c:forEach items="${postList }" var="list" varStatus="stqatus">
-	<div class="col-md-3">
+	<div class="col-md-3 mt-3">
 		<div class="card">
 			<a href="<%=request.getContextPath() %>/board/list/${list.postId}">
 				이미지 삽입 예정.
@@ -32,7 +31,9 @@
 				<div class="wrapfooter">
 					<span class="meta-footer-thumb">
 						프로필이미지
-						<img class="author-thumb" alt="" src="${list.profileUrl }">
+						<a href="<%=request.getContextPath() %>/member/info/${list.userId }">
+							<img class="author-thumb" alt="" src="${list.profileUrl }">
+						</a>
 					</span>
 					<span class="author-meta">
 						<span class="post-name">${list.nickname }</span>
@@ -40,22 +41,30 @@
 					</span>
 					<span class="post-read-more">
 						<c:if test="${loggedIn}">
-										<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
-										<c:if test="${user ne list.userId}">
-											<div id="follow">
-												<c:if test="${isFollowed }">
-													 <img id="followBtn" style="cursor: pointer;" alt="" width="30px" src="<%=request.getContextPath()%>/resources/icons/added.png">
-												</c:if>
-												<c:if test="${isFollowed eq false }">													
-													 <img id="followBtn" style="cursor: pointer;" alt="" width="30px" src="<%=request.getContextPath()%>/resources/icons/add.png">
-													 
-												</c:if>
-	
-											</div>
-										</c:if>
+							<c:set var="user" value="${pageContext.request.userPrincipal.name }"/>
+							<c:if test="${user ne list.userId}">
+								<span>
+									<c:if test="${list.bookmarkCnt eq 1 }">
+										<img data-postid="${list.postId }" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addedB.png">
+									</c:if>
+									<c:if test="${list.bookmarkCnt eq 0 }">
+										<img data-postid="${list.postId }" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addB.png">
+									</c:if>
+								</span>
+								<span>
+									<c:if test="${list.likeCnt eq 1 }">
+										 <img data-postid="${list.postId }" class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addedL.png">
+									</c:if>
+									<c:if test="${list.likeCnt eq 0 }">													
+										 <img data-postid="${list.postId }" class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addL.png">
+									</c:if>
+								</span>
+							</c:if>
 						</c:if>
+						<!-- 
 						<img class="svgIcon-use" id="bookmarkBtn" style="cursor: pointer;" alt="" width="25" height="25" src="<%=request.getContextPath()%>/resources/icons/addB.png">					
-						<img class="svgIcon-use" id="bookmarkBtn" style="cursor: pointer;" alt="" width="25" height="25" src="<%=request.getContextPath()%>/resources/icons/addL.png">					
+						<img class="svgIcon-use" id="likeBtn" style="cursor: pointer;" alt="" width="25" height="25" src="<%=request.getContextPath()%>/resources/icons/addL.png">					
+						 -->
 					</span>
 				</div>
 			</div>
@@ -136,57 +145,55 @@ var start = {
             		for(i = 0 ; i<data.length;i++){
 	            		var reply = data[i];	
 	            		//var table = $('<table border="1"></table>');
-	            		var card = $('<div class="col-md-3">'+
+	            		bImg='';
+	            		lImg='';
+	            		
+	            		if(${loggedIn} && reply.userId != '${pageContext.request.userPrincipal.name }'){
+			            		if(reply.bookmarkCnt==1){
+			            			bImg= ' <img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addedB.png">';
+			            		}else{
+			            			bImg= ' <img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addB.png">';
+			            		}
+			            		
+								if(reply.likeCnt==1){
+			            			lImg= ' <img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addedL.png">';
+			            		}else{
+			            			lImg= ' <img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addL.png">';
+			            		}
+	            		}
+	            		
+	            		
+	            		var card = $('<div class="col-md-3 mt-3">'+
 	            						'<div class="card">'+
-		            						'<a href="<%=request.getContextPath() %>/board/list/'+reply.postId+'">'+
+		            						'<a href="${pageContext.request.contextPath}/board/list/'+reply.postId+'">'+
 		            							'이미지 삽입 예정.'+
 		            						'</a>'+
 		            						'<div class="card-block">'+
-		            							'<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/'+reply.postId+'">'+reply.foodName+'</a></h2>'+
+		            							'<h2 class="card-title"><a href="${pageContext.request.contextPath}/board/list/'+reply.postId+'">'+reply.foodName+'</a></h2>'+
 		            							'<h4 class="card-text">'+reply.content+'</h4>'+
 		            							'<div class="wrapfooter">'+
 		            								'<span class="meta-footer-thumb">'+
 		            									'프로필이미지'+
+		            									'<a href="${pageContext.request.contextPath}/member/info/'+reply.userId+'">'+
+		            										'<img class="author-thumb" alt="" src="'+reply.profileUrl+'">'+
+		            									'</a>'+
 		            								'</span>'+
 		            								'<span class="author-meta">'+
 		            									'<span class="post-name">'+reply.nickname+'</span>'+
 		            									'<span class="post-date">'+reply.createDate+'</span><span class="post-read"></span>'+
 		            								'</span>'+
-		            								'<span class="post-read-more"><a href="<%=request.getContextPath()%>/board/list/'+reply.postId+'" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>'+
+		            								'<span class="post-read-more">' +
+		            									' <span>'+
+		            										bImg+
+		            									'</span>'+
+		            									' <span>'+
+		            										lImg+
+	            										'</span>'+
+		            								'</span>'+
 		            							'</div>'+
 		            						'</div>'+
 	            						'</div>'+
 	            					'</div>');
-            			
-            			
-	                	var htmlVal= "";
-            			
-	                	var ing= "";
-	                	for(j=0; j<reply.ingredients.length;j++){
-	                		ing+=reply.ingredients[j].ingredient +" : " + reply.ingredients[j].amount + " / ";
-            			}
-            			
-	                	htmlVal+='<tr>';
-            			htmlVal+='<th>닉네임</th>';
-            			htmlVal+='<th>아이디</th>';
-            			htmlVal+='<th>음식 이름</th>';
-            			htmlVal+='<th>음식 재료</th>';
-            			htmlVal+='<th>내용</th>';
-            			htmlVal+='<th>작성일</th>';
-            			htmlVal+='</tr>';
-            			
-            			htmlVal+='<tr>';
-            			htmlVal+='<td>'+reply.nickname+'</td>';
-            			htmlVal+='<td>'+reply.userId+'</td>';
-            			htmlVal+='<td>'+reply.foodName +'</td>';
-            			htmlVal+='<td>'+ing+'</td>';
-            			
-            			
-            			htmlVal+='<td>'+reply.content +'</td>';
-            			htmlVal+='<td>'+reply.createDate +'</td>';
-            			htmlVal+='</tr>';
-            			//table.html(htmlVal);
-	            		//$(".list").append(table);	
 	            		$("#postList").append(card);
             		}
                 	
@@ -205,7 +212,52 @@ var start = {
 
 }
 
-
+$(document).on("click",".likeBtn" ,function() {
+	id=$(this).data("postid");
+	console.log(id);
+	console.log($(this).parent().html());
+	like=$(this);
+	$.ajax({
+		url: "${pageContext.request.contextPath}/like",
+		type: "POST", 
+		data: {postId: id },
+		async : false,
+		success:function(result){
+			if(result==false){
+				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addL.png'>";
+				like.parent().html(htmlVal);
+				 
+			}else if(result==true){
+				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addedL.png'>";
+				like.parent().html(htmlVal);
+			}
+		}
+		
+	});
+});
+$(document).on("click",".bookmarkBtn" ,function() {
+	id=$(this).data("postid");
+	console.log(id);
+	console.log($(this).parent().html());
+	bookmark=$(this);
+	$.ajax({
+		url: "${pageContext.request.contextPath}/bookmark",
+		type: "POST", 
+		data: {postId: id },
+		async : false,
+		success:function(result){
+			if(result==false){
+				var htmlVal= "<img data-postid='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addB.png'>";
+				bookmark.parent().html(htmlVal);
+				 
+			}else if(result==true){
+				var htmlVal= "<img data-postid='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addedB.png'>";
+				bookmark.parent().html(htmlVal);
+			}
+		}
+		
+	});
+});
 </script>
 
 
