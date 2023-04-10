@@ -13,7 +13,6 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
-<sec:authorize var="loggedIn" access="isAuthenticated()" />
 
 <div id="temp">
 </div>
@@ -40,7 +39,7 @@
 					</span>
 					<span class="post-read-more">
 						<c:if test="${loggedIn}">
-							<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+							<c:set var="user" value="${pageContext.request.userPrincipal.name }"/>
 							<c:if test="${user ne list.userId}">
 								<span>
 									<c:if test="${list.bookmarkCnt eq 1 }">
@@ -144,25 +143,41 @@ var start = {
             		for(i = 0 ; i<data.length;i++){
 	            		var reply = data[i];	
 	            		//var table = $('<table border="1"></table>');
-	            		if(reply.bookmarkCnt==1){
-	            			bImg= '<img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addedB.png">';
+	            		bImg='';
+	            		lImg='';
+	            		
+	            		if(${loggedIn}){
+	            			if(reply.userId != '${pageContext.request.userPrincipal.name }'){
+	            				console.log('게시글 작성자 아님');
+			            		if(reply.bookmarkCnt==1){
+			            			bImg= '<img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addedB.png">';
+			            		}else{
+			            			bImg= '<img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addB.png">';
+			            		}
+			            		
+								if(reply.likeCnt==1){
+			            			lImg= '<img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addedL.png">';
+			            		}else{
+			            			lImg= '<img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addL.png">';
+			            		}
+	            					
+	            			}else{	            				
+	            				console.log('게시글 작성자');
+	            			}
+	  
 	            		}else{
-	            			bImg= '<img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addB.png">';
+            				console.log('로그인 상태가 아님');
+	         
 	            		}
 	            		
-						if(reply.likeCnt==1){
-	            			lImg= '<img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addedL.png">';
-	            		}else{
-	            			lImg= '<img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addL.png">';
-	            		}
 	            		
 	            		var card = $('<div class="col-md-3">'+
 	            						'<div class="card">'+
-		            						'<a href="<%=request.getContextPath() %>/board/list/'+reply.postId+'">'+
+		            						'<a href="${pageContext.request.contextPath}/board/list/'+reply.postId+'">'+
 		            							'이미지 삽입 예정.'+
 		            						'</a>'+
 		            						'<div class="card-block">'+
-		            							'<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/'+reply.postId+'">'+reply.foodName+'</a></h2>'+
+		            							'<h2 class="card-title"><a href="${pageContext.request.contextPath}/board/list/'+reply.postId+'">'+reply.foodName+'</a></h2>'+
 		            							'<h4 class="card-text">'+reply.content+'</h4>'+
 		            							'<div class="wrapfooter">'+
 		            								'<span class="meta-footer-thumb">'+
@@ -209,18 +224,18 @@ $(document).on("click",".likeBtn" ,function() {
 	console.log($(this).parent().html());
 	like=$(this);
 	$.ajax({
-		url: "<%=request.getContextPath()%>/like",
+		url: "${pageContext.request.contextPath}/like",
 		type: "POST", 
 		data: {postId: id },
 		async : false,
 		success:function(result){
 			if(result==false){
-				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addL.png'>";
+				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addL.png'>";
 				like.parent().html(htmlVal);
 				//$(this).parent().html(htmlVal);
 				 
 			}else if(result==true){
-				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addedL.png'>";
+				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addedL.png'>";
 				like.parent().html(htmlVal);
 				//$(this).parent().html(htmlVal);
 			}
@@ -234,18 +249,18 @@ $(document).on("click",".bookmarkBtn" ,function() {
 	console.log($(this).parent().html());
 	bookmark=$(this);
 	$.ajax({
-		url: "<%=request.getContextPath()%>/bookmark",
+		url: "${pageContext.request.contextPath}/bookmark",
 		type: "POST", 
 		data: {postId: id },
 		async : false,
 		success:function(result){
 			if(result==false){
-				var htmlVal= "<img data-postid='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addB.png'>";
+				var htmlVal= "<img data-postid='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addB.png'>";
 				bookmark.parent().html(htmlVal);
 				//$(this).parent().html(htmlVal);
 				 
 			}else if(result==true){
-				var htmlVal= "<img data-postid='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addedB.png'>";
+				var htmlVal= "<img data-postid='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addedB.png'>";
 				bookmark.parent().html(htmlVal);
 				//$(this).parent().html(htmlVal);
 			}
