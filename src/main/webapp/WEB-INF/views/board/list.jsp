@@ -20,7 +20,7 @@
 <div  class="listrecent">
 <div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
 	<c:forEach items="${postList }" var="list" varStatus="stqatus">
-	<div class="col-md-3">
+	<div class="col-md-3 mt-3">
 		<div class="card">
 			<a href="<%=request.getContextPath() %>/board/list/${list.postId}">
 				이미지 삽입 예정.
@@ -31,7 +31,9 @@
 				<div class="wrapfooter">
 					<span class="meta-footer-thumb">
 						프로필이미지
-						<img class="author-thumb" alt="" src="${list.profileUrl }">
+						<a href="<%=request.getContextPath() %>/member/info/${list.userId }">
+							<img class="author-thumb" alt="" src="${list.profileUrl }">
+						</a>
 					</span>
 					<span class="author-meta">
 						<span class="post-name">${list.nickname }</span>
@@ -146,32 +148,22 @@ var start = {
 	            		bImg='';
 	            		lImg='';
 	            		
-	            		if(${loggedIn}){
-	            			if(reply.userId != '${pageContext.request.userPrincipal.name }'){
-	            				console.log('게시글 작성자 아님');
+	            		if(${loggedIn} && reply.userId != '${pageContext.request.userPrincipal.name }'){
 			            		if(reply.bookmarkCnt==1){
-			            			bImg= '<img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addedB.png">';
+			            			bImg= ' <img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addedB.png">';
 			            		}else{
-			            			bImg= '<img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addB.png">';
+			            			bImg= ' <img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addB.png">';
 			            		}
 			            		
 								if(reply.likeCnt==1){
-			            			lImg= '<img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addedL.png">';
+			            			lImg= ' <img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addedL.png">';
 			            		}else{
-			            			lImg= '<img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addL.png">';
+			            			lImg= ' <img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="${pageContext.request.contextPath}/resources/icons/addL.png">';
 			            		}
-	            					
-	            			}else{	            				
-	            				console.log('게시글 작성자');
-	            			}
-	  
-	            		}else{
-            				console.log('로그인 상태가 아님');
-	         
 	            		}
 	            		
 	            		
-	            		var card = $('<div class="col-md-3">'+
+	            		var card = $('<div class="col-md-3 mt-3">'+
 	            						'<div class="card">'+
 		            						'<a href="${pageContext.request.contextPath}/board/list/'+reply.postId+'">'+
 		            							'이미지 삽입 예정.'+
@@ -182,17 +174,19 @@ var start = {
 		            							'<div class="wrapfooter">'+
 		            								'<span class="meta-footer-thumb">'+
 		            									'프로필이미지'+
-		            									'<img class="author-thumb" alt="" src="'+reply.profileUrl+'">'+
+		            									'<a href="${pageContext.request.contextPath}/member/info/'+reply.userId+'">'+
+		            										'<img class="author-thumb" alt="" src="'+reply.profileUrl+'">'+
+		            									'</a>'+
 		            								'</span>'+
 		            								'<span class="author-meta">'+
 		            									'<span class="post-name">'+reply.nickname+'</span>'+
 		            									'<span class="post-date">'+reply.createDate+'</span><span class="post-read"></span>'+
 		            								'</span>'+
 		            								'<span class="post-read-more">' +
-		            									'<span>'+
+		            									' <span>'+
 		            										bImg+
 		            									'</span>'+
-		            									'<span>'+
+		            									' <span>'+
 		            										lImg+
 	            										'</span>'+
 		            								'</span>'+
@@ -232,12 +226,10 @@ $(document).on("click",".likeBtn" ,function() {
 			if(result==false){
 				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addL.png'>";
 				like.parent().html(htmlVal);
-				//$(this).parent().html(htmlVal);
 				 
 			}else if(result==true){
 				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addedL.png'>";
 				like.parent().html(htmlVal);
-				//$(this).parent().html(htmlVal);
 			}
 		}
 		
@@ -257,12 +249,10 @@ $(document).on("click",".bookmarkBtn" ,function() {
 			if(result==false){
 				var htmlVal= "<img data-postid='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addB.png'>";
 				bookmark.parent().html(htmlVal);
-				//$(this).parent().html(htmlVal);
 				 
 			}else if(result==true){
 				var htmlVal= "<img data-postid='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addedB.png'>";
 				bookmark.parent().html(htmlVal);
-				//$(this).parent().html(htmlVal);
 			}
 		}
 		
