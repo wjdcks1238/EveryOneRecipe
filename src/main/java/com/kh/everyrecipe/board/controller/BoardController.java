@@ -174,7 +174,7 @@ public class BoardController {
 		
 		@PostMapping("ISajax")
 		@ResponseBody
-		public String testAjax( int curPage, String userId) throws Exception {
+		public String testAjax( int curPage, String userId, Principal principal) throws Exception {
 			List<PostVo> pvoList=null;
 //			System.out.println(map.get("curPage"));
 //			System.out.println(map.get("pageListSize"));
@@ -187,8 +187,9 @@ public class BoardController {
 			if(userId!=null) {				
 				map.put("myPage", userId);
 			}
-			
-			
+			if(principal!=null) {
+				map.put("userId",principal.getName());					
+			}
 			pvoList= bService.pagingList(map);
 			
 			

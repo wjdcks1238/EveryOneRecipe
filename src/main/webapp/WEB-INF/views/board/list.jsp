@@ -44,18 +44,18 @@
 							<c:if test="${user ne list.userId}">
 								<span>
 									<c:if test="${list.bookmarkCnt eq 1 }">
-										<img id="${list.postId }" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addedB.png">
+										<img data-postid="${list.postId }" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addedB.png">
 									</c:if>
 									<c:if test="${list.bookmarkCnt eq 0 }">
-										<img id="${list.postId }" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addB.png">
+										<img data-postid="${list.postId }" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addB.png">
 									</c:if>
 								</span>
 								<span>
 									<c:if test="${list.likeCnt eq 1 }">
-										 <img id="${list.postId }" class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addedL.png">
+										 <img data-postid="${list.postId }" class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addedL.png">
 									</c:if>
 									<c:if test="${list.likeCnt eq 0 }">													
-										 <img id="${list.postId }" class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addL.png">
+										 <img data-postid="${list.postId }" class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addL.png">
 									</c:if>
 								</span>
 							</c:if>
@@ -144,6 +144,18 @@ var start = {
             		for(i = 0 ; i<data.length;i++){
 	            		var reply = data[i];	
 	            		//var table = $('<table border="1"></table>');
+	            		if(reply.bookmarkCnt==1){
+	            			bImg= '<img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addedB.png">';
+	            		}else{
+	            			bImg= '<img data-postid="'+reply.postId+'" class="bookmarkBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addB.png">';
+	            		}
+	            		
+						if(reply.likeCnt==1){
+	            			lImg= '<img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addedL.png">';
+	            		}else{
+	            			lImg= '<img data-postid="'+reply.postId+'"class="likeBtn" style="cursor: pointer;" alt="" width="25px" src="<%=request.getContextPath()%>/resources/icons/addL.png">';
+	            		}
+	            		
 	            		var card = $('<div class="col-md-3">'+
 	            						'<div class="card">'+
 		            						'<a href="<%=request.getContextPath() %>/board/list/'+reply.postId+'">'+
@@ -155,12 +167,20 @@ var start = {
 		            							'<div class="wrapfooter">'+
 		            								'<span class="meta-footer-thumb">'+
 		            									'프로필이미지'+
+		            									'<img class="author-thumb" alt="" src="'+reply.profileUrl+'">'+
 		            								'</span>'+
 		            								'<span class="author-meta">'+
 		            									'<span class="post-name">'+reply.nickname+'</span>'+
 		            									'<span class="post-date">'+reply.createDate+'</span><span class="post-read"></span>'+
 		            								'</span>'+
-		            								'<span class="post-read-more"><a href="<%=request.getContextPath()%>/board/list/'+reply.postId+'" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>'+
+		            								'<span class="post-read-more">' +
+		            									'<span>'+
+		            										bImg+
+		            									'</span>'+
+		            									'<span>'+
+		            										lImg+
+	            										'</span>'+
+		            								'</span>'+
 		            							'</div>'+
 		            						'</div>'+
 	            						'</div>'+
@@ -184,7 +204,7 @@ var start = {
 }
 
 $(document).on("click",".likeBtn" ,function() {
-	id=$(this).attr('id');
+	id=$(this).data("postid");
 	console.log(id);
 	console.log($(this).parent().html());
 	like=$(this);
@@ -195,12 +215,12 @@ $(document).on("click",".likeBtn" ,function() {
 		async : false,
 		success:function(result){
 			if(result==false){
-				var htmlVal= "<img id='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addL.png'>";
+				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addL.png'>";
 				like.parent().html(htmlVal);
 				//$(this).parent().html(htmlVal);
 				 
 			}else if(result==true){
-				var htmlVal= "<img id='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addedL.png'>";
+				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addedL.png'>";
 				like.parent().html(htmlVal);
 				//$(this).parent().html(htmlVal);
 			}
@@ -209,7 +229,7 @@ $(document).on("click",".likeBtn" ,function() {
 	});
 });
 $(document).on("click",".bookmarkBtn" ,function() {
-	id=$(this).attr('id');
+	id=$(this).data("postid");
 	console.log(id);
 	console.log($(this).parent().html());
 	bookmark=$(this);
@@ -220,12 +240,12 @@ $(document).on("click",".bookmarkBtn" ,function() {
 		async : false,
 		success:function(result){
 			if(result==false){
-				var htmlVal= "<img id='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addB.png'>";
+				var htmlVal= "<img data-postid='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addB.png'>";
 				bookmark.parent().html(htmlVal);
 				//$(this).parent().html(htmlVal);
 				 
 			}else if(result==true){
-				var htmlVal= "<img id='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addedB.png'>";
+				var htmlVal= "<img data-postid='"+id+"' class='bookmarkBtn' style='cursor: pointer;' alt='' width='25px' src='<%=request.getContextPath()%>/resources/icons/addedB.png'>";
 				bookmark.parent().html(htmlVal);
 				//$(this).parent().html(htmlVal);
 			}
