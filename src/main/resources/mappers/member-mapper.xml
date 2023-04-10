@@ -30,6 +30,7 @@
 		where userid=#{userId}
 	</update>
 	
+	<!-- 권한변경 -->
 	<update id="updateAdmin" parameterType="map">
 		update members 
 		   set AUTHORITY = #{authority}  

@@ -20,6 +20,59 @@
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath() %>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     
+    <!--스위치 스타일 추가 -->
+    <style type="text/css">
+	.wrapper { position: relative; }
+	#switch {
+	  position: absolute;
+	  /* hidden */
+	  appearance: none;
+	  -webkit-appearance: none;
+	  -moz-appearance: none;
+	}
+	.switch_label {
+	  position: relative;
+	  cursor: pointer;
+	  display: inline-block;
+	  width: 58px;
+	  height: 28px;
+	  background: #fff;
+	  border: 2px solid #daa;
+	  border-radius: 20px;
+	  transition: 0.2s;
+	}
+	.switch_label:hover {
+	  background: #efefef;
+	}
+	.onf_btn {
+	  position: absolute;
+	  top: 5px;
+	  left: 5px;
+	  display: inline-block;
+	  width: 19px;
+	  height: 19px;
+	  border-radius: 20px;
+	  background: #daa;
+	  transition: 0.2s;
+	}
+	/* checking style */
+	#switch:checked+.switch_label {
+	  background: #c44;
+	  border: 2px solid #c44;
+	}
+	
+	#switch:checked+.switch_label:hover {
+	  background: #e55;
+	}
+	
+	/* move */
+	#switch:checked+.switch_label .onf_btn {
+	  left: 33px;
+	  background: #fff;
+	  box-shadow: 1px 2px 3px #00000020;
+	}
+    
+    </style>
 </head>
 <body id="page-top">
 <script>
@@ -151,8 +204,8 @@
                     <h1 class="h3 mb-2 text-gray-800">직원목록</h1>
 
                 	<!--  회원목록 모달창으로 띄우기  -->
-                	<button id="open-modal" type="button" class="btn btn-primary">회원목록 임시위치</button>
-					<div id="modal" class="modal">
+                	<button id="open-modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#memberlist">회원목록 임시위치</button>
+					<div id="memberlist" class="modal">
 					  <div class="modal-dialog">
 					    <div class="modal-content">
 					      <div class="modal-header">
@@ -169,13 +222,31 @@
 							          </div>
 							        </form>
                             	</form>
+	                                        <tr>
+	                                        	<td>ID</td>
+	                                        	<td>닉네임</td>
+	                                        	<td>입사일</td>
+	                                        	<td>권한부여</td>
+	                                        </tr>
                             	<c:forEach var="admin" items="${selectList}">
 	                                        <tr >
-	                                            <td >
-	                                            <c:out value="${admin.userId }"/>
-	                                            </td>
+	                                            <td><c:out value="${admin.userId }"/></td>
 	                                            <td><c:out value="${admin.nickName}"/></td>
-	                                            <td ><c:out value="${admin.createAt}"/></td>
+	                                            <td><c:out value="${admin.createAt}"/></td>
+	                                            
+	                                            
+	                                            
+	                                            <!-- 권한부여 버튼 만들기 -->
+	                                            <td>
+	                                             <div class="wrapper">
+	                                             	<input type="checkbox" id="switch">
+	                                             	<label for="switch" class="switch_label">
+	                                             		<span class="onf_btn"></span>
+	                                             	</label>
+	                                             </div>
+	                                            </td>
+	                                            
+	                                            
 	                                        </tr>
 	                   	     </c:forEach>
                             </table>
@@ -264,18 +335,25 @@
 const openModalBtn = document.getElementById('open-modal');
 const modal = document.getElementById('modal');
 
+$("[data-dismiss=modal]").click(function(){
+  modal.style.display = 'none';
+});
+
 openModalBtn.addEventListener('click', ()=> {
   modal.style.display = 'block';
 });
 
-window.addEventListener('click', (event) => {
-  if (event.target == modal) {
-    modal.style.display = 'none';
-  }
-});
-
 //모달창 회원 검색 기능
 //TODO:
+	
+.wrapper { position: relative; }
+#switch {
+  position: absolute;
+  /* hidden */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}	
 </script>
 
 		</body>

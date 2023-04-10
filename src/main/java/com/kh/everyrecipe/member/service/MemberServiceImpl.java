@@ -61,5 +61,10 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberVo> selectAuth() throws Exception {
 		return dao.selectAuth();
 	}
+
+	@Override
+	public List<MemberVo> selectList(String keyword) throws Exception {
+		return dao.selectList();
+	}
 	
 }
