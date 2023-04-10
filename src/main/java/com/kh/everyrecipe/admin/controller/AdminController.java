@@ -82,7 +82,7 @@ public class AdminController {
 	}
 
 	
-	//직원 권한 부여 업데이트
+	//직원 권한 부여 업데이트   에이작스로 !!!
 	@PostMapping("/employee")
 	public void updateAuth(MemberVo vo) throws Exception {
 		
@@ -90,6 +90,7 @@ public class AdminController {
 		mService.updateAdmin(vo);
 		
 	}
+	
 	
 	
 	//회원 관리 페이지
