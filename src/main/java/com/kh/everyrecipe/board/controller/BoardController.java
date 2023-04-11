@@ -154,6 +154,7 @@ public class BoardController {
 		@ResponseBody
 		public String findFoodAjax(
 				@RequestParam("keyword") String keyword,
+				@RequestParam(value = "option", required = false) String option,
 				Principal principal
 				) throws Exception {
 			
@@ -165,7 +166,33 @@ public class BoardController {
 			if(principal!=null) {
 				map.put("userId",principal.getName());					
 			}
+			if(option != null) {
+				map.put("option", option);
+			}
 			List<PostVo> result = bsService.pagingList(map);
+			System.out.println(result);
+			
+			return new Gson().toJson(result);
+		}
+		
+		@GetMapping("/findhashajax")
+		@ResponseBody
+		public String findHashAjax(
+				@RequestParam("keyword") String keyword,
+				@RequestParam(value = "option", required = false) String option,
+				Principal principal
+				) throws Exception {
+			Map<String, String> map = new HashMap<>();
+			map.put("from", 0+"");
+			map.put("to", 20+"");
+			map.put("keyword", keyword);
+			if(principal!=null) {
+				map.put("userId",principal.getName());					
+			}
+			if(option != null) {
+				map.put("option", option);
+			}
+			List<PostVo> result = bsService.pagingHashList(map);
 			System.out.println(result);
 			
 			return new Gson().toJson(result);

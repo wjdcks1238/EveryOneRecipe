@@ -25,6 +25,7 @@
 			<div class="col-md-3">
 			</div>
 		</div>
+	</form>
 		<div class="row post-top-meta">
 			<div class="col-md-4">
 			</div>
@@ -42,7 +43,6 @@
 			<div class="col-md-3">
 			</div>
 		</div>
-	</form>
 	<div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach items="${postList }" var="list" varStatus="stqatus">
 			<div class="col-md-3 mt-3">
@@ -107,16 +107,24 @@
 
 <script>
 	$('input:radio[id=inlineRadio1]').change(function() {
-		search();
+		searchKey();
 	});
 	
-	function search() {
+	$('input:radio[id=inlineRadio2]').change(function() {
+		searchHash();
+	});
+	
+	function searchKey() {
 		  var keyword = $("#foodSearchKeyword").val();
+		  var option = $("[name=searchoption]").val();
 		  
 		  $.ajax({
 		    url: "<%=request.getContextPath() %>/board/findfoodajax",
 		    type: "GET",
-		    data: {keyword: keyword },
+		    data: {
+		    	keyword: keyword,
+		    	option: option
+		    	},
 		    dataType: "json",
 		    success: function(data) {
 		    	if(data.length < 1) {
@@ -131,6 +139,34 @@
 		    }
 		  });
 		}
+	
+	function searchHash() {
+		  var keyword = $("#foodSearchKeyword").val();
+		  var option = $("[name=searchoption]").val();
+		  
+		  $.ajax({
+		    url: "<%=request.getContextPath() %>/board/findhashajax",
+		    type: "GET",
+		    data: {
+		    	keyword: keyword,
+		    	option: option
+		    	},
+		    dataType: "json",
+		    success: function(data) {
+		    	if(data.length < 1) {
+		    		alert("검색결과가 없습니다.");
+		    	} else if(data.length > 0) {
+		    		
+		    	} else {
+		    		alert("알 수 없는 오류가 발생되었습니다.");
+		    	}
+		    	
+		    	display(data);
+		    }
+		  });
+		}
+	
+	
 	function display(data) {
 		console.log(data);
 		var htmlval = "";

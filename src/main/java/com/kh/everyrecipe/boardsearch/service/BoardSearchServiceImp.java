@@ -18,4 +18,9 @@ public class BoardSearchServiceImp implements BoardSearchService {
 	public List<PostVo> pagingList(Map<String, String> map) throws Exception {
 		return dao.pagingList(map);
 	}
+
+	@Override
+	public List<PostVo> pagingHashList(Map<String, String> map) throws Exception {
+		return dao.pagingHashList(map);
+	}
 }

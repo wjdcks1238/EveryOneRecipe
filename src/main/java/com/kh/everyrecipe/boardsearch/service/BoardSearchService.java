@@ -7,4 +7,5 @@ import com.kh.everyrecipe.board.vo.PostVo;
 
 public interface BoardSearchService {
 	public List<PostVo> pagingList(Map<String, String> map) throws Exception;
+	public List<PostVo> pagingHashList(Map<String, String> map) throws Exception;
 }
