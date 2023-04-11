@@ -36,7 +36,7 @@
 				<h1 class="posttitle">${post.foodName }</h1>
 				<div class="row post-top-meta">
 					<div class="col-md-2">
-						<a href="author.html"><img class="author-thumb" src="${post.profileUrl}" alt="Sal"></a>
+						<a href="<%=request.getContextPath()%>/member/info/${post.userId}"><img class="author-thumb" src="${post.profileUrl}" alt="Sal"></a>
 					</div>
 					<div class="col-md-10">
 						<a class="link-dark" href="<%=request.getContextPath()%>/member/info/${post.userId}">작성자 : ${post.nickname } </a>
@@ -104,9 +104,9 @@
 			</div>
 			<!-- End Post Content -->
 
+<div class="row justify-content-center">
 <c:if test="${loggedIn}">
 	<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
-	<div class="row justify-content-center">
 		<c:if test="${user ne post.userId}">
 			<div class="col-2" id="bookmark">
 			
@@ -128,13 +128,26 @@
 						<img id="likeBtn" style="cursor: pointer;" alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addL.png">
 					</c:if>
 			</div>
-			<div>
-				좋아요 수 : ${likeCount } 
-			</div> 
 		
 		</c:if>
-	</div>
 </c:if>
+<c:if test="${!loggedIn}">
+			<div class="col-2">	
+				<img alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addL.png">
+			</div>
+</c:if>
+<c:if test="${loggedIn}">
+	<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
+		<c:if test="${user eq post.userId}">
+			<div class="col-2">	
+					<img alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addL.png">
+			</div>
+		</c:if>
+</c:if>
+			<div>
+				: ${likeCount } 
+			</div> 
+</div>
 
 
 
