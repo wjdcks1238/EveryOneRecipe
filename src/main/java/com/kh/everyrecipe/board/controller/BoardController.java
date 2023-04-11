@@ -150,7 +150,26 @@ public class BoardController {
 			return mv;
 		}
 		
-		
+		@GetMapping("/findfoodajax")
+		@ResponseBody
+		public String findFoodAjax(
+				@RequestParam("keyword") String keyword,
+				Principal principal
+				) throws Exception {
+			
+			//isdelete 필드가 'N'인 게시글만 불러온다. 	
+			Map<String, String> map = new HashMap<>();
+			map.put("from", 0+"");
+			map.put("to", 20+"");
+			map.put("keyword", keyword);
+			if(principal!=null) {
+				map.put("userId",principal.getName());					
+			}
+			List<PostVo> result = bsService.pagingList(map);
+			System.out.println(result);
+			
+			return new Gson().toJson(result);
+		}
 		
 		@GetMapping("/list")
 		public ModelAndView boardList(ModelAndView mv

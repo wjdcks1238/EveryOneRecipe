@@ -17,5 +17,4 @@ public class BoardSearchDao {
 	public List<PostVo> pagingList(Map<String, String> map) {
 		return sqlSession.selectList("boardSearchMapper.pagingList", map);
 	}
-
 }
