@@ -8,7 +8,13 @@ body {
 	padding-top:5rem;
 	overflow-y: scroll;
     margin-right: 0px;
+    
 }
+/*
+::-webkit-scrollbar {
+  display: none;
+}
+*/
 .mainheading {
 	padding:1rem 0rem;
 }

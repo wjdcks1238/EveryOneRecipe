@@ -5,6 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Insert title here</title>
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/ckeditor/ckeditor.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
@@ -18,40 +21,57 @@
 	font-size: 12px;
 
 }
+#wrapper{
+  height: auto;
+  min-height: 800px;
+  padding-bottom: 63.19px;
+}
+.footer{
+  height: 63.19px;
+  position : relative;
+  transform : translateY(-100%);
+}
 </style>
-<title>Insert title here</title>
+
 </head>
 <body>
-	<div style="width: 1000px;">
- 
-
-	<form id="frm" action="posting" method="POST">
+<%@ include file="/WEB-INF/views/header.jsp" %>
+	<div id='wrapper'>
+		<div class="container">
+	 
 	
-		<div>
-			<input type="hidden" name="userId" value="${userId }">
-		</div>
-		<div>
-			<input name="foodName" type="text" placeholder="음식 이름">
-		</div>
-		<div>
-			<input name="ingredient" type="text" placeholder="재료"> 
-			<input name="amount" type="text" placeholder="수량">
-			<div id="additional"></div>
-			<button id="addIng" type="button">재료 입력칸 추가</button>
-		</div>
-		<textarea form="frm" name="content" id="editor"></textarea>
+		<form id="frm" action="posting" method="POST">
 		
-		<div>
-			<input name="hashtag" type="text" placeholder="해쉬태그 입력">
-		</div>	
+			<div>
+				<input type="hidden" name="userId" value="${userId }">
+			</div>
+			<div>
+				<input name="foodName" type="text" placeholder="음식 이름">
+			</div>
+			<div>
+				<input name="ingredient" type="text" placeholder="재료"> 
+				<input name="amount" type="text" placeholder="수량">
+				<div id="additional"></div>
+				<button id="addIng" type="button">재료 입력칸 추가</button>
+			</div>
+			<textarea form="frm" name="content" id="editor"></textarea>
 			
-		<div>
-			<input  type="submit" value="전송">
+			<div>
+				<input name="hashtag" type="text" placeholder="해쉬태그 입력">
+			</div>	
+				
+			<div>
+				<input  type="submit" value="전송">
+			</div>
+	
+		</form>
 		</div>
-
-	</form>
 	</div>
+	
+	<%@ include file="/WEB-INF/views/footer.jsp" %>
+	<%@ include file="/WEB-INF/views/js_import.jsp" %>
 </body>
+
 	<script>
 		// ClassicEditor.create(document.querySelector('#editor')); ck5
 		$(function() {
@@ -61,8 +81,10 @@
 		});
 		
 		$("#addIng").on("click", function(){	
-			var div= $("<div>").append($("<input type='text' placeholder='재료' name='ingredient'> "));
+			var div= $("<div> ").append($("<input type='text' placeholder='재료' name='ingredient'> "));
+			div.append(" ");
 			div.append($("<input type='text' placeholder='수량' name='amount'>"));
+			div.append(" ");
 			div.append($("<button type='button' name='deleteIng'>").text("삭제"));
 			$("#additional").append(div)	
 		});
