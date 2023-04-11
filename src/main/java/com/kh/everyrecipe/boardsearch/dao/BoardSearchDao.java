@@ -21,4 +21,16 @@ public class BoardSearchDao {
 	public List<PostVo> pagingHashList(Map<String, String> map) {
 		return sqlSession.selectList("boardSearchMapper.pagingHashList", map);
 	}
+
+	public int searchKeyword(String keyword) {
+		return sqlSession.selectOne("boardSearchMapper.selectSearchData", keyword);
+	}
+	
+	public int insertSearchData(String keyword) {
+		return sqlSession.insert("boardSearchMapper.insertSearchData", keyword);
+	}
+
+	public int updateSearchData(String keyword) {
+		return sqlSession.update("boardSearchMapper.updateSearchData", keyword);
+	}
 }

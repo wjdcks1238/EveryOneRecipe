@@ -23,4 +23,20 @@ public class BoardSearchServiceImp implements BoardSearchService {
 	public List<PostVo> pagingHashList(Map<String, String> map) throws Exception {
 		return dao.pagingHashList(map);
 	}
+	
+	@Override
+	public int searchKeyword(String keyword) throws Exception {
+		return dao.searchKeyword(keyword);
+	}
+
+	@Override
+	public int insertSearchData(String keyword) throws Exception {
+		return dao.insertSearchData(keyword);
+	}
+
+	@Override
+	public int updateSearchData(String keyword) throws Exception {
+		return dao.updateSearchData(keyword);
+	}
+
 }

@@ -129,8 +129,9 @@
 		    success: function(data) {
 		    	if(data.length < 1) {
 		    		alert("검색결과가 없습니다.");
+		    		searchInsertDB(keyword);
 		    	} else if(data.length > 0) {
-		    		
+		    		searchInsertDB(keyword);
 		    	} else {
 		    		alert("알 수 없는 오류가 발생되었습니다.");
 		    	}
@@ -166,6 +167,20 @@
 		  });
 		}
 	
+	function searchInsertDB(keyword) {
+		$.ajax({
+			url:"<%=request.getContextPath() %>/keyword/insertdata",
+			type: "GET",
+			data:{keyword: keyword},
+			success: function(result) {
+				if(result == 1) {
+					console.log('데이타 삽입 성공');
+				} else {
+					console.log('데이타 삽입중 문제 발생');
+				}
+			}
+		});
+	}
 	
 	function display(data) {
 		console.log(data);
