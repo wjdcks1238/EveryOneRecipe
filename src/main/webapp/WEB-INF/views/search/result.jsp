@@ -117,6 +117,7 @@
 		    url: "<%=request.getContextPath() %>/board/findfoodajax",
 		    type: "GET",
 		    data: {keyword: keyword },
+		    dataType: "json",
 		    success: function(data) {
 		    	if(data.length < 1) {
 		    		alert("검색결과가 없습니다.");
@@ -132,7 +133,10 @@
 		}
 	function display(data) {
 		console.log(data);
-		var htmlval;
+		var htmlval = "";
+		var a;
+		console.log(a);
+		console.log(typeof a);
 		var loggedIn = ${loggedIn};
 		var userName = "${uName}";
 		
