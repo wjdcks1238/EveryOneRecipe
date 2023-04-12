@@ -79,10 +79,9 @@ public class TempForTable {
 	}
 	
 	@PostMapping("recommend")
-	public String recommend(@RequestParam("list") String list ) {
+	public ModelAndView recommend(ModelAndView mv, @RequestParam("list") String list ) throws Exception {
 		System.out.println("값"+list);
 		
-		//set으로 변환후 포함관계 확인
 		List<String> chosenList = new ArrayList<String>(Arrays.asList(list.split("\\$")));
 		chosenList.remove("");
 //		System.out.println(chosenList);
@@ -93,18 +92,19 @@ public class TempForTable {
 		try {
 			ingList = service.getIngredients();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		//postId로 구분된 전체 재료 셋
-		Map<Integer, Set<String>> allIngMap = new HashMap<>();
+		Map<Integer, List<String>> allIngMap = new HashMap<>();
 		
 		//postId로 구분해야함 
 		//TODO 삭제된게시물 제외
 		
-		for(int i=1; i<=87;i++) {
-			Set<String> cuisineSet = new HashSet<String>();
+		
+		int lastPostId= ingList.get(ingList.size()-1).getPostId();
+		for(int i=1; i<=lastPostId;i++) {
+			List<String> cuisineSet = new ArrayList<String>();
 			
 			for(int j=0; j<ingList.size();j++) {				
 				if(ingList.get(j).getPostId()==i) {
@@ -114,11 +114,18 @@ public class TempForTable {
 			allIngMap.put(i, cuisineSet); 
 		}
 		System.out.println("전체:"+allIngMap);
-		//!!!!!!!!!!!!!!!!!고른재료가 아닌 레시피 재료를 조합해야 함. 수정필요 
-		for(int i=0;i<=87;i++) {
-			//combination(allIngMap.get(i), chosenList.size() , chosenList.size()-1, 0, set);			
+//		List<List<String> > recList = new ArrayList();
+		List<PostVo> recList = new ArrayList();
+		for(int i=1;i<=lastPostId;i++) {
+			if(combination(allIngMap.get(i), allIngMap.get(i).size() , allIngMap.get(i).size()-3, 0, set, chosenList)) {
+				
+//				System.out.println(i+"번째 레시피");
+//				recList.add(allIngMap.get(i));
+				
+				recList.add(service.selectOne(i));
+			}			
 		}
-		
+		  
 		
 		
 		//TODO 재료 입력시 $문자 사용 불가능하게 변경
@@ -126,44 +133,47 @@ public class TempForTable {
 		
 		//선택된 재료들의 부분집합(부족한 재료가 3개까지인 음식들 포함)
 		
-		for(int i=1; i<=87;i++) {
-			if(chosenList.containsAll(allIngMap.get(i))) {
-				System.out.println(allIngMap.get(i));
-				
-			
-				
-				
-
-				
-				
-				 
-				
-			}
-		}
+//		for(int i=1; i<=87;i++) {
+//			if(chosenList.containsAll(allIngMap.get(i))) {
+//				System.out.println(allIngMap.get(i));	 
+//				
+//			}
+//		}
 		
+		mv.addObject("recList", recList);
+		mv.addObject("chosenList", chosenList);
+		mv.setViewName("recommend");
 		
-		return null;
+		return mv;
 	}
 	
-	private static void combination(List<String> ingList, int n, int r, int index, HashSet<String> set ) {
+	private static boolean combination(List<String> ingList, int n, int r, int index, HashSet<String> set,List<String> chosenList ) {
 		if(r==0) {
 //			for(String i : set) {
 //				System.out.print(i+" ");	
 //			}
 			//조합 구해짐
-			for(int i=1; i<=87;i++) {
-
+			if(chosenList.containsAll(set)) {				
+				System.out.println(set);
+				return true;
+			}else {
+				return false;
 			}
+
 			
-			System.out.println();
-			return;
+
 		}
 		
-		for(int i=index; i<n; i++) {
-			set.add(ingList.get(i));
-			combination(ingList, n, r-1, i+1, set);
-			set.remove(ingList.get(i));
-		}
+		for (int i = index; i < n; i++) {
+	        set.add(ingList.get(i));
+	        if (combination(ingList, n, r - 1, i + 1, set, chosenList)) {
+	            return true;
+	        }
+	        set.remove(ingList.get(i));
+	    }
+		
+		
+		return false;
 		
 	}
 	

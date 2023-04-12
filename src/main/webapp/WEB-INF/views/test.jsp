@@ -5,32 +5,37 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<link href="${pageContext.request.contextPath}/resources/css/detail.css" rel="stylesheet">
 </head>
 <body>
+<%@ include file="/WEB-INF/views/header.jsp" %>
+<div class="container">
 
 	<input type="text" name="ingSearch" placeholder="재료를 입력해 주세요">
-<form action="recommend" method="post">
-
-	<div class="chosen" >
-		<input type="hidden" name="list" id="chosenList">	
+	<form action="recommend" method="post">
+	
+		<div class="chosen" >
+			<input type="hidden" name="list" id="chosenList">	
+		</div>
+	
+	
+	<div id="searchResult">
+	
 	</div>
-
-
-<div id="searchResult">
-
+	
+	<button type="submit">레시피 찾기</button>
+	</form>
 </div>
 
-<button type="submit">레시피 찾기</button>
-</form>
 
 
 
 
 
-
-
-	
+<%@ include file="/WEB-INF/views/footer.jsp" %>
+<%@ include file="/WEB-INF/views/js_import.jsp" %>
 <script type="text/javascript">
 
 	$("input[name=ingSearch]").on("propertychange change paste input",function(){
