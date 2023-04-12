@@ -15,54 +15,57 @@
 
 <!--스위치 스타일 추가 -->
 <style type="text/css">
-.wrapper {
+.toggleSwitch {
+	width: 70px;
+	margin: 30px;
+	height: 35px;
+	display: block;
 	position: relative;
-}
-#switch {
-	position: absolute;
-	/* hidden */
-	appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-}
-.switch_label {
-	/* position: relative; */
+	border-radius: 30px;
+	background-color: #fff;
+	box-shadow: 0 0 16px 3px rgba(0 0 0/ 15%);
 	cursor: pointer;
-	display: inline-block;
-	width: 58px;
+}
+
+.toggleSwitch .toggleButton {
+	width: 28px;
 	height: 28px;
-	background: #fff;
-	border: 2px solid #daa;
-	border-radius: 20px;
-	transition: 0.2s;
-}
-.switch_label:hover {
-	background: #efefef;
-}
-.onf_btn {
 	position: absolute;
-	top: 5px;
-	left: 5px;
-	display: inline-block;
-	width: 19px;
-	height: 19px;
-	border-radius: 20px;
-	background: #daa;
-	transition: 0.2s;
+	top: 50%;
+	left: 4px;
+	transform: translateY(-50%);
+	border-radius: 50%;
+	background: #f03d3d;
 }
-/* checking style */
-#switch:checked+.switch_label {
-	background: #c44;
-	border: 2px solid #c44;
+
+.toggleSwitch.active {
+	background: #f03d3d;
 }
-#switch:checked+.switch_label:hover {
-	background: #e55;
+
+.toggleSwitch.active .toggleButton {
+	left: calc(100% - 44px);
+	background: #fff !important;
 }
-/* move */
-#switch:checked+.switch_label .onf_btn {
-	left: 33px;
+
+.toggleSwitch, .toggleButton {
+	transition: all 0.2s ease-in;
+}
+
+.toggleSwitch.blue.active {
+	background: #5151e5;
+}
+
+.toggleSwitch.blue .toggleButton {
+	background: #5151e5;
+}
+/* checked 부분을 active란 클래스가 포함되어있는지 여부로 바꾸기 */
+.toggleSwitch.active {
+	background: #f03d3d;
+}
+
+.toggleSwitch.active .toggleButton {
+	left: calc(100% - 32px);
 	background: #fff;
-	box-shadow: 1px 2px 3px #00000020;
 }
 </style>
 <!-- Custom fonts for this template -->
@@ -106,7 +109,8 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center"
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
 				href="<%=request.getContextPath()%>/admin">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
@@ -249,10 +253,10 @@
 
 												<!-- 권한부여 버튼 만들기 -->
 												<td>
-													<div class="wrapper">
-														<input type="checkbox" id="switch" hidden> 
-														<label for="switch" class="switch_label">
-														 <span class="onf_btn"></span>
+													<div>
+														<input type="checkbox" id="switch" hidden> <label
+															for="toggle" class="toggleSwitch blue"> <span
+															class="toggleButton"></span>
 														</label>
 													</div>
 												</td>
@@ -357,24 +361,35 @@ openModalBtn.addEventListener('click', ()=> {
 //모달창 회원 검색 기능
 //TODO:
 
-//스위치 !!
-const switchbtn =
-	document.querySelectorAll(".swith");
+//권한 부여 스위치
+const toggleList = document.querySelectorAll(".toggleSwitch");
 
-switchbtn.forEach(($switch) => {
-	$switch.onclick = () => {
-		$switch.classList.switch('active');
-	}
-})	
+toggleList.forEach(($toggle) => {
+  $toggle.onclick = () => {
+    $toggle.classList.toggle('active');
+  }
+});
 
-/* .wrapper { position: relative; }
-#switch {
-  position: absolute;
-  /* hidden */
-/*   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-} */
+$(document).ready(function() {
+	$('.toggleSwitch input[type="checkbox"]').on('change', function(){
+		var isChecked = $(this).is(':checked');
+		var userId = $(this).data('user-id');
+		var url = '/change-user-auth' + userId;
+		
+		$(ajax({
+			url: url,
+			type : 'POST',
+			data : {auth: isChecked},
+			success: function(response){
+				
+			},
+			error: function(xhr, status, error){
+				
+			}
+		});
+	});
+});
+
 
 </script>
 
