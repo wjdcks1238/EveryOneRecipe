@@ -33,7 +33,7 @@
 			<div class="mainheading">
 
 				<!-- Begin Top Meta -->
-				<h1 class="posttitle">${post.foodName }</h1>
+				<h1 class="posttitle" id="posttitle">${post.foodName }</h1>
 				<div class="row post-top-meta">
 					<div class="col-md-2">
 						<a href="<%=request.getContextPath()%>/member/info/${post.userId}"><img class="author-thumb" src="${post.profileUrl}" alt="Sal"></a>
@@ -54,10 +54,13 @@
 													 <img id="followBtn" style="cursor: pointer;" alt="" width="30px" src="<%=request.getContextPath()%>/resources/icons/add.png">
 													 
 												</c:if>
-	
+												
 											</div>
 										</c:if>
 									</c:if>
+								</span>
+								<span>
+									&nbsp;&nbsp;<button type="button" class="btn_open_postreport" style="border: none; background: none; font-size: xx-small;">신고</button>
 								</span>
 							</c:if>
 							<!-- 
@@ -90,12 +93,12 @@
 						</c:forEach>						
     				</ul>
     				<div id="wrap">
-    				<div class="shadow"></div>
-					<div class="popup" style="width:970px; height:800px; overflow:auto;">							
-						<button type="button" class="close" onclick="closePopup();"></button>	
-						<div id="ing_title"></div>					
-						<div id="Context"></div>
-					</div>
+	    				<div class="shadow"></div>
+						<div class="popup" style="width:970px; height:800px; overflow:auto;">							
+							<button type="button" class="close" onclick="closePopup();"></button>	
+							<div id="ing_title"></div>					
+							<div id="Context"></div>
+						</div>
 					</div>
 				</blockquote>
 				<div id="post_content">    				
@@ -263,8 +266,6 @@
 $(document).ready(function() {
 	$(".editbox").hide();
 	$(".insertbox").hide();
-	$(".editRebox").hide();
-	$(".insertRebox").hide();
 });
 
 function openEdit(num) {
@@ -478,7 +479,6 @@ $("#deletePost").click(function(){
 
 })
 
-
 // 연관상품 관련
 // 팝업창 열기
 function openPopup(){
@@ -502,14 +502,13 @@ $(document).keydown(function(e){
 	}	
 });
 
-// 팝업 외부영역 누르면 팝업창 닫힘
+//팝업 외부영역 누르면 팝업창 닫힘
 $(document).mouseup(function(e){
 	if($('.popup').has(e.target).length ===0){
 		$('.popup').hide();
 		$('.shadow').hide();
 	}
 });
-
 
 
 // 버튼을 누르면 검색 데이터 가져오기 + 검색명 상단 출력
@@ -530,6 +529,19 @@ $(document).ready(function(){
 	});
 	});
 });	
+
+$(".btn_open_postreport").click(function() {
+	var title = document.getElementById("posttitle").innerHTML;
+	var context = document.getElementById("post_content").innerHTML;
+	var sliceContext = (context.trim()).substring(0,30) + " ...";
+	var postId = ${post.postId};
+	
+	console.log(title);
+	console.log(sliceContext);
+	console.log(postId);
+	
+	window.open("<%=request.getContextPath() %>/report/post?title=" + title + "&context=" + sliceContext + "&postId=" + postId, "게시글 신고", "width=525, height=300, resizable=no");
+})
 
 </script>
 
