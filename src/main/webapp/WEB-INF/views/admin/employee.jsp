@@ -13,28 +13,11 @@
 
 <title>모두의 레시피 관리자 모드</title>
 
-<!-- Custom fonts for this template -->
-<link
-	href="<%=request.getContextPath()%>/resources/sbadmin2/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-<!-- Custom styles for this template -->
-<link
-	href="<%=request.getContextPath()%>/resources/sbadmin2/css/sb-admin-2.min.css"
-	rel="stylesheet">
-<!-- Custom styles for this page -->
-<link
-	href="<%=request.getContextPath()%>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css"
-	rel="stylesheet">
-
 <!--스위치 스타일 추가 -->
 <style type="text/css">
 .wrapper {
 	position: relative;
 }
-
 #switch {
 	position: absolute;
 	/* hidden */
@@ -42,9 +25,8 @@
 	-webkit-appearance: none;
 	-moz-appearance: none;
 }
-
 .switch_label {
-	position: relative;
+	/* position: relative; */
 	cursor: pointer;
 	display: inline-block;
 	width: 58px;
@@ -54,11 +36,9 @@
 	border-radius: 20px;
 	transition: 0.2s;
 }
-
 .switch_label:hover {
 	background: #efefef;
 }
-
 .onf_btn {
 	position: absolute;
 	top: 5px;
@@ -75,11 +55,9 @@
 	background: #c44;
 	border: 2px solid #c44;
 }
-
 #switch:checked+.switch_label:hover {
 	background: #e55;
 }
-
 /* move */
 #switch:checked+.switch_label .onf_btn {
 	left: 33px;
@@ -87,6 +65,21 @@
 	box-shadow: 1px 2px 3px #00000020;
 }
 </style>
+<!-- Custom fonts for this template -->
+<link
+	href="<%=request.getContextPath()%>/resources/sbadmin2/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+<!-- Custom styles for this template -->
+<link
+	href="<%=request.getContextPath()%>/resources/sbadmin2/css/sb-admin-2.min.css"
+	rel="stylesheet">
+<!-- Custom styles for this page -->
+<link
+	href="<%=request.getContextPath()%>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css"
+	rel="stylesheet">
 </head>
 <body id="page-top">
 	<script>
@@ -257,9 +250,9 @@
 												<!-- 권한부여 버튼 만들기 -->
 												<td>
 													<div class="wrapper">
-														<input type="checkbox" id="switch"> <label
-															for="switch" class="switch_label"> <span
-															class="onf_btn"></span>
+														<input type="checkbox" id="switch" hidden> 
+														<label for="switch" class="switch_label">
+														 <span class="onf_btn"></span>
 														</label>
 													</div>
 												</td>
@@ -363,15 +356,26 @@ openModalBtn.addEventListener('click', ()=> {
 
 //모달창 회원 검색 기능
 //TODO:
-	
-.wrapper { position: relative; }
+
+//스위치 !!
+const switchbtn =
+	document.querySelectorAll(".swith");
+
+switchbtn.forEach(($switch) => {
+	$switch.onclick = () => {
+		$switch.classList.switch('active');
+	}
+})	
+
+/* .wrapper { position: relative; }
 #switch {
   position: absolute;
   /* hidden */
-  appearance: none;
+/*   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-}	
+} */
+
 </script>
 
 </body>
