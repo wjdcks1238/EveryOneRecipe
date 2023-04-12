@@ -62,12 +62,22 @@
   -webkit-transition: .2s ease;
   transition: .2s ease;
   background-color: #008CBA; }
+  	
+  #wrapper{
+  height: auto;
+  min-height: 60vh;
+  padding-bottom: 63.19px;
+}
+.footer{
+  height: 63.19px;
+  position : relative;
+}
 </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 
-<div class="container">
+<div  id='wrapper' class="container">
 	<div class="row">
 
 		<div class="col-md-2 col-xs-12">
