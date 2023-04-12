@@ -207,47 +207,6 @@
 								<button type="button" onclick="closeInsert(${cvo.cmtId})">취소</button>
 							</td>
 						</tr>
-						<c:forEach items="${replyComment }" var="rcvo" varStatus="rs">
-							<c:if test="${cvo.cmtId eq rcvo.cmtId }">
-								<tr>
-									<td style="width: 10%">ㄴRe:</td>
-									<td style="width: 90%">${rcvo.userId }</td>
-								</tr>
-								<tr>
-									<td style="width: 10%"></td>
-									<td style="width: 90%">${rcvo.content }</td>
-								</tr>
-								<tr>
-									<td style="width: 10%"></td>
-									<td style="width: 90%">${rcvo.updateAt }&nbsp;
-										<c:if test="${loggedIn }">
-											<c:set var="lgnuser"><%=request.getUserPrincipal().getName()%></c:set>
-										</c:if> <c:choose>
-											<c:when test="${loggedIn}">
-												<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="openReInsert(${rcvo.rcmId})">답글 쓰기</button>
-												<c:if test="${lgnuser eq rcvo.userId }">
-													<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="openReEdit(${rcvo.rcmId})">답글 수정</button>
-													<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="RedeleteCmt(${rcvo.rcmId})">답글 삭제</button>
-												</c:if>
-											</c:when>
-										</c:choose>
-									</td>
-								</tr>
-								<tr class="editRebox ${rcvo.rcmId }">
-									<td colspan="2"><textarea rows="3" cols="100%" name="updateReBox">${rcvo.content }</textarea> <br>
-										<button type="button" onclick="insertReplycomment(${rcvo.cmtId})">수정</button>
-										<button type="button" onclick="closeReEdit(${rcvo.rcmId})">취소</button>
-									</td>
-								</tr>
-								<tr class="insertRebox ${rcvo.rcmId }">
-									<td colspan="2">
-											<textarea rows="3" cols="100%" name="insertReBox"></textarea> <br>
-											<button type="button" onclick="insReply(${rcvo.rcmId})">작성</button>
-											<button type="button" onclick="closeReInsert(${rcvo.rcmId})">취소</button>
-									</td>
-								</tr>
-							</c:if>
-						</c:forEach>
 					</c:forEach>
 				</table>
 			</fieldset>
@@ -322,68 +281,6 @@ function openInsert(num) {
 
 function closeInsert(num) {
 	$(".insertbox."+num).hide();
-}
-
-function openReEdit(num) {
-	$(".editRebox."+num).show();
-}
-
-function closeReEdit(num) {
-	$(".editRebox."+num).hide();
-}
-
-function openReInsert(num) {
-	$(".insertRebox."+num).show();
-}
-
-function closeReInsert(num) {
-	$(".insertRebox."+num).hide();
-}
-
-function inscmt(cid) {
-	$.ajax({
-		url: "<%=request.getContextPath() %>/board/insertReplyCommentAjax",
-		type: "POST",
-		data: {
-			cmtId: cid,
-			content: $("[name=insertBox]").val(),
-			userId: "${uName}",
-			postId: ${post.postId}
-			},
-		dataType: "json",
-		async: false,
-		success: function(result) {
-			if(result.length >= 0) {
-				alert("댓글이 작성 되었습니다.")
-			} else {
-				alert("댓글이 작성 되지 않았습니다. 다시 작성 바랍니다.")
-			}
-			displayReply(result);
-		}
-	});
-}
-
-function insReply(cid) {
-	$.ajax({
-		url: "<%=request.getContextPath() %>/board/insertReplyCommentAjax",
-		type: "POST",
-		data: {
-			cmtId: cid,
-			content: $("[name=insertReBox]").val(),
-			userId: "${uName}",
-			postId: ${post.postId}
-			},
-		dataType: "json",
-		async: false,
-		success: function(result) {
-			if(result.length >= 0) {
-				alert("댓글이 작성 되었습니다.")
-			} else {
-				alert("댓글이 작성 되지 않았습니다. 다시 작성 바랍니다.")
-			}
-			displayReply(result);
-		}
-	});
 }
 
 function updateComment(cid) {
