@@ -23,21 +23,20 @@
 }
 #wrapper{
   height: auto;
-  min-height: 800px;
-  padding-bottom: 63.19px;
+  min-height: 60vh;
+  padding-bottom: 63.19px;	
 }
 .footer{
   height: 63.19px;
   position : relative;
-  transform : translateY(-100%);
 }
 </style>
 
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
-	<div id='wrapper'>
-		<div class="container">
+	
+		<div class="container" id='wrapper'>
 	 
 	
 		<form id="frm" action="posting" method="POST">
@@ -66,7 +65,6 @@
 	
 		</form>
 		</div>
-	</div>
 	
 	<%@ include file="/WEB-INF/views/footer.jsp" %>
 	<%@ include file="/WEB-INF/views/js_import.jsp" %>
