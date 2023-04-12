@@ -83,9 +83,12 @@ public class TempForTable {
 		System.out.println("값"+list);
 		
 		//set으로 변환후 포함관계 확인
-		Set<String> chosenSet = new HashSet<String>(Arrays.asList(list.split("\\$")));
-		chosenSet.remove("");
-		System.out.println(chosenSet);
+		List<String> chosenList = new ArrayList<String>(Arrays.asList(list.split("\\$")));
+		chosenList.remove("");
+//		System.out.println(chosenList);
+		HashSet<String> set = new HashSet<>();
+		
+		
 		List<IngredientVo> ingList=null;
 		try {
 			ingList = service.getIngredients();
@@ -111,6 +114,10 @@ public class TempForTable {
 			allIngMap.put(i, cuisineSet); 
 		}
 		System.out.println("전체:"+allIngMap);
+		//!!!!!!!!!!!!!!!!!고른재료가 아닌 레시피 재료를 조합해야 함. 수정필요 
+		for(int i=0;i<=87;i++) {
+			//combination(allIngMap.get(i), chosenList.size() , chosenList.size()-1, 0, set);			
+		}
 		
 		
 		
@@ -120,9 +127,16 @@ public class TempForTable {
 		//선택된 재료들의 부분집합(부족한 재료가 3개까지인 음식들 포함)
 		
 		for(int i=1; i<=87;i++) {
-			if(chosenSet.containsAll(allIngMap.get(i))) {
+			if(chosenList.containsAll(allIngMap.get(i))) {
 				System.out.println(allIngMap.get(i));
 				
+			
+				
+				
+
+				
+				
+				 
 				
 			}
 		}
@@ -131,7 +145,27 @@ public class TempForTable {
 		return null;
 	}
 	
-	
+	private static void combination(List<String> ingList, int n, int r, int index, HashSet<String> set ) {
+		if(r==0) {
+//			for(String i : set) {
+//				System.out.print(i+" ");	
+//			}
+			//조합 구해짐
+			for(int i=1; i<=87;i++) {
+
+			}
+			
+			System.out.println();
+			return;
+		}
+		
+		for(int i=index; i<n; i++) {
+			set.add(ingList.get(i));
+			combination(ingList, n, r-1, i+1, set);
+			set.remove(ingList.get(i));
+		}
+		
+	}
 	
 	
 	
