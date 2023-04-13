@@ -246,4 +246,5 @@ insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user04', '55', '댓글테스트
 --	"FWID",
 --	"USERID"
 --);
---
+----신고
+--게시글 신고시

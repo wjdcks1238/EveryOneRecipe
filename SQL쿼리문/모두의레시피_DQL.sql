@@ -2,6 +2,8 @@
 delete from MEMBERS where userid='user1';
 delete from MEMBERS where userid='&userId';
 
+select * from MEMBERS;
+
 --회원정보 수정  -- TODO
 --update USERSTABLE set EMAIL='user11@example.com', PASSWORD='user11', NICKNAME='user11'
 --                    , PROFILE='profile', PROFILEURL='사진경로', UPDATEAT=DEFAULT)
@@ -12,7 +14,7 @@ delete from MEMBERS where userid='&userId';
 select * from TBCOMMENT where POSTID=1 and ISDELETED='N' order by CMTID desc;
 --댓글 수정
 update TBCOMMENT set CONTENT='&content', UPDATEAT=default where CMTID='&cmtid';
---댓글 삭제 <<- 테이블 상에서 완전히 남기는 것이 아닌, 비공개 처리를 위해 ISDELETED를 'Y'로 변경
+--댓글 삭제 <<- 테이블 상에서 완전히 데이터를 지우는 것이 아닌, 비공개 처리를 위해 ISDELETED를 'Y'로 변경
 update TBCOMMENT set ISDELETED='Y' where CMTID='&cmtid';
 
 ----대댓글
@@ -26,6 +28,9 @@ update REPLYCOMMENT set CONTENT='&content', UPDATEAT=default where RCMID='&rcmid
 update REPLYCOMMENT set ISDELETED='Y' where RCMID='&rcmid';
 
 ----북마크
+--(최초 북마크 지정에 해당하지 않는 경우 / DB상에 POSTID 및 USERID에 대응하는 북마크 데이터가 없어서 조회를 해야 하는 케이스)
+--select * from POSTBOOKMARK;
+select COUNT(*) from POSTBOOKMARK where POSTID='&postid' and USERID='&userid';
 --(최초 북마크 지정 이후에 해당하는 경우)
 --북마크 해제
 update POSTBOOKMARK set ISDELETED='Y' where POSTID='&postid' and USERID='&userid';
