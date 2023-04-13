@@ -40,7 +40,8 @@
 		FROM POST
 		inner join POSTLIKE
 		on POST.postid = POSTLIKE.POSTID
-		WHERE ROWNUM <![CDATA[<=]]>11
+		<!-- WHERE ROWNUM <![CDATA[<=]]>11 -->
+		where POSTLIKE.ISDELETED='N'
 		group by post.postid, nickname, content, FOODNAME
 		ORDER BY count(post.postid) DESC		
 	</select>
