@@ -7,6 +7,7 @@ import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.board.vo.RecommendVo;
 
 
 
@@ -43,6 +44,7 @@ public interface BoardService {
 	public int insertHashtagList(List<HashtagVo> hashtagList) throws Exception;
 	public int deleteHashtagList(int postId) throws Exception;
 	public List<HashtagVo> getHashtags(int postId) throws Exception;
+	public List<RecommendVo> getIngForRec(List<String> chosenList) throws Exception;
 
 	
 }

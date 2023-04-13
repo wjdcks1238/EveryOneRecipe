@@ -12,6 +12,7 @@ import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.board.vo.RecommendVo;
 
 @Repository
 public class BoardDao {
@@ -83,6 +84,9 @@ public class BoardDao {
 	}
 	public int deleteHashtagList(int postId) {
 		return sqlSession.delete("boardMapper.deleteHashtagList",postId);
+	}
+	public List<RecommendVo> getIngForRec(List<String> chosenList) {
+		return sqlSession.selectList("boardMapper.getIngForRec",chosenList);
 	}
 	
 	

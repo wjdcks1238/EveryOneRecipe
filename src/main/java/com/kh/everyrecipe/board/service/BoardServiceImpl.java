@@ -11,6 +11,7 @@ import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.board.vo.RecommendVo;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -94,6 +95,16 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int deleteHashtagList(int postId) throws Exception {
 		return dao.deleteHashtagList(postId);
+	}
+	
+	
+	
+	
+	
+	//Recommend
+	@Override
+	public List<RecommendVo> getIngForRec(List<String> chosenList) throws Exception {
+		return dao.getIngForRec(chosenList);
 	}
 
 

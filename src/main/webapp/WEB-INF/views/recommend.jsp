@@ -19,19 +19,65 @@
 			${chosenList }
 		</div>
 		<div class="mt-5">
-			<h3>선택한 재료를 포함한 레시피 목록</h3>
+			<h3>선택한 재료들로 만들 수 있는 레시피 목록</h3>
 		</div>
-		<c:forEach items="${recList }" var="list">
+		<c:forEach items="${recList0 }" var="list">
 			<div>
 					${list.postId }
 					${list.foodName }
-					${list.ingredients }
+					<c:forEach items="${list.ingredients }" var="ing">
+						${ing.ingredient }
+						${ing.amount }
+					</c:forEach>
+					
 			</div>
 		</c:forEach>
+			<div class="mt-5">
+				<h3>선택한 재료들로 만들 수 있는 레시피 목록(1개 부족)</h3>
+			</div>
 			
+		<c:forEach items="${recList1 }" var="list">
+			<div>
+					${list.postId }
+					${list.foodName }
+					<c:forEach items="${list.ingredients }" var="ing">
+						${ing.ingredient }
+						${ing.amount }
+					</c:forEach>
+					
+			</div>
+		</c:forEach>
+			<div class="mt-5">
+				<h3>선택한 재료를 모두 포함한 레시피 목록(2개 부족)</h3>
+			</div>
+		<c:forEach items="${recList2 }" var="list">
+			<div>
+					${list.postId }
+					${list.foodName }
+					<c:forEach items="${list.ingredients }" var="ing">
+						${ing.ingredient }
+						${ing.amount }
+					</c:forEach>
+					
+			</div>
+		</c:forEach>
+			<div class="mt-5">
+				<h3>선택한 재료를 모두 포함한 레시피 목록(3개부족)</h3>
+			</div>
+		<c:forEach items="${recList3 }" var="list">
+			<div>
+					${list.postId }
+					${list.foodName }
+					<c:forEach items="${list.ingredients }" var="ing">
+						${ing.ingredient }
+						${ing.amount }
+					</c:forEach>
+					
+			</div>
+		</c:forEach>
+	</div>	
 		
-	</div>
-<%@ include file="/WEB-INF/views/footer.jsp" %>
+	<%@ include file="/WEB-INF/views/footer.jsp" %>
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 </body>
 </html>
