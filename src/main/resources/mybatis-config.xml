@@ -16,6 +16,7 @@
 		<typeAlias type="com.kh.everyrecipe.weekboard.vo.weekVo" alias="wvo"/>
 		<typeAlias type="com.kh.everyrecipe.weekboard.vo.popularVo" alias="WordVo"/>
 		<typeAlias type="com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo" alias="rcvo"/>
+		<typeAlias type="com.kh.everyrecipe.report.vo.ReportVo" alias="revo"/>
 	</typeAliases>
 	
 	<mappers>
@@ -28,6 +29,7 @@
 		<mapper resource="mappers/weekboard-mapper.xml"/>
 		<mapper resource="mappers/replycomment-mapper.xml"/>
 		<mapper resource="mappers/boardsearch-mapper.xml"/>
+		<mapper resource="mappers/report-mapper.xml"/>
 	</mappers>
 	
 </configuration>

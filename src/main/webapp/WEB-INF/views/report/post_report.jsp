@@ -53,20 +53,10 @@ font-size: 22px;
 <body>
 	<div>
 		신고하기
+		<input type="text" name="reportPostId" value="${postId }" hidden="hidden">
 	</div>
 	<div>
 		<table border="1" style="width: 100%; height: 100%">
-			<tr>
-				<td>신고대상</td>
-				<td>
-					<div>
-						${foodName}
-					</div>
-					<div>
-						${context }
-					</div>
-				</td>
-			</tr>
 			<tr>
 				<td>신고사유</td>
 				<td>
@@ -91,7 +81,7 @@ font-size: 22px;
 	</div>
 	<hr>
 	<div>
-		<button type="button">신고하기</button>
+		<button type="button" id="submitReport">신고하기</button>
 		<button type="button" id="closeWindow" onclick="closeWindow()">취소</button>
 	</div>
 
@@ -100,7 +90,7 @@ font-size: 22px;
 		window.close();
 	}
 
-	$('input:radio[id=inlineRadio4]').change(function() {
+	$('input:radio[name=reportOption]').change(function() {
 		toggleRadio();
 	});
 	
@@ -116,6 +106,53 @@ font-size: 22px;
 			console.log(inlineRadio4.checked);
 		}
 	}
+	
+	$("#submitReport").click(function() {
+		var reportOption = document.getElementsByName("reportOption");
+		var inlineRadio4 = document.getElementById("inlineRadio4");
+		var otherReport = document.getElementById("otherReport");
+		var postId = $("[name=reportPostId]").val();
+		
+		var selectedRadio = "";
+		var otherReportContext = "";
+		for(var i=0;i<reportOption.length;i++) {
+			if(reportOption[i].checked) {
+				if(reportOption[i].checked == inlineRadio4.checked) {
+					selectedRadio = reportOption[i].value;
+					otherReportContext = otherReport.value;
+					break;
+				} else {
+					selectedRadio = reportOption[i].value;
+					break;
+				}
+			}
+		}
+		
+		console.log(selectedRadio);
+		console.log(otherReportContext);
+		console.log(postId);
+		
+		$.ajax({
+			type: "POST",
+			url: "<%=request.getContextPath()%>/report/post",
+			data: {
+				selectedRadio: selectedRadio,
+				otherReportContext: otherReportContext,
+				postId: postId
+			},
+			async: false,
+			success: function(result) {
+				if(result == 1) {
+					alert("신고가 정상적으로 접수되었습니다.");
+				} else if(result == 0){
+					alert("신고가 정상 접수가 되지 않았습니다. 확인 후 다시 신고 바랍니다.");
+				} else {
+					alert("알 수 없는 이유로 신고 기능이 작동하지 않았습니다. 관리자에게 문의 바랍니다.");
+				}
+				window.close();
+			}
+		});
+	});
 </script>
 </body>
 </html>

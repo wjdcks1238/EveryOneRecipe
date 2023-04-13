@@ -535,6 +535,7 @@ $(".btn_open_postreport").click(function() {
 	var context = document.getElementById("post_content").innerHTML;
 	var sliceContext = (context.trim()).substring(0,30) + " ...";
 	var postId = ${post.postId};
+	var reportUser = "${uName}";
 	
 	console.log(title);
 	console.log(sliceContext);
