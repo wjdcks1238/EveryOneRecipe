@@ -1,6 +1,5 @@
 ----검색어
 --검색시, 검색어 내용 DB 추가
-insert into SEARCH values('&keyword', default);
 --CREATE TABLE "SEARCH" (
 --	"KEWORD"	VARCHAR2(30 CHAR)		NOT NULL,
 --	"TIMES"	NUMBER	DEFAULT 0	NOT NULL
@@ -56,21 +55,11 @@ commit;
 --COMMENT ON COLUMN "MEMBERS"."POSTBLOCKYN" IS 'N';
 --COMMENT ON COLUMN "MEMBERS"."REPLYBLOCKYN" IS 'N';
 --
-
---직원 권한 부여(AUTHORITY : 'ROLE_MEMBER: 멤버, ROLE_ADMIN:운영자')
-select * from members;
-update members set AUTHORITY = 'ROLE_ADMIN'  where  userid = 'user02';
-
-select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, postblockyn, replyblockyn, blockstartdt, blockenddt from members where authority='ROLE_ADMIN';
-
-
 ----게시물
 --
 --/temp로 기본 db 삽입
-
-select* from post;
-
 ----게시물 좋아요
+--게시물 좋아요 최초 지정
 --CREATE TABLE "POSTLIKE" (
 --	"POSTID"	NUMBER		NOT NULL,
 --	"USERID"	VARCHAR2(15 char)		NOT NULL,
@@ -95,7 +84,6 @@ select* from post;
 --
 ----게시물 북마크
 --최초 북마크 추가 시
-insert into POSTBOOKMARK values('&postid', '&userid', default);
 --CREATE TABLE "POSTBOOKMARK" (
 --	"POSTID"	NUMBER		NOT NULL,
 --	"USERID"	VARCHAR2(15 char)		NOT NULL,
@@ -118,6 +106,7 @@ insert into POSTBOOKMARK values('&postid', '&userid', default);
 --	"USERID"
 --);
 ----신고
+--게시글 신고 접수시
 --CREATE TABLE "REPORT" (
 --	"REPORTID"	VARCHAR2(15 char)		NOT NULL,
 --	"USERID"	VARCHAR2(15 char)		NOT NULL,
@@ -145,7 +134,26 @@ insert into POSTBOOKMARK values('&postid', '&userid', default);
 --COMMENT ON COLUMN "REPORT"."REPORTTIME" IS '신고 시간';
 ----댓글
 --댓글 삽입
-insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, '&userid', '&postid', '&content', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user01', '2', '댓글테스트1', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user02', '3', '댓글테스트2', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user03', '4', '댓글테스트3', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user04', '5', '댓글테스트4', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user01', '9', '댓글테스트5', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user02', '6', '댓글테스트6', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user03', '13', '댓글테스트7', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user04', '11', '댓글테스트8', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user01', '34', '댓글테스트9', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user02', '22', '댓글테스트10', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user03', '38', '댓글테스트11', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user04', '25', '댓글테스트12', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user01', '52', '댓글테스트13', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user02', '43', '댓글테스트14', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user03', '41', '댓글테스트15', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user04', '65', '댓글테스트16', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user01', '22', '댓글테스트17', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user02', '13', '댓글테스트18', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user03', '34', '댓글테스트19', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user04', '55', '댓글테스트20', default, default);
 
 --CREATE TABLE "TBCOMMENT" (
 --	"CMTID"	NUMBER		NOT NULL,
@@ -172,8 +180,6 @@ insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, '&userid', '&postid', '&content'
 --);
 ----대댓글
 --삽입
-insert into REPLYCOMMENT values(SEQ_RCMTID.NEXTVAL, '&cmtid', '&userid', '&content', default, default);
-insert into REPLYCOMMENT values(SEQ_RCMTID.NEXTVAL, 62, 'user04', '댓글테스트5', default, default);
 --CREATE TABLE "REPLYCOMMENT" (
 --	"RCMID"	NUMBER		NOT NULL,
 --	"CMTID"	NUMBER		NOT NULL,
@@ -223,6 +229,8 @@ insert into REPLYCOMMENT values(SEQ_RCMTID.NEXTVAL, 62, 'user04', '댓글테스�
 --);
 --
 ----팔로우매핑
+--팔로우 최초 추가(이전에 팔로우 한 상황이 아니라는 가정 하에)
+
 --CREATE TABLE "FOLLOWMAPPING" (
 --	"FWID"	VARCHAR2(15 char)		NOT NULL,
 --	"USERID"	VARCHAR2(15 char)		NOT NULL,
