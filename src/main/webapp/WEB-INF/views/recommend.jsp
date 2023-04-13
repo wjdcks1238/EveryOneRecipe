@@ -25,10 +25,12 @@
 			<div>
 					${list.postId }
 					${list.foodName }
+					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
 						${ing.amount }
 					</c:forEach>
+					</div>
 					
 			</div>
 		</c:forEach>
@@ -40,10 +42,12 @@
 			<div>
 					${list.postId }
 					${list.foodName }
+					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
 						${ing.amount }
 					</c:forEach>
+					</div>
 					
 			</div>
 		</c:forEach>
@@ -54,10 +58,12 @@
 			<div>
 					${list.postId }
 					${list.foodName }
+					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
 						${ing.amount }
 					</c:forEach>
+					</div>
 					
 			</div>
 		</c:forEach>
@@ -68,10 +74,12 @@
 			<div>
 					${list.postId }
 					${list.foodName }
+					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
 						${ing.amount }
 					</c:forEach>
+					</div>
 					
 			</div>
 		</c:forEach>

@@ -43,6 +43,7 @@ import com.kh.everyrecipe.board.service.BoardService;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.board.vo.RecommendVo;
 
 @Configuration
 @PropertySource("classpath:apiKeys.properties")
@@ -117,11 +118,11 @@ public class TempForTable {
 //		
 //		
 //		
-////		List<List<String> > recList = new ArrayList();
-//		List<PostVo> recList0 = new ArrayList();
-//		List<PostVo> recList1 = new ArrayList();
-//		List<PostVo> recList2 = new ArrayList();
-//		List<PostVo> recList3 = new ArrayList();
+
+		List<PostVo> recList0 = new ArrayList();
+		List<PostVo> recList1 = new ArrayList();
+		List<PostVo> recList2 = new ArrayList();
+		List<PostVo> recList3 = new ArrayList();
 //		for(int i=1;i<=lastPostId;i++) {
 //			if(combination(allIngMap.get(i), allIngMap.get(i).size() , allIngMap.get(i).size(), 0, set, chosenList)) {
 //				
@@ -162,18 +163,38 @@ public class TempForTable {
 //
 //		
 //
-//		mv.addObject("recList0", recList0);
-//		mv.addObject("recList1", recList1);
-//		mv.addObject("recList2", recList2);
-//		mv.addObject("recList3", recList3);
-//		mv.addObject("chosenList", chosenList);
+
+		List<RecommendVo> recList= service.getIngForRec(chosenList);
+		
+
+		for(RecommendVo vo: recList) {
+			if(vo.getIngcnt()-vo.getCnt()==0) {
+				recList0.add(service.selectOne(vo.getPostId()));
+			}
+			if(vo.getIngcnt()-vo.getCnt()==1) {
+				recList1.add(service.selectOne(vo.getPostId()));
+			}	
+			if(vo.getIngcnt()-vo.getCnt()==2) {
+				recList2.add(service.selectOne(vo.getPostId()));
+			}
+			if(vo.getIngcnt()-vo.getCnt()==3) {
+				recList3.add(service.selectOne(vo.getPostId()));
+			}
+		}
+		
+		
+		mv.addObject("recList0", recList0);
+		mv.addObject("recList1", recList1);
+		mv.addObject("recList2", recList2);
+		mv.addObject("recList3", recList3);
+		mv.addObject("chosenList", chosenList);
+		
 		mv.setViewName("recommend");
 
 		
 		
 		
 		
-		System.out.println(service.getIngForRec(chosenList));
 		 
 		
 		
