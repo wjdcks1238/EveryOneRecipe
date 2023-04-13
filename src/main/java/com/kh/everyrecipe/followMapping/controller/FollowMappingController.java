@@ -2,13 +2,18 @@ package com.kh.everyrecipe.followMapping.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
 
@@ -54,5 +59,15 @@ public class FollowMappingController {
 		
 		return false;
 	}
+	
+	 @RequestMapping(value = "/board/recommend", method = RequestMethod.GET)
+		public ModelAndView getRecommendPost(ModelAndView mv) {		
+			List<BoardVo> rcpost = fService.getRecommendPost();
+			mv.addObject("rcpost", rcpost);
+			mv.setViewName("board/recommend");
+			
+			return mv;
+		}
+	
 	
 }

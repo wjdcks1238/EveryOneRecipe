@@ -35,6 +35,14 @@
 	<select id="getFollowing" parameterType="string" resultType="string">
 		select userId from FOLLOWMAPPING where FWID=#{fwId} and ISDELETED ='N'
 	</select>
-	
+	<select id="getRecommendPost" resultType="bvo">
+		SELECT post.postid, nickname, content, FOODNAME, count(post.postid)
+		FROM POST
+		inner join POSTLIKE
+		on POST.postid = POSTLIKE.POSTID
+		WHERE ROWNUM <![CDATA[<=]]>11
+		group by post.postid, nickname, content, FOODNAME
+		ORDER BY count(post.postid) DESC		
+	</select>
 	
 </mapper>

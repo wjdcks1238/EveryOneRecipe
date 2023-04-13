@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
@@ -56,6 +57,10 @@ public class FollowMappingDao {
 
 	public List<String> getFollowing(String userId) {
 		return sqlSession.selectList("followMapper.getFollowing",userId);
+	}
+	
+	public List<BoardVo> getRecommendPost(){
+		return sqlSession.selectList("followMapper.getRecommendPost");
 	}
 
 	
