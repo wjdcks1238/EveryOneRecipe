@@ -76,9 +76,15 @@ public class FollowMappingImpl implements FollowMappingService{
 	}
 
 
+	
+	
 	@Override
 	public List<BoardVo> getRecommendPost() {
 		return dao.getRecommendPost();
+	}	
+	@Override
+	public List<BoardVo> getFollowingPost(String userId){
+		return dao.getFollowingPost(userId);
 	}
 
 
