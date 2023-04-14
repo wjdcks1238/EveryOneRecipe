@@ -250,7 +250,7 @@ public class TempForTable {
 		
 		
 		
-		//삽입이 5번 이루어져야 한다.
+		//삽입이 6번 이루어져야 한다.
 		
 		//메뉴 1~85
 		//과정 1~471  
@@ -282,113 +282,38 @@ public class TempForTable {
 		List<Map<String, Integer>>  rangeForC = new ArrayList<Map<String,Integer>>();
 		List<Map<String, Integer>>  rangeForI = new ArrayList<Map<String,Integer>>();
 		
-		Map<String, Integer> fromTo = new HashMap<String, Integer>();
 		
-		
-//		fromTo.put("from", 1);
-//		fromTo.put("to", 85);
-//		rangeForM.add(fromTo);
-		rangeForM.add(new HashMap<String, Integer>(){{put("from", 1);put("to", 85); }} );
-		
-		fromTo.put("from", 86);
-		fromTo.put("to", 176);
-		
-		rangeForM.add(new HashMap<String, Integer>(){{put("from", 86);put("to", 176); }} );
-		
-		fromTo.put("from", 177);
-		fromTo.put("to", 262);
-		rangeForM.add(new HashMap<String, Integer>(){{put("from", 177);put("to", 262); }} );
-		
-		fromTo.put("from", 263);
-		fromTo.put("to", 359);
-		rangeForM.add(new HashMap<String, Integer>(){{put("from", 263);put("to", 359); }} );
-		
-		fromTo.put("from", 360);
-		fromTo.put("to", 447);
-		rangeForM.add(new HashMap<String, Integer>(){{put("from", 360);put("to", 447); }} );
-		
-		fromTo.put("from", 448);
-		fromTo.put("to", 537);
-		rangeForM.add(new HashMap<String, Integer>(){{put("from", 448);put("to", 537); }} );
 
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 1);put("to", 85); }} );
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 86);put("to", 176); }} );
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 177);put("to", 262); }} );
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 263);put("to", 359); }} );
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 360);put("to", 447); }} );
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 448);put("to", 537); }} );
 		
-		
-//		fromTo.put("from", 1);
-//		fromTo.put("to", 471);
-//		rangeForC.add(fromTo);
+
 		rangeForC.add(new HashMap<String, Integer>(){{put("from", 1);put("to", 471); }} );
-		fromTo.put("from", 472);
-		fromTo.put("to", 956);
 		rangeForC.add(new HashMap<String, Integer>(){{put("from", 472);put("to", 956); }} );
-		
-		fromTo.put("from", 957);
-		fromTo.put("to", 1406);
 		rangeForC.add(new HashMap<String, Integer>(){{put("from", 957);put("to", 1406); }} );
-		
-		fromTo.put("from", 1407);
-		fromTo.put("to", 1906);
 		rangeForC.add(new HashMap<String, Integer>(){{put("from", 1407);put("to", 1906); }} );
-		
-		fromTo.put("from", 1907);
-		fromTo.put("to", 2374);
 		rangeForC.add(new HashMap<String, Integer>(){{put("from", 1907);put("to", 2374); }} );
-		
-		fromTo.put("from", 2375);
-		fromTo.put("to", 2797);
 		rangeForC.add(new HashMap<String, Integer>(){{put("from", 2375);put("to", 2797); }} );
 		
 		
-		
-		
-//		fromTo.put("from", 1);
-//		fromTo.put("to", 999);
-//		rangeForI.add(fromTo);
 		rangeForI.add(new HashMap<String, Integer>(){{put("from", 1);put("to", 999); }} );
-		
-		fromTo.put("from", 1000);
-		fromTo.put("to", 1993);
 		rangeForI.add(new HashMap<String, Integer>(){{put("from", 1000);put("to", 1993); }} );
-		
-		fromTo.put("from", 1994);
-		fromTo.put("to", 2990);
 		rangeForI.add(new HashMap<String, Integer>(){{put("from", 1994);put("to", 2990); }} );
-		
-		fromTo.put("from", 2991);
-		fromTo.put("to", 3985);
 		rangeForI.add(new HashMap<String, Integer>(){{put("from", 2991);put("to", 3985); }} );
-		
-		fromTo.put("from", 3986);
-		fromTo.put("to", 4981);
 		rangeForI.add(new HashMap<String, Integer>(){{put("from", 3986);put("to", 4981); }} );
-		
-		fromTo.put("from", 4982);
-		fromTo.put("to", 5720);
 		rangeForI.add(new HashMap<String, Integer>(){{put("from", 4982);put("to", 5720); }} );
-		
-		
-		
-		
-		System.out.println(rangeForM);
-		System.out.println(rangeForC);
-		System.out.println(rangeForI);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+				
 	
 		String menu="";
 		String ingredient="";
 		String cuisine="";
 		
 		
-	for(int k=0; k<=6;k++) {
+	for(int k=0; k<6;k++) {
 		
 	
 		 
@@ -634,8 +559,6 @@ public class TempForTable {
 		
 		
 		
-		//한번 요청에 1000건까지만 가능해서 1~85번 레시피 까지만 가능. 
-		
 		
 		//과정
 		List<String> csn = new ArrayList<String>();
@@ -667,7 +590,7 @@ public class TempForTable {
 		
 //		객체에 담기(게시글)
 		List<BoardVo> bvoList = new ArrayList<BoardVo>();
-		for(int i=1; i<=537;i++) {
+		for(int i=1; i<=m.size();i++) {
 			BoardVo bvo = new BoardVo();
 			
 			bvo.setUserId("everys_recipe");
@@ -682,7 +605,7 @@ public class TempForTable {
 //		객체에 담기(재료)
 		System.out.println(ing);
 		List<IngredientVo> iList = new ArrayList<IngredientVo>();
-		for(int i=1; i<=262;i++) {
+		for(int i=1; i<=m.size();i++) {
 			
 			LinkedHashMap<String, String> map =ing.get(i+"");
 		
@@ -695,13 +618,7 @@ public class TempForTable {
 				ivo.setAmount(value); 
 				iList.add(ivo);
 			}
-			
-			
-//			ivo.setIngredient(ing.get(i));
-//			ivo.setAmount(amount);
-			//포스트 id처리 필요 
-			//일단 1~85 으로 처리
-			
+	
 			
 		}
 		System.out.println(iList);
@@ -711,20 +628,11 @@ public class TempForTable {
 			//재료 테이블에 저장 
 			service.insertIngList(iList);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		
 		
 		
