@@ -23,16 +23,18 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 
 
-<div class="container-fluid">
-		<div class="row flex-nowrap">
-			<div class="col-1 bd-sidebar">
+<div  class="container">
+
+		<div class="row ">
+			<div class="col-md-2 col-xs-12">
 				<ul class="navbar-nav">
 					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
 					<li class="nav-item "><a class="nav-link" href="#">비밀번호 변경</a></li>
 				</ul>
 			</div>
-				<div class="container">
+			
+			<div class="col-md-8 col-md-offset-2 col-xs-12">
 		
 				
 					<c:choose >
@@ -53,10 +55,7 @@
 						</c:forEach>
 						</c:when>
 					</c:choose>
-				
-
-					
-				</div>
+			</div>
 		</div>
 	</div>
 
