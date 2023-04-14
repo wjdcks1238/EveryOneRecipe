@@ -18,6 +18,7 @@ public class weekVo {
 	private String userId;
 	private String nickname;	
 	private String foodName;
+	private String content;
 	private int lookUp;
 	private Date createAt;
 	private Date updateAt;
@@ -100,4 +101,12 @@ public class weekVo {
 	public void setIsDeleted(String isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	
 }
