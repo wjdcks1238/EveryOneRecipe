@@ -59,8 +59,15 @@ public class FollowMappingDao {
 		return sqlSession.selectList("followMapper.getFollowing",userId);
 	}
 	
+	
+	
+	// 추천 게시물 피드
 	public List<BoardVo> getRecommendPost(){
 		return sqlSession.selectList("followMapper.getRecommendPost");
+	}
+	//팔로잉 게시물 피드
+	public List<BoardVo> getFollowingPost(String userId){
+		return sqlSession.selectList("followMapper.getFollowingPost", userId);
 	}
 
 	

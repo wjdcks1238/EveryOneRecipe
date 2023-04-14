@@ -24,6 +24,8 @@ public interface FollowMappingService {
 	public List<String>  getFollower(String userId) throws Exception;
 	public List<String> getFollowing(String userId) throws Exception;
 	
-	public List<BoardVo> getRecommendPost();
+	
+	public List<BoardVo> getRecommendPost();	
+	public List<BoardVo> getFollowingPost(String userId);
 	
 }
