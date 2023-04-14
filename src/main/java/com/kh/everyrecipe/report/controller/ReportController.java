@@ -75,4 +75,22 @@ public class ReportController {
 		
 		return result;
 	}
+	
+	@GetMapping("comment")
+	public ModelAndView commentReport(
+			ModelAndView mv,
+			@RequestParam("cmtId") int cmtId,
+			@RequestParam("content") String content,
+			@RequestParam("reportUser") String reportUser,
+			Principal principal
+			) {
+		
+		System.out.println(cmtId);
+		System.out.println(content);
+		System.out.println(reportUser);
+		System.out.println(principal.getName());
+		
+		mv.setViewName("report/comment_report");
+		return mv;
+	}
 }

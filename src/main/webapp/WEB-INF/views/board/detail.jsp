@@ -179,10 +179,11 @@
 				<table id="tb_comment" style="width: 100%">
 					<c:forEach items="${comment }" var="cvo" varStatus="s">
 						<tr>
-							<td colspan="2">${cvo.userId }</td>
+							<td colspan="2" id="cmtUser${cvo.cmtId}">${cvo.userId }</td>
+							<td><button type="button" data-cmtid="${cvo.cmtId }" class="btn_open_commentreport" style="border: none; background: none; font-size: xx-small;">신고</button></td>
 						</tr>
 						<tr>
-							<td colspan="2">${cvo.content }</td>
+							<td colspan="2" id="commentContent${cvo.cmtId }">${cvo.content }</td>
 						</tr>
 						<tr>
 							<td colspan="2">${cvo.updateAt }&nbsp;
@@ -542,7 +543,22 @@ $(".btn_open_postreport").click(function() {
 	console.log(postId);
 	
 	window.open("<%=request.getContextPath() %>/report/post?title=" + title + "&context=" + sliceContext + "&postId=" + postId, "게시글 신고", "width=525, height=300, resizable=no");
-})
+});
+
+$(".btn_open_commentreport").click(function() {
+	
+	var cmtId = $(this).data('cmtid');
+	var getContent = document.getElementById("commentContent"+cmtId);
+	var content = getContent.innerHTML;
+	var getUser = document.getElementById("cmtUser"+cmtId);
+	var reportUser = getUser.innerHTML;
+	
+	console.log(cmtId);
+	console.log(content);
+	console.log(reportUser);
+	
+	window.open("<%=request.getContextPath() %>/report/comment?cmtId=" + cmtId + "&content=" + content + "&reportUser=" + reportUser, "댓글 신고", "width=525, height=300, resizable=no");
+});
 
 </script>
 
