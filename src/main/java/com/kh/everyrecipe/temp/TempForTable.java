@@ -245,32 +245,153 @@ public class TempForTable {
 		
 		
 		
+	
 		
-//		Properties prop = new Properties();
-//		InputStream stream = getClass().getClassLoader().getResourceAsStream("apiKeys.properties");
-//		try {
-//			prop.load(stream);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		String key = prop.getProperty("recipe");
+		
+		
+		
+		//삽입이 5번 이루어져야 한다.
+		
+		//메뉴 1~85
+		//과정 1~471  
+		//재료 1~999	 1~85
+		
+		//메뉴 86~176
+		//과정 472~956    
+		//재료 1000~1993 86~176
+		
+		//메뉴 177~ 262
+		//과정 957~1406  
+		//재료 1994~2990 177~ 262
+		
+		//메뉴 263~359
+		//과정 1407~1906 
+		//재료 2991~3985 263~359
+		
+		//메뉴 360~ 447
+		//과정 1907~2374  
+		//재료 3986~4981	360~ 447
+		
+		//메뉴 448~537
+		//과정 2375~2797 
+		//재료 4982~5720 448~537
 
 		
 		
+		List<Map<String, Integer>>  rangeForM = new ArrayList<Map<String,Integer>>();
+		List<Map<String, Integer>>  rangeForC = new ArrayList<Map<String,Integer>>();
+		List<Map<String, Integer>>  rangeForI = new ArrayList<Map<String,Integer>>();
 		
-//		이름 1~1000 -> 1~537
-//		
-//		과정 1~1000 -> 1~184 
-//		1001~1996  185~375
-//		1997~2797  376~537
-//
-//		재료 1~999 -> 1~85
-//		1000~1993  86~176
-//		1994~2990  177~262 
-//		2991~3985  263~359
-//		3986~4981  360~447
-//		4982~5720  448~537
+		Map<String, Integer> fromTo = new HashMap<String, Integer>();
 		
+		
+//		fromTo.put("from", 1);
+//		fromTo.put("to", 85);
+//		rangeForM.add(fromTo);
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 1);put("to", 85); }} );
+		
+		fromTo.put("from", 86);
+		fromTo.put("to", 176);
+		
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 86);put("to", 176); }} );
+		
+		fromTo.put("from", 177);
+		fromTo.put("to", 262);
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 177);put("to", 262); }} );
+		
+		fromTo.put("from", 263);
+		fromTo.put("to", 359);
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 263);put("to", 359); }} );
+		
+		fromTo.put("from", 360);
+		fromTo.put("to", 447);
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 360);put("to", 447); }} );
+		
+		fromTo.put("from", 448);
+		fromTo.put("to", 537);
+		rangeForM.add(new HashMap<String, Integer>(){{put("from", 448);put("to", 537); }} );
+
+		
+		
+//		fromTo.put("from", 1);
+//		fromTo.put("to", 471);
+//		rangeForC.add(fromTo);
+		rangeForC.add(new HashMap<String, Integer>(){{put("from", 1);put("to", 471); }} );
+		fromTo.put("from", 472);
+		fromTo.put("to", 956);
+		rangeForC.add(new HashMap<String, Integer>(){{put("from", 472);put("to", 956); }} );
+		
+		fromTo.put("from", 957);
+		fromTo.put("to", 1406);
+		rangeForC.add(new HashMap<String, Integer>(){{put("from", 957);put("to", 1406); }} );
+		
+		fromTo.put("from", 1407);
+		fromTo.put("to", 1906);
+		rangeForC.add(new HashMap<String, Integer>(){{put("from", 1407);put("to", 1906); }} );
+		
+		fromTo.put("from", 1907);
+		fromTo.put("to", 2374);
+		rangeForC.add(new HashMap<String, Integer>(){{put("from", 1907);put("to", 2374); }} );
+		
+		fromTo.put("from", 2375);
+		fromTo.put("to", 2797);
+		rangeForC.add(new HashMap<String, Integer>(){{put("from", 2375);put("to", 2797); }} );
+		
+		
+		
+		
+//		fromTo.put("from", 1);
+//		fromTo.put("to", 999);
+//		rangeForI.add(fromTo);
+		rangeForI.add(new HashMap<String, Integer>(){{put("from", 1);put("to", 999); }} );
+		
+		fromTo.put("from", 1000);
+		fromTo.put("to", 1993);
+		rangeForI.add(new HashMap<String, Integer>(){{put("from", 1000);put("to", 1993); }} );
+		
+		fromTo.put("from", 1994);
+		fromTo.put("to", 2990);
+		rangeForI.add(new HashMap<String, Integer>(){{put("from", 1994);put("to", 2990); }} );
+		
+		fromTo.put("from", 2991);
+		fromTo.put("to", 3985);
+		rangeForI.add(new HashMap<String, Integer>(){{put("from", 2991);put("to", 3985); }} );
+		
+		fromTo.put("from", 3986);
+		fromTo.put("to", 4981);
+		rangeForI.add(new HashMap<String, Integer>(){{put("from", 3986);put("to", 4981); }} );
+		
+		fromTo.put("from", 4982);
+		fromTo.put("to", 5720);
+		rangeForI.add(new HashMap<String, Integer>(){{put("from", 4982);put("to", 5720); }} );
+		
+		
+		
+		
+		System.out.println(rangeForM);
+		System.out.println(rangeForC);
+		System.out.println(rangeForI);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+		String menu="";
+		String ingredient="";
+		String cuisine="";
+		
+		
+	for(int k=0; k<=6;k++) {
+		
+	
+		 
 		URL url=null;
 		BufferedReader br = null;
 		String result1 = "";
@@ -311,9 +432,7 @@ public class TempForTable {
 		
 		 
 		 
-		 String menu="";
-		 String ingredient="";
-		 String cuisine="";
+		 
 		try {
 			//url에 요청인자 삽입
 			urlBuilder1.append(URLEncoder.encode(key, "UTF-8"));//인증키
@@ -321,7 +440,7 @@ public class TempForTable {
 			urlBuilder1.append("/" + URLEncoder.encode("Grid_20150827000000000226_1", "UTF-8")); /*레시피 기본정보*/
 //			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000227_1", "UTF-8")); /*레시피 재료정보*/
 //			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000228_1", "UTF-8")); /*레시피 과정정보*/
-			urlBuilder1.append("/" + URLEncoder.encode("1", "UTF-8") + "/" + URLEncoder.encode("100", "UTF-8")); /*레시피 기본정보*/
+			urlBuilder1.append("/" + URLEncoder.encode( rangeForM.get(k).get("from")+"" , "UTF-8") + "/" + URLEncoder.encode(rangeForM.get(k).get("to")+"", "UTF-8")); /*레시피 기본정보*/
 			url = new URL(urlBuilder1.toString());
 			urlconnection = (HttpURLConnection) url.openConnection();
 			br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
@@ -337,8 +456,6 @@ public class TempForTable {
             xpath = xpathFactory.newXPath();
 			
           expr = xpath.compile("//Grid_20150827000000000226_1/row");//<Grid_20150827000000000226_1> 아래의 <row>의 값들을 읽음
-//            expr = xpath.compile("//Grid_20150827000000000227_1/row");//<Grid_20150827000000000226_1> 아래의 <row>의 값들을 읽음
-//            expr = xpath.compile("//Grid_20150827000000000228_1/row");//<Grid_20150827000000000226_1> 아래의 <row>의 값들을 읽음
             nodeList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
             for (int i = 0; i < nodeList.getLength(); i++) {
                 NodeList child = nodeList.item(i).getChildNodes();
@@ -365,10 +482,8 @@ public class TempForTable {
           //url에 요청인자 삽입
 			urlBuilder2.append(URLEncoder.encode(key, "UTF-8"));//인증키
 			urlBuilder2.append("/" + URLEncoder.encode("xml", "UTF-8"));
-//			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000226_1", "UTF-8")); /*레시피 기본정보*/
 			urlBuilder2.append("/" + URLEncoder.encode("Grid_20150827000000000227_1", "UTF-8")); /*레시피 재료정보*/
-//			urlBuilder2.append("/" + URLEncoder.encode("Grid_20150827000000000228_1", "UTF-8")); /*레시피 과정정보*/
-			urlBuilder2.append("/" + URLEncoder.encode("1", "UTF-8") + "/" + URLEncoder.encode("1000", "UTF-8"));
+			urlBuilder2.append("/" + URLEncoder.encode(rangeForI.get(k).get("from")+"" , "UTF-8") + "/" + URLEncoder.encode(rangeForI.get(k).get("to")+"", "UTF-8"));
 			url = new URL(urlBuilder2.toString());
 			urlconnection = (HttpURLConnection) url.openConnection();
 			br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
@@ -383,9 +498,7 @@ public class TempForTable {
             xpathFactory = XPathFactory.newInstance();
             xpath = xpathFactory.newXPath();
 			
-//          expr = xpath.compile("//Grid_20150827000000000226_1/row");//<Grid_20150827000000000226_1> 아래의 <row>의 값들을 읽음
             expr = xpath.compile("//Grid_20150827000000000227_1/row");//<Grid_20150827000000000226_1> 아래의 <row>의 값들을 읽음
-//            expr = xpath.compile("//Grid_20150827000000000228_1/row");//<Grid_20150827000000000226_1> 아래의 <row>의 값들을 읽음
             nodeList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
             for (int i = 0; i < nodeList.getLength(); i++) {
                 NodeList child = nodeList.item(i).getChildNodes();
@@ -418,10 +531,8 @@ public class TempForTable {
           //url에 요청인자 삽입
 			urlBuilder3.append(URLEncoder.encode(key, "UTF-8"));//인증키
 			urlBuilder3.append("/" + URLEncoder.encode("xml", "UTF-8"));
-//			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000226_1", "UTF-8")); /*레시피 기본정보*/
-//			urlBuilder.append("/" + URLEncoder.encode("Grid_20150827000000000227_1", "UTF-8")); /*레시피 재료정보*/
 			urlBuilder3.append("/" + URLEncoder.encode("Grid_20150827000000000228_1", "UTF-8")); /*레시피 과정정보*/
-			urlBuilder3.append("/" + URLEncoder.encode("1", "UTF-8") + "/" + URLEncoder.encode("600", "UTF-8"));
+			urlBuilder3.append("/" + URLEncoder.encode(rangeForC.get(k).get("from")+"" , "UTF-8") + "/" + URLEncoder.encode(rangeForC.get(k).get("to")+"", "UTF-8"));
 			url = new URL(urlBuilder3.toString());
 			urlconnection = (HttpURLConnection) url.openConnection();
 			br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
@@ -436,8 +547,6 @@ public class TempForTable {
             xpathFactory = XPathFactory.newInstance();
             xpath = xpathFactory.newXPath();
 			
-//          expr = xpath.compile("//Grid_20150827000000000226_1/row");//<Grid_20150827000000000226_1> 아래의 <row>의 값들을 읽음
-//            expr = xpath.compile("//Grid_20150827000000000227_1/row");//<Grid_20150827000000000226_1> 아래의 <row>의 값들을 읽음
             expr = xpath.compile("//Grid_20150827000000000228_1/row");//<Grid_20150827000000000226_1> 아래의 <row>의 값들을 읽음
             nodeList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -464,52 +573,11 @@ public class TempForTable {
             
 
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 			
-		
-		
-		
-		//기본정보
-//		RECIPE_ID	레시피 코드 (SEQ_RECIPE)
-//		RECIPE_NM_KO	레시피 이름(한글)
-//		SUMRY	간략(요약) 소개   x
-//		NATION_CODE	유형코드  x
-//		NATION_NM	유형분류  x
-//		TY_CODE	음식분류코드   x
-//		TY_NM	음식분류   x
-//		COOKING_TIME	조리시간  x
-//		CALORIE	칼로리  x
-//		QNT	분량  x
-//		LEVEL_NM	난이도  x
-//		IRDNT_CODE	재료별 분류명 x
-//		PC_NM	가격별 분류  x
-		
-		
-		
-		//재료 정보   
-//		RECIPE_ID	레시피 코드
-//		IRDNT_SN	재료순번  x
-//		IRDNT_NM	재료명
-//		IRDNT_CPCTY	재료용량
-//		IRDNT_TY_CODE	재료타입 코드 x
-//		IRDNT_TY_NM	재료타입명 x
-		
-		
-		
-		//레시피 과정정보
-//		RECIPE_ID	레시피 코드
-//		COOKING_NO	요리설명순서 x
-//		COOKING_DC	요리설명
-//		STEP_TIP	과정팁	x 	
-		
-		
-		
-		
-		
-		
-
+	}
+	
 		
 		
 		
@@ -517,26 +585,23 @@ public class TempForTable {
 		
 		
 		
-//		
-//		System.out.println(menu);
-//		System.out.println();
-//		System.out.println(ingredient);
-//		System.out.println();
-//		System.out.println(cuisine);
+		
+		
+		System.out.println(menu);
+		System.out.println(cuisine);
+		System.out.println(ingredient);
+		
 		//$로 크게 나누고 %로 다시 나눠서 index(0)으로 재료코드를 얻는다.
 		//
 		
 		//메뉴 
 		List<String> mn = new ArrayList<String>();
 		Map<String,String> m = new HashMap<String, String>();
-//		System.out.println(menu );
-//		System.out.println(Arrays.toString(menu.split("\\$")) );
 
 		mn.addAll(Arrays.asList(menu.split("\\$")));
 		for(String s : mn) {
 			m.put(s.split("%")[0], s.split("%")[1]);
 		}
-//		System.out.println(m);
 
 						
 		
@@ -544,7 +609,6 @@ public class TempForTable {
 		//map 안에 map 넣기 
 		
 
-//		System.out.println(Arrays.toString(ingredient.split("\\$")) );
 		List<String> ingList = new ArrayList<String>();
 		ingList.addAll(Arrays.asList(ingredient.split("\\$")));
 		
@@ -568,7 +632,6 @@ public class TempForTable {
 			
 		}
 		
-//		System.out.println(ing);
 		
 		
 		//한번 요청에 1000건까지만 가능해서 1~85번 레시피 까지만 가능. 
@@ -577,8 +640,6 @@ public class TempForTable {
 		//과정
 		List<String> csn = new ArrayList<String>();
 		Map<String,String> cs = new HashMap<String, String>();
-//		System.out.println(menu );
-//		System.out.println(Arrays.toString(cuisine.split("\\$")) );
 
 		csn.addAll(Arrays.asList(cuisine.split("\\$")));
 		
@@ -595,7 +656,6 @@ public class TempForTable {
 		}
 		
 		
-//		System.out.println(cs);
 
 		
 		
@@ -607,26 +667,26 @@ public class TempForTable {
 		
 //		객체에 담기(게시글)
 		List<BoardVo> bvoList = new ArrayList<BoardVo>();
-		for(int i=1; i<86;i++) {
+		for(int i=1; i<=537;i++) {
 			BoardVo bvo = new BoardVo();
 			
 			bvo.setUserId("everys_recipe");
 			bvo.setNickname("모두의 레시피");
-//			System.out.println(m.get(i+""));
 			bvo.setFoodName(m.get(i+""));
 			bvo.setContent(cs.get(i+""));
 			bvo.setPostId(i);
-//			System.out.println(cs.get(i+""));
 			bvoList.add(bvo);
 		}
 //		System.out.println("bvolist"+bvoList);
 		
 //		객체에 담기(재료)
+		System.out.println(ing);
 		List<IngredientVo> iList = new ArrayList<IngredientVo>();
-		for(int i=1; i<86;i++) {
+		for(int i=1; i<=262;i++) {
 			
 			LinkedHashMap<String, String> map =ing.get(i+"");
-//			System.out.println("map"+map);
+		
+			System.out.println("map"+map);
 			for (String key : map.keySet()) {
 				IngredientVo ivo = new IngredientVo();
 				String value = map.get(key);
@@ -673,7 +733,39 @@ public class TempForTable {
 				
 		
 		
+		//기본정보
+//		RECIPE_ID	레시피 코드 (SEQ_RECIPE)
+//		RECIPE_NM_KO	레시피 이름(한글)
+//		SUMRY	간략(요약) 소개   x
+//		NATION_CODE	유형코드  x
+//		NATION_NM	유형분류  x
+//		TY_CODE	음식분류코드   x
+//		TY_NM	음식분류   x
+//		COOKING_TIME	조리시간  x
+//		CALORIE	칼로리  x
+//		QNT	분량  x
+//		LEVEL_NM	난이도  x
+//		IRDNT_CODE	재료별 분류명 x
+//		PC_NM	가격별 분류  x
 		
+		
+		
+		//재료 정보   
+//		RECIPE_ID	레시피 코드
+//		IRDNT_SN	재료순번  x
+//		IRDNT_NM	재료명
+//		IRDNT_CPCTY	재료용량
+//		IRDNT_TY_CODE	재료타입 코드 x
+//		IRDNT_TY_NM	재료타입명 x
+		
+		
+		
+		//레시피 과정정보
+//		RECIPE_ID	레시피 코드
+//		COOKING_NO	요리설명순서 x
+//		COOKING_DC	요리설명
+//		STEP_TIP	과정팁	x 	
+			
 	}
 	
 }
