@@ -4,6 +4,9 @@ delete from MEMBERS where userid='&userId';
 
 select * from MEMBERS;
 
+insert into REPORT values(SEQ_REPORTID.nextval, 'user01', 1, '신고 테스트', 'p', SYSTIMESTAMP);
+select * from report;
+delete from report where reportid between 5 and 7;
 --회원정보 수정  -- TODO
 --update USERSTABLE set EMAIL='user11@example.com', PASSWORD='user11', NICKNAME='user11'
 --                    , PROFILE='profile', PROFILEURL='사진경로', UPDATEAT=DEFAULT)
