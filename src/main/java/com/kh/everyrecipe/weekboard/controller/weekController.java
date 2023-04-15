@@ -38,7 +38,7 @@ public class weekController {
 		int count = service.count();
 		
 		// 한페이지 출력 갯수
-		int postNum = 10;
+		int postNum = 12;
 		
 		// 하단 페이징 번호
 		int pageNum = (int)Math.ceil((double)count/postNum);
@@ -56,13 +56,13 @@ public class weekController {
 		int startPageNum = endPageNum - (pageNum_cnt - 1);	
 		
 		// 마지막 번호
-		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)pageNum_cnt));
+		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)postNum));
 		if(endPageNum > endPageNum_tmp) {
 			endPageNum = endPageNum_tmp;
 		}	
 		
 		boolean prev = startPageNum == 1? false : true;
-		boolean next = endPageNum * pageNum_cnt >= count ? false : true;
+		boolean next = endPageNum * postNum >= count ? false : true;
 		
 		
 		List<weekVo> weeklist = service.weeklistPage(weekPost, postNum);
