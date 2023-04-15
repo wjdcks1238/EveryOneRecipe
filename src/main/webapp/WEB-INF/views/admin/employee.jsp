@@ -268,7 +268,7 @@
 									<div id="resultList"></div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
+									<button type="button" id="closebtn" class="btn btn-secondary"
 										data-dismiss="modal">닫기</button>
 								</div>
 							</div>
@@ -401,8 +401,11 @@ toggleList.forEach(($toggle) => {
  	
   
 });
-//TODO: 닫기 버튼 눌렀을 때 관리자 페이지 리로드 시키기
- 
+//닫기 버튼 눌렀을 때 관리자 페이지 리로드 시키기
+ const closeBtn = document.getElementById('closebtn');
+ closeBtn.addEventListener('click', ()=> {
+	  location.reload();
+	});
 
 </script>
 
