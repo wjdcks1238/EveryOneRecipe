@@ -39,6 +39,8 @@ import org.xml.sax.InputSource;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
+import com.kh.everyrecipe.board.vo.BoardVo;
+import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.weekboard.service.weekService;
 import com.kh.everyrecipe.weekboard.vo.popularVo;
 import com.kh.everyrecipe.weekboard.vo.weekVo;
@@ -58,6 +60,8 @@ public class HomeController {
 //	}
 	@Autowired
 	private weekService service;
+	@Autowired
+	private FollowMappingService fService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	/**
@@ -66,7 +70,8 @@ public class HomeController {
 //	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@GetMapping("/")
 	public String home(Locale locale, Model model,
-			@RequestParam(value="num", defaultValue = "1") int num) throws Exception {
+			@RequestParam(value="num", defaultValue = "1") int num
+			, String userId) throws Exception {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -82,7 +87,7 @@ public class HomeController {
 		int count = service.count();
 					
 		// 한페이지 출력 갯수
-		int postNum = 10;
+		int postNum = 9;
 		
 		// 하단 페이징 번호
 		int pageNum = (int)Math.ceil((double)count/postNum);
@@ -100,13 +105,13 @@ public class HomeController {
 		int startPageNum = endPageNum - (pageNum_cnt - 1);	
 		
 		// 마지막 번호
-		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)pageNum_cnt));
+		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)postNum));
 		if(endPageNum > endPageNum_tmp) {
 			endPageNum = endPageNum_tmp;
 		}	
 		
 		boolean prev = startPageNum == 1? false : true;
-		boolean next = endPageNum * pageNum_cnt >= count ? false : true;
+		boolean next = endPageNum * postNum >= count ? false : true;
 		
 		
 		List<weekVo> weeklist = service.weeklistPage(weekPost, postNum);
@@ -128,6 +133,20 @@ public class HomeController {
 		// 실시간 인기 검색어
 		List<popularVo> pwordlist = service.popularWord();
 		model.addAttribute("pword", pwordlist);	
+	/*--------------------------------------------------------------------*/
+		//추천 게시글(좋아요가 많은 순서)피드
+		List<weekVo> rcpost = fService.getRecommendPost();
+		model.addAttribute("rcpost", rcpost);
+		
+		//팔로잉 게시글 (작성일자순)피드. 수정중
+		userId = "user02";
+		List<weekVo> fwpost = fService.getFollowingPost(userId);
+		model.addAttribute("fwpost", fwpost);
+		
+		//좋아요 갯수
+		List<Integer> fwcnt = fService.getPostLikeCnt();
+		model.addAttribute("fwcnt", fwcnt);
+		
 		
 		return "home";
 	}

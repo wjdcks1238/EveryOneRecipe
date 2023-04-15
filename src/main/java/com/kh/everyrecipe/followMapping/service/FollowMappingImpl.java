@@ -11,6 +11,7 @@ import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.followMapping.dao.FollowMappingDao;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
 import com.kh.everyrecipe.member.vo.MemberVo;
+import com.kh.everyrecipe.weekboard.vo.weekVo;
 
 @Service
 public class FollowMappingImpl implements FollowMappingService{
@@ -79,11 +80,18 @@ public class FollowMappingImpl implements FollowMappingService{
 	
 	
 	@Override
-	public List<BoardVo> getRecommendPost() {
+	public List<weekVo> getRecommendPost() {
 		return dao.getRecommendPost();
 	}	
+	
 	@Override
-	public List<BoardVo> getFollowingPost(String userId){
+	public List<Integer> getPostLikeCnt() {
+		return dao.getPostLikeCnt();
+	}	
+	
+	
+	@Override
+	public List<weekVo> getFollowingPost(String userId){
 		return dao.getFollowingPost(userId);
 	}
 

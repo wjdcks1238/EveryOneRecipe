@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
 import com.kh.everyrecipe.member.vo.MemberVo;
+import com.kh.everyrecipe.weekboard.vo.weekVo;
 
 
 public interface FollowMappingService {
@@ -25,7 +26,8 @@ public interface FollowMappingService {
 	public List<String> getFollowing(String userId) throws Exception;
 	
 	
-	public List<BoardVo> getRecommendPost();	
-	public List<BoardVo> getFollowingPost(String userId);
+	public List<weekVo> getRecommendPost();	
+	public List<Integer> getPostLikeCnt();
+	public List<weekVo> getFollowingPost(String userId);
 	
 }

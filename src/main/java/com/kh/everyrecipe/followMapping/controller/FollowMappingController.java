@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
+import com.kh.everyrecipe.weekboard.vo.weekVo;
 
 
 @Controller
@@ -61,10 +62,14 @@ public class FollowMappingController {
 	}
 	
 	 @RequestMapping(value = "/board/recommend", method = RequestMethod.GET)
-		public ModelAndView getRecommendPost(ModelAndView mv) {		
-			List<BoardVo> rcpost = fService.getRecommendPost();
+		public ModelAndView getRecommendPost(ModelAndView mv, String userId) {		
+			List<weekVo> rcpost = fService.getRecommendPost();
 			mv.addObject("rcpost", rcpost);
-			mv.setViewName("board/recommend");
+			
+			userId = "user02";
+			List<weekVo> fwpost  = fService.getFollowingPost(userId);
+			mv.addObject("fwpost", fwpost);		
+			
 			
 			return mv;
 		}

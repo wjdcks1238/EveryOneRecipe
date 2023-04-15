@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
 import com.kh.everyrecipe.member.vo.MemberVo;
+import com.kh.everyrecipe.weekboard.vo.weekVo;
 
 
 @Repository
@@ -62,11 +63,16 @@ public class FollowMappingDao {
 	
 	
 	// 추천 게시물 피드
-	public List<BoardVo> getRecommendPost(){
+	public List<weekVo> getRecommendPost(){
 		return sqlSession.selectList("followMapper.getRecommendPost");
 	}
+	// 좋아요 갯수
+	public List<Integer> getPostLikeCnt(){
+		return sqlSession.selectList("followMapper.getPostLikeCnt");
+	}
+	
 	//팔로잉 게시물 피드
-	public List<BoardVo> getFollowingPost(String userId){
+	public List<weekVo> getFollowingPost(String userId){
 		return sqlSession.selectList("followMapper.getFollowingPost", userId);
 	}
 
