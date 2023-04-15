@@ -35,7 +35,7 @@
 	<!-- End Site Title================================================== -->
 
 	<!-- Begin Featured	================================================== -->
-	<%if(request.getUserPrincipal() != null && request.isUserInRole("MEMBER")){%>
+	<%if(request.getUserPrincipal() != null || request.isUserInRole("MEMBER")){%>
 	<!-- 로그인 시 표출 -->
 	<!-- 팔로잉 게시글 피드  (작성일자순) -->
 	<section class="featured-posts">
