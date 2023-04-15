@@ -2,23 +2,22 @@ package com.kh.everyrecipe.admin.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.everyrecipe.member.dao.MemberDao;
 import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
@@ -60,6 +59,10 @@ public class AdminController {
 		
 		List<MemberVo> list2 = mService.selectList();
 		
+		for(MemberVo m : list2) {
+			System.out.println(" m :"+m.getAuthority());
+		}
+		
 		mv.addObject("memberDto", list);
 		mv.addObject("selectList", list2);
 		
@@ -82,17 +85,23 @@ public class AdminController {
 	}
 
 	
-	//직원 권한 부여 업데이트   에이작스로 !!!
-	@PostMapping("/employee")
-	public void updateAuth(MemberVo vo) throws Exception {
-		
-		vo.getAuthority();
-		mService.updateAdmin(vo);
-		
+	//직원 권한 부여 업데이트
+	@PatchMapping(value = "/employee")
+	public ResponseEntity<?> updateRole(@RequestBody Map<String, Object> updates, ModelAndView mv) throws Exception {
+	    String userId = (String) updates.get("userId");
+	    String role = (String) updates.get("role");
+	    mService.updateAdmin(updates);
+	    
+	    mv.setViewName("redirect:/employee");
+	    return ResponseEntity.ok("Role updated successfully");
 	}
+
 	
-	
-	
+
+
+
+
+
 	//회원 관리 페이지
 	@GetMapping("/members")
 	public ModelAndView members(ModelAndView mv, Principal principal) throws Exception {

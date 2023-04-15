@@ -52,19 +52,26 @@ public class MemberServiceImpl implements MemberService{
 		return dao.deletePI(mvo);
 	}
 
-	@Override
-	public int updateAdmin(MemberVo vo) throws Exception {
-		return dao.updateAdmin(vo);
-	}
-
-	@Override
-	public List<MemberVo> selectAuth() throws Exception {
-		return dao.selectAuth();
-	}
 
 	@Override
 	public List<MemberVo> selectList(String keyword) throws Exception {
 		return dao.selectList();
 	}
+
+	@Override
+	public List<MemberVo> selectAuth() throws Exception {
+	    return dao.selectAuth();
+	}
+
+
+	@Override
+	public int updateAdmin(Map<String, Object> member) throws Exception {
+		return dao.updateAdmin(member);
+	}
+
+
+
+
+
 	
 }

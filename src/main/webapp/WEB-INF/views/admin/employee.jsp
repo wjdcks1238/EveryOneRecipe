@@ -10,6 +10,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+ <title>Document</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 <title>모두의 레시피 관리자 모드</title>
 
@@ -85,7 +87,7 @@
 	rel="stylesheet">
 </head>
 <body id="page-top">
-	<script>
+<script>
 	function openPopup(event, userId) {
 		let newPopup;
 		event.preventDefault();
@@ -218,22 +220,25 @@
 
 					<!--  회원목록 모달창으로 띄우기  -->
 					<button id="open-modal" type="button" class="btn btn-primary"
-						data-toggle="modal" data-target="#memberlist">회원목록 임시위치</button>
+						data-toggle="modal" data-target="#memberlist">회원목록</button>
 					<div id="memberlist" class="modal">
 						<div class="modal-dialog">
-							<div class="modal-content">
+							<div class="modal-content" style="width: 700px;">
 								<div class="modal-header">
 									<h5 class="modal-title">회원목록</h5>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
-								<div class="modal-body">
-									<table>
+								<div class="modal-body" >
+									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 										<form id="searchForm">
 											<form id="searchForm">
 												<div class="form-group">
-													<input type="text" class="form-control" id="searchInput"
-														name="keyword">
-													<button type="submin" class="btn btn-primary">검색</button>
+														<span>
+														<input type="text" class="form-control" id="searchInput"
+														name="keyword" style="width: 300px; display: inline-block;">
+														<button type="submin" class="btn btn-primary" style="display: inline-block;">검색</button>
+														</span>
+													
 												</div>
 											</form>
 										</form>
@@ -248,20 +253,15 @@
 												<td><c:out value="${admin.userId }" /></td>
 												<td><c:out value="${admin.nickName}" /></td>
 												<td><c:out value="${admin.createAt}" /></td>
-
-
-
 												<!-- 권한부여 버튼 만들기 -->
 												<td>
 													<div>
 														<input type="checkbox" id="switch" hidden> <label
-															for="toggle" class="toggleSwitch blue"> <span
+															for="username" class="toggleSwitch blue" data-user-id="${admin.userId}" data-user-role="${admin.authority} "> <span
 															class="toggleButton"></span>
 														</label>
 													</div>
 												</td>
-
-
 											</tr>
 										</c:forEach>
 									</table>
@@ -270,7 +270,6 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">닫기</button>
-									<button type="button" class="btn btn-primary">저장</button>
 								</div>
 							</div>
 						</div>
@@ -358,40 +357,55 @@ openModalBtn.addEventListener('click', ()=> {
   modal.style.display = 'block';
 });
 
-//모달창 회원 검색 기능
-//TODO:
-
 //권한 부여 스위치
 const toggleList = document.querySelectorAll(".toggleSwitch");
 
 toggleList.forEach(($toggle) => {
+	
+	
+    var userId = $toggle.dataset.userId;
+    var userRole = $toggle.dataset.userRole;
+    
+    
+     if(userRole.trim() === "ROLE_ADMIN"){
+    	$toggle.classList.add('active');
+    	
+    }else{
+    	$toggle.classList.remove('active');
+    	
+    } 
+    
   $toggle.onclick = () => {
-    $toggle.classList.toggle('active');
+	  $toggle.classList.toggle('active');
+	  
+	  var checked = $toggle.classList.contains('active') ? true : false;
+	  
+    $.ajax({
+      url: "<%=request.getContextPath()%>/admin/employee",
+      method: 'PATCH',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        userId: userId,
+        role: checked ? 'ROLE_ADMIN' : 'ROLE_USER'
+      }),
+      success: function(response) {
+        console.log(response);
+        
+      },
+      error: function(xhr, status, error) {
+        console.log(error);
+      }
+    });
+    
   }
+ 	
+  
 });
-
-$(document).ready(function() {
-	$('.toggleSwitch input[type="checkbox"]').on('change', function(){
-		var isChecked = $(this).is(':checked');
-		var userId = $(this).data('user-id');
-		var url = '/change-user-auth' + userId;
-		
-		$(ajax({
-			url: url,
-			type : 'POST',
-			data : {auth: isChecked},
-			success: function(response){
-				
-			},
-			error: function(xhr, status, error){
-				
-			}
-		});
-	});
-});
-
+//TODO: 닫기 버튼 눌렀을 때 관리자 페이지 리로드 시키기
+ 
 
 </script>
+
 
 </body>
 </html>

@@ -46,12 +46,18 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.deletePI",mvo);
 	}
 	
-	public int updateAdmin(MemberVo vo) throws Exception {
-		return sqlSession.update("memberMapper.updateAdmin", vo);
+	public int updateAdmin(Map<String, Object> member) throws Exception {
+		
+		return sqlSession.update("memberMapper.updateAdmin", member);
 	}
 	
 	public List<MemberVo> selectAuth() throws Exception {
-		return sqlSession.selectList("memberMapper.selectAuth");
-		
+	    return sqlSession.selectList("memberMapper.selectAuth");
 	}
+
+	
+
+
+
+
 }

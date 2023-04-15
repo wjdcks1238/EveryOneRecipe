@@ -133,7 +133,7 @@ public class MemberVo {
 	public void setBlockEndDt(String blockEndDt) {
 		this.blockEndDt = blockEndDt;
 	}
-	
+
 	
 	
 	

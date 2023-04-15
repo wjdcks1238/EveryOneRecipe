@@ -23,10 +23,10 @@ public interface MemberService {
 
 	public int deletePI(MemberVo mvo) throws Exception;
 	
-	public int updateAdmin(MemberVo vo) throws Exception;
-	
 	public List<MemberVo> selectAuth() throws Exception;
 	
 	public List<MemberVo> selectList(String keyword) throws Exception;
+
+	public int updateAdmin(Map<String, Object> member) throws Exception;
 
 }
