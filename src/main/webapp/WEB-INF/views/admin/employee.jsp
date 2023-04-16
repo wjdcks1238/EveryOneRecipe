@@ -229,31 +229,21 @@
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
 								<div class="modal-body" >
-									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-										<form id="searchForm">
-											<form id="searchForm">
-												<div class="form-group">
-														<span>
-														<input type="text" class="form-control" id="searchInput"
-														name="keyword" style="width: 300px; display: inline-block;">
-														<button type="submin" class="btn btn-primary" style="display: inline-block;">검색</button>
-														</span>
-													
-												</div>
-											</form>
-										</form>
-										<tr>
-											<td>ID</td>
-											<td>닉네임</td>
-											<td>입사일</td>
-											<td>권한부여</td>
-										</tr>
+									<table class="table table-bordered dataTable no-footer" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+										<thead>
+											<tr role="row">
+												<th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="ID: activate to sort column desending" style="width: 80.0312px">ID</th>
+												<th>닉네임</th>
+												<th>입사일</th>
+												<th>권한부여</th>
+											</tr>
+										</thead>
 										<c:forEach var="admin" items="${selectList}">
-											<tr>
-												<td><c:out value="${admin.userId }" /></td>
+											<tr role="odd">
+												<td class="sorting_1"><c:out value="${admin.userId }" /></td>
 												<td><c:out value="${admin.nickName}" /></td>
 												<td><c:out value="${admin.createAt}" /></td>
-												<!-- 권한부여 버튼 만들기 -->
+												<!-- 권한부여 버튼 -->
 												<td>
 													<div>
 														<input type="checkbox" id="switch" hidden> <label
@@ -292,7 +282,9 @@
 						<tbody>
 							<c:forEach var="admin" items="${memberDto}">
 								<tr>
-									<td><a
+									<td>
+									<!-- 팝업을 모달로 변경하기 -->
+									<a
 										href="<%=request.getContextPath()%>/admin/details/${admin.userId}"
 										onclick="openPopup(event, '${admin.userId}')"> <c:out
 												value="${admin.userId }" />
@@ -345,7 +337,8 @@
 
 	<!-- footer -->
 	<%@ include file="adminFooter.jsp"%>
-	<script>
+	
+<script>
 const openModalBtn = document.getElementById('open-modal');
 const modal = document.getElementById('modal');
 
@@ -362,12 +355,10 @@ const toggleList = document.querySelectorAll(".toggleSwitch");
 
 toggleList.forEach(($toggle) => {
 	
-	
     var userId = $toggle.dataset.userId;
     var userRole = $toggle.dataset.userRole;
     
-    
-     if(userRole.trim() === "ROLE_ADMIN"){
+    if(userRole.trim() === "ROLE_ADMIN"){
     	$toggle.classList.add('active');
     	
     }else{
@@ -396,10 +387,7 @@ toggleList.forEach(($toggle) => {
         console.log(error);
       }
     });
-    
   }
- 	
-  
 });
 //닫기 버튼 눌렀을 때 관리자 페이지 리로드 시키기
  const closeBtn = document.getElementById('closebtn');

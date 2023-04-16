@@ -25,10 +25,10 @@
 			  	<%
 	  	  			if(request.getUserPrincipal() != null && request.isUserInRole("MEMBER")){;
 	  	  		%>
-				<li class="nav-item ">
+				<li class="nav-item">
 					<a class="nav-link" href="<%=request.getContextPath()%>/board/list">전체 게시글</a>
 			    </li>
-			    <li class="nav-item ">
+			    <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내정보</a>
 			    </li>
 			    <li class="nav-item">
@@ -55,7 +55,7 @@
 				</sec:authorize>
 			  <%} %>
 		  		</li>
-			    </ul>
+			</ul>
 			<sec:authorize var="loggedIn" access="isAuthenticated()" />
 			<!-- End Menu -->
 			<!-- Begin Search -->
