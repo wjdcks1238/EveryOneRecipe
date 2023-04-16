@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
@@ -39,7 +40,6 @@ import org.xml.sax.InputSource;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
-import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.weekboard.service.weekService;
 import com.kh.everyrecipe.weekboard.vo.popularVo;
@@ -69,9 +69,10 @@ public class HomeController {
 	 */
 //	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@GetMapping("/")
-	public String home(Locale locale, Model model,
-			@RequestParam(value="num", defaultValue = "1") int num
-			, String userId) throws Exception {
+	public String home(Locale locale, Model model
+			, HttpServletRequest req
+			, @RequestParam(value="num", defaultValue = "1") int num
+			) throws Exception {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -139,7 +140,7 @@ public class HomeController {
 		model.addAttribute("rcpost", rcpost);
 		
 		//팔로잉 게시글 (작성일자순)피드. 수정중
-		userId = "user02";
+		String userId = req.getRemoteUser();
 		List<weekVo> fwpost = fService.getFollowingPost(userId);
 		model.addAttribute("fwpost", fwpost);
 		
