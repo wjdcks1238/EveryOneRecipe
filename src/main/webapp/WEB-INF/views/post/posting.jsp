@@ -12,10 +12,9 @@
 	src="<%=request.getContextPath()%>/resources/ckeditor/ckeditor.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <style>
-.ck-editor__editable {
-	height: 400px;
-
-}
+ .cke_editor_editor .cke_contents{ 
+     min-height:500px; 
+     } 
 
 .ck-content {
 	font-size: 12px;
@@ -47,20 +46,20 @@
 			<div>
 				<input name="foodName" type="text" placeholder="음식 이름">
 			</div>
-			<div>
+			<div class="mt-3 mb-3">
 				<input name="ingredient" type="text" placeholder="재료"> 
 				<input name="amount" type="text" placeholder="수량">
-				<div id="additional"></div>
-				<button id="addIng" type="button">재료 입력칸 추가</button>
+				<div id="additional" ></div>
+				<button id="addIng" class="mt-2" type="button">재료 추가</button>
 			</div>
 			<textarea form="frm" name="content" id="editor"></textarea>
 			
-			<div>
+			<div class="mt-3">
 				<input name="hashtag" type="text" placeholder="해쉬태그 입력">
 			</div>	
 				
-			<div>
-				<input  type="submit" value="전송">
+			<div class="mt-2"> 
+				<input type="submit" value="전송">
 			</div>
 	
 		</form>
@@ -79,7 +78,7 @@
 		});
 		
 		$("#addIng").on("click", function(){	
-			var div= $("<div> ").append($("<input type='text' placeholder='재료' name='ingredient'> "));
+			var div= $("<div class='mt-1'> ").append($("<input type='text' placeholder='재료' name='ingredient'> "));
 			div.append(" ");
 			div.append($("<input type='text' placeholder='수량' name='amount'>"));
 			div.append(" ");

@@ -313,7 +313,7 @@ public class TempForTable {
 		String cuisine="";
 		
 		
-	for(int k=0; k<6;k++) {
+	for(int k=0; k<3;k++) {
 		
 	
 		 
@@ -590,7 +590,7 @@ public class TempForTable {
 		
 //		객체에 담기(게시글)
 		List<BoardVo> bvoList = new ArrayList<BoardVo>();
-		for(int i=1; i<=m.size();i++) {
+		for(int i=1; i<=262;i++) {
 			BoardVo bvo = new BoardVo();
 			
 			bvo.setUserId("everys_recipe");
@@ -605,7 +605,7 @@ public class TempForTable {
 //		객체에 담기(재료)
 		System.out.println(ing);
 		List<IngredientVo> iList = new ArrayList<IngredientVo>();
-		for(int i=1; i<=m.size();i++) {
+		for(int i=1; i<=262;i++) {
 			
 			LinkedHashMap<String, String> map =ing.get(i+"");
 		

@@ -8,8 +8,11 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
+
+import com.kh.everyrecipe.board.vo.BoardVo;
 
 @Service //@component, bean 가능 하지만 의미상 service가 낫다.
 @Aspect
@@ -17,6 +20,7 @@ public class AdviceLog {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdviceLog.class);
 	
+	@Autowired private BadWordFilter badWordFilter;
 	
 	// * 1개 이상이 종류 상관 없이 존재함
 	// .. 0개 이상이 종류 상관 없이 존재함
@@ -30,6 +34,20 @@ public class AdviceLog {
 	
 	@Pointcut("execution(public * com.kh.everyrecipe..*ServiceImpl.*(..) )")
 	public void serviceImplPointCut() {}
+	
+	@Pointcut("execution(public * com.kh.everyrecipe.board.controller.BoardController.post(..) )")
+	public void postingPointCut() {}
+
+	
+	
+	@Before("postingPointCut()")
+	public void checkBadWords(JoinPoint joinPoint) throws BadWordException {
+		Object arg =  joinPoint.getArgs()[2];
+		String content = ((BoardVo)arg).getContent(); 
+	    if (badWordFilter.containsBadWord(content)) {
+	        throw new BadWordException("비속어가 포함된 게시글은 작성할 수 없습니다.");
+	    }
+	}
 	
 	@Around("controllerPointCut()")
 	public Object aroundControllerPointCut(ProceedingJoinPoint pjp) throws Throwable {
@@ -87,6 +105,8 @@ public class AdviceLog {
 	}
 	
 
+	
+	
 	
 	
 	
