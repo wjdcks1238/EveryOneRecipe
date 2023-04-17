@@ -226,7 +226,7 @@
 					<img class="img-fluid" src="<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/5.jpg" alt="">
 				</a>
 				<div class="card-block">
-					<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></h2>
+					<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${list.postId}" id="chk_data">${list.foodName }</a></h2>
 					<h4 class="card-text" 
 					style= "overflow: hidden;
 							text-overflow: ellipsis;
@@ -252,7 +252,7 @@
 			</div>
 			</c:forEach>
 			</div>
-			<div style="text-align: center;">
+			<div class="page_btn" style="text-align: center;">
 			<div style="display: inline-block;">
 				<c:if test="${prev}">
 					<a href="/everyrecipe/?num=${startPageNum - 1 }">이전</a>
@@ -285,23 +285,32 @@
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 
 <script>
-
+/* 추천순 게시글 숨김 */
 $(document).ready(function(){
 	$(".sort_like").hide();
 });
 
+/* 추천순 버튼 누르면 추천순 게시글 표출 + 조회순 게시글 숨김 */
 $(".change_like").on("click", changeLike);
 function changeLike(){
 	$(".sort_lkup").hide();
 	$(".sort_like").show();		
 };
 
+/* 조회순 버튼 누르면 조회순 게시글 표출 + 추천순 게시글 숨김 */
 $(".change_lkup").on("click", changeLookUp);
 function changeLookUp(){
 	$(".sort_like").hide();
 	$(".sort_lkup").show();	
 };
 
+/* 주간 게시글 데이터가 없을시 페이징 번호 div 숨김 */ 
+$(document).ready(function(){
+	var exist = $("#chk_data").html();	
+	if(exist == null){
+		$(".page_btn").hide();
+	}	
+});
 
 
 </script>
