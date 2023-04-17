@@ -27,6 +27,7 @@ public interface FollowMappingService {
 	
 	
 	public List<weekVo> getRecommendPost();	
+	public List<weekVo> getBestPost();
 	public List<Integer> getPostLikeCnt();
 	public List<weekVo> getFollowingPost(String userId);
 	

@@ -139,6 +139,10 @@ public class HomeController {
 		List<weekVo> rcpost = fService.getRecommendPost();
 		model.addAttribute("rcpost", rcpost);
 		
+		//게시글(조회수 순서) 피드
+		List<weekVo> lupost = fService.getBestPost();
+		model.addAttribute("lupost", lupost);		
+		
 		//팔로잉 게시글 (작성일자순)피드. 수정중
 		String userId = req.getRemoteUser();
 		List<weekVo> fwpost = fService.getFollowingPost(userId);

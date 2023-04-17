@@ -51,6 +51,16 @@
 		WHERE ROWNUM<![CDATA[<=]]>10			
 	</select>
 	
+	<!-- 게시물 피드(조회수 순서) 피드 -->
+	<select id="getBestPost" resultType="wvo">
+		select P.*
+    	FROM (
+       		SELECT * FROM POST WHERE ISDELETED='N' order by lookup desc
+        	) P
+		WHERE ROWNUM<![CDATA[<=]]>10
+	</select>
+	
+	
 	<!-- 좋아요 갯수 -->
 	<select id="getPostLikeCnt" resultType="_int">
 		select count(postid) 
@@ -70,5 +80,8 @@
 			order by createat desc
 			) P
 		WHERE ROWNUM<![CDATA[<=]]>10	
-	</select>	
+	</select>
+	
+	
+		
 </mapper>
