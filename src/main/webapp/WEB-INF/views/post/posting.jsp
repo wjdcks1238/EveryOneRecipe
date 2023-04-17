@@ -91,9 +91,7 @@
 
 	<script>
 	
-		if('${alert}'!=''){
-			alert('${alert}');
-		}
+		
 		
 		// ClassicEditor.create(document.querySelector('#editor')); ck5
 		$(function() {
@@ -137,7 +135,11 @@
 		})
 		
 		
-	
+		if('${alert}'!=''){
+			setTimeout(function() {
+				  alert('${alert}');
+				}, 200); 
+		}
 		
 		
 	</script>

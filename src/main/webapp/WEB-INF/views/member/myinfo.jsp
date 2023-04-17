@@ -63,9 +63,9 @@
   transition: .2s ease;
   background-color: #008CBA; }
   	
-  #wrapper{
+  main{
   height: auto;
-  min-height: 60vh;
+  min-height: 39vh;
   padding-bottom: 63.19px;
 }
 .footer{

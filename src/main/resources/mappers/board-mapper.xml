@@ -59,6 +59,9 @@
                        	<if test="myPage != null">
 	                       	USERID=#{myPage} AND		
                        	</if>                  
+                       	<if test="othersPage != null">
+	                       	USERID=#{othersPage} AND		
+                       	</if>                  
                        ISDELETED = 'N' ORDER BY postid ) p) 
              <![CDATA[ WHERE RNUM> #{from} AND RNUM<=#{to}]]>) p2
              JOIN ingredient i 
