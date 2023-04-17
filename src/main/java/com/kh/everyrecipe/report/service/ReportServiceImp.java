@@ -18,4 +18,9 @@ public class ReportServiceImp implements ReportService {
 		return dao.submitPostReport(vo);
 	}
 
+	@Override
+	public int submitCommentReport(ReportVo vo) {
+		return dao.submitCommentReport(vo);
+	}
+
 }

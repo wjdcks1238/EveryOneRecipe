@@ -53,7 +53,10 @@ font-size: 22px;
 <body>
 	<div>
 		신고하기
-		<input type="text" name="reportPostId" value="" hidden="hidden">
+		<input type="text" name="reportId" value="${cmtId }" hidden="hidden">
+		<input type="text" name="reportContent" value="${content }" hidden="hidden">
+		<input type="text" name="reportUaer" value="${reportUser }" hidden="hidden">
+		<input type="text" name="loginedUser" value="${userName }" hidden="hidden">
 	</div>
 	<div>
 		<table border="1" style="width: 100%; height: 100%">
@@ -108,10 +111,13 @@ font-size: 22px;
 	}
 	
 	$("#submitReport").click(function() {
+		var id = $("[name=reportId]").val();
+		var content = $("[name=reportContent]").val();
+		var user = $("[name=reportUaer]").val();
+		var loginedUser = $("[name=loginedUser]").val();
 		var reportOption = document.getElementsByName("reportOption");
 		var inlineRadio4 = document.getElementById("inlineRadio4");
 		var otherReport = document.getElementById("otherReport");
-		var postId = $("[name=reportPostId]").val();
 		
 		var selectedRadio = "";
 		var otherReportContext = "";
@@ -128,17 +134,22 @@ font-size: 22px;
 			}
 		}
 		
+		console.log(id);
+		console.log(content);
+		console.log(user);
+		console.log(loginedUser);
 		console.log(selectedRadio);
 		console.log(otherReportContext);
-		console.log(postId);
+		
+		
 		
 		$.ajax({
 			type: "POST",
-			url: "<%=request.getContextPath()%>/report/post",
+			url: "<%=request.getContextPath()%>/report/comment",
 			data: {
 				selectedRadio: selectedRadio,
 				otherReportContext: otherReportContext,
-				postId: postId
+				cmtId: id
 			},
 			async: false,
 			success: function(result) {

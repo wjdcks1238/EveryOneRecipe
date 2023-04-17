@@ -17,4 +17,8 @@ public class ReportDao {
 		return session.insert("reportMapper.insertPostReport", vo);
 	}
 
+	public int submitCommentReport(ReportVo vo) {
+		return session.insert("reportMapper.insertCommentReport", vo);
+	}
+
 }

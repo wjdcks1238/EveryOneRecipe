@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="reportMapper">
 	<insert id="insertPostReport" parameterType="revo">
-		insert into REPORT values(SEQ_REPORTID.nextval, #{userId}, #{postId}, #{reportContent}, #{reportType}, SYSTIMESTAMP)
+		insert into report values(SEQ_REPORTID.nextval, #{userId}, #{postId}, null, #{reportContent}, 'p', default)
+	</insert>
+	<insert id="insertCommentReport" parameterType="revo">
+		insert into report values(SEQ_REPORTID.nextval, #{userId}, null, #{cmtId}, #{reportContent}, 'p', default)
 	</insert>
 </mapper>

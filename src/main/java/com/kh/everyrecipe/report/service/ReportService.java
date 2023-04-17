@@ -6,6 +6,7 @@ import com.kh.everyrecipe.report.vo.ReportVo;
 
 public interface ReportService {
 
-	int submitPostReport(ReportVo vo);
+	public int submitPostReport(ReportVo vo);
+	public int submitCommentReport(ReportVo vo);
 
 }

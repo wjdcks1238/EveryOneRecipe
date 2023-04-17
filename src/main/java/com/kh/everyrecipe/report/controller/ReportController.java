@@ -84,13 +84,45 @@ public class ReportController {
 			@RequestParam("reportUser") String reportUser,
 			Principal principal
 			) {
-		
+		String userName = principal.getName();
 		System.out.println(cmtId);
 		System.out.println(content);
 		System.out.println(reportUser);
-		System.out.println(principal.getName());
+		System.out.println(userName);
+		
+		mv.addObject("cmtId", cmtId);
+		mv.addObject("content", content);
+		mv.addObject("reportUser", reportUser);
+		mv.addObject("userName", userName);
 		
 		mv.setViewName("report/comment_report");
 		return mv;
+	}
+	
+	@PostMapping("comment")
+	@ResponseBody
+	public int ajaxCommentReport(
+			@RequestParam("selectedRadio") String selectedRadio,
+			@RequestParam("otherReportContext") String otherReportContext,
+			@RequestParam("cmtId") int cmtId,
+			ReportVo vo,
+			Principal principal
+			) {
+		int result = -1;
+		String reportContent="";
+		vo.setUserId(principal.getName());
+		vo.setCmtId(cmtId);
+		
+		if(otherReportContext != "") {
+			reportContent = selectedRadio + " | " + otherReportContext;
+		} else {
+			reportContent = selectedRadio;
+		}
+		vo.setReportContent(reportContent);
+		vo.setReportType('c');
+		
+		result = rService.submitCommentReport(vo);
+		
+		return result;
 	}
 }
