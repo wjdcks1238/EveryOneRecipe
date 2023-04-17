@@ -128,9 +128,8 @@ public class MemberController {
 		Map<String, String> map = new HashMap<>();
 		map.put("from", 0+"");
 		map.put("to", 20+""); 
-		map.put("userId",id);
+		map.put("othersPage",id);
 		mv.addObject("postList", bService.pagingList(map));
-		
 		mv.addObject("memberDto", mService.selectOne(id));
 		mv.addObject("followingCount",fService.getFollowingCount(id));
 		mv.addObject("followerCount",fService.getFollowerCount(id));

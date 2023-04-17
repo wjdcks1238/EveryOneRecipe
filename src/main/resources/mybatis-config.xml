@@ -17,6 +17,7 @@
 		<typeAlias type="com.kh.everyrecipe.weekboard.vo.popularVo" alias="WordVo"/>
 		<typeAlias type="com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo" alias="rcvo"/>
 		<typeAlias type="com.kh.everyrecipe.report.vo.ReportVo" alias="revo"/>
+		<typeAlias type="com.kh.everyrecipe.boardsearch.vo.SearchVo" alias="svo"/>
 	</typeAliases>
 	
 	<mappers>

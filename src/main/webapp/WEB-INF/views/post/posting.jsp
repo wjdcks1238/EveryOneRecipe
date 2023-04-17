@@ -44,18 +44,38 @@
 				<input type="hidden" name="userId" value="${userId }">
 			</div>
 			<div>
-				<input name="foodName" type="text" placeholder="음식 이름">
+				<input value="${board.foodName }" name="foodName" type="text" placeholder="음식 이름">
 			</div>
 			<div class="mt-3 mb-3">
-				<input name="ingredient" type="text" placeholder="재료"> 
-				<input name="amount" type="text" placeholder="수량">
-				<div id="additional" ></div>
+				
+				<c:if test="${empty ingredients }">
+					<input name="ingredient" type="text" placeholder="재료"> 
+					<input name="amount" type="text" placeholder="수량">
+					<div id="additional" ></div>
+				</c:if>
+				
+				<c:if test="${not empty ingredients }">
+					<input value="${ingredients[0].ingredient }" name="ingredient" type="text" placeholder="재료"> 
+					<input value="${ingredients[0].amount } " name="amount" type="text" placeholder="수량">
+					<div id="additional">
+					
+					<c:forEach begin="1" items="${ingredients }" var="list">
+						<div class="mt-1">
+							<input value="${list.ingredient} " type="text" placeholder="재료" name="ingredient">
+							<input value="${list.amount}" type="text" placeholder="수량" name="amount">
+							<button type="button" name="deleteIng">삭제</button>
+						</div>
+					</c:forEach>
+				
+				
+					</div>
+				</c:if>
 				<button id="addIng" class="mt-2" type="button">재료 추가</button>
 			</div>
-			<textarea form="frm" name="content" id="editor"></textarea>
+			<textarea form="frm" name="content" id="editor">${board.content }</textarea>
 			
 			<div class="mt-3">
-				<input name="hashtag" type="text" placeholder="해쉬태그 입력">
+				<input value="${hashtags}" name="hashtag" type="text" placeholder="해쉬태그 입력">
 			</div>	
 				
 			<div class="mt-2"> 
@@ -70,6 +90,9 @@
 </body>
 
 	<script>
+	
+		
+		
 		// ClassicEditor.create(document.querySelector('#editor')); ck5
 		$(function() {
 			CKEDITOR.replace('editor', {
@@ -112,9 +135,11 @@
 		})
 		
 		
-		
-		
-		
+		if('${alert}'!=''){
+			setTimeout(function() {
+				  alert('${alert}');
+				}, 200); 
+		}
 		
 		
 	</script>

@@ -15,7 +15,16 @@
 
 	<!-- 주간 게시물 + 페이징 처리 추가 -->
 	<select id="count" resultType="_int">
-    	select count(CASE WHEN ISDELETED = 'N' THEN 1 END) from post
+    	select count(
+    		CASE WHEN
+    		ISDELETED = 'N'
+        	AND
+        	TO_CHAR(CREATEAT, 'YYYYMMDD')	
+        	between TO_CHAR(trunc(sysdate,'iw'),'YYYYMMDD')
+        	AND
+        	TO_CHAR(trunc(sysdate,'iw')+6,'YYYYMMDD')
+			THEN 1 END) cnt
+			from post
     </select>
 	
 	 <select id="listpage" resultType="wvo" parameterType="hashMap">

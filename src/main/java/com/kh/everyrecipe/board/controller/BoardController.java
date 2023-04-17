@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,10 +26,13 @@ import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
 import com.kh.everyrecipe.boardsearch.service.BoardSearchService;
+import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 import com.kh.everyrecipe.comment.replycomment.service.ReplyCommentService;
 import com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo;
 import com.kh.everyrecipe.comment.service.CommentService;
 import com.kh.everyrecipe.comment.vo.CommentVo;
+import com.kh.everyrecipe.common.BadWordException;
+import com.kh.everyrecipe.common.BadWordFilter;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
@@ -55,30 +59,62 @@ public class BoardController {
 		private MemberService mService;
 		@Autowired
 		private BoardSearchService bsService;
-
+		@Autowired
+		private BadWordFilter badWordFilter;
 		
 		
 		@GetMapping("posting")
-		public String postingPage() {
+		public String postingPage(Model m) {
+			BoardVo board = (BoardVo) m.getAttribute("board");
+			String hashtags = (String) m.getAttribute("hashtags");
+			List<IngredientVo>  ingredients = (List<IngredientVo>)m.getAttribute("ingredients");
+		    if (board == null) {
+		        board = new BoardVo();
+		    }
+		    if (hashtags == null) {
+		    	hashtags = "";
+		    }
+		    if (ingredients == null) {
+		    	ingredients = new  ArrayList<IngredientVo>();
+		    }
+		    
+		    m.addAttribute("board",board);
+		    m.addAttribute("hashtags",hashtags );
+			m.addAttribute("ingredients",ingredients);
+			
 			return "post/posting";
 		}
+		
 		@PostMapping("posting")
-		public ModelAndView post(ModelAndView mv
+		public String post(Model m
 				, Principal principal
 				, BoardVo bvo
 				, @RequestParam("ingredient") List<String> ingredients
 				, @RequestParam("amount") List<String> amounts
 				, @RequestParam("hashtag") String hashtag) throws Exception {
-//		public ModelAndView post(ModelAndView mv, BoardVo bvo, String ingredient,String amount) {
 
-			
-			
+				
 			int lastPostId = bService.getLastPostId();
 			
 			 List<IngredientVo> ivoList = new ArrayList<>(); // 공백일 때 처리 필요 
 		     for (int i = 0; i < ingredients.size(); i++) { 
 		    	 ivoList.add(new IngredientVo(lastPostId+1, ingredients.get(i), amounts.get(i)));
 		     }
+			 if (badWordFilter.containsBadWord(bvo.getContent())||badWordFilter.containsBadWord(ingredients.toString())
+				    	||badWordFilter.containsBadWord(amounts.toString())||badWordFilter.containsBadWord(hashtag) 
+				    	||badWordFilter.containsBadWord(bvo.getFoodName()) ) {
+				 m.addAttribute("board", bvo);
+				 m.addAttribute("hashtags", hashtag);
+				 m.addAttribute("ingredients", ivoList);
+				 m.addAttribute("alert", "비속어를 포함한 게시글은 등록할 수 없습니다.");
+				 return "/post/posting";
+				 
+			}
+			
+			
+			
+			
+			
 			
 			bvo.setUserId(principal.getName());
 			MemberVo mvo= mService.selectOne(principal.getName());
@@ -120,8 +156,8 @@ public class BoardController {
 			}
 				
 			
-			mv.setViewName("redirect:/board/list/");
-			return mv;
+		
+			return "redirect:/board/list/";
 
 			
 		}
@@ -135,7 +171,8 @@ public class BoardController {
 			//검색어를 입력창에 추가
 			System.out.println(keyword);
 			mv.addObject("keyword", keyword);
-			mv.setViewName("search/result");
+			List<SearchVo> recommendKeyword= bsService.getRecommendSearchKeyword();
+			mv.addObject("recommendKey",recommendKeyword);
 			
 			//isdelete 필드가 'N'인 게시글만 불러온다. 	
 			Map<String, String> map = new HashMap<>();
@@ -158,7 +195,7 @@ public class BoardController {
 				//위 두 조건에 해당되지 않는 경우.
 			}
 			mv.addObject("postList", result);
-			
+			mv.setViewName("search/result");
 			return mv;
 		}
 		

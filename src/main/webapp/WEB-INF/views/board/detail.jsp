@@ -47,7 +47,6 @@
 										<c:if test="${user ne post.userId}">
 											<div id="follow">
 												<c:if test="${isFollowed }">
-													
 													 <img id="followBtn" style="cursor: pointer;" alt="" width="30px" src="<%=request.getContextPath()%>/resources/icons/added.png">
 												</c:if>
 												<c:if test="${isFollowed eq false }">													
@@ -60,7 +59,7 @@
 									</c:if>
 								</span>
 								<span>
-									&nbsp;&nbsp;<button type="button" class="btn_open_postreport" style="border: none; background: none; font-size: xx-small;">신고</button>
+									<button type="button" class="ml-2 btn_open_postreport" style="border: none; background: none; font-size: xx-small;">신고</button>
 								</span>
 							</c:if>
 							<!-- 

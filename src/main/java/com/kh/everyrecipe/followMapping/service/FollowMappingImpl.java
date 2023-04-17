@@ -85,6 +85,11 @@ public class FollowMappingImpl implements FollowMappingService{
 	}	
 	
 	@Override
+	public List<weekVo> getBestPost(){
+		return dao.getBestPost();
+	}
+	
+	@Override
 	public List<Integer> getPostLikeCnt() {
 		return dao.getPostLikeCnt();
 	}	

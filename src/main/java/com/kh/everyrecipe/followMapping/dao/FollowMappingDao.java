@@ -62,10 +62,16 @@ public class FollowMappingDao {
 	
 	
 	
-	// 추천 게시물 피드
+	// 추천 게시물 피드(좋아요)
 	public List<weekVo> getRecommendPost(){
 		return sqlSession.selectList("followMapper.getRecommendPost");
 	}
+	
+	// 게시물 피드(조회수)
+	public List<weekVo> getBestPost(){
+		return sqlSession.selectList("followMapper.getBestPost");
+	}
+	
 	// 좋아요 갯수
 	public List<Integer> getPostLikeCnt(){
 		return sqlSession.selectList("followMapper.getPostLikeCnt");

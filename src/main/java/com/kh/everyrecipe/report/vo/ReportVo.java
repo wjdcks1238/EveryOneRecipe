@@ -20,7 +20,8 @@ public class ReportVo {
 //	------------- -------- ------------------ 
 //	REPORTID      NOT NULL NUMBER             
 //	USERID        NOT NULL VARCHAR2(15 CHAR)  
-//	POSTID        NOT NULL NUMBER             
+//	POSTID                 NUMBER             
+//	CMTID                  NUMBER             
 //	REPORTCONTENT NOT NULL VARCHAR2(100 CHAR) 
 //	REPORTTYPE    NOT NULL VARCHAR2(1 CHAR)   
 //	REPORTTIME    NOT NULL TIMESTAMP(6)
@@ -28,6 +29,7 @@ public class ReportVo {
 	private int reportId;
 	private String userId;
 	private int postId;
+	private int cmtId;
 	private String reportContent;
 	private char reportType;
 	private Date reportTime;
