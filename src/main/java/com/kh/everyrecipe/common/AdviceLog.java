@@ -34,30 +34,30 @@ public class AdviceLog {
 	
 	@Pointcut("execution(public * com.kh.everyrecipe..*ServiceImpl.*(..) )")
 	public void serviceImplPointCut() {}
-	
-	@Pointcut("execution(public * com.kh.everyrecipe.board.controller.BoardController.post(..) )")
-	public void postingPointCut() {}
+//	
+//	@Pointcut("execution(public * com.kh.everyrecipe.board.controller.BoardController.post(..) )")
+//	public void postingPointCut() {}
 
 	
 	
-	@Before("postingPointCut()")
-	public void checkBadWords(JoinPoint joinPoint) throws BadWordException {
-		
-		Object arg[] =  joinPoint.getArgs();
-		String content = ((BoardVo)arg[2]).getContent(); 
-		String food = ((BoardVo)arg[2]).getFoodName(); 
-		String ing= (String)(arg[3].toString());
-		System.out.println(ing);
-		String amt= (String)(arg[4].toString());
-		System.out.println(amt);
-		String tag= (String)(arg[5].toString());
-		System.out.println(tag);
-	    if (badWordFilter.containsBadWord(content)||badWordFilter.containsBadWord(ing)
-	    	||badWordFilter.containsBadWord(amt)||badWordFilter.containsBadWord(tag) 
-	    	||badWordFilter.containsBadWord(food) ) {
-	        throw new BadWordException("비속어가 포함된 게시글은 작성할 수 없습니다.");
-	    }
-	}
+//	@Before("postingPointCut()")
+//	public void checkBadWords(JoinPoint joinPoint) throws BadWordException {
+//		
+//		Object arg[] =  joinPoint.getArgs();
+//		String content = ((BoardVo)arg[2]).getContent(); 
+//		String food = ((BoardVo)arg[2]).getFoodName(); 
+//		String ing= (String)(arg[3].toString());
+//		System.out.println(ing);
+//		String amt= (String)(arg[4].toString());
+//		System.out.println(amt);
+//		String tag= (String)(arg[5].toString());
+//		System.out.println(tag);
+//	    if (badWordFilter.containsBadWord(content)||badWordFilter.containsBadWord(ing)
+//	    	||badWordFilter.containsBadWord(amt)||badWordFilter.containsBadWord(tag) 
+//	    	||badWordFilter.containsBadWord(food) ) {
+//	        throw new BadWordException("비속어가 포함된 게시글은 작성할 수 없습니다.");
+//	    }
+//	}
 	
 	@Around("controllerPointCut()")
 	public Object aroundControllerPointCut(ProceedingJoinPoint pjp) throws Throwable {
