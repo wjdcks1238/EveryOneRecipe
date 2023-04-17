@@ -43,6 +43,12 @@
 			<div class="col-md-3">
 			</div>
 		</div>
+		<fieldset style="text-align: center;">
+			<legend>추천 검색어</legend>
+			<c:forEach items="${recommendKey }" var="key" varStatus="rkStatus">
+				<button type="button" data-keyword="${key.keword }" class="btn_redirectSearch" style="border-style: dotted; border-radius: 10px; border-width: 3px; background: none;">${key.keword }</button>
+			</c:forEach>
+		</fieldset>
 	<div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach items="${postList }" var="list" varStatus="stqatus">
 			<div class="col-md-3 mt-3">
@@ -247,6 +253,12 @@
 		console.log(htmlval);
 		$("#postList").html(htmlval);
 	}
+	
+	$(".btn_redirectSearch").click(function() {
+		var keyword = $(this).data('keyword');
+		
+		location.href="<%=request.getContextPath() %>/board/search?keyword="+keyword;
+	});
 </script>
 </body>
 </html>

@@ -25,6 +25,7 @@ import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
 import com.kh.everyrecipe.boardsearch.service.BoardSearchService;
+import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 import com.kh.everyrecipe.comment.replycomment.service.ReplyCommentService;
 import com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo;
 import com.kh.everyrecipe.comment.service.CommentService;
@@ -135,7 +136,8 @@ public class BoardController {
 			//검색어를 입력창에 추가
 			System.out.println(keyword);
 			mv.addObject("keyword", keyword);
-			mv.setViewName("search/result");
+			List<SearchVo> recommendKeyword= bsService.getRecommendSearchKeyword();
+			mv.addObject("recommendKey",recommendKeyword);
 			
 			//isdelete 필드가 'N'인 게시글만 불러온다. 	
 			Map<String, String> map = new HashMap<>();
@@ -158,7 +160,7 @@ public class BoardController {
 				//위 두 조건에 해당되지 않는 경우.
 			}
 			mv.addObject("postList", result);
-			
+			mv.setViewName("search/result");
 			return mv;
 		}
 		

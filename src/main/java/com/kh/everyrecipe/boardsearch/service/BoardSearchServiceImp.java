@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.everyrecipe.board.vo.PostVo;
 import com.kh.everyrecipe.boardsearch.dao.BoardSearchDao;
+import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 
 @Service
 public class BoardSearchServiceImp implements BoardSearchService {
@@ -37,6 +38,11 @@ public class BoardSearchServiceImp implements BoardSearchService {
 	@Override
 	public int updateSearchData(String keyword) throws Exception {
 		return dao.updateSearchData(keyword);
+	}
+
+	@Override
+	public List<SearchVo> getRecommendSearchKeyword() throws Exception {
+		return dao.getRecommendSearchKeyword();
 	}
 
 }

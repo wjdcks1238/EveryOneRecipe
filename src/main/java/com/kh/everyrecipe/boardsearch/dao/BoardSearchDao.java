@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 
 @Repository
 public class BoardSearchDao {
@@ -32,5 +33,9 @@ public class BoardSearchDao {
 
 	public int updateSearchData(String keyword) {
 		return sqlSession.update("boardSearchMapper.updateSearchData", keyword);
+	}
+
+	public List<SearchVo> getRecommendSearchKeyword() {
+		return sqlSession.selectList("boardSearchMapper.searchRecommendKeyword");
 	}
 }
