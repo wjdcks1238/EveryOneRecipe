@@ -153,20 +153,19 @@ function closePopup() {
                                             <th>ID</th>
                                             <th>닉네임</th>
                                             <th>가입일</th>
-                                            <th>작성한 게시글</th>
-                                           	<th>차단권한</th>
-                                            <th>탈퇴일</th>
-                                            <th>게시글 신고여부</th>
-                                            <th>댓글 	신고여부</th>
+                                            <th>탈퇴여부</th>
+                                           	<th>차단상태</th>
+                                            <th>작성한 게시글(수)</th>
+                                            <th>신고된 게시글(수)</th>
+                                            <th>작성한 댓글(수)</th>
+                                            <th>신고된 댓글(수)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     	<c:forEach var="admin" items="${memberDto}">
 	                                        <tr >
 	                                            <td >
-	                                            <a href="<%=request.getContextPath()%>/admin/details/${admin.userId}" onclick="openPopup(event, '${admin.userId}')">
 	                                            <c:out value="${admin.userId }"/>
-	                                            </a>
 	                                            </td>
 	                                            <td><c:out value="${admin.nickName}"/></td>
 	                                            <td ><c:out value="${admin.createAt}"/></td>
@@ -185,8 +184,10 @@ function closePopup() {
 	                                            
 	                                            <!-- 댓글 신고여부 표시 코드 구현-->
 	                                            <td>2011/04/25</td>
+	                                            <td>..</td>
 	                                        </tr>
 	                                    </c:forEach>
+	                                    
                                     </tbody>
                                 </table>
                   </div>

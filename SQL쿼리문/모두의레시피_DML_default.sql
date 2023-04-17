@@ -25,6 +25,7 @@ INSERT INTO MEMBERS VALUES('user05', 'user05@gmail.com', 'user05', '박새롬', 
 commit;
 
 --select * from members;
+select count (postid) from post where userid = 'everys_recipe';
 
 --회원정보 수정
 --UPDATE MEMBERS SET (PASSWORD, EMAIL, ) = ();
@@ -105,32 +106,36 @@ commit;
 --	"POSTID",
 --	"USERID"
 --);
+
+select * from post;
+select * from TBCOMMENT;
 ----신고
 --게시글 신고 접수시
+select * from report;
+insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'everys_recipe', 263, null, '맛없어요', 'p',default);
+insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'user04', 263, null, '재료를 알려주지 않아요. 어그로꾼', 'p',default);
+insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'everys_recipe', 265, null, '도배 게시물임', 'p',default);
+insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'user04', 266, null, '이것도 도배임', 'p',default);
+insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'everys_recipe', null, 3, '댓글을 대충 달아서 나를 열받게 했어요', 'c',default);
+insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'user04', null, 3, '월요일이라 신고할게요', 'c',default);
+insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'everys_recipe', null, 4, '월요일이라 신고할게요', 'c',default);
+insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'everys_recipe', null, 5, '월요일이라 신고할게요', 'c',default);
+insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'everys_recipe', null, 6, '월요일이라 신고할게요', 'c',default);
 --CREATE TABLE "REPORT" (
---	"REPORTID"	VARCHAR2(15 char)		NOT NULL,
+--	"REPORTID"	NUMBER		NOT NULL,
 --	"USERID"	VARCHAR2(15 char)		NOT NULL,
---	"POSTID"	NUMBER		NOT NULL,
+--	"POSTID"	NUMBER		NULL,
+--	"CMTID"	NUMBER		NULL,
+--	"REPORTCONTENT"	VARCHAR2(100 char)		NOT NULL,
+--	"REPORTTYPE"	VARCHAR(1 char)		NOT NULL,
 --	"REPORTTIME"	TIMESTAMP	DEFAULT SYSTIMESTAMP	NOT NULL
---);
---ALTER TABLE "REPORT" ADD CONSTRAINT "PK_REPORT" PRIMARY KEY (
---	"REPORTID"
---);
---ALTER TABLE "REPORT" ADD CONSTRAINT "FK_MEMBERS_TO_REPORT_1" FOREIGN KEY (
---	"USERID"
---)
---REFERENCES "MEMBERS" (
---	"USERID"
---);
---ALTER TABLE "REPORT" ADD CONSTRAINT "FK_POST_TO_REPORT_1" FOREIGN KEY (
---	"POSTID"
---)
---REFERENCES "POST" (
---	"POSTID"
 --);
 --COMMENT ON COLUMN "REPORT"."REPORTID" IS 'auto_increment';
 --COMMENT ON COLUMN "REPORT"."USERID" IS '신고한 유저';
 --COMMENT ON COLUMN "REPORT"."POSTID" IS '신고당한 게시물';
+--COMMENT ON COLUMN "REPORT"."CMTID" IS '신고당한 댓글';
+--COMMENT ON COLUMN "REPORT"."REPORTCONTENT" IS '신고들어온 내용';
+--COMMENT ON COLUMN "REPORT"."REPORTTYPE" IS 'p 게시글, c 댓글';
 --COMMENT ON COLUMN "REPORT"."REPORTTIME" IS '신고 시간';
 ----댓글
 --댓글 삽입
@@ -154,6 +159,9 @@ insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user01', '22', '댓글테스트
 insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user02', '13', '댓글테스트18', default, default);
 insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user03', '34', '댓글테스트19', default, default);
 insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user04', '55', '댓글테스트20', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user01', '5', '으악 이게 뭐에요', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user01', '5', '으악 이게 뭐에요', default, default);
+insert into TBCOMMENT values(SEQ_CMTID.NEXTVAL, 'user01', '5', '으악 이게 뭐에요', default, default);
 
 --CREATE TABLE "TBCOMMENT" (
 --	"CMTID"	NUMBER		NOT NULL,

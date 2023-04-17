@@ -44,3 +44,63 @@ update POSTBOOKMARK set ISDELETED='N' where POSTID='&postid' and USERID='&userid
 SELECT * FROM HASHTAG;
 ----재료
 SELECT * FROM INGREDIENT;
+
+-- 관리자 회원별 글 관리
+select * from members;
+select * from report;
+
+-- 관리자 회원별 글 관리
+select * from members;
+select * from post tp;
+select * from report ;
+select * from tbcomment;
+select 
+    tp.userid as blockuserid 
+    , tr.REPORTTYPE
+    from report tr 
+            join post tp using(postid)
+--    group by tr.REPORTTYPE, tp.userid
+;
+select tp.userid a,
+tc.userid b,
+tr.REPORTID,
+tr.USERID c,
+tr.postid,
+tr.cmtid
+--    case tr.REPORTTYPE = 'p'
+--        then 
+    from report tr
+        left outer join post tp on tr.postid = tp.postid
+        left outer join tbcomment tc  on tr.cmtid = tc.cmtid
+;
+
+select 
+(select count(*) from post where userid = tp.userid group by userid) as postedcnt ,
+(select count(*) from tbcomment where userid = tc.userid group by userid) as replycnt ,
+    tp.userid as blockpostuserid,
+    tc.userid as blockreplyuserid 
+    , tr.REPORTTYPE
+    , count(*)
+    from report tr 
+        left outer join post tp on tr.postid = tp.postid
+        left outer join tbcomment tc  on tr.cmtid = tc.cmtid
+    group by tr.REPORTTYPE, tp.userid, tc.userid
+;
+--카운트 갯수 확인 테이블 만들기
+-- postid,신고한 사람 display목록에 없으므로 뺌 --  postid , tr.userid as reportuserid 
+
+
+--	private String userId;
+--	private String nickname;
+--	private Date createAt; 
+--	private String postBlockYn;
+--	private String replyBlockYn;
+--	private String blockStartDt;
+--	private String blockEndDt;
+--	
+--	private int postedCnt;
+--	private int postReportedCnt;
+--	private int replyCnt;
+--	private int replyReportedCnt;
+
+

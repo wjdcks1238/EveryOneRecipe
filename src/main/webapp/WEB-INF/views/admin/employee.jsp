@@ -10,8 +10,10 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
- <title>Document</title>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<title>Document</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
 
 <title>모두의 레시피 관리자 모드</title>
 
@@ -87,7 +89,7 @@
 	rel="stylesheet">
 </head>
 <body id="page-top">
-<script>
+	<script>
 	function openPopup(event, userId) {
 		let newPopup;
 		event.preventDefault();
@@ -228,11 +230,17 @@
 									<h5 class="modal-title">회원목록</h5>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
-								<div class="modal-body" >
-									<table class="table table-bordered dataTable no-footer" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+								<div class="modal-body">
+									<table class="table table-bordered dataTable no-footer"
+										id="dataTable" width="100%" cellspacing="0" role="grid"
+										aria-describedby="dataTable_info" style="width: 100%;">
 										<thead>
 											<tr role="row">
-												<th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="ID: activate to sort column desending" style="width: 80.0312px">ID</th>
+												<th class="sorting sorting_asc" tabindex="0"
+													aria-controls="dataTable" rowspan="1" colspan="1"
+													aria-sort="ascending"
+													aria-label="ID: activate to sort column desending"
+													style="width: 80.0312px">ID</th>
 												<th>닉네임</th>
 												<th>입사일</th>
 												<th>권한부여</th>
@@ -247,7 +255,9 @@
 												<td>
 													<div>
 														<input type="checkbox" id="switch" hidden> <label
-															for="username" class="toggleSwitch blue" data-user-id="${admin.userId}" data-user-role="${admin.authority} "> <span
+															for="username" class="toggleSwitch blue"
+															data-user-id="${admin.userId}"
+															data-user-role="${admin.authority} "> <span
 															class="toggleButton"></span>
 														</label>
 													</div>
@@ -283,12 +293,12 @@
 							<c:forEach var="admin" items="${memberDto}">
 								<tr>
 									<td>
-									<!-- 팝업을 모달로 변경하기 -->
-									<a
+										<!-- 팝업을 모달로 변경하기 --> <a
 										href="<%=request.getContextPath()%>/admin/details/${admin.userId}"
 										onclick="openPopup(event, '${admin.userId}')"> <c:out
 												value="${admin.userId }" />
-									</a></td>
+									</a>
+									</td>
 									<td><c:out value="${admin.nickName}" /></td>
 									<td><c:out value="${admin.createAt}" /></td>
 									<td>퇴사</td>
@@ -337,8 +347,8 @@
 
 	<!-- footer -->
 	<%@ include file="adminFooter.jsp"%>
-	
-<script>
+
+	<script>
 const openModalBtn = document.getElementById('open-modal');
 const modal = document.getElementById('modal');
 

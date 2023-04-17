@@ -3,6 +3,7 @@ package com.kh.everyrecipe.member.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.everyrecipe.board.vo.BoardManagementDto;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
 

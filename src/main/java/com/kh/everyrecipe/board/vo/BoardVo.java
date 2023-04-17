@@ -25,6 +25,6 @@ public class BoardVo {
 	private String content;
 	private Date createDate;
 	private Date UpdateDate;
-	private String isDeleted;
-	private int lookUp;
+	private String isDeleted; //논리삭제여부 'N'
+	private int lookUp;		  //조회수
 }

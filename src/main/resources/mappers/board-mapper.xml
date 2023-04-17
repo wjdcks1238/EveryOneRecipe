@@ -182,7 +182,10 @@ SELECT
 	</delete>
 	
 	
-	
+	<!-- 관리자 회원별 작성 글 관리 -->
+	<select id="postingCount" resultType="_int">
+		
+	</select>
 	
 	
 	

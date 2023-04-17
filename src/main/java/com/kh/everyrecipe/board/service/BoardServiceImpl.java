@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.everyrecipe.board.dao.BoardDao;
+import com.kh.everyrecipe.board.vo.BoardManagementDto;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
@@ -56,7 +57,7 @@ public class BoardServiceImpl implements BoardService{
 	public int upView(int postId) throws Exception {
 		return dao.upView(postId);
 	}
-	
+
 	
 	//Ingredient
 	@Override
@@ -107,6 +108,12 @@ public class BoardServiceImpl implements BoardService{
 		return dao.getIngForRec(chosenList);
 	}
 
+	
+	// 관리자 회원별 작성 글 관리
+	@Override
+	public List<BoardManagementDto> boardManagementList() throws Exception {
+		return dao.boardManagementList();
+	}
 
 
 

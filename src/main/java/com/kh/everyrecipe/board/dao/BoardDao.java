@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.everyrecipe.board.vo.BoardManagementDto;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
@@ -49,6 +50,8 @@ public class BoardDao {
 	public int upView(int postId) {
 		return sqlSession.update("boardMapper.upView",postId);
 	}
+
+	
 	
 	
 	//Ingredient
@@ -88,6 +91,14 @@ public class BoardDao {
 	public List<RecommendVo> getIngForRec(List<String> chosenList) {
 		return sqlSession.selectList("boardMapper.getIngForRec",chosenList);
 	}
+	
+	
+	// 관리자 회원별 작성 글 관리
+	public List<BoardManagementDto> boardManagementList() {
+		return null;
+	}
+
+	
 	
 	
 	

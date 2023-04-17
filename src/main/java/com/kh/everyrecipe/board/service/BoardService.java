@@ -3,6 +3,7 @@ package com.kh.everyrecipe.board.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.everyrecipe.board.vo.BoardManagementDto;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
@@ -29,8 +30,7 @@ public interface BoardService {
 	public int insertBasicPost(List<BoardVo> bvoList) throws Exception;
 	public int delete(int postId ) throws Exception;
 	public int upView(int postId) throws Exception;
-	
-	
+		
 	
 	//Ingredient
 	public List<IngredientVo> getIngredients() throws Exception;
@@ -45,6 +45,9 @@ public interface BoardService {
 	public int deleteHashtagList(int postId) throws Exception;
 	public List<HashtagVo> getHashtags(int postId) throws Exception;
 	public List<RecommendVo> getIngForRec(List<String> chosenList) throws Exception;
+	
 
+	// 관리자 회원별 작성 글 관리
+	public List<BoardManagementDto> boardManagementList() throws Exception;
 	
 }
