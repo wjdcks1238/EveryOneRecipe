@@ -66,7 +66,7 @@
 							<div class="thumbnail" style="background-image:url(<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/1.jpg);">
 							</div>
 						</a>
-					</div>
+					</div> 
 					<div class="col-md-7">
 						<div class="card-block">
 						<div>

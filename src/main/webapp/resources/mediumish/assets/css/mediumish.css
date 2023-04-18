@@ -87,7 +87,7 @@ section {
 	font-weight:700;
 	line-height: 1.25;
 	width: 250px;
-	display:inline-block;
+	display:inline-block; 
 }
 .listfeaturedtag h2.card-title a,.listrecent h2.card-title a {
 	color:rgba(0,0,0,.8);
