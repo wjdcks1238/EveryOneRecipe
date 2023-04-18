@@ -67,7 +67,7 @@ input[type="text"]{
 			</div>
 			<button  class="btn btn-dark mt-2" id="addIng" type="button">재료 추가</button>
 		</div>
-		<textarea  form="frm" name="content" id="editor">${post.content }</textarea>
+		<textarea  form="frm" name="editor" id="editor">${post.content }</textarea>
 		
 		<div class="mt-3">
 			<input style="width: 40%" class="form-control" value="${hashtags}" name="hashtag" type="text" placeholder="해쉬태그 입력">
@@ -99,20 +99,31 @@ $("#addIng").on("click", function(){
 	div.append($("<button class='btn btn-dark' type='button' name='deleteIng'>").text("삭제"));
 	$("#additional").append(div)	
 });
-console.log($("button[name=deleteIng]"));
 $(document).on("click","button[name=deleteIng]" ,function(){
 	$(this).parent().remove();
 });
 
-if('${alert}'!=''){
-	setTimeout(function() {
-		  alert('${alert}');
-		}, 200); 
-}
-$("#sb").on("click",function(){
-	console.log("22");
-	document.getElementById("frm").action="./update";
-});
+
+$("#sb").click(function(){
+
+	var formData=$("#frm").serialize()
+	var content = CKEDITOR.instances.editor.getData();
+	formData+="&content="+encodeURIComponent(content);
+	$.ajax({
+	  url: "${pageContext.request.contextPath}/board/list/update",
+	  type: "POST", 
+	  data:formData,
+	  success: function(data) { 
+	    if(data=='false'){
+	    	alert("비속어를 포함한 게시글은 등록할 수 없습니다.");
+	    }else if(data=='true'){
+	    	location.href="${pageContext.request.contextPath}/board/list/${post.postId}"
+	    }
+	  },
+	
+	});
+
+})
 
 </script>
 </body>

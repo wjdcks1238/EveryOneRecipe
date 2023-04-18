@@ -64,102 +64,8 @@ public class BoardController {
 		
 		
 		@GetMapping("posting")
-		public String postingPage(Model m) {
-			BoardVo board = (BoardVo) m.getAttribute("board");
-			String hashtags = (String) m.getAttribute("hashtags");
-			List<IngredientVo>  ingredients = (List<IngredientVo>)m.getAttribute("ingredients");
-		    if (board == null) {
-		        board = new BoardVo();
-		    }
-		    if (hashtags == null) {
-		    	hashtags = "";
-		    }
-		    if (ingredients == null) {
-		    	ingredients = new  ArrayList<IngredientVo>();
-		    }
-		    
-		    m.addAttribute("board",board);
-		    m.addAttribute("hashtags",hashtags );
-			m.addAttribute("ingredients",ingredients);
-			
+		public String postingPage() {
 			return "post/posting";
-		}
-		
-		@PostMapping("posting")
-		public String post(Model m
-				, Principal principal
-				, BoardVo bvo
-				, @RequestParam("ingredient") List<String> ingredients
-				, @RequestParam("amount") List<String> amounts
-				, @RequestParam("hashtag") String hashtag) throws Exception {
-
-				
-			int lastPostId = bService.getLastPostId();
-			
-			 List<IngredientVo> ivoList = new ArrayList<>(); // 공백일 때 처리 필요 
-		     for (int i = 0; i < ingredients.size(); i++) { 
-		    	 ivoList.add(new IngredientVo(lastPostId+1, ingredients.get(i), amounts.get(i)));
-		     }
-			 if (badWordFilter.containsBadWord(bvo.getContent())||badWordFilter.containsBadWord(ingredients.toString())
-				    	||badWordFilter.containsBadWord(amounts.toString())||badWordFilter.containsBadWord(hashtag) 
-				    	||badWordFilter.containsBadWord(bvo.getFoodName()) ) {
-				 m.addAttribute("board", bvo);
-				 m.addAttribute("hashtags", hashtag);
-				 m.addAttribute("ingredients", ivoList);
-				 m.addAttribute("alert", "비속어를 포함한 게시글은 등록할 수 없습니다.");
-				 return "/post/posting";
-				 
-			}
-			
-			
-			
-			
-			
-			
-			bvo.setUserId(principal.getName());
-			MemberVo mvo= mService.selectOne(principal.getName());
-			bvo.setNickname(mvo.getNickName());		
-			
-			
-			List<HashtagVo> hashtagList = new ArrayList<>();
-
-			if(!(   ("").equals(hashtag) || hashtag==null        )) {
-				String tag = hashtag.trim();
-				System.out.println("tag"+ tag);
-				if(    !("#").equals(tag.indexOf(0))  ) {
-					tag+="#";
-				}
-				String[] ht= tag.split("#");
-				
-				for(String s: ht ) {
-					if( !("").equals(s) ) {
-						hashtagList.add(new HashtagVo(lastPostId+1, s));
-					}
-				}
-				
-			}
-				
-			
-			//빈 문자열일 경우
-			
-			//처음부터 #를 붙이지 않았을 경우  #붙여줌
-			
-			//trim 후  #으로 나눈다. 띄어쓰기는 고려하지 않음. 해시태그로 저장
-			 
-			//저장된 순서대로 그대로 출력 
-			
-			
-			if (bService.insertPost(bvo) != 0) {
-				bService.insertIngList(ivoList);
-				bService.insertHashtagList(hashtagList);
-
-			}
-				
-			
-		
-			return "redirect:/board/list/";
-
-			
 		}
 		
 		
@@ -491,7 +397,8 @@ public class BoardController {
 		
 		
 		@PostMapping("/list/update")
-		public String post(Model m
+		@ResponseBody
+		public String updateajax(Principal principal
 				, BoardVo bvo
 				, @RequestParam("ingredient") List<String> ingredients
 				, @RequestParam("amount") List<String> amounts
@@ -507,11 +414,7 @@ public class BoardController {
 		     if (badWordFilter.containsBadWord(bvo.getContent())||badWordFilter.containsBadWord(ingredients.toString())
 				    	||badWordFilter.containsBadWord(amounts.toString())||badWordFilter.containsBadWord(hashtag) 
 				    	||badWordFilter.containsBadWord(bvo.getFoodName()) ) {
-				 m.addAttribute("post", bvo);
-				 m.addAttribute("hashtags", hashtag);
-				 m.addAttribute("ingredients", ivoList);
-				 m.addAttribute("alert", "비속어를 포함한 게시글은 등록할 수 없습니다.");
-				 return "/board/update";
+				 return "false";
 				 
 			}
 		     
@@ -532,24 +435,26 @@ public class BoardController {
 						hashtagList.add(new HashtagVo(bvo.getPostId(), s));
 					}
 				}
+				bService.deleteHashtagList(bvo.getPostId());  
+				//nullpointer 발생하지만 작동은 잘됨..??
+				bService.insertHashtagList(hashtagList);
+				
+			}else {
+				bService.deleteHashtagList(bvo.getPostId());  
 				
 			}
 				
 
 		
-				if(bService.updatePost(bvo)==1) {	
+				bService.updatePost(bvo);
 				//삭제 후 새로 추가
 				bService.deleteIngList(bvo.getPostId()); 
-				bService.deleteHashtagList(bvo.getPostId());  
-				bService.insertIngList(ivoList);
-				//nullpointer 발생하지만 작동은 잘됨..??
-				bService.insertHashtagList(hashtagList);
+				bService.insertIngList(ivoList);					
 					
-					
-				}
+				
 				
 	
-			return "redirect:/board/list/"+bvo.getPostId();
+			return "true";
 
 			
 		}
