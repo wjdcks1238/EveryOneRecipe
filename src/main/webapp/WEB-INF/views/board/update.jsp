@@ -104,6 +104,12 @@ $(document).on("click","button[name=deleteIng]" ,function(){
 	$(this).parent().remove();
 });
 
+if('${alert}'!=''){
+	setTimeout(function() {
+		  alert('${alert}');
+		}, 200); 
+}
+
 </script>
 </body>
 
