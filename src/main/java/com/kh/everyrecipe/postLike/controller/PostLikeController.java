@@ -23,7 +23,7 @@ public class PostLikeController {
 	
 	@PostMapping("/like")
 	@ResponseBody
-	public boolean like(Principal principal,int postId) throws Exception {
+	public String[] like(Principal principal,int postId) throws Exception {
 	
 
 		
@@ -39,23 +39,30 @@ public class PostLikeController {
 		//isdelete: 'Y'  ->좋아요
 		if(pvo==null ) {
 			pService.addLike(map);
-			return true;
+			pService.getLikeCount(postId);
+			String[] array = new String[]{"true",pService.getLikeCount(postId)+"" };
+			return array;
 		}
 		if("Y".equals(pvo.getIsDeleted())) {
 			pService.reAddLike(map);
-			return true;
+			pService.getLikeCount(postId);
+			String[] array = new String[]{"true",pService.getLikeCount(postId)+"" };
+			return array;
 		}
 		
 	
 		//isdelete: 'N'   -> 좋아요 취소
 		if("N".equals(pvo.getIsDeleted()) ) {
 			pService.removeLike(map);
-			return false; 
+			pService.getLikeCount(postId);
+			String[] array = new String[]{"false",pService.getLikeCount(postId)+"" };
+			return array; 
 		}
 		
+		pService.getLikeCount(postId);
+		String[] array = new String[]{"false",pService.getLikeCount(postId)+"" };
 		
-		
-		return false;
+		return array;
 	}
 
 	

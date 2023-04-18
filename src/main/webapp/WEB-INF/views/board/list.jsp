@@ -223,11 +223,11 @@ $(document).on("click",".likeBtn" ,function() {
 		data: {postId: id },
 		async : false,
 		success:function(result){
-			if(result==false){
+			if(result[0]=='false'){
 				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addL.png'>";
 				like.parent().html(htmlVal);
 				 
-			}else if(result==true){
+			}else if(result[0]=='true'){
 				var htmlVal= "<img data-postid='"+id+"' class='likeBtn' style='cursor: pointer;' alt='' width='25px' src='${pageContext.request.contextPath}/resources/icons/addedL.png'>";
 				like.parent().html(htmlVal);
 			}

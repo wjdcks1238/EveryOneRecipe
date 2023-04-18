@@ -152,7 +152,7 @@
 			</div>
 		</c:if>
 </c:if>
-			<div>
+			<div id="likeCount">
 				: ${likeCount } 
 			</div> 
 </div>
@@ -460,16 +460,20 @@ $(document).on("click","#likeBtn" ,function() {
 		data: {postId: ${post.postId}},
 		async : false,
 		success:function(result){
-			if(result==false){
+			if(result[0]=='false'){
 				var htmlVal= "<img id='likeBtn' style='cursor: pointer;' alt='' width='60px' src='<%=request.getContextPath()%>/resources/icons/addL.png'>";
 				$("#like").html(htmlVal);
-			}else if(result==true){
+				$("#likeCount").html(": "+result[1]);
+			}else if(result[0]=='true'){
 				var htmlVal="<img id='likeBtn' style='cursor: pointer;' alt='' width='60px' src='<%=request.getContextPath()%>/resources/icons/addedL.png'>";
 				$("#like").html(htmlVal);
+				$("#likeCount").html(": "+result[1]);
 			}
 		}
 		
 	});
+	
+	
 });
 
 $("#deletePost").click(function(){
