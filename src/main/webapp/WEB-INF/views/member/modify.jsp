@@ -11,8 +11,8 @@
 
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/modify.js"></script>
  <style>
-
 .modal {
     position: absolute;
     top: 0;
@@ -24,13 +24,10 @@
     display: none;
 
     background-color: rgba(0, 0, 0, 0.4);
-    
 }
-
 .modal.show {
     display: block;
 }
-
 .modal_body {
     position: absolute;
     top: 50%;
@@ -48,33 +45,15 @@
 
     transform: translateX(-50%) translateY(-50%);
 }
+.inputdiv {
+	padding: 7px 60px 7px 120px;
+    border-top: 2px solid rgb(51, 51, 51);
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
 </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
-<div class="modal">
-  	<div class="modal_body">
-		<form id="uploadPiForm" method="post" enctype="multipart/form-data">
-			<div>
-				<label for="image">
-  					<a  class="btn btn-primary">프로필 이미지 선택</a>
-  					
-				</label>
-				<input style="display: none" type="file" id="image" accept="image/*" onchange="setThumbnail(event);" name="report" >
-			</div>
-			<div id="image_container"></div>
-			<div>
-				<button type="button" id="updatePI">프로필 이미지 변경</button>
-							</div>
-			<div id="error"></div>
-		</form>				
-	</div>
-</div>
-
-
-
-
-
 
 <div class="container">
 	<div class="row">

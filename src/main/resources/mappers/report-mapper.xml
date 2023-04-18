@@ -5,6 +5,12 @@
 		insert into report values(SEQ_REPORTID.nextval, #{userId}, #{postId}, null, #{reportContent}, 'p', default)
 	</insert>
 	<insert id="insertCommentReport" parameterType="revo">
-		insert into report values(SEQ_REPORTID.nextval, #{userId}, null, #{cmtId}, #{reportContent}, 'p', default)
+		insert into report values(SEQ_REPORTID.nextval, #{userId}, null, #{cmtId}, #{reportContent}, 'c', default)
 	</insert>
+	
+	<!-- 관리자 회원별 작성 글 관리 -->
+	<select id="postingCount" resultType="_int">
+		
+	</select>
+	
 </mapper>

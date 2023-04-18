@@ -66,5 +66,30 @@
     </div>
   </div>
 </section>
+<script>
+//아이디 중복체크
+$('#userId').blur(function(){
+	$.ajax({
+		type:"POST",
+		url:"<%=request.getContextPath()%>/member/checkSignup",
+		data:{
+			"userId":$('#userID').val()
+		},
+		success:function(data){
+			if($.trim(data)=="y"){
+				if($('#userId').val()!=''){
+					alert("사용 가능한 아이디입니다.");
+				}
+			} else{
+				if($('#userId').val()!=''){
+					alert("중복된 아이디입니다.");
+					$('#id').val('');
+					$('#id').focus();
+				}
+			}
+		}
+	})
+})
+</script>
 </body>
 </html>
