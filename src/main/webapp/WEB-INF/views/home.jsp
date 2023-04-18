@@ -69,7 +69,11 @@
 					</div>
 					<div class="col-md-7">
 						<div class="card-block">
-							<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${fw.postId}">${fw.foodName }</a></h2>
+						<div>
+							<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${fw.postId}">${fw.foodName }</a>
+							</h2>
+							<span class="post-read-more"><a href="<%=request.getContextPath() %>/board/list/${fw.postId}" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+						</div>
 							<h4 class="card-text"
 							style= "overflow: hidden;
 							text-overflow: ellipsis;
@@ -86,8 +90,8 @@
 									<span class="author-meta">
 									<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/${fw.postId}">${fw.nickname }</a></span><br/>
 									<span class="post-date">${fw.createAt }</span><span class="dot"></span>									
-									${fw.lookUp}</span>
-									<span class="post-read-more"><a href="<%=request.getContextPath() %>/board/list/${fw.postId}" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+									조회수: ${fw.lookUp}</span>
+									
 								</div>
 							</div>
 						</div>
@@ -120,7 +124,11 @@
 					</div>
 					<div class="col-md-7">
 						<div class="card-block">
-							<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${lu.postId}">${lu.foodName }</a></h2>
+						<div>
+							<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${lu.postId}">${lu.foodName }</a>							
+							</h2>
+							<span class="post-read-more"><a href="<%=request.getContextPath() %>/board/list/${lu.postId}" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+						</div>
 							<h4 class="card-text"
 							style= "overflow: hidden;
 							text-overflow: ellipsis;
@@ -138,9 +146,8 @@
 									<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/${lu.postId}">${lu.nickname }</a></span><br/>
 									<span class="post-date">${lu.createAt }</span><span class="dot"></span>
 									<span class="post-read">									
-									${lu.lookUp }</span>
-									</span>
-									<span class="post-read-more"><a href="<%=request.getContextPath() %>/board/list/${lu.postId}" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+									조회수: ${lu.lookUp }</span>
+									</span>								
 								</div>
 							</div>
 						</div>
@@ -174,7 +181,11 @@
 					</div>
 					<div class="col-md-7">
 						<div class="card-block">
-							<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${post.postId}">${post.foodName }</a></h2>
+						<div>
+							<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${post.postId}">${post.foodName }</a>
+							</h2>
+							<span class="post-read-more"><a href="<%=request.getContextPath() %>/board/list/${post.postId}" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+						</div>
 							<h4 class="card-text"
 							style= "overflow: hidden;
 							text-overflow: ellipsis;
@@ -195,7 +206,7 @@
 									<span class="post-read">									
 									${fwcnt[i-1] }</span>
 									</span>
-									<span class="post-read-more"><a href="<%=request.getContextPath() %>/board/list/${post.postId}" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+									
 								</div>
 							</div>
 						</div>
@@ -243,9 +254,9 @@
 							</span>
 							<span class="author-meta">
 							<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.nickname }</a></span><br/>
-							<span class="post-date">${list.createAt }</span><span class="dot"></span><span class="post-read">${list.lookUp }</span>
+							<span class="post-date">${list.createAt }</span><span class="dot"></span><span class="post-read">조회수: ${list.lookUp }</span>
 							</span>
-							<span class="post-read-more"><a href="<%=request.getContextPath() %>/board/list/${list.postId}" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+							<span class="post-read-more exp"><a href="<%=request.getContextPath() %>/board/list/${list.postId}" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
 						</div>
 					</div>
 				</div>
