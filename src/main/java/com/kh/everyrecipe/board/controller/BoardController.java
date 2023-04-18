@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,7 +32,6 @@ import com.kh.everyrecipe.comment.replycomment.service.ReplyCommentService;
 import com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo;
 import com.kh.everyrecipe.comment.service.CommentService;
 import com.kh.everyrecipe.comment.vo.CommentVo;
-import com.kh.everyrecipe.common.BadWordException;
 import com.kh.everyrecipe.common.BadWordFilter;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.member.service.MemberService;
@@ -161,6 +161,80 @@ public class BoardController {
 
 			
 		}
+		
+		
+		@PostMapping("postajax")
+		@ResponseBody
+		public String postajax(Principal principal
+				, BoardVo bvo
+				, @RequestParam("ingredient") List<String> ingredients
+				, @RequestParam("amount") List<String> amounts
+				, @RequestParam("hashtag") String hashtag) throws Exception {
+			System.out.println(bvo);
+			System.out.println(ingredients);
+			System.out.println(amounts);
+			System.out.println(hashtag);
+			
+			int lastPostId = bService.getLastPostId();
+			
+			 List<IngredientVo> ivoList = new ArrayList<>(); // 공백일 때 처리 필요 
+		     for (int i = 0; i < ingredients.size(); i++) { 
+		    	 ivoList.add(new IngredientVo(lastPostId+1, ingredients.get(i), amounts.get(i)));
+		     }
+		     if (badWordFilter.containsBadWord(bvo.getContent())||badWordFilter.containsBadWord(ingredients.toString())
+				    	||badWordFilter.containsBadWord(amounts.toString())||badWordFilter.containsBadWord(hashtag) 
+				    	||badWordFilter.containsBadWord(bvo.getFoodName()) ) {
+				return "false";
+		
+			}
+		     
+		     
+		    bvo.setUserId(principal.getName());
+			MemberVo mvo= mService.selectOne(principal.getName());
+			bvo.setNickname(mvo.getNickName());		
+				
+				
+				List<HashtagVo> hashtagList = new ArrayList<>();
+
+				if(!(   ("").equals(hashtag.trim()) || hashtag==null        )) {
+					String tag = hashtag.trim();
+					System.out.println("tag"+ tag);
+					if(    !("#").equals(tag.indexOf(0))  ) {
+						tag+="#";
+					}
+					String[] ht= tag.split("#");
+					
+					for(String s: ht ) {
+						if( !("").equals(s) ) {
+							hashtagList.add(new HashtagVo(lastPostId+1, s));
+						}
+					}
+					bService.insertHashtagList(hashtagList);
+				}
+					
+				
+				//빈 문자열일 경우
+				
+				//처음부터 #를 붙이지 않았을 경우  #붙여줌
+				
+				//trim 후  #으로 나눈다. 띄어쓰기는 고려하지 않음. 해시태그로 저장
+				 
+				//저장된 순서대로 그대로 출력 
+				
+				
+				if (bService.insertPost(bvo) != 0) {
+					bService.insertIngList(ivoList);
+					
+
+				}
+			return "true";
+			
+		}
+		
+		
+		
+		
+		
 		
 		@GetMapping("/search")
 		public ModelAndView searchResult(
