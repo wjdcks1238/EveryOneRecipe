@@ -110,12 +110,13 @@ select count (postid) from post where userid = 'everys_recipe';
 select * from post;
 select * from TBCOMMENT;
 ----신고
---게시글 신고 접수시
+--게시글 신고
 select * from report;
 insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'everys_recipe', 263, null, '맛없어요', 'p',default);
 insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'user04', 263, null, '재료를 알려주지 않아요. 어그로꾼', 'p',default);
 insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'everys_recipe', 265, null, '도배 게시물임', 'p',default);
 insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'user04', 266, null, '이것도 도배임', 'p',default);
+--댓글 신고
 insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'everys_recipe', null, 3, '댓글을 대충 달아서 나를 열받게 했어요', 'c',default);
 insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'user04', null, 3, '월요일이라 신고할게요', 'c',default);
 insert into REPORT values(SEQ_REPORTID.NEXTVAL, 'everys_recipe', null, 4, '월요일이라 신고할게요', 'c',default);

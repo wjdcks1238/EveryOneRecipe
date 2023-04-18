@@ -84,7 +84,7 @@ input[type="text"]{
 				</c:if>
 				<button class="btn btn-dark mt-2" id="addIng"  type="button">재료 추가</button>
 			</div>
-			<textarea form="frm" name="content" id="editor">${board.content }</textarea>
+			<textarea form="frm" name="editor" id="editor">${board.content }</textarea>
 			
 			<div class="mt-3">
 				<input style="width: 40%" class="form-control" value="${hashtags}" name="hashtag" type="text" placeholder="해쉬태그 입력">
@@ -93,7 +93,7 @@ input[type="text"]{
 			<div class="mt-2"> 
 				<button class="btn btn-dark" type="submit" >전송</button>
 			</div>
-	
+				<button id="sb" type="button">ajax</button>
 		</form>
 		</div>
 	
@@ -129,17 +129,23 @@ input[type="text"]{
 		
 		$("#sb").click(function(){
 		
-			var formData = new FormData($("#frm")[0]); // 폼 데이터 생성
-			var jsonData = JSON.stringify(Object.fromEntries(formData)); // 폼 데이터를 json 객체로 변환하고 문자열화
-			console.log(jsonData);//가장 마지막 데이터만 저장됨....
+			//var formData = new FormData($("#frm")[0]); // 폼 데이터 생성
+			//var jsonData = JSON.stringify(Object.fromEntries(formData)); // 폼 데이터를 json 객체로 변환하고 문자열화
+			//console.log(jsonData);//가장 마지막 데이터만 저장됨....
+			var formData=$("#frm").serialize()
+			var content = CKEDITOR.instances.editor.getData();
+			formData+="&content="+encodeURIComponent(content);
+			console.log(formData);
 			$.ajax({
-			  url: "/postajax",
+			  url: "${pageContext.request.contextPath}/board/postajax",
 			  type: "POST", 
-			  contentType: "application/json",
-			  dataType: "json",
-			  data: jsonData,
+			  data:formData,
 			  success: function(data) { 
-			    console.log(data); 
+			    if(data=='false'){
+			    	alert("비속어를 포함한 게시글은 등록할 수 없습니다.");
+			    }else if(data=='true'){
+			    	location.href="${pageContext.request.contextPath}/board/list"
+			    }
 			  },
 			
 			});

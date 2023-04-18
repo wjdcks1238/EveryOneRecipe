@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -61,7 +62,7 @@ public class MemberController {
 	@PostMapping("/signup")
 	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
 		int result = mService.insert(vo);
-		
+	
 		if(result > 0) {
 			rttr.addFlashAttribute("msg", "회원가입 성공");
 			mv.setViewName("redirect:login");
@@ -71,6 +72,19 @@ public class MemberController {
 		}
 		return mv;
 	}
+
+	//아이디 중복체크
+	@PostMapping("checkSignup")
+	@ResponseBody
+	public String signAjax(String userId) throws Exception {
+		
+		return null;
+	}
+	
+	
+	
+	
+
 	
 	//내 정보 페이지
 	@GetMapping("/myinfo")
@@ -269,5 +283,27 @@ public class MemberController {
 		mv.setViewName("member/bookmark");
 		return mv;
 	}
+	
+	//개인정보 수정 (/infoupdate) 1. 비밀번호 재확인 후 수정페이지로 넘어감
+	//프로필 업데이트 페이지
+	@GetMapping("/infoupdate")
+	public ModelAndView infoupdate(ModelAndView mv, Principal principal) throws Exception {
+		String id = principal.getName();
+		if(id != null) {
+			mv.addObject("memberDto", mService.selectOne(id));
+		}
+		mv.setViewName("member/infoupdate");
+		return mv;
+	}
+	@GetMapping("/infoupdate/modify")
+	public ModelAndView modify(ModelAndView mv, Principal principal) throws Exception {
+		String id = principal.getName();
+		if(id != null) {
+			mv.addObject("memberDto", mService.selectOne(id));
+		}
+		mv.setViewName("member/infoupdate");
+		return mv;
+	}
+	
 	
 }

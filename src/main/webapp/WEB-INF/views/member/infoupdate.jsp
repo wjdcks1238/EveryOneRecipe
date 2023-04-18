@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>프로필 수정</title>
+<title>모두의 레시피</title>
 
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
@@ -48,33 +48,20 @@
 
     transform: translateX(-50%) translateY(-50%);
 }
+.font {
+  font-family: serif, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+.inputdiv {
+	padding: 7px 60px 7px 120px;
+    border-top: 2px solid rgb(51, 51, 51);
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
 </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
-<div class="modal">
-  	<div class="modal_body">
-		<form id="uploadPiForm" method="post" enctype="multipart/form-data">
-			<div>
-				<label for="image">
-  					<a  class="btn btn-primary">프로필 이미지 선택</a>
-  					
-				</label>
-				<input style="display: none" type="file" id="image" accept="image/*" onchange="setThumbnail(event);" name="report" >
-			</div>
-			<div id="image_container"></div>
-			<div>
-				<button type="button" id="updatePI">프로필 이미지 변경</button>
-							</div>
-			<div id="error"></div>
-		</form>				
-	</div>
-</div>
-
-
-
-
-
 
 <div class="container">
 	<div class="row">
@@ -93,23 +80,32 @@
 
 		<div class="col-md-10 col-md-offset-2 col-xs-12">
 			<div class="row">
-				<div class="col-4">
-						<label>프로필 이미지</label>
-						<img width="100%" alt="<%=request.getContextPath()%>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
-   	 					<button type="button" class="btn-open-popup">프로필 이미지 변경</button>
-   	 					<button type="button" id="deletePI">삭제</button>
-				</div>
 				<div class="col-8">
 					<form id="updateForm">
+						<div><h5>개인 정보 수정</h5></div>
+						<div><h6>비밀번호 재확인</h6></div>
+						<p>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</p>
+						<div class="inputdiv">
 						<div>
-							<h3>아이디: ${memberDto.userId }</h3>
+							<div>
+							<label>아이디</label>
+							</div>
+							<div>
+							<input type="text" name="userId" value="${memberDto.userId }" readonly="${memberDto.userId }">
+							</div>
 						</div>
-						<label>닉네임</label>
-						<input type="text" name="nickName" value="${memberDto.nickName }">
-						<label>프로필 설명</label>
-						<input type="text" name="profile" value="${memberDto.profile }">
-						
-						<button id="updateBtn" type="button">프로필 업데이트</button>
+						<div>
+							<div>
+							<label>비밀번호</label>
+							</div>
+							<div>
+							<input type="password" name="password" value="${memberDto.password }" placeholder="현재 비밀번호를 입력해주세요.">
+							</div>
+						</div>
+						</div>
+						<div align="center">
+						<button id="passwordchk" type="submit">확인</button>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -126,28 +122,6 @@
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 
 <script>
-
-	function setThumbnail(event) {
-	    var reader = new FileReader();
-	
-	    reader.onload = function(event) {
-	      
-	      var img = document.createElement("img");
-	      img.setAttribute("src", event.target.result);
-	      img.setAttribute("width", '90%');
-	      $("#image_container").html("");
-	      document.querySelector("div#image_container").appendChild(img);
-	    };
-	
-	    reader.readAsDataURL(event.target.files[0]);
-	  }
-
-
-
-
-
-
-
       const body = document.querySelector('body');
       const modal = document.querySelector('.modal');
       const btnOpenPopup = document.querySelector('.btn-open-popup');
@@ -170,39 +144,25 @@
         }
       });
       
-      
-      $(document).on("click","#updatePI" ,function() {
-    	  var form = document.getElementById("uploadPiForm");
-    	  if($("#image_container").html()!=""){
-    		  form.action = 'updatepi';
-    		  form.mothod = 'post';
-    		  form.submit();
-    	  }else{
-    		  $("#error").text("이미지를 먼저 업로드 해주세요");
-    	  }
-    	  
-      });
-      
-      $(document).on("click","#updateBtn" ,function() {
-      	
-      	var map = {nickName: $.trim($("input[name=nickName]").val()),profile:$("input[name=profile]").val()};
-      	if($.trim($("input[name=nickName]").val()).length !== 0){
+      $(document).on("click","#passwordchk" ,function() { 	
+      	var map = {password: $.trim($("input[name=password]").val())};
+      	if($.trim($("input[name=password]").val()).length !== 0){
 	      	$.ajax({
-	      		url: '<%=request.getContextPath()%>/member/update',
+	      		url: '<%=request.getContextPath()%>/member/infoupdate',
 	      		type: 'POST', 
 	      		data: map,
 	      		success:function(result){
 	      			
-	      			location.href="<%=request.getContextPath()%>/member/myinfo"
-	      			
+	      			location.href="<%=request.getContextPath()%>/member/infoupdate"
 	      		}
-	      		
 	      	});
       	}else{
-      		alert("닉네임을 입력해 주세요");
+      		alert("비밀번호가 일치하지 않습니다.");
       	}
       	
       }); 
+      
+      
       $(document).on("click","#deletePI" ,function() {
       	$.ajax({
       		url: '<%=request.getContextPath()%>/member/deletepi',

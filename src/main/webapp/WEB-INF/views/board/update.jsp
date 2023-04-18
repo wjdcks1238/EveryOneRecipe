@@ -74,7 +74,7 @@ input[type="text"]{
 		</div>	
 			
 		<div class="mt-2">
-			<button class="btn btn-dark"  type="submit">수정</button>
+			<button id="sb" class="btn btn-dark"  type="button">수정</button>
 		</div>
 
 </form>
@@ -109,6 +109,10 @@ if('${alert}'!=''){
 		  alert('${alert}');
 		}, 200); 
 }
+$("#sb").on("click",function(){
+	console.log("22");
+	document.getElementById("frm").action="./update";
+});
 
 </script>
 </body>

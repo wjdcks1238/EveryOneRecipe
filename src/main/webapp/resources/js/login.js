@@ -86,4 +86,7 @@ function validation() {
 		document.getElementById("signupForm").submit();
 	}
 }
-
+//비밀번호 확인
+$(function(){
+	
+})
