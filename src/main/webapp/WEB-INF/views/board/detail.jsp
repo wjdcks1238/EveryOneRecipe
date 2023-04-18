@@ -92,7 +92,7 @@
 					<ul>
 	    				<c:forEach items="${post.ingredients }" var="ing" varStatus="status">
 							<li><a href="#"> ${ing.ingredient } </a> : ${ing.amount }
-							<button type="button" class="btn_open" value="${ing.ingredient }" 
+							<button style="height: 30px" type="button" class="btn_open btn btn-sm btn-success ml-3" value="${ing.ingredient }" 
 							onclick="openPopup();">구매</button>
 							</li>							
 						</c:forEach>						
