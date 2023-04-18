@@ -372,15 +372,21 @@ public class BoardController {
 		
 		@GetMapping("/list/update/{postId}")
 		public ModelAndView boardUpdate (ModelAndView mv
-				,@PathVariable int postId
+				,@PathVariable int postId, Principal principal
 				) throws Exception {
 				
-		//TODO 작성자가 아닐 때의 처리
 		//TODO 없는 게시글 번호로 접근시의 처리
 			String hashtags= "";
 		
 		 
 		 		PostVo pvo = bService.selectOne(postId);	
+		 		// 작성자가 아닐 때의 처리
+		 		
+		 		if(principal==null || !principal.getName().equals(pvo.getUserId())) {
+		 			mv.setViewName("redirect:/board/list");
+		 			return mv;
+		 		}
+		 		
 		 		//없는 게시글 번호로 접근시
 		 		if(pvo ==null) {
 					mv.setViewName("errors/errorPage");
@@ -411,7 +417,7 @@ public class BoardController {
 		
 		
 		@PostMapping("/list/update")
-		public ModelAndView post(ModelAndView mv
+		public String post(Model m
 				, BoardVo bvo
 				, @RequestParam("ingredient") List<String> ingredients
 				, @RequestParam("amount") List<String> amounts
@@ -423,7 +429,20 @@ public class BoardController {
 		     for (int i = 0; i < ingredients.size(); i++) { 
 		    	 ivoList.add(new IngredientVo(bvo.getPostId(), ingredients.get(i), amounts.get(i)));
 		     }
-	
+		     
+		     if (badWordFilter.containsBadWord(bvo.getContent())||badWordFilter.containsBadWord(ingredients.toString())
+				    	||badWordFilter.containsBadWord(amounts.toString())||badWordFilter.containsBadWord(hashtag) 
+				    	||badWordFilter.containsBadWord(bvo.getFoodName()) ) {
+				 m.addAttribute("post", bvo);
+				 m.addAttribute("hashtags", hashtag);
+				 m.addAttribute("ingredients", ivoList);
+				 m.addAttribute("alert", "비속어를 포함한 게시글은 등록할 수 없습니다.");
+				 return "/board/update";
+				 
+			}
+		     
+		     
+		     
 			List<HashtagVo> hashtagList = new ArrayList<>();
 
 			if(!(   ("").equals(hashtag) || hashtag==null        )) {
@@ -456,10 +475,7 @@ public class BoardController {
 				}
 				
 	
-				
-			
-			mv.setViewName("redirect:/board/list/"+bvo.getPostId());
-			return mv;
+			return "redirect:/board/list/"+bvo.getPostId();
 
 			
 		}
