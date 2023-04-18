@@ -33,6 +33,16 @@
 .btn-raised:hover {
     background: #A4A4A4;
 }
+select {
+  font-size: 18px;
+  height: 30px;
+  padding: 5px;
+  transition: all 0.5s ease;
+}
+
+.selectUp {
+  transform: translateY(-30px);
+}
 </style>
 </head>
 <body>
@@ -40,11 +50,31 @@
 
 <!-- Begin Site Title================================================== -->
 <div class="container">
-	<div class="mainheading">
-		<h1 class="sitetitle">every recipe</h1>
-		<p class="lead">
-			 소중한 나의 식사 기록장
-		</p>
+	<div class="row">
+		<div class="col">
+			<div class="mainheading">
+				<h1 class="sitetitle">every recipe</h1>
+				<p class="lead">
+					 소중한 나의 식사 기록장
+				</p>
+			</div>
+		</div>
+		<div class="col">
+			<br>
+			<br>
+			<select class="form-select" id="selectBox" aria-label="Default select example">
+			  <option value="1">One</option>
+			  <option value="2">Two</option>
+			  <option value="3">Three</option>
+			  <option value="4">Four</option>
+			  <option value="5">Five</option>
+			  <option value="6">Six</option>
+			  <option value="7">Seven</option>
+			  <option value="8">Eight</option>
+			  <option value="9">Nine</option>
+			  <option value="10">Ten</option>
+			</select>
+		</div>
 	</div>
 	<!-- End Site Title================================================== -->
 
@@ -322,6 +352,22 @@ $(document).ready(function(){
 		$(".page_btn").hide();
 	}	
 });
+
+const selectBox = document.getElementById("selectBox");
+let currentIndex = 0;
+
+setInterval(() => {
+  if (currentIndex === selectBox.options.length - 1) {
+    currentIndex = 0;
+  } else {
+    currentIndex++;
+  }
+  selectBox.selectedIndex = currentIndex;
+  //selectBox.classList.add("selectUp");
+  setTimeout(() => {
+    //selectBox.classList.remove("selectUp");
+  }, 500);
+}, 2000);
 
 
 </script>
