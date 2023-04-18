@@ -45,7 +45,7 @@
 									<c:if test="${loggedIn}">
 										<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
 										<c:if test="${user ne post.userId}">
-											<div id="follow">
+											<span  id="follow">
 												<c:if test="${isFollowed }">
 													 <img id="followBtn" style="cursor: pointer;" alt="" width="30px" src="<%=request.getContextPath()%>/resources/icons/added.png">
 												</c:if>
@@ -54,13 +54,19 @@
 													 
 												</c:if>
 												
-											</div>
+											</span>
+											<span>
+												<button type="button" class="ml-2 btn_open_postreport" style="border: none; background: none; font-size: xx-small;">신고</button>
+											</span>
+										</c:if>
+										<c:if test="${user eq post.userId}">
+											<span>
+												<a href="<%=request.getContextPath()%>/board/list/update/${post.postId}" style="border: none; background: none; font-size: xx-small;" type="button" >게시글 수정</a>
+											</span>
 										</c:if>
 									</c:if>
 								</span>
-								<span>
-									<button type="button" class="ml-2 btn_open_postreport" style="border: none; background: none; font-size: xx-small;">신고</button>
-								</span>
+								
 							</c:if>
 							<!-- 
 							<a href="#" class="btn follow">Follow</a>
