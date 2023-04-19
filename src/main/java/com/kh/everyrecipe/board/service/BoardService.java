@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.everyrecipe.board.vo.BoardManagementDto;
 import com.kh.everyrecipe.board.vo.BoardVo;
+import com.kh.everyrecipe.board.vo.ClientChkVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
@@ -28,7 +29,7 @@ public interface BoardService {
 	public int insertPost(BoardVo bvo) throws Exception;
 	public int updatePost(BoardVo bvo) throws Exception;
 	public int insertBasicPost(List<BoardVo> bvoList) throws Exception;
-	public int delete(int postId ) throws Exception;
+	public int delete(int postId ) throws Exception ;
 	public int upView(int postId) throws Exception;
 		
 	
@@ -49,5 +50,11 @@ public interface BoardService {
 
 	// 관리자 회원별 작성 글 관리
 	public List<BoardManagementDto> boardManagementList() throws Exception;
+	public Boolean isNewClient(ClientChkVo chk) throws Exception;
+	public Boolean checkTime() throws Exception;
+	public int addNewClient(ClientChkVo chk) throws Exception;
+	
+	public int updateAccessTime(ClientChkVo chk) throws Exception;
+
 	
 }

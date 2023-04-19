@@ -2,10 +2,13 @@ package com.kh.everyrecipe.board.controller;
 
 import java.io.PrintWriter;
 import java.security.Principal;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.everyrecipe.board.service.BoardService;
 import com.kh.everyrecipe.board.vo.BoardVo;
+import com.kh.everyrecipe.board.vo.ClientChkVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
@@ -279,6 +283,8 @@ public class BoardController {
 		public ModelAndView boardDetail (ModelAndView mv
 				,@PathVariable int postId
 				,Principal principal
+				, HttpServletRequest request
+				, ClientChkVo chk
 				) throws Exception {
 				
 			
@@ -340,9 +346,44 @@ public class BoardController {
 			
 			//게시글 좋아요 수 	
 			mv.addObject("likeCount",pService.getLikeCount(postId));
+			
+			
 			//TODO 임시 조회수 증가(삭제된 게시물, 조회수 증가 가능 간격설정)ip주소 또는 쿠키 사용
-			bService.upView(postId);
+			String ip = request.getRemoteAddr();
+			String browser= request.getHeader("User-Agent");
+			
+			chk.setIp(ip);
+			chk.setBrowser(browser);
+			chk.setPostId(postId);
+			
+			
+			
+			mv.addObject("ip",ip);
+			mv.addObject("browser",browser);
+			
+//			//정보 들고감 - 유니크인지확인 - 없으면 추가 (현재시각까지) 후 false 반환  
+//			//					       있으면 시간확인  제한을 넘겼으면 시간 업데이트 후 false 반환 
+//			//								    넘기지 않았으면 그대로 돌아오고 true 반환 
+//			
+//			//있는지 확인 메서드
+//			
+//			if(bService.isNewClient(chk)) {
+//				//비교해서 결과값 가져옴 
+//				
+//				if(bService.checkTime()) {
+//					bService.upView(postId);
+//					bService.updateAccessTime(chk);
+//				}
+//			}else{
+//				//새로 추가 메서드
+//				int m= bService.addNewClient(chk);
+//			}
+			
+			
+			//업데이트 메서드
+			
 				
+			bService.upView(postId);
 			mv.setViewName("board/detail");
 			return mv;
 		}

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.everyrecipe.board.vo.BoardManagementDto;
 import com.kh.everyrecipe.board.vo.BoardVo;
+import com.kh.everyrecipe.board.vo.ClientChkVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
@@ -50,8 +51,18 @@ public class BoardDao {
 	public int upView(int postId) {
 		return sqlSession.update("boardMapper.upView",postId);
 	}
-
-	
+	public int isNewClient(ClientChkVo chk) {
+		return sqlSession.selectOne("boardMapper.isNewClient",chk);	
+	}
+	public int addNewClient(ClientChkVo chk) {
+		return sqlSession.insert("boardMapper.addNewClient",chk);
+	}
+	public int checkTime() {
+		return sqlSession.selectOne("boardMapper.checkTime");
+	}
+	public int updateAccessTime(ClientChkVo chk) {
+		return sqlSession.update("boardMapper.updateAccessTime");
+	}
 	
 	
 	//Ingredient
@@ -97,6 +108,8 @@ public class BoardDao {
 	public List<BoardManagementDto> boardManagementList() {
 		return null;
 	}
+
+
 
 	
 	

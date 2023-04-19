@@ -29,7 +29,8 @@
 <div class="container">
 	
 		<!-- Begin Post -->
-		
+		[[${ip }]]
+		[[${browser }]]
 			<div class="mainheading">
 
 				<!-- Begin Top Meta -->
