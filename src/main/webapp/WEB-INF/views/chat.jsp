@@ -6,42 +6,146 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>chat page</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js" ></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+} 
 
+.chat_wrap .header{
+	font-size: 14px;
+	padding: 15px 0;
+	background: #F18C7E;
+	color: white;
+	text-align: center;
+} 
+.chat_wrap .chat{
+	height:450px;
+} 
+.chat_wrap .input-div{
+	bottom: 0;
+	width: 100%;
+	background-color: #FFF;
+	text-align: center;
+	border-top: 1px solid #F18C7E;
+	border-bottom:1px solid #F18C7E;
+}
+.chat_wrap .input-div > textarea{
+	width: 100%;
+	height: 80px;
+	border: none;
+	padding: 10px;
+	outline: none;
+} 
+#msgArea{
+	width: 100%;
+	height: 100%;
+	border: none;
+	resize: none;
+	overflow-y: scroll;
+	font-size: 18px;
+	font-family: "Dotum";
+	font-weight: bold;
+	padding-left: 10px;
+	outline: none;
+} 
+.format{
+	display: none;
+}
+</style>
 </head>
 <body>
-	<input type="text" id="message" />
-	<input type="button" id="send" value="메시지 전송"/>
-	<p>
-	<textarea id="messageArea" rows="10" cols="35" style="text-align: left;"></textarea>
 
-</body>
+<div class="chat_wrap">
+    <div class="header">
+        CHAT
+    </div>    
+   <!--
+   	상대방 직접 입력
+   <input type="text" id="targetUser" placeholder="상대방 아이디">
+    --> 
+   	상대방 아이디:
+    <select id="targetUser">
+    	<c:forEach var="id" items="${idlist }">
+    		<option value="${id.userId }">${id.userId }</option>
+    	</c:forEach>
+    </select>
+    <div class="chat">
+            <textarea id="msgArea" readonly="readonly">
+			</textarea>
+    </div>
+    <div class="input-div">
+        <textarea placeholder="Press Enter for send message." id="chatMsg"></textarea>
+    </div>
+</div>
+
 <script type="text/javascript">
-	var socket = new SockJS("http://localhost:8090/everyrecipe/chat/"); //SockJS 객체 생성
-	
-	$("#send").click(function() {
-		socket.send($("#message").val()); // 메시지 전송
-		$('#message').val('')
-	});
+var ws;
+var userid = "${param.id}";
 
-	socket.onopen = createConnect // onopen = 웹소켓의 연결
-	socket.onmessage = recieveMsg // onmessage = 메시지 수신 이벤트
-	socket.onclose = Disconnection // onclose = 웹소켓의 연결이 끊어지면 발생
+function connect(){
+	ws = new WebSocket("ws://localhost:8090/everyrecipe/chat/websocket");
 	
-	// 서버 연결
-	function createConnect(){
-		$("#messageArea").append("서버와의 연결이 성공하였습니다." + "&#10;");
-	}	
-	// 받은 메시지 출력
-	function recieveMsg(recieve) {
-		var data = recieve.data;
-		$("#messageArea").append(data + "&#10;"); // &#10; = textarea 개행 
-	}
-	// 서버와 연결이 끊어짐
-	function Disconnection() {
-		$("#messageArea").append("서버와의 연결이 끊어졌습니다.");
-	}
-
+	ws.onopen = function(){
+		register();
+	};
+	ws.onmessage = function(e){
+		var data = e.data;
+		addMsg(data);
+	};
+	ws.onclose = function(){
+	};
+}
+	function addMsg(msg){
+		var chat = $("#msgArea").val();
+		chat = chat + "\n"+ "상대방 :" + msg;
+		$('#msgArea').val(chat);
+	};
+	
+	function register(){
+		var msg = {
+			type: "register",
+			userid: "${param.id}"
+		}
+		ws.send(JSON.stringify(msg));
+	};
+	
+	function sendMsg(){
+		var msg = {
+			type: "chat",
+			target: $("#targetUser option:selected").val(),
+			message: $("#chatMsg").val()
+		}
+		ws.send(JSON.stringify(msg));
+	};
+	
+	// 앤터키 누르면 메세지 전송
+	$(function(){
+		connect();
+		$(document).on('keydown', 'div.input-div textarea', function(e){
+			if(e.keyCode == 13 && !e.shiftKey) {
+	        e.preventDefault();
+	        
+	        if($("#targetUser option:selected").val() != ""){
+				var chat = $("#msgArea").val();
+				chat = chat + "\n" + userid +" :" + $("#chatMsg").val();
+				
+				$("#msgArea").val(chat);
+				sendMsg();
+				$("#chatMsg").val("");		
+				
+				var autoscroll = $("#msgArea").prop('scrollHeight');
+				$("#msgArea").scrollTop(autoscroll);
+	        } else{
+	        	alert("상대방 아이디를 선택하시오.");        	
+	        }
+		}
+	})	
+});
+		
 </script>
+</body>
 </html>

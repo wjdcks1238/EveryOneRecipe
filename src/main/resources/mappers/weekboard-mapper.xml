@@ -53,7 +53,7 @@
     
     <!-- 인기 검색어 (1~10위) 출력 -->
     <select id="pwordlist" resultType="WordVo">
-		select keword
+		select rownum, keword
 			from(
 				select SEQ, keword
 					from(

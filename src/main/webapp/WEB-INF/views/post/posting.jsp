@@ -51,18 +51,17 @@ input[type="text"]{
 	 	<h2>게시글 등록</h2>
 	
 		<form id="frm" action="posting" method="POST" class="mt-5">
-		
 			<div>
-				<input style="width: 20%" class="form-control" type="hidden" name="userId" value="${userId }">
+				<input type="hidden" name="userId" value="${uName }">
 			</div>
 			<div>
-				<input style="width: 20%" class="form-control"  name="foodName" type="text" placeholder="음식 이름">
+				<input style="width: 20%" class="form-control chk"  name="foodName" type="text" placeholder="음식 이름">
 			</div>
 			<div class="mt-3 mb-3">
 				
 				
-				<input style="width: 20%" class="form-control" name="ingredient" type="text" placeholder="재료"> 
-				<input style="width: 20%" class="form-control" name="amount" type="text" placeholder="수량">
+				<input style="width: 20%" class="form-control chk" name="ingredient" type="text" placeholder="재료"> 
+				<input style="width: 20%" class="form-control chk" name="amount" type="text" placeholder="수량">
 				<div id="additional" ></div>
 			
 
@@ -71,7 +70,7 @@ input[type="text"]{
 			<textarea form="frm" name="editor" id="editor">${board.content }</textarea>
 			
 			<div class="mt-3">
-				<input style="width: 40%" class="form-control" name="hashtag" type="text" placeholder="해쉬태그 입력">
+				<input style="width: 40%" class="form-control hashtag" name="hashtag" type="text" placeholder="해쉬태그 입력">
 			</div>	
 				
 			<div class="mt-2"> 
@@ -96,9 +95,9 @@ input[type="text"]{
 		});
 		
 		$("#addIng").on("click", function(){	
-			var div= $("<div class='mt-1'> ").append($("<input style='width: 20%' class='form-control' type='text' placeholder='재료' name='ingredient'> "));
+			var div= $("<div class='mt-1'> ").append($("<input style='width: 20%' class='form-control chk' type='text' placeholder='재료' name='ingredient'> "));
 			div.append(" ");
-			div.append($("<input style='width: 20%' class='form-control' type='text' placeholder='수량' name='amount'>"));
+			div.append($("<input style='width: 20%' class='form-control chk' type='text' placeholder='수량' name='amount'>"));
 			div.append(" ");
 			div.append($("<button class='btn btn-dark' type='button' name='deleteIng'>").text("삭제"));
 			$("#additional").append(div)	
@@ -111,7 +110,31 @@ input[type="text"]{
 		
 		
 		$("#sb").click(function(){
-		
+			var isValid = true;
+			$('.chk').each(function() {
+				console.log($(this).val().trim());
+				console.log($(this).val());
+				if($(this).val().trim()==''){
+					alert("음식이름, 재료, 수량을 전부 입력해주세요");
+					isValid =false;
+					return false;
+				}
+			});
+			var content = CKEDITOR.instances.editor.getData();
+			var content_len = content.length;
+			if(content.trim()==''){
+				alert("게시글 내용을 입력해주세요");
+				isValid =false;
+				return false;
+			}
+			if(content_len<18){
+				alert("10글자 이상 입력해주세요.");
+				isValid =false;
+				return false;
+			}
+			if(!isValid){
+				return false;
+			}
 			var formData=$("#frm").serialize()
 			var content = CKEDITOR.instances.editor.getData();
 			formData+="&content="+encodeURIComponent(content);
@@ -124,12 +147,12 @@ input[type="text"]{
 			    if(data=='false'){
 			    	alert("비속어를 포함한 게시글은 등록할 수 없습니다.");
 			    }else if(data=='true'){
-			    	location.href="${pageContext.request.contextPath}/board/list"
+			    	location.href="${pageContext.request.contextPath}/board/list/"
 			    }
 			  },
 			
 			});
-		
+			
 		})
 		
 		

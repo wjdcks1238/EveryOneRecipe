@@ -43,6 +43,12 @@ select {
 .selectUp {
   transform: translateY(-30px);
 }
+
+#selectBox {
+	width: 15em;
+	height: 50px;
+	
+}
 </style>
 </head>
 <body>
@@ -51,7 +57,7 @@ select {
 <!-- Begin Site Title================================================== -->
 <div class="container">
 	<div class="row">
-		<div class="col">
+		<div class="col-8">
 			<div class="mainheading">
 				<h1 class="sitetitle">every recipe</h1>
 				<p class="lead">
@@ -59,23 +65,20 @@ select {
 				</p>
 			</div>
 		</div>
-		<div class="col">
+		<div class="col-3">
+			<h4>실시간 검색어 순위</h4>
 			<br>
-			<br>
-			<select class="form-select" id="selectBox" aria-label="Default select example">
-			  <option value="1">One</option>
-			  <option value="2">Two</option>
-			  <option value="3">Three</option>
-			  <option value="4">Four</option>
-			  <option value="5">Five</option>
-			  <option value="6">Six</option>
-			  <option value="7">Seven</option>
-			  <option value="8">Eight</option>
-			  <option value="9">Nine</option>
-			  <option value="10">Ten</option>
+			<select class="form-select" id="selectBox" onchange="redirectToSearch(this)">
+			  <c:forEach var="pw" items="${pword }">
+			  	<option value="${pageContext.request.contextPath }/board/search?keyword=${pw.keword}">${pw.rownum}. ${pw.keword }</option>
+			  </c:forEach>
 			</select>
 		</div>
 	</div>
+	<div>	
+		<h2><a href="<%=request.getContextPath() %>/chat?id=${userId}" onclick="chk_id(event)">채팅</a></h2>
+	</div>
+	
 	<!-- End Site Title================================================== -->
 
 	<!-- Begin Featured	================================================== -->
@@ -357,6 +360,18 @@ $(document).ready(function(){
 	}	
 });
 
+function chk_id(e){
+	var userid = "${userId}";
+	if(userid == ""){
+		alert("로그인이 필요한 기능입니다.")
+		e.preventDefault();
+	}	
+}
+
+
+
+
+
 const selectBox = document.getElementById("selectBox");
 let currentIndex = 0;
 
@@ -373,7 +388,13 @@ setInterval(() => {
   }, 500);
 }, 2000);
 
-
+function redirectToSearch(select) {
+	  var selectedValue = select.value;
+	  if (selectedValue) {
+	    window.location.href = selectedValue;
+	  }
+	}
+	
 </script>
 
 
