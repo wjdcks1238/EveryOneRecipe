@@ -21,8 +21,9 @@
       <c:url value="/member/signup" var="signupUrl" />
       <form:form name="signup" action="${signupUrl} " method="POST">
         <input type="text" id="userid" name="userId" onkeyup="validation1()" placeholder="아이디" />
-        	<div class="error-message hide error" id="idcheck-error"></div>
-        	<div class="error-message hide error" id="userid-error"></div>
+            <div class="error-message hide error">아이디를 입력하세요.</div>
+        	<div class="error-message hide error">공백없이 영어 소문자, 숫자 조합 5자~14자 이하로 입력해주세요.</div>
+        	<div class="error-message hide error">중복된 아이디입니다.</div>
         <!-- 정규표현식으로 비밀번호 검증하기
         	 공백없이 영어, 숫자, 특수문자(!,@,#)조합하여 8자 이상 16자 이하
          -->
