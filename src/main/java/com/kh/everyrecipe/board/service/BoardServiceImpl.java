@@ -80,6 +80,11 @@ public class BoardServiceImpl implements BoardService{
 	public int updateAccessTime(ClientChkVo chk) throws Exception {
 		return dao.updateAccessTime(chk);
 	}
+	@Override
+	public void upOrNot(ClientChkVo chk) throws Exception {
+		dao.upOrNot(chk);
+	}
+	
 	
 	
 	
@@ -138,6 +143,7 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardManagementDto> boardManagementList() throws Exception {
 		return dao.boardManagementList();
 	}
+	
 
 
 

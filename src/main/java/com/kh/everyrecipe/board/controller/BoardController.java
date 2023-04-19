@@ -361,29 +361,9 @@ public class BoardController {
 			mv.addObject("ip",ip);
 			mv.addObject("browser",browser);
 			
-//			//정보 들고감 - 유니크인지확인 - 없으면 추가 (현재시각까지) 후 false 반환  
-//			//					       있으면 시간확인  제한을 넘겼으면 시간 업데이트 후 false 반환 
-//			//								    넘기지 않았으면 그대로 돌아오고 true 반환 
-//			
-//			//있는지 확인 메서드
-//			
-//			if(bService.isNewClient(chk)) {
-//				//비교해서 결과값 가져옴 
-//				
-//				if(bService.checkTime()) {
-//					bService.upView(postId);
-//					bService.updateAccessTime(chk);
-//				}
-//			}else{
-//				//새로 추가 메서드
-//				int m= bService.addNewClient(chk);
-//			}
+
 			
-			
-			//업데이트 메서드
-			
-				
-			bService.upView(postId);
+//			bService.upOrNot(chk);
 			mv.setViewName("board/detail");
 			return mv;
 		}

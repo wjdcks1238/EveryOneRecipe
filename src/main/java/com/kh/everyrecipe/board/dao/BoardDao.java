@@ -63,6 +63,9 @@ public class BoardDao {
 	public int updateAccessTime(ClientChkVo chk) {
 		return sqlSession.update("boardMapper.updateAccessTime");
 	}
+	public void upOrNot(ClientChkVo chk) {
+		sqlSession.insert("boardMapper.upOrNot");
+	}
 	
 	
 	//Ingredient
@@ -108,6 +111,7 @@ public class BoardDao {
 	public List<BoardManagementDto> boardManagementList() {
 		return null;
 	}
+	
 
 
 

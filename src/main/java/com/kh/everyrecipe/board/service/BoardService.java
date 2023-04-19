@@ -55,6 +55,7 @@ public interface BoardService {
 	public int addNewClient(ClientChkVo chk) throws Exception;
 	
 	public int updateAccessTime(ClientChkVo chk) throws Exception;
+	public void upOrNot(ClientChkVo chk) throws Exception;
 
 	
 }

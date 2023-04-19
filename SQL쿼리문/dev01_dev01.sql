@@ -50,10 +50,10 @@ update USERSTABLE set EMAIL='user11@example.com', PASSWORD='user11', NICKNAME='u
 
 select * from members;
 
-CREATE TABLE POST(
+CREATE TABLE ClientChk(
        POSTID NUMBER PRIMARY KEY NOT NULL
      , USERID VARCHAR2(255 char) NOT NULL                        
-     , lastAccessTime TIMESTAMP DEFAULT(systimestamp) NOT NULL
+     , lastAccessTime DATE DEFAULT(SYSDATE) NOT NULL
 );
 
 --<<게시판 게시글>>--
