@@ -147,6 +147,7 @@ public class HomeController {
 		String userId = req.getRemoteUser();
 		List<weekVo> fwpost = fService.getFollowingPost(userId);
 		model.addAttribute("fwpost", fwpost);
+		model.addAttribute("userId", userId);
 		
 		//좋아요 갯수
 		List<Integer> fwcnt = fService.getPostLikeCnt();

@@ -75,6 +75,10 @@ select {
 			</select>
 		</div>
 	</div>
+	<div>	
+		<h2><a href="<%=request.getContextPath() %>/chat?id=${userId}" onclick="chk_id(event)">채팅</a></h2>
+	</div>
+	
 	<!-- End Site Title================================================== -->
 
 	<!-- Begin Featured	================================================== -->
@@ -355,6 +359,18 @@ $(document).ready(function(){
 		$(".page_btn").hide();
 	}	
 });
+
+function chk_id(e){
+	var userid = "${userId}";
+	if(userid == ""){
+		alert("로그인이 필요한 기능입니다.")
+		e.preventDefault();
+	}	
+}
+
+
+
+
 
 const selectBox = document.getElementById("selectBox");
 let currentIndex = 0;

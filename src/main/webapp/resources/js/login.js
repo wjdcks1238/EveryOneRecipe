@@ -9,11 +9,13 @@ function validation() {
 	let password = document.getElementById("password");
 	let checkpw = document.getElementById("checkpw");
 	let email = document.getElementById("email");
+	let idcheck = document.getElementById("idcheck");
 	
 	let useridError = document.getElementById("userid-error");
 	let passwordError = document.getElementById("password-error");
 	let passwordCheckError = document.getElementById("passwordCheck-error");
 	let emailError = document.getElementById("email-error");
+	let idcheckError = document.getElementById("idcheck-error");
 	//정규식
 	let regId = /^(?=.*[a-z])(?=.*\d)[a-z\d]{5,14}$/;
 	let regPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
@@ -33,8 +35,17 @@ function validation() {
 		useridError.innerHTML = "공백없이 영어 소문자, 숫자 조합 5자~14자 이하로 입력해주세요.";
 		useridError.classList.remove("hide");
 		return false;
-	} else {
-		useridError.classList.add("hide");
+	} else if(isIdChecked == "n"){
+		idcheckError.innerHTML = "중복된 아이디입니다.";
+		idcheckError.classList.remove("hide");
+		return false;
+	}else{
+		if(useridError.classLis){
+			useridError.classList.add("hide");
+		}
+		if(idcheckError.classList){
+			idcheckError.classList.add("hide");
+		}
 	}
 	
 	// 비밀번호 확인
@@ -87,6 +98,6 @@ function validation() {
 	}
 }
 //비밀번호 확인
-$(function(){
-	
-})
+//$(function(){
+//	
+//})

@@ -8,6 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>로그인 페이지</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css ">
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/login.js"></script>
 </head>
 <body>
@@ -19,14 +20,15 @@
       <h1>회원가입</h1>
       <c:url value="/member/signup" var="signupUrl" />
       <form:form name="signup" action="${signupUrl} " method="POST">
-        <input type="text" id="userid" name="userId" onkeyup="validation()" placeholder="아이디" />
+        <input type="text" id="userid" name="userId" onkeyup="validation1()" placeholder="아이디" />
+        	<div class="error-message hide error" id="idcheck-error"></div>
         	<div class="error-message hide error" id="userid-error"></div>
         <!-- 정규표현식으로 비밀번호 검증하기
         	 공백없이 영어, 숫자, 특수문자(!,@,#)조합하여 8자 이상 16자 이하
          -->
         <input type="password" id="password" name="password" onkeyup="validation()" placeholder="비밀번호" />
 			<div class="error-message hide error" id="password-error"></div>
-		<input type="password" id="checkpw" onkeyup="validation()" placeholder="비밀번호를 한번 더 입력해주세요" />
+		<input type="password" id="checkpw" onkeyup="validation2()" placeholder="비밀번호를 한번 더 입력해주세요" />
 			<div class="error-message hide error" id="passwordCheck-error"></div>
 
         <input type="text" id="email" name="email" onkeyup="validation()" placeholder="이메일" />
@@ -36,7 +38,8 @@
        <input type="checkbox">
        <label>동의함</label>
         </p>
-        <input type="submit" value="가입하기" id="submitBtn" disabled/>
+        <!-- <input type="submit" value="가입하기" id="submitBtn" disabled/> -->
+        <button type="submit" value="가입하기" id="submitBtn" disabled>가입하기</button>
       </form:form>
       <p>
         이미 계정이 있으신가요?
@@ -68,23 +71,28 @@
 </section>
 <script>
 //아이디 중복체크
-$('#userId').blur(function(){
+let isIdChecked = "0";
+$('#userid').blur(function(){
+	console.log("userid blur~");
+	console.log("id : "+$('#userid').val());
 	$.ajax({
 		type:"POST",
 		url:"<%=request.getContextPath()%>/member/checkSignup",
 		data:{
-			"userId":$('#userID').val()
+			userId: $('#userid').val()
 		},
 		success:function(data){
 			if($.trim(data)=="y"){
-				if($('#userId').val()!=''){
-					alert("사용 가능한 아이디입니다.");
+				if($('#userid').val()!=''){
+					isIdChecked = "y";
 				}
 			} else{
-				if($('#userId').val()!=''){
-					alert("중복된 아이디입니다.");
-					$('#id').val('');
-					$('#id').focus();
+				if($('#userid').val()!=''){
+					isIdChecked = "n";
+					$("#idcheck-error").html("중복된 아이디입니다.");
+					$("#idcheck-error").removeClass("hide");
+					/* $('#userid').val(''); */
+					$('#userid').focus();
 				}
 			}
 		}

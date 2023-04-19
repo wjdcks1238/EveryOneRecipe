@@ -69,6 +69,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.updateAdmin(member);
 	}
 
+	@Override
+	public int idcheck(String id) throws Exception {
+		return dao.idcheck(id);
+	}
+
 
 
 
