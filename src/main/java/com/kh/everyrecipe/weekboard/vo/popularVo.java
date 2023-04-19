@@ -11,6 +11,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class popularVo {
+	private int rownum;
 	private String keword;
 	private int times;
 	
