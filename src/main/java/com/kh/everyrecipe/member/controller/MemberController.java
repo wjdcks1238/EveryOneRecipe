@@ -76,9 +76,15 @@ public class MemberController {
 	//아이디 중복체크
 	@PostMapping("checkSignup")
 	@ResponseBody
-	public String signAjax(String userId) throws Exception {
-		
-		return null;
+	public String signAjax(@RequestParam("userId") String userId) throws Exception {
+		String str ="";
+		int idcheck = mService.idcheck(userId); 
+		if(idcheck > 0) {
+			str = "n";
+		}else {
+			str = "y";
+		}
+		return str;
 	}
 	
 	

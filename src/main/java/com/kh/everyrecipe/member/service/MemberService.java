@@ -29,5 +29,7 @@ public interface MemberService {
 	public List<MemberVo> selectList(String keyword) throws Exception;
 
 	public int updateAdmin(Map<String, Object> member) throws Exception;
+	
+	public int idcheck(String id) throws Exception;
 
 }

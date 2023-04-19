@@ -55,9 +55,9 @@ public class MemberDao {
 	    return sqlSession.selectList("memberMapper.selectAuth");
 	}
 
-	
-
-
+	public int idcheck(String id) throws Exception {
+		return sqlSession.selectOne("memberMapper.idcheck", id);
+	}
 
 
 }
