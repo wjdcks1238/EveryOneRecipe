@@ -146,6 +146,15 @@ SELECT
 		 WHERE POSTID=#{postId}
 	</update>
 	
+	<insert id="upOrNot" parameterType="com.kh.everyrecipe.board.vo.ClientChkVo" statementType="CALLABLE">
+    { call PROC_CHK_ACCESS (
+        #{postId, mode=IN, jdbcType=INTEGER, javaType=Integer},
+        #{browser, mode=IN, jdbcType=VARCHAR, javaType=String},
+        #{ip, mode=IN, jdbcType=VARCHAR, javaType=String}
+    )}
+	</insert>
+	
+	
 	
 	<!--Ingredients  -->
 	<update id="insertIngList" parameterType="java.util.List">

@@ -13,7 +13,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
-<sec:authorize var="loggedIn" access="isAuthenticated()" />
+
 <div class="listrecent">
 	<form>
 		<div class="row post-top-meta">

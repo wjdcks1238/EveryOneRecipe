@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.everyrecipe.board.dao.BoardDao;
 import com.kh.everyrecipe.board.vo.BoardManagementDto;
 import com.kh.everyrecipe.board.vo.BoardVo;
+import com.kh.everyrecipe.board.vo.ClientChkVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
@@ -57,7 +58,35 @@ public class BoardServiceImpl implements BoardService{
 	public int upView(int postId) throws Exception {
 		return dao.upView(postId);
 	}
-
+	@Override
+	public Boolean isNewClient(ClientChkVo chk) throws Exception {
+		if(dao.isNewClient(chk)==0) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public int addNewClient(ClientChkVo chk) throws Exception{
+		return dao.addNewClient(chk);
+	}
+	@Override
+	public Boolean checkTime() throws Exception {
+		if(dao.checkTime()==1) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public int updateAccessTime(ClientChkVo chk) throws Exception {
+		return dao.updateAccessTime(chk);
+	}
+	@Override
+	public void upOrNot(ClientChkVo chk) throws Exception {
+		dao.upOrNot(chk);
+	}
+	
+	
+	
 	
 	//Ingredient
 	@Override
@@ -114,6 +143,10 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardManagementDto> boardManagementList() throws Exception {
 		return dao.boardManagementList();
 	}
+	
+
+
+
 
 
 
