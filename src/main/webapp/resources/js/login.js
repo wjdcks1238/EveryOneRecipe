@@ -5,10 +5,8 @@ function toggle() {
   section.classList.toggle("active");
 }
 //유효성 검사
-//아이디
 //아이디 입력창 값 가져오기
 let inputUserId = document.getElementById("userid");
-console.log("inputUserId ~~~~~~~ : "+inputUserId);
 //아이디 정규식(공백없이 영어 소문자, 숫자 조합 5자~14자 이하)
 let regId = /^(?=.*[a-z])(?=.*\d)[a-z\d]{5,14}$/;
 //아이디 중복확인
@@ -71,7 +69,6 @@ checkpw.onkeyup = function(){
 	}
 }
 //이메일 확인
-//이메일 확인
 inputEmail.onkeyup = function(){
 	if(inputEmail.value === ""){
 		emailError.classList.remove('hide');
@@ -89,14 +86,13 @@ inputEmail.onkeyup = function(){
 		}
 	}
 }
-
-
-
-//유효성 체크 통과하지 못하면 가입하기 버튼 비활성화
-document.getElementById("submitBtn").removeAttribute("disabled");
+//유효성 체크 통과 못하면 가입버튼 비활성
 function submitHandler(event){
 	event.preventDefault();
-	if(!validation()) return;
+	if(!inputEmail()) return;
+	document.getElementById("submitBtn").removeAttribute("disabled", false);
 	document.getElementById("signupForm").submit();
 }
+
 //TODO: 로그인시 비밀번호 확인
+

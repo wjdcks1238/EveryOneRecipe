@@ -36,11 +36,11 @@
         	<div class="error-message hide error" id="regMail-error">올바른 이메일 형식이 아닙니다.</div>
         	<div class="error-message hide error" id="regMail-error2">이메일 주소는 50자 이하여야 합니다.</div>
 
-        <p>
+       <!--  <p>
        <span>개인정보 수집 및 이용에 동의하십니까?</span>
        <input type="checkbox">
        <label>동의함</label>
-        </p>
+        </p> -->
         <!-- <input type="submit" value="가입하기" id="submitBtn" disabled/> -->
         <button type="submit" value="가입하기" id="submitBtn" disabled>가입하기</button>
       </form:form>
@@ -59,6 +59,7 @@
       <form:form name="f" action="${loginUrl}" method="POST">
         <input type="text" id="id" name="username" placeholder="ID" />
         <input type="password" id="password" name="password" placeholder="Password" />
+        <div class="error-message hide error" id="">잘못된 비밀번호입니다.</div>
         <input type="submit" value="로그인" />
       </form:form>
       
