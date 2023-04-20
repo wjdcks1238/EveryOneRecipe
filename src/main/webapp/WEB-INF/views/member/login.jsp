@@ -27,14 +27,14 @@
         	
         <!-- 정규표현식으로 비밀번호 검증하기 공백없이 영어, 숫자, 특수문자(!,@,#)조합하여 8자 이상 16자 이하-->
         <input type="password" id="password" name="password" placeholder="비밀번호" />
-			<div class="error-message hide error" id="password-error">공백없이 영어, 숫자, 특수문자(!,@,#)조합하여 8자 이상 16자 이하로 입력해주세요.</div>
+			<div class="error-message hide error" id="regPassword-error">공백없이 영어, 숫자, 특수문자(!,@,#)조합하여 8자 이상 16자 이하로 입력해주세요.</div>
 		<input type="password" id="checkpw"  placeholder="비밀번호를 한번 더 입력해주세요" />
 			<div class="error-message hide error" id="passwordCheck-error">비밀번호가 일치하지 않습니다.</div>
 
         <input type="text" id="email" name="email" placeholder="이메일" />
         	<div class="error-message hide error" id="email-error">이메일을 입력해주세요.</div>
-        	<div class="error-message hide error" id="email-error">올바른 이메일 형식이 아닙니다.</div>
-        	<div class="error-message hide error" id="email-error">이메일 주소는 50자 이하여야 합니다.</div>
+        	<div class="error-message hide error" id="regMail-error">올바른 이메일 형식이 아닙니다.</div>
+        	<div class="error-message hide error" id="regMail-error2">이메일 주소는 50자 이하여야 합니다.</div>
 
         <p>
        <span>개인정보 수집 및 이용에 동의하십니까?</span>
