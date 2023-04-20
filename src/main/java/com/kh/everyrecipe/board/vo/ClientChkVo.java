@@ -23,4 +23,5 @@ public class ClientChkVo {
 	private String ip;
 	private String browser;	
 	private Date lastAccessTime; 
+	private int lookUp;
 }

@@ -21,7 +21,6 @@
 			<result property="amount" column="AMOUNT"/>
 		</collection>
 	</resultMap>
-
 	<!--Post -->
 	<select id="selectList" resultMap="postResultMap">
 		SELECT p.POSTID
@@ -146,13 +145,14 @@ SELECT
 		 WHERE POSTID=#{postId}
 	</update>
 	
-	<insert id="upOrNot" parameterType="com.kh.everyrecipe.board.vo.ClientChkVo" statementType="CALLABLE">
+	<select id="upOrNot" parameterType="com.kh.everyrecipe.board.vo.ClientChkVo" statementType="CALLABLE" resultType="com.kh.everyrecipe.board.vo.ClientChkVo">
     { call PROC_CHK_ACCESS (
-        #{postId, mode=IN, jdbcType=INTEGER, javaType=Integer},
-        #{browser, mode=IN, jdbcType=VARCHAR, javaType=String},
-        #{ip, mode=IN, jdbcType=VARCHAR, javaType=String}
+        #{postId, mode=IN, jdbcType=INTEGER},
+        #{browser, mode=IN, jdbcType=VARCHAR},
+        #{ip, mode=IN, jdbcType=VARCHAR},
+        #{lookUp, mode=OUT, jdbcType=INTEGER}
     )}
-	</insert>
+	</select>
 	
 	
 	

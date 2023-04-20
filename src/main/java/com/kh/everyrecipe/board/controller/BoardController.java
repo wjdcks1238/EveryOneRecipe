@@ -299,7 +299,7 @@ public class BoardController {
 					mv.setViewName("errors/deletedPost");
 					return mv;
 				}
-				mv.addObject("post",pvo);
+				
 //				MemberVo mvo = mService.selectOne(pvo.getUserId());
 //				mv.addObject("member", mvo);
 //				bService.selectOne(postId) - id, nickname --> join 
@@ -348,7 +348,8 @@ public class BoardController {
 			mv.addObject("likeCount",pService.getLikeCount(postId));
 			
 			
-			//TODO 임시 조회수 증가(삭제된 게시물, 조회수 증가 가능 간격설정)ip주소 또는 쿠키 사용
+			// 조회수 중복증가 방지
+			//TODO 삭제된게시물 조회수 증가 방지
 			String ip = request.getRemoteAddr();
 			String browser= request.getHeader("User-Agent");
 			
@@ -356,14 +357,12 @@ public class BoardController {
 			chk.setBrowser(browser);
 			chk.setPostId(postId);
 			
+					
+			int lookUp= bService.upOrNot(chk);
+			pvo.setLookUp(lookUp);
 			
-			
-			mv.addObject("ip",ip);
-			mv.addObject("browser",browser);
-			
-
-			
-//			bService.upOrNot(chk);
+			//bService.upView(postId);
+			mv.addObject("post",pvo);
 			mv.setViewName("board/detail");
 			return mv;
 		}

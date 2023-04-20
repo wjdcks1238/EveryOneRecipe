@@ -81,8 +81,8 @@ public class BoardServiceImpl implements BoardService{
 		return dao.updateAccessTime(chk);
 	}
 	@Override
-	public void upOrNot(ClientChkVo chk) throws Exception {
-		dao.upOrNot(chk);
+	public int upOrNot(ClientChkVo chk) throws Exception {
+		return dao.upOrNot(chk);
 	}
 	
 	
