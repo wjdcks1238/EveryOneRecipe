@@ -137,7 +137,7 @@ $("#sb").click(function(){
 	}
 	var formData=$("#frm").serialize();
 	formData+="&content="+encodeURIComponent(content);
-	/*
+
 	$.ajax({
 	  url: "${pageContext.request.contextPath}/board/list/update",
 	  type: "POST", 
@@ -151,7 +151,6 @@ $("#sb").click(function(){
 	  },
 	
 	});
-	*/
 })
 
 </script>
