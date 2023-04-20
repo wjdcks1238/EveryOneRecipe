@@ -34,10 +34,9 @@
      , p.LOOKUP
      , i.INGREDIENT
      , i.AMOUNT
-  FROM post p
+  FROM (select * from post where ISDELETED ='N') p
  INNER JOIN ingredient i
     ON p.POSTID = i.POSTID
- WHERE p.ISDELETED = 'N'
 	</select>
 
 <select id="pagingList" parameterType="map" resultMap="postResultMap">
@@ -83,12 +82,11 @@
      , i.AMOUNT
      , m.PROFILEURL
      , m.PROFILE
-  FROM post p
+  FROM (select * from post where postid= #{postId}) p
   JOIN ingredient i
     ON p.POSTID = i.POSTID
   JOIN members m
     ON p.USERID = m.USERID
- WHERE p.POSTID = #{postId}
 	</select>
 
 <select id="getIngForRec" parameterType="java.util.List" resultType="com.kh.everyrecipe.board.vo.RecommendVo">
@@ -121,11 +119,11 @@ SELECT
 	</select>
 
 	<insert id="insertPost" parameterType="bvo">
-		INSERT INTO post values( (SELECT NVL(MAX(postid), 0) + 1 FROM post), #{userId}, #{nickname}, #{foodName}, #{content}, default, default, default,0) 
+		INSERT INTO post values( (SELECT NVL(MAX(postid), 0) + 1 FROM post), #{userId}, #{nickname}, #{foodName}, #{content}, default, default, default,0,default) 
 	</insert>
 	<update id="insertBasicPost" parameterType="java.util.List">
   		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" >
-   			INTO post VALUES(#{item.postId}, #{item.userId}, #{item.nickname},#{item.foodName},#{item.content},default,default,default,0 )
+   			INTO post VALUES(#{item.postId}, #{item.userId}, #{item.nickname},#{item.foodName},#{item.content},default,default,default,0,default )
   		</foreach>
 	</update>
 	<update id="delete" parameterType="_int">

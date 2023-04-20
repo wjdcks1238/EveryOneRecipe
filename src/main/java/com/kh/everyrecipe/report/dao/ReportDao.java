@@ -21,4 +21,13 @@ public class ReportDao {
 		return session.insert("reportMapper.insertCommentReport", vo);
 	}
 
+	public void reportPost(ReportVo vo) {
+		session.insert("reportMapper.reportPost", vo);
+	}
+	public void reportComment(ReportVo vo) {
+		session.insert("reportMapper.reportComment", vo);
+		
+	}
+
+
 }

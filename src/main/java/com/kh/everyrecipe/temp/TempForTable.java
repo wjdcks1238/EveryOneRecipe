@@ -173,6 +173,7 @@ public class TempForTable {
 		//선택한 재료와 레시피 재료의 차집합 구해서 같이넣어줌
 		
 		for(RecommendVo vo: recList) {
+			//레시피의 전체 재료수    레시피 재료들중 가지고있는 재료 수
 			if(vo.getIngcnt()-vo.getCnt()==0) {
 				PostVo pvo = service.selectOne(vo.getPostId());
 				recList0.add(pvo);

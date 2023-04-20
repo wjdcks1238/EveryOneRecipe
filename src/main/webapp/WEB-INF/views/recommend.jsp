@@ -28,7 +28,7 @@
 					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
-						${ing.amount }
+						${ing.amount }/	
 					</c:forEach>
 					
 					</div>
@@ -46,7 +46,7 @@
 					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
-						${ing.amount }
+						${ing.amount }/
 					</c:forEach>
 					</div>
 					부족한 재료: ${needList1[status.index] }
@@ -62,7 +62,7 @@
 					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
-						${ing.amount }
+						${ing.amount }/
 					</c:forEach>
 					</div>
 					부족한 재료: ${needList2[status.index] }
@@ -78,7 +78,7 @@
 					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
-						${ing.amount }
+						${ing.amount }/
 					</c:forEach>
 					</div>
 					부족한 재료: ${needList3[status.index] }

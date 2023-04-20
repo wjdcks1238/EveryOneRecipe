@@ -8,15 +8,21 @@
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <link href="${pageContext.request.contextPath}/resources/css/detail.css" rel="stylesheet">
+<style type="text/css">
+input[type="text"]:focus{
+	outline: none;
+	border-color: black;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
-<div class="container">
+<div class="container" style="min-height: 80vh">
 
-	<input type="text" name="ingSearch" placeholder="재료를 입력해 주세요">
+	<input style="width: 20%" class="form-control mt-5" type="text" name="ingSearch" placeholder="재료를 입력해 주세요">
 	<form action="recommend" method="post">
 	
-		<div class="chosen" >
+		<div  class="chosen mt-3" >
 			<input type="hidden" name="list" id="chosenList">	
 		</div>
 	
@@ -25,7 +31,7 @@
 	
 	</div>
 	
-	<button type="submit">레시피 찾기</button>
+	<button class="btn btn-dark mt-2" type="submit">레시피 찾기</button>
 	</form>
 </div>
 
