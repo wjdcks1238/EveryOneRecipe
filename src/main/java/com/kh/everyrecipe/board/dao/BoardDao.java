@@ -63,8 +63,10 @@ public class BoardDao {
 	public int updateAccessTime(ClientChkVo chk) {
 		return sqlSession.update("boardMapper.updateAccessTime");
 	}
-	public void upOrNot(ClientChkVo chk) {
-		sqlSession.insert("boardMapper.upOrNot");
+	public int upOrNot(ClientChkVo chk) {
+		sqlSession.selectOne("boardMapper.upOrNot",chk);
+		
+		return chk.getLookUp();
 	}
 	
 	

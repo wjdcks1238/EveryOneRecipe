@@ -58,7 +58,7 @@
 	                       	USERID=#{myPage} AND		
                        	</if>                  
                        ISDELETED = 'N' AND FOODNAME LIKE '%'||#{keyword}||'%' ORDER BY postid ) p) 
-             <![CDATA[ WHERE RNUM> #{from} AND RNUM<=#{to}]]>) p2
+             ) p2
              JOIN ingredient i 
                    ON p2.POSTID = i.POSTID 
              JOIN members m 
@@ -82,7 +82,7 @@
 	                       	USERID=#{myPage} AND		
                        </if>   
                        ISDELETED = 'N' ORDER BY postid ) p)
-                       <![CDATA[ WHERE RNUM> #{from} AND RNUM<=#{to}]]>) p2
+                       ) p2
              JOIN ingredient i 
                    ON p2.POSTID = i.POSTID 
              JOIN members m 
