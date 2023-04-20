@@ -10,6 +10,17 @@
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <!-- Fonts -->
+<style type="text/css">
+.row.post-top-meta {
+  display: flex;
+  justify-content: center;
+}
+
+.col {
+	display: flex;
+  	justify-content: center;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
@@ -17,19 +28,27 @@
 <div class="listrecent">
 	<form>
 		<div class="row post-top-meta">
-			<div class="col-md-3">
-			</div>
-			<div class="col-md-6">
-				<input type="text" name="keyword" id="foodSearchKeyword" style="height: 60px; width: 90%" value="${keyword }">
-			</div>
-			<div class="col-md-3">
+			<div class="col">
+				<input type="text" name="keyword" id="foodSearchKeyword" style="height: 60px; width: 60%" value="${keyword }">
 			</div>
 		</div>
 	</form>
 		<div class="row post-top-meta">
-			<div class="col-md-4">
-			</div>
-			<div class="col-md-5">
+			<div class="col">
+				<div class="btn-group" role="group" aria-label="Basic example">
+				  <button type="button" class="btn btn-secondary" onclick="searchKey()">음식이름 검색</button>
+				  <button type="button" class="btn btn-secondary" onclick="searchHash()">해시태그 검색</button>
+				  <div class="btn-group" role="group">
+				    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				      	이용자 검색
+				    </button>
+				    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+				      <a class="dropdown-item" onclick="searchUserId()">아이디로 검색</a>
+				      <a class="dropdown-item" onclick="searchUserNickname()">닉네임으로 검색</a>
+				    </div>
+				  </div>
+				</div>
+				<!-- 
 				<div class="form-check form-check-inline">
 				  <input class="form-check-input" type="radio" name="searchoption" id="inlineRadio1" value="foodName" checked="checked">
 				  <label class="form-check-label" for="inlineRadio1">음식 이름</label>
@@ -39,8 +58,7 @@
 				  <input class="form-check-input" type="radio" name="searchoption" id="inlineRadio2" value="hashTag">
 				  <label class="form-check-label" for="inlineRadio2">해시태그</label>
 				</div>
-			</div>
-			<div class="col-md-3">
+				 -->
 			</div>
 		</div>
 		<fieldset style="text-align: center;">
@@ -112,24 +130,14 @@
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 
 <script>
-	$('input:radio[id=inlineRadio1]').change(function() {
-		searchKey();
-	});
-	
-	$('input:radio[id=inlineRadio2]').change(function() {
-		searchHash();
-	});
-	
 	function searchKey() {
 		  var keyword = $("#foodSearchKeyword").val();
-		  var option = $("[name=searchoption]").val();
 		  
 		  $.ajax({
 		    url: "<%=request.getContextPath() %>/board/findfoodajax",
 		    type: "GET",
 		    data: {
-		    	keyword: keyword,
-		    	option: option
+		    	keyword: keyword
 		    	},
 		    dataType: "json",
 		    success: function(data) {
@@ -149,14 +157,12 @@
 	
 	function searchHash() {
 		  var keyword = $("#foodSearchKeyword").val();
-		  var option = $("[name=searchoption]").val();
 		  
 		  $.ajax({
 		    url: "<%=request.getContextPath() %>/board/findhashajax",
 		    type: "GET",
 		    data: {
-		    	keyword: keyword,
-		    	option: option
+		    	keyword: keyword
 		    	},
 		    dataType: "json",
 		    success: function(data) {
@@ -172,6 +178,27 @@
 		    }
 		  });
 		}
+	
+	function searchUserId() {
+		var keyword = $("#foodSearchKeyword").val();
+		$.ajax({
+			url: "<%=request.getContextPath() %>/board/findUserIdAjax",
+			type: "GET",
+			data: {
+				keyword: keyword
+			},
+			dataType: "json",
+			success: function(data) {
+				if(data.length < 1) {
+		    		alert("검색결과가 없습니다.");
+		    	} else if(data.length > 0) {
+		    		
+		    	} else {
+		    		alert("알 수 없는 오류가 발생되었습니다.");
+		    	}
+			}
+		});
+	}
 	
 	function searchInsertDB(keyword) {
 		$.ajax({
@@ -259,6 +286,7 @@
 		
 		location.href="<%=request.getContextPath() %>/board/search?keyword="+keyword;
 	});
+
 </script>
 </body>
 </html>
