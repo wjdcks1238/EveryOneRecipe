@@ -59,5 +59,8 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.idcheck", id);
 	}
 
-
+	public List<MemberVo> login(MemberVo vo) throws Exception {
+		return sqlSession.selectList("memberMapper.login", vo);
+	}
+	
 }

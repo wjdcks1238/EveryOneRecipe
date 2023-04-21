@@ -87,12 +87,10 @@ inputEmail.onkeyup = function(){
 	}
 }
 //유효성 체크 통과 못하면 가입버튼 비활성
-function submitHandler(event){
+/*function submitHandler(event){
 	event.preventDefault();
 	if(!inputEmail()) return;
-	document.getElementById("submitBtn").removeAttribute("disabled", false);
+	document.getElementById("submitBtn").removeAttribute("disabled");
 	document.getElementById("signupForm").submit();
-}
-
-//TODO: 로그인시 비밀번호 확인
+}*/
 

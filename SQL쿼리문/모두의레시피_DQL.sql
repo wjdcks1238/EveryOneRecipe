@@ -73,19 +73,27 @@ tr.cmtid
         left outer join post tp on tr.postid = tp.postid
         left outer join tbcomment tc  on tr.cmtid = tc.cmtid
 ;
-
+--
 select 
-(select count(*) from post where userid = tp.userid group by userid) as postedcnt ,
-(select count(*) from tbcomment where userid = tc.userid group by userid) as replycnt ,
-    tp.userid as blockpostuserid,
-    tc.userid as blockreplyuserid 
-    , tr.REPORTTYPE
-    , count(*)
+(select count(*) from post where userid = tp.userid group by userid) as 작성글수 ,
+(select count(*) from tbcomment where userid = tc.userid group by userid) as 작성댓글수 ,
+    tp.userid as 글신고당한유저,
+    tc.userid as 댓글신고당한유저 
+    , tr.REPORTTYPE as 신고유형
+    , count(*) as 신고접수합
     from report tr 
         left outer join post tp on tr.postid = tp.postid
         left outer join tbcomment tc  on tr.cmtid = tc.cmtid
     group by tr.REPORTTYPE, tp.userid, tc.userid
+     order by tr.REPORTTYPE
 ;
+select * from report;
+select userid, postid, reporttype
+from report
+where reporttype = 'p';
+select userid, cmtid, reporttype
+from report
+where reporttype = 'c';
 --카운트 갯수 확인 테이블 만들기
 -- postid,신고한 사람 display목록에 없으므로 뺌 --  postid , tr.userid as reportuserid 
 

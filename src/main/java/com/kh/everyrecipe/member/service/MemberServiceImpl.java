@@ -74,6 +74,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.idcheck(id);
 	}
 
+	@Override
+	public List<MemberVo> login(MemberVo vo) throws Exception {
+		return dao.login(vo);
+	}
+
 
 
 

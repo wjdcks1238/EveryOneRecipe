@@ -4,12 +4,13 @@
 	xmlns:s="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />	
 	
 	<!--  -->
 	<s:http pattern="/resource/**" security="none"/>
 	
+
 	<s:http use-expressions="true">
-		<s:csrf disabled="true"/>
 		<s:intercept-url pattern="/member/signup" access="permitAll"/>
 		<s:intercept-url pattern="/member/checkSignup" access="permitAll"/>
 		<s:intercept-url pattern="/member/login" access="permitAll" />
@@ -18,7 +19,7 @@
 		<s:intercept-url pattern="/board/posting" access="hasAnyRole('MEMBER', 'ADMIN')" />
 		<s:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<s:intercept-url pattern="/member/**" access="hasAnyRole('MEMBER', 'ADMIN')" />
-		
+	<s:csrf disabled="false"/>
 		<s:form-login 
 			login-page="/member/login"
 			username-parameter="username"
@@ -26,6 +27,7 @@
 			default-target-url="/"
 			authentication-failure-url="/member/login"
 		/>
+		
 		<s:logout
 			logout-url="/logout"
 			logout-success-url="/"
@@ -33,10 +35,11 @@
 			delete-cookies="true"
 		/>
 	</s:http>
-
+	
 	<!--  provider  -->
 	<s:authentication-manager>
 		<s:authentication-provider>
+			<s:password-encoder hash="bcrypt"/>
 			<s:jdbc-user-service
 				data-source-ref="dataSource"
           	    users-by-username-query="select USERID as username, PASSWORD, STATUS as enabled from members where userid = ?"
@@ -44,6 +47,5 @@
 			/>
 		</s:authentication-provider>
 	</s:authentication-manager>	
-	
 	
 </beans>

@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +46,9 @@ public class MemberController {
 	@Autowired private PostLikeService plService;
 	@Autowired private PostBookmarkService pbService;
 	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	private final String defaultProfileIMG ="/resources/tempProfileImg/defaultUser.svg" ;
 	
 	@Autowired
@@ -56,11 +61,14 @@ public class MemberController {
 		return "member/login";
 	}
 	
-
-	
 	//회원가입
 	@PostMapping("/signup")
 	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
+		if(StringUtils.hasText(vo.getPassword())) {
+			String bCryptString=bCryptPasswordEncoder.encode(vo.getPassword());
+			vo.setPassword(bCryptString);
+		}
+		
 		int result = mService.insert(vo);
 	
 		if(result > 0) {
@@ -86,11 +94,6 @@ public class MemberController {
 		}
 		return str;
 	}
-	
-	
-	
-	
-
 	
 	//내 정보 페이지
 	@GetMapping("/myinfo")

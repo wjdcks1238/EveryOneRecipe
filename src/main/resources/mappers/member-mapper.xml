@@ -58,4 +58,9 @@
 	<select id="idcheck" resultType="_int">
 		select count(*) from members where userid=#{userId}
 	</select>
+	
+	<!-- 로그인 아이디,비밀번호 검증 -->
+	<select id="login" parameterType="String" resultType="mvo">
+		select * from members where userid =#{userId} and password=#{password}	
+	</select>
 </mapper>
