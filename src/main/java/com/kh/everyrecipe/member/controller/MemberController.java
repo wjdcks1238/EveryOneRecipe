@@ -304,7 +304,7 @@ public class MemberController {
 		mv.setViewName("member/infoupdate");
 		return mv;
 	}
-	@GetMapping("/infoupdate/modify")
+	@PostMapping("/modify")
 	public ModelAndView modify(ModelAndView mv, Principal principal) throws Exception {
 		String id = principal.getName();
 		if(id != null) {
@@ -313,6 +313,5 @@ public class MemberController {
 		mv.setViewName("member/infoupdate");
 		return mv;
 	}
-	
-	
+
 }
