@@ -61,7 +61,7 @@
 				 -->
 			</div>
 		</div>
-		<fieldset style="text-align: center;">
+		<fieldset id="recommendList" style="text-align: center;">
 			<legend>추천 검색어</legend>
 			<c:forEach items="${recommendKey }" var="key" varStatus="rkStatus">
 				<button type="button" data-keyword="${key.keword }" class="btn_redirectSearch" style="border-style: dotted; border-radius: 10px; border-width: 3px; background: none;">${key.keword }</button>
@@ -224,6 +224,17 @@
 			
 		});
 	}
+	
+	function refreshRecommendKey() {
+		$.ajax({
+			url: "<%=request.getContextPath() %>/keyword/refreshRecommend",
+			type: "GET",
+			dataType: "json",
+			success: function(data) {
+				refreshRecommendData(data);
+			}
+		})
+	}
 		
 	function searchInsertDB(keyword) {
 		$.ajax({
@@ -304,6 +315,7 @@
 		}
 		console.log(htmlval);
 		$("#postList").html(htmlval);
+		refreshRecommendKey();
 	}
 	
 	function displaydata(data) {
@@ -332,6 +344,16 @@
 		}
 		console.log(htmlval);
 		$("#postList").html(htmlval);
+	}
+	
+	function refreshRecommendData(data) {
+		console.log(data);
+		var htmlval = "";
+		htmlval += '<legend>추천 검색어</legend>';
+		for(i=0;i<data.length;i++) {
+			keydata = data[i];
+			'<button type="button" data-keyword="' + keydata.keword + '" class="btn_redirectSearch" style="border-style: dotted; border-radius: 10px; border-width: 3px; background: none;">' + keydata.keword + '</button>';
+		}
 	}
 	
 	$(".btn_redirectSearch").click(function() {

@@ -1,5 +1,7 @@
 package com.kh.everyrecipe.boardsearch.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.everyrecipe.boardsearch.service.BoardSearchService;
+import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 
 @Controller
 @RequestMapping("/keyword")
@@ -41,5 +45,12 @@ public class SearchKeywordController {
 			modifiedResult = -1;
 		}
 		return modifiedResult;
+	}
+	
+	@GetMapping("refreshRecommend")
+	@ResponseBody
+	public String refreshRecommend() throws Exception {
+		List<SearchVo> recommendKeyword= bsService.getRecommendSearchKeyword();
+		return new Gson().toJson(recommendKeyword);
 	}
 }
