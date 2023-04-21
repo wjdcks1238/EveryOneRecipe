@@ -10,7 +10,10 @@
 <title>every recipe</title>
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 <style>
 .material-symbols-outlined {
   font-variation-settings:
@@ -49,22 +52,65 @@ select {
 	height: 50px;
 	
 }
+#slide_wrap_div{
+	width: 100%;
+	position: relative;
+}
+#slide_wrap_div img{
+	width: 100%;
+	height: 450px;
+	vertical-align: middle;
+}
+
+#slide_wrap_div .title_div{
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate( -50%, -50%);
+}
+.slick-prev{
+	left: 3%;
+    z-index: 1;
+}
+.slick-next{
+	right: 3%;
+    z-index: 1;
+}
 </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 
 <!-- Begin Site Title================================================== -->
-<div class="container">
-	<div class="row">
-		<div class="col-8">
-			<div class="mainheading">
-				<h1 class="sitetitle">every recipe</h1>
-				<p class="lead">
-					 소중한 나의 식사 기록장
-				</p>
-			</div>
+<div id="slide_wrap_div">
+	<div id="slide_div">
+		<div>
+			<img src="./resources/img/image1.jpg">
 		</div>
+		<div>
+			<img src="./resources/img/image2.jpg">
+		</div>
+		<div>
+			<img src="./resources/img/image3.jpg">
+		</div>	
+	</div>
+	<div class="title_div col-8">
+		<div class="mainheading">
+			<h1 class="sitetitle">every recipe</h1>
+			<p class="lead">
+				 소중한 나의 식사 기록장
+			</p>
+		</div>
+	</div>
+</div>
+	
+	
+
+<div class="container">
+	<div class="row">	
+		
 		<div class="col-3">
 			<h4>실시간 검색어 순위</h4>
 			<br>
@@ -333,6 +379,17 @@ select {
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 
 <script>
+$(document).ready(function(){
+	$("#slide_div").slick(
+		{
+			autoplay: true,
+			autoplaySpeed: 5000		
+		}
+	);
+});
+$.noConflict();
+
+
 /* 추천순 게시글 숨김 */
 $(document).ready(function(){
 	$(".sort_like").hide();
