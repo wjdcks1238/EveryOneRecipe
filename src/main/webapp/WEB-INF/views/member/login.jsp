@@ -51,7 +51,6 @@
     </div>
   </div>
   <!-- 로그인 -->
-  <sec:authorize access="isAnonymous()">
   <div class="right">
     <img src="//unsplash.it/600" />
     <div class="sign-in">
@@ -63,9 +62,8 @@
         <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
         <div class="error-message hide error" id="">잘못된 비밀번호입니다.</div>
         <button type="submit" value="로그인" id="loginSubmitBtn">로그인</button>
-	        입력된 비번 : ${password }<br>
-	        암호화된 비번: ${bCryptString }
-<!--         <button type="submit" value="로그인" id="loginSubmitBtn" disabled>로그인</button> -->
+
+<!--<button type="submit" value="로그인" id="loginSubmitBtn" disabled>로그인</button> -->
       </form:form>
 	 <!-- 네이버 로그인 창으로 이동 -->
  	 <div id="naver_id_login" style="text-align:left"><a href="${url}">
@@ -76,7 +74,7 @@
       </p>
     </div>
   </div>
-  </sec:authorize>  
+
 </section>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/login.js"></script>
 <script>
