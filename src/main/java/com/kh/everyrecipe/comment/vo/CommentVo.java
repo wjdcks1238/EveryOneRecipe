@@ -31,4 +31,5 @@ public class CommentVo {
 	private String content;
 	private Date updateAt;
 	private char isDeleted;
+	private char isBlinded;
 }

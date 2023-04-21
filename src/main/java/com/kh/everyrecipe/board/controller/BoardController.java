@@ -103,24 +103,26 @@ public class BoardController {
 			MemberVo mvo= mService.selectOne(principal.getName());
 			bvo.setNickname(mvo.getNickName());		
 				
-				
-				List<HashtagVo> hashtagList = new ArrayList<>();
+			if (bService.insertPost(bvo) != 0) {
+				bService.insertIngList(ivoList);
+			}	
+			List<HashtagVo> hashtagList = new ArrayList<>();
 
-				if(!(   ("").equals(hashtag.trim()) || hashtag==null        )) {
-					String tag = hashtag.trim();
-					System.out.println("tag"+ tag);
-					if(    !("#").equals(tag.indexOf(0))  ) {
-						tag+="#";
-					}
-					String[] ht= tag.split("#");
-					
-					for(String s: ht ) {
-						if( !("").equals(s) ) {
-							hashtagList.add(new HashtagVo(lastPostId+1, s));
-						}
-					}
-					bService.insertHashtagList(hashtagList);
+			if(!(   ("").equals(hashtag.trim()) || hashtag==null        )) {
+				String tag = hashtag.trim();
+				System.out.println("tag"+ tag);
+				if(    !("#").equals(tag.indexOf(0))  ) {
+					tag+="#";
 				}
+				String[] ht= tag.split("#");
+				
+				for(String s: ht ) {
+					if( !("").equals(s) ) {
+						hashtagList.add(new HashtagVo(lastPostId+1, s));
+					}
+				}
+				bService.insertHashtagList(hashtagList);
+			}
 					
 				
 				//빈 문자열일 경우
@@ -132,11 +134,7 @@ public class BoardController {
 				//저장된 순서대로 그대로 출력 
 				
 				
-				if (bService.insertPost(bvo) != 0) {
-					bService.insertIngList(ivoList);
-					
-
-				}
+				
 			return "true";
 			
 		}
@@ -230,6 +228,8 @@ public class BoardController {
 			
 			return new Gson().toJson(result);
 		}
+		
+		
 		
 		@GetMapping("/findUserIdAjax")
 		@ResponseBody
@@ -328,6 +328,13 @@ public class BoardController {
 					mv.setViewName("errors/errorPage");
 					return mv;
 				}
+				
+				//블라인드된 게시글로 접근
+				if("Y".equals(pvo.getIsBlinded())) {
+					mv.setViewName("errors/errorPage");
+					return mv;
+				}
+				
 				//삭제된 게시물 번호로 접근시의 처리
 				if("Y".equals(pvo.getIsDeleted())) {
 					mv.setViewName("errors/deletedPost");
