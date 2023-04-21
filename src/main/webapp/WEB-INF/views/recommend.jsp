@@ -21,15 +21,16 @@
 		<div class="mt-5">
 			<h3>선택한 재료들로 만들 수 있는 레시피 목록</h3>
 		</div>
-		<c:forEach items="${recList0 }" var="list">
+		<c:forEach items="${recList0 }" var="list" >
 			<div>
 					${list.postId }
 					${list.foodName }
 					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
-						${ing.amount }
+						${ing.amount }/	
 					</c:forEach>
+					
 					</div>
 					
 			</div>
@@ -38,53 +39,52 @@
 				<h3>선택한 재료들로 만들 수 있는 레시피 목록(1개 부족)</h3>
 			</div>
 			
-		<c:forEach items="${recList1 }" var="list">
+		<c:forEach items="${recList1 }" var="list" varStatus="status">
 			<div>
 					${list.postId }
 					${list.foodName }
 					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
-						${ing.amount }
+						${ing.amount }/
 					</c:forEach>
 					</div>
-					
+					부족한 재료: ${needList1[status.index] }
 			</div>
 		</c:forEach>
 			<div class="mt-5">
 				<h3>선택한 재료를 모두 포함한 레시피 목록(2개 부족)</h3>
 			</div>
-		<c:forEach items="${recList2 }" var="list">
+		<c:forEach items="${recList2 }" var="list" varStatus="status">
 			<div>
 					${list.postId }
 					${list.foodName }
 					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
-						${ing.amount }
+						${ing.amount }/
 					</c:forEach>
 					</div>
-					
+					부족한 재료: ${needList2[status.index] }
 			</div>
 		</c:forEach>
 			<div class="mt-5">
 				<h3>선택한 재료를 모두 포함한 레시피 목록(3개부족)</h3>
 			</div>
-		<c:forEach items="${recList3 }" var="list">
+		<c:forEach items="${recList3 }" var="list" varStatus="status">
 			<div>
 					${list.postId }
 					${list.foodName }
 					<div>
 					<c:forEach items="${list.ingredients }" var="ing">
 						${ing.ingredient }
-						${ing.amount }
+						${ing.amount }/
 					</c:forEach>
 					</div>
-					
+					부족한 재료: ${needList3[status.index] }
 			</div>
 		</c:forEach>
 	</div>	
-		
 	<%@ include file="/WEB-INF/views/footer.jsp" %>
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 </body>

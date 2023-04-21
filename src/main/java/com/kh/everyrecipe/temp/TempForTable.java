@@ -123,6 +123,10 @@ public class TempForTable {
 		List<PostVo> recList1 = new ArrayList();
 		List<PostVo> recList2 = new ArrayList();
 		List<PostVo> recList3 = new ArrayList();
+		
+		List<List<String>> needList1 = new ArrayList();
+		List<List<String>> needList2 = new ArrayList();
+		List<List<String>> needList3 = new ArrayList();
 //		for(int i=1;i<=lastPostId;i++) {
 //			if(combination(allIngMap.get(i), allIngMap.get(i).size() , allIngMap.get(i).size(), 0, set, chosenList)) {
 //				
@@ -166,19 +170,46 @@ public class TempForTable {
 
 		List<RecommendVo> recList= service.getIngForRec(chosenList);
 		
-
+		//선택한 재료와 레시피 재료의 차집합 구해서 같이넣어줌
+		
 		for(RecommendVo vo: recList) {
+			//레시피의 전체 재료수    레시피 재료들중 가지고있는 재료 수
 			if(vo.getIngcnt()-vo.getCnt()==0) {
-				recList0.add(service.selectOne(vo.getPostId()));
+				PostVo pvo = service.selectOne(vo.getPostId());
+				recList0.add(pvo);
+				
 			}
 			if(vo.getIngcnt()-vo.getCnt()==1) {
-				recList1.add(service.selectOne(vo.getPostId()));
+				PostVo pvo = service.selectOne(vo.getPostId());
+				recList1.add(pvo);
+				List<String> inglist = new ArrayList<String>();
+				for(IngredientVo ivo  : pvo.getIngredients()) {
+					inglist.add(ivo.getIngredient());
+				}
+				inglist.removeAll(chosenList);
+				needList1.add(inglist);
 			}	
 			if(vo.getIngcnt()-vo.getCnt()==2) {
-				recList2.add(service.selectOne(vo.getPostId()));
+				PostVo pvo = service.selectOne(vo.getPostId());
+				recList2.add(pvo);
+				
+				List<String> inglist = new ArrayList<String>();
+				for(IngredientVo ivo  : pvo.getIngredients()) {
+					inglist.add(ivo.getIngredient());
+				}
+				inglist.removeAll(chosenList);
+				needList2.add(inglist);
 			}
 			if(vo.getIngcnt()-vo.getCnt()==3) {
-				recList3.add(service.selectOne(vo.getPostId()));
+				PostVo pvo = service.selectOne(vo.getPostId());
+				recList3.add(pvo);
+				
+				List<String> inglist = new ArrayList<String>();
+				for(IngredientVo ivo  : pvo.getIngredients()) {
+					inglist.add(ivo.getIngredient());
+				}
+				inglist.removeAll(chosenList);
+				needList3.add(inglist);
 			}
 		}
 		
@@ -187,6 +218,12 @@ public class TempForTable {
 		mv.addObject("recList1", recList1);
 		mv.addObject("recList2", recList2);
 		mv.addObject("recList3", recList3);
+		
+		mv.addObject("needList1", needList1);
+		mv.addObject("needList2", needList2);
+		mv.addObject("needList3", needList3);
+		
+		
 		mv.addObject("chosenList", chosenList);
 		
 		mv.setViewName("recommend");

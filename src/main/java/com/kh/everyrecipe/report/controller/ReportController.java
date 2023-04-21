@@ -70,7 +70,7 @@ public class ReportController {
 		
 		
 		result = rService.submitPostReport(vo);
-		
+		//rService.reportPost(vo);
 		
 		
 		return result;
@@ -122,7 +122,13 @@ public class ReportController {
 		vo.setReportType('c');
 		
 		result = rService.submitCommentReport(vo);
-		
+		//rService.reportComment(vo);
 		return result;
 	}
 }
+
+
+//게시글 블라인드 
+//댓글 블라인드 
+//회원 블락
+

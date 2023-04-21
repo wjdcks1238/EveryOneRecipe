@@ -366,7 +366,6 @@ public class BoardController {
 			
 			
 			// 조회수 중복증가 방지
-			//TODO 삭제된게시물 조회수 증가 방지
 			String ip = request.getRemoteAddr();
 			String browser= request.getHeader("User-Agent");
 			

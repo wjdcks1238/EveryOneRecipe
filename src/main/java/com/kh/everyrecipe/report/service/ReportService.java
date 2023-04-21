@@ -8,5 +8,7 @@ public interface ReportService {
 
 	public int submitPostReport(ReportVo vo);
 	public int submitCommentReport(ReportVo vo);
+	public void reportComment(ReportVo vo);
+	public void reportPost(ReportVo vo);
 
 }
