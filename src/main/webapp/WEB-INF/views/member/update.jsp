@@ -48,6 +48,9 @@
 
     transform: translateX(-50%) translateY(-50%);
 }
+.wrapper{
+	min-height: 80vh;
+}
 </style>
 </head>
 <body>
@@ -76,7 +79,7 @@
 
 
 
-<div class="container">
+<div class="container wrapper">
 	<div class="row">
 
 		<div class="col-md-2 col-xs-12">

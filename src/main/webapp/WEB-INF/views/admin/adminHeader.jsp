@@ -64,8 +64,22 @@
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">권한관리</a>
                     </div>
                 </div>
+                
+            
             </li>
-
+			<li class="nav-item">
+			    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+			        aria-expanded="true" aria-controls="collapseThree">
+			        <i class="fas fa-fw fa-minus-circle"></i>
+			        <span>신고 관리</span>
+			    </a>
+			    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+			        <div class="bg-white py-2 collapse-inner rounded">
+			            <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">게시글 관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">댓글 관리</a>
+			        </div>
+			    </div>
+			</li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 

@@ -29,7 +29,10 @@
 					<a class="nav-link" href="<%=request.getContextPath()%>/board/list">전체 게시글</a>
 			    </li>
 			    <li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내정보</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/posting">글 작성</a>
+			    </li>
+			    <li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보</a>
 			    </li>
 			    <li class="nav-item">
 			      <form class="form-logout" method="post" action="/logout">
@@ -47,11 +50,15 @@
 			  <%} else{ %>
 			    <sec:authorize access="hasRole('ADMIN')">
 			    <li class="nav-item">
-			      <a href="<%=request.getContextPath() %>/logout" class="nav-link btn">로그아웃</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/posting">글 작성</a>
+			    </li>
+			    <li class="nav-item">
+			      <a href="<%=request.getContextPath() %>/logout" class="nav-link">로그아웃</a>
 			    </li>
 				<li class="nav-item ">
 					<a class="nav-link" href="<%=request.getContextPath()%>/admin">관리자모드</a>
 				</li>
+				
 				</sec:authorize>
 			  <%} %>
 		  		</li>
