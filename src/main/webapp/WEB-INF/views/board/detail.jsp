@@ -13,18 +13,55 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <link href="${pageContext.request.contextPath}/resources/css/detail.css" rel="stylesheet">
 <!-- Fonts -->
+
+<style type="text/css">
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+     
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal_body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 400px;
+    height: 200px;
+
+    padding: 40px;
+
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+   
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 
-
-
-<sec:authorize var="loggedIn" access="isAuthenticated()" />
-
-
-
-
-
+<div class="modal">
+  	<div class="modal_body">
+  		<div>정말 삭제하시겠습니까?</div>
+		<button class="mt-5" id="deletePost">삭제</button>
+	</div>
+</div>
 
 <div class="container">
 	
@@ -60,7 +97,10 @@
 										</c:if>
 										<c:if test="${user eq post.userId}">
 											<span>
-												<a href="<%=request.getContextPath()%>/board/list/update/${post.postId}" style="border: none; background: none; font-size: xx-small;" type="button" >게시글 수정</a>
+												<a href="<%=request.getContextPath()%>/board/list/update/${post.postId}" style="border: none; background: none; font-size: xx-small;" type="button" >수정</a>
+											</span>
+											<span class="ml-2">
+												<a href="#" style="border: none; background: none; font-size: xx-small;" type="button" class="btn-open-popup">삭제</a>
 											</span>
 										</c:if>
 									</c:if>
@@ -126,7 +166,7 @@
 			
 			</div>
 			
-			<div class="col-2" id="like">
+			<div class="col-1" id="like">
 			
 					<c:if test="${isLiked }">
 					 	<img id="likeBtn" style="cursor: pointer;" alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addedL.png">
@@ -139,19 +179,19 @@
 		</c:if>
 </c:if>
 <c:if test="${!loggedIn}">
-			<div class="col-2">	
-				<img alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addL.png">
+			<div class="col-1">	
+				<img alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addedL.png">
 			</div>
 </c:if>
 <c:if test="${loggedIn}">
 	<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
 		<c:if test="${user eq post.userId}">
-			<div class="col-2">	
-					<img alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addL.png">
+			<div class="col-1">	
+					<img alt="" width="60px" src="<%=request.getContextPath()%>/resources/icons/addedL.png">
 			</div>
 		</c:if>
 </c:if>
-			<div id="likeCount">
+			<div class="ml-2" id="likeCount">
 				: ${likeCount } 
 			</div> 
 </div>
@@ -248,23 +288,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <%@ include file="/WEB-INF/views/footer.jsp" %>
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 <script type="text/javascript">
@@ -291,7 +314,7 @@ function closeInsert(num) {
 
 function updateComment(cid) {
 	$.ajax({
-		url:"<%=request.getContextPath()%>/board/updateReplyAjax",
+		url:"${pageContext.request.contextPath}/board/updateReplyAjax",
 		type: "POST",
 		data:{
 			cmtId: cid,
@@ -313,7 +336,7 @@ function updateComment(cid) {
 
 function deleteCmt(cid) {
 	$.ajax({
-		url: "<%=request.getContextPath() %>/board/deleteReplyAjax",
+		url: "${pageContext.request.contextPath}/board/deleteReplyAjax",
 		type: "POST",
 		data: {cmtId: cid
 			  , postId: ${post.postId}
@@ -337,7 +360,7 @@ function deleteCmt(cid) {
 
 $(document).on("click", ".btn.reply", function() {
 	$.ajax({
-		url: "<%=request.getContextPath()%>/board/insertReplyAjax",
+		url: "${pageContext.request.contextPath}/board/insertReplyAjax",
 		type: "POST",
 		data:{
 			postId: ${post.postId},
@@ -410,17 +433,17 @@ function displayReply(result) {
 
 $(document).on("click","#bookmarkBtn" ,function() {
 	$.ajax({
-		url: "<%=request.getContextPath()%>/bookmark",
+		url: "${pageContext.request.contextPath}/bookmark",
 		type: "POST", 
 		data: {postId: ${post.postId}},
 		async : false,
 		success:function(result){
 			if(result==false){
-				var htmlVal= "<img id='bookmarkBtn' style='cursor: pointer;' alt='' width='60px' src='<%=request.getContextPath()%>/resources/icons/addB.png'>";
+				var htmlVal= "<img id='bookmarkBtn' style='cursor: pointer;' alt='' width='60px' src='${pageContext.request.contextPath}/resources/icons/addB.png'>";
 				//var htmlVal= "북마크 : <span id='isBookmarked'> X </span><button id='bookmarkBtn'>북마크</button>";
 				$("#bookmark").html(htmlVal);
 			}else if(result==true){
-				var htmlVal= "<img id='bookmarkBtn' style='cursor: pointer;' alt='' width='60px' src='<%=request.getContextPath()%>/resources/icons/addedB.png'>";
+				var htmlVal= "<img id='bookmarkBtn' style='cursor: pointer;' alt='' width='60px' src='${pageContext.request.contextPath}/resources/icons/addedB.png'>";
 				//var htmlVal= "북마크 : <span id='isBookmarked'> O </span><button id='bookmarkBtn'>북마크 취소</button>";
 				$("#bookmark").html(htmlVal);
 			}
@@ -433,17 +456,17 @@ $(document).on("click","#bookmarkBtn" ,function() {
 $(document).on("click","#followBtn" ,function() {
 	var isFollowed = $("#isFollowed").text();
 	$.ajax({
-		url: "<%=request.getContextPath()%>/follow",
+		url: "${pageContext.request.contextPath}follow",
 		type: "POST", 
 		data: {userId: "${post.userId }" },
 		async : false,
 		success:function(result){
 			if(result==false){
 				
-				var htmlVal= "<img id='followBtn' style='cursor: pointer;' alt='' width='30px' src='<%=request.getContextPath()%>/resources/icons/add.png'>";
+				var htmlVal= "<img id='followBtn' style='cursor: pointer;' alt='' width='30px' src='${pageContext.request.contextPath}/resources/icons/add.png'>";
 				$("#follow").html(htmlVal);
 			}else if(result==true){
-				var htmlVal= "<img id='followBtn' style='cursor: pointer;' alt='' width='30px' src='<%=request.getContextPath()%>/resources/icons/added.png'>";
+				var htmlVal= "<img id='followBtn' style='cursor: pointer;' alt='' width='30px' src='${pageContext.request.contextPath}/resources/icons/added.png'>";
 				$("#follow").html(htmlVal);
 			}
 		}
@@ -454,17 +477,17 @@ $(document).on("click","#followBtn" ,function() {
 
 $(document).on("click","#likeBtn" ,function() {
 	$.ajax({
-		url: "<%=request.getContextPath()%>/like",
+		url: "${pageContext.request.contextPath}/like",
 		type: "POST", 
 		data: {postId: ${post.postId}},
 		async : false,
 		success:function(result){
 			if(result[0]=='false'){
-				var htmlVal= "<img id='likeBtn' style='cursor: pointer;' alt='' width='60px' src='<%=request.getContextPath()%>/resources/icons/addL.png'>";
+				var htmlVal= "<img id='likeBtn' style='cursor: pointer;' alt='' width='60px' src='${pageContext.request.contextPath}/resources/icons/addL.png'>";
 				$("#like").html(htmlVal);
 				$("#likeCount").html(": "+result[1]);
 			}else if(result[0]=='true'){
-				var htmlVal="<img id='likeBtn' style='cursor: pointer;' alt='' width='60px' src='<%=request.getContextPath()%>/resources/icons/addedL.png'>";
+				var htmlVal="<img id='likeBtn' style='cursor: pointer;' alt='' width='60px' src='${pageContext.request.contextPath}/resources/icons/addedL.png'>";
 				$("#like").html(htmlVal);
 				$("#likeCount").html(": "+result[1]);
 			}
@@ -475,14 +498,37 @@ $(document).on("click","#likeBtn" ,function() {
 	
 });
 
+
+const body = document.querySelector('body');
+const modal = document.querySelector('.modal');
+const btnOpenPopup = document.querySelector('.btn-open-popup');
+
+btnOpenPopup.addEventListener('click', () => {
+  modal.classList.toggle('show');
+
+  if (modal.classList.contains('show')) {
+    body.style.overflow = 'hidden';
+  }
+});
+
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    modal.classList.toggle('show');
+
+    if (!modal.classList.contains('show')) {
+      body.style.overflow = 'auto';
+    }
+  }
+});
+
 $("#deletePost").click(function(){
 	$.ajax({
-	  url: "<%=request.getContextPath()%>/board/delete",
+	  url: "${pageContext.request.contextPath}/board/delete",
 	  type: "POST", 
 	  data: {postId: ${post.postId}},
 	  success:function(result){
 			console.log(result);
-			location.href ="<%=request.getContextPath()%>/board/list"
+			location.href ="${pageContext.request.contextPath}/board/list"
 		}
 	});
 
@@ -528,7 +574,7 @@ $(document).ready(function(){
 		title.innerText = querys
 	$.ajax({
 		type : "GET"
-		, url : "<%=request.getContextPath()%>/shopdata"
+		, url : "${pageContext.request.contextPath}/shopdata"
 		, async: false
 		, dataType: "text"
 		, data: 'query=' + querys
@@ -550,7 +596,7 @@ $(".btn_open_postreport").click(function() {
 	console.log(sliceContext);
 	console.log(postId);
 	
-	window.open("<%=request.getContextPath() %>/report/post?title=" + title + "&context=" + sliceContext + "&postId=" + postId, "게시글 신고", "width=525, height=300, resizable=no");
+	window.open("${pageContext.request.contextPath}/report/post?title=" + title + "&context=" + sliceContext + "&postId=" + postId, "게시글 신고", "width=525, height=300, resizable=no");
 });
 
 $(".btn_open_commentreport").click(function() {
@@ -565,8 +611,12 @@ $(".btn_open_commentreport").click(function() {
 	console.log(content);
 	console.log(reportUser);
 	
-	window.open("<%=request.getContextPath() %>/report/comment?cmtId=" + cmtId + "&content=" + content + "&reportUser=" + reportUser, "댓글 신고", "width=525, height=300, resizable=no");
+	window.open("${pageContext.request.contextPath}/report/comment?cmtId=" + cmtId + "&content=" + content + "&reportUser=" + reportUser, "댓글 신고", "width=525, height=300, resizable=no");
 });
+
+
+
+
 
 </script>
 

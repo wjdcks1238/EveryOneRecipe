@@ -325,19 +325,22 @@ public class BoardController {
 				PostVo pvo = bService.selectOne(postId);
 				//없는 게시글 번호로 접근시의 처리 (임시)
 				if(pvo ==null) {
-					mv.setViewName("errors/errorPage");
+					mv.addObject("notExist", "존재하지 않는 게시물입니다.");
+					mv.setViewName("errors/reason");
 					return mv;
 				}
 				
 				//블라인드된 게시글로 접근
 				if("Y".equals(pvo.getIsBlinded())) {
-					mv.setViewName("errors/errorPage");
+					mv.addObject("blinded", "블라인드 처리된 게시물입니다.");
+					mv.setViewName("errors/reason");
 					return mv;
 				}
 				
 				//삭제된 게시물 번호로 접근시의 처리
 				if("Y".equals(pvo.getIsDeleted())) {
-					mv.setViewName("errors/deletedPost");
+					mv.addObject("deleted", "삭제된 게시물입니다.");
+					mv.setViewName("errors/reason");
 					return mv;
 				}
 				
