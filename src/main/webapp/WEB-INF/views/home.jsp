@@ -78,6 +78,25 @@ select {
 	right: 3%;
     z-index: 1;
 }
+body{
+	padding-top: 57.38px;
+}
+.select_postbar{
+	padding-top:0;
+	padding-bottom: 0;
+}
+.select_postbar .row div{
+	text-align: center;
+	padding-top:8px;
+	padding-bottom:8px;
+}
+
+.select_postbar .row div:hover{
+	color: yellow;
+	background-color: #6EE5A3;
+	opacity: 0.8;
+}
+
 </style>
 </head>
 <body>
@@ -105,12 +124,27 @@ select {
 		</div>
 	</div>
 </div>
-	
-	
+	<%if(request.getUserPrincipal() != null || request.isUserInRole("MEMBER")){%>
+	<nav class="select_postbar navbar navbar-light bg-success text-white">
+		<div class="row">
+			<div class="col-md-3" style="cursor:pointer;" onclick="followrc()">FOLLOW RECIPE</div>
+			<div class="col-md-3" style="cursor:pointer;" onclick="bestrc()">BEST RECIPE</div>
+			<div class="col-md-3" style="cursor:pointer;" onclick="recorc()">RECOMMEND RECIPE</div>
+			<div class="col-md-3" style="cursor:pointer;" onclick="weekrc()">WEEK RECIPE</div>	
+		</div>
+	</nav>	
+	<%} else{%>
+	<nav class="select_postbar navbar navbar-light bg-success text-white">
+		<div class="row">
+			<div class="col-md-4" style="cursor:pointer;" onclick="bestrc()">BEST RECIPE</div>
+			<div class="col-md-4" style="cursor:pointer;" onclick="recorc()">RECOMMEND RECIPE</div>
+			<div class="col-md-4" style="cursor:pointer;" onclick="weekrc()">WEEK RECIPE</div>	
+		</div>
+	</nav>
+	<%} %>
 
 <div class="container">
-	<div class="row">	
-		
+	<div class="row">			
 		<div class="col-3">
 			<h4>실시간 검색어 순위</h4>
 			<br>
@@ -128,10 +162,11 @@ select {
 	<!-- End Site Title================================================== -->
 
 	<!-- Begin Featured	================================================== -->
+	
 	<%if(request.getUserPrincipal() != null || request.isUserInRole("MEMBER")){%>
 	<!-- 로그인 시 표출 -->
 	<!-- 팔로잉 게시글 피드  (작성일자순) -->
-	<section class="featured-posts">
+	<section class="featured-posts follow_post">
 		<div class="section-title">
 			<h2><span>FOLLOW RECIPE</span></h2>
 		</div>
@@ -188,7 +223,6 @@ select {
 		<div class="section-title">
 			<h2>
 			<span>BEST RECIPE</span>
-			<button class="change_like btn-raised" type="button" style="float:right">추천순</button>
 			</h2>			
 		</div>
 		<div class="card-columns listfeaturedtag">	
@@ -243,8 +277,7 @@ select {
 	<section class="featured-posts sort_like">
 		<div class="section-title">
 			<h2>
-			<span>RECOMMEND RECIPE</span>
-			<button class="change_lkup btn-raised" type="button" style="float:right">조회순</button>			
+			<span>RECOMMEND RECIPE</span>		
 			</h2>			
 		</div>
 		<div class="card-columns listfeaturedtag">	
@@ -308,7 +341,7 @@ select {
 	================================================== -->
 	
 	<!-- 주간 게시글 (월~일요일)-->
-	<section class="recent-posts">
+	<section class="recent-posts week_post">
 		<div class="section-title">
 			<h2><span>WEEK RECIPE</span></h2>
 		</div>
@@ -327,7 +360,8 @@ select {
 							word-break: break-word;							
 							display: -webkit-box;
 							-webkit-line-clamp: 2;
-							-webkit-box-orient: vertical;">
+							-webkit-box-orient: vertical;
+							height: 42.56px;">
 					${list.content }
 					</h4>
 					<div class="metafooter">
@@ -379,6 +413,7 @@ select {
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 
 <script>
+/* 슬라이드 배너 slick */
 $(document).ready(function(){
 	$("#slide_div").slick(
 		{
@@ -390,24 +425,46 @@ $(document).ready(function(){
 $.noConflict();
 
 
-/* 추천순 게시글 숨김 */
+/* 로그인x인 경우 추천, 주간, 팔로잉 게시글 숨김. 조회순 게시글만 표출  */
 $(document).ready(function(){
 	$(".sort_like").hide();
+	$(".week_post").hide();
+	$(".follow_post").hide();
 });
 
-/* 추천순 버튼 누르면 추천순 게시글 표출 + 조회순 게시글 숨김 */
-$(".change_like").on("click", changeLike);
-function changeLike(){
+/* 추천 버튼 누르면 추천순 게시글 표출 + 조회순, 주간, 팔로잉 게시글 숨김 */
+function recorc(){
+	$(".week_post").hide();
 	$(".sort_lkup").hide();
+	$(".follow_post").hide();
 	$(".sort_like").show();		
 };
 
-/* 조회순 버튼 누르면 조회순 게시글 표출 + 추천순 게시글 숨김 */
-$(".change_lkup").on("click", changeLookUp);
-function changeLookUp(){
+/* 조회순 버튼 누르면 조회순 게시글 표출 + 주간, 추천순, 팔로잉 게시글 숨김 */
+function bestrc(){
 	$(".sort_like").hide();
+	$(".week_post").hide();
+	$(".follow_post").hide();
 	$(".sort_lkup").show();	
 };
+
+/* 주간게시글 버튼 누르면 주간 게시글 표출 + 추천순, 조회순, 팔로잉 게시글 숨김 */
+function weekrc(){
+	$(".sort_like").hide();	
+	$(".sort_lkup").hide();
+	$(".follow_post").hide();
+	$(".week_post").show();
+};
+
+/* 팔로잉게시글 버튼 누르면 팔로잉 게시글 표출 + 추천순, 조회순, 주간 게시글 숨김 */
+function followrc(){
+	$(".sort_like").hide();	
+	$(".sort_lkup").hide();	
+	$(".week_post").hide();
+	$(".follow_post").show();
+};
+
+
 
 /* 주간 게시글 데이터가 없을시 페이징 번호 div 숨김 */ 
 $(document).ready(function(){
@@ -424,6 +481,10 @@ function chk_id(e){
 		e.preventDefault();
 	}	
 }
+
+
+
+
 
 
 
