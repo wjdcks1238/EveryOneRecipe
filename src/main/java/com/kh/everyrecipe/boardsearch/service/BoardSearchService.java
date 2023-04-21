@@ -15,4 +15,5 @@ public interface BoardSearchService {
 	public List<SearchVo> getRecommendSearchKeyword() throws Exception;
 	public List<PostVo> pagingUserList(Map<String, String> map) throws Exception;
 	public List<PostVo> pagingUserNameList(Map<String, String> map) throws Exception;
+	public List<SearchVo> rankSearchList() throws Exception;
 }

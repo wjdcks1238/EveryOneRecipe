@@ -103,6 +103,9 @@
 	<select id="searchUserNickname" parameterType="map" resultType="mvo">
 		select USERID, NICKNAME, PROFILE, PROFILEURL from members where NICKNAME LIKE '%'||#{keyword}||'%'
 	</select>
+	<select id="rankSearchList" resultType="svo">
+		select ROW_NUMBER() OVER (ORDER BY times DESC) as rown, s.* from search s where <![CDATA[rownum <= 100]]> order by times desc
+	</select>
 	<insert id="insertSearchData" parameterType="String">
 		insert into search values(#{keyword}, (select NVL(MAX(TIMES), 0)+1 from search where KEWORD=#{keyword}))
 	</insert>

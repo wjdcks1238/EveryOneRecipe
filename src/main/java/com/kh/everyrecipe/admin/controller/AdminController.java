@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.everyrecipe.board.service.BoardService;
+import com.kh.everyrecipe.boardsearch.service.BoardSearchService;
+import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
@@ -30,6 +32,8 @@ public class AdminController {
 	private MemberService mService;
 	@Autowired 
 	private BoardService bService;
+	@Autowired
+	private BoardSearchService bsService;
 	
 	@GetMapping("")
 	public String admin() {
@@ -42,7 +46,6 @@ public class AdminController {
 	public ModelAndView searchword(ModelAndView mv) throws Exception {
 		
 		//TODO
-		
 		return mv;
 	}
 	
@@ -50,7 +53,9 @@ public class AdminController {
 	@GetMapping("/search/searchrank")
 	public ModelAndView searchrank(ModelAndView mv) throws Exception {
 
-		//TODO
+		List<SearchVo> list = bsService.rankSearchList();
+		
+		mv.addObject("searchRank", list);
 		return mv;
 	}
 	
