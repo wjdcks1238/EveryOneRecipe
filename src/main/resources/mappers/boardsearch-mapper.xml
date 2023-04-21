@@ -97,6 +97,9 @@
 	<select id="searchRecommendKeyword" resultType="svo">
 		select ROW_NUMBER() OVER (ORDER BY times DESC) as rown, s.* from search s <![CDATA[where rownum <= 5]]>
 	</select>
+	<select id="searchUserId" parameterType="map" resultType="mvo">
+		select USERID, NICKNAME, PROFILE, PROFILEURL from members where USERID LIKE '%'||#{keyword}||'%'
+	</select>
 	<insert id="insertSearchData" parameterType="String">
 		insert into search values(#{keyword}, (select NVL(MAX(TIMES), 0)+1 from search where KEWORD=#{keyword}))
 	</insert>

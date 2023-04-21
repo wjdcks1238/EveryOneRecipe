@@ -45,4 +45,9 @@ public class BoardSearchServiceImp implements BoardSearchService {
 		return dao.getRecommendSearchKeyword();
 	}
 
+	@Override
+	public List<PostVo> pagingUserList(Map<String, String> map) throws Exception {
+		return dao.pagingUserList(map);
+	}
+
 }

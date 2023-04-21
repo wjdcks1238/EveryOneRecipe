@@ -231,6 +231,23 @@ public class BoardController {
 			return new Gson().toJson(result);
 		}
 		
+		@GetMapping("/findUserIdAjax")
+		@ResponseBody
+		public String findUserAjax(
+				@RequestParam("keyword") String keyword,
+				Principal principal
+				) throws Exception {
+			Map<String, String> map = new HashMap<>();
+			map.put("keyword", keyword);
+			if(principal!=null) {
+				map.put("userId",principal.getName());					
+			}
+			List<PostVo> result = bsService.pagingUserList(map);
+			System.out.println(result);
+			
+			return new Gson().toJson(result);
+		}
+		
 		@GetMapping("/list")
 		public ModelAndView boardList(ModelAndView mv
 				, Principal principal

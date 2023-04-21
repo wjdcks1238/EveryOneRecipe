@@ -196,10 +196,39 @@
 		    	} else {
 		    		alert("알 수 없는 오류가 발생되었습니다.");
 		    	}
+				displaydata(data);
 			}
+			
 		});
 	}
 	
+	function displaydata(data) {
+		console.log(data);
+		var htmlval = "";
+		var loggedIn = ${loggedIn};
+		var userName = "${uName}";
+		
+		for(i=0;i<data.length;i++) {
+			var userdata = data[i];
+			htmlval += '<div class="col-md-3 mt-3">';
+			htmlval += '<div class="card">';
+			htmlval += '<div class="wrapfooter">';
+			htmlval += '<span class="meta-footer-thumb">';
+			htmlval += userdata.nickName+'('+ userdata.userId +')';
+			htmlval += '<a href="<%=request.getContextPath() %>/member/info/' + userdata.userId + '">';
+			htmlval += '<img class="author-thumb" alt="" src="' + userdata.profileUrl + '">';
+			htmlval += '</a>';
+			htmlval += '</span>';
+			htmlval += '<span class="author-meta">';
+			htmlval += '</span>';
+			htmlval += '</div>';
+			htmlval += '</div>';
+			htmlval += '</div>';
+		}
+		console.log(htmlval);
+		$("#postList").html(htmlval);
+	}
+		
 	function searchInsertDB(keyword) {
 		$.ajax({
 			url:"<%=request.getContextPath() %>/keyword/insertdata",

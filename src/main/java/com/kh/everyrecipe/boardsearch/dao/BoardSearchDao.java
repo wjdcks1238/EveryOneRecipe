@@ -38,4 +38,8 @@ public class BoardSearchDao {
 	public List<SearchVo> getRecommendSearchKeyword() {
 		return sqlSession.selectList("boardSearchMapper.searchRecommendKeyword");
 	}
+
+	public List<PostVo> pagingUserList(Map<String, String> map) {
+		return sqlSession.selectList("boardSearchMapper.searchUserId", map);
+	}
 }
