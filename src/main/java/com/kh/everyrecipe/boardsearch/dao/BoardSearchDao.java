@@ -42,4 +42,8 @@ public class BoardSearchDao {
 	public List<PostVo> pagingUserList(Map<String, String> map) {
 		return sqlSession.selectList("boardSearchMapper.searchUserId", map);
 	}
+
+	public List<PostVo> pagingUserNameList(Map<String, String> map) {
+		return sqlSession.selectList("boardSearchMapper.searchUserNickname", map);
+	}
 }
