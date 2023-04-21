@@ -16,6 +16,7 @@
 		<result property="likeCnt" column="LIKECNT"/>
 		<result property="followCnt" column="FOLLOWCNT"/>
 		<result property="bookmarkCnt" column="BOOKMARKCNT"/>
+		<result property="isBlinded" column="ISBLINDED"/>
 		<collection property="ingredients" ofType="ivo">
 			<result property="ingredient" column="INGREDIENT"/>
 			<result property="amount" column="AMOUNT"/>
@@ -60,7 +61,7 @@
                        	<if test="othersPage != null">
 	                       	USERID=#{othersPage} AND		
                        	</if>                  
-                       ISDELETED = 'N' ORDER BY postid ) p) 
+                       ISDELETED = 'N' AND ISBLINDED ='N' ORDER BY postid ) p) 
              <![CDATA[ WHERE RNUM> #{from} AND RNUM<=#{to}]]>) p2
              JOIN ingredient i 
                    ON p2.POSTID = i.POSTID 
@@ -78,6 +79,7 @@
      , p.UPDATEAT
      , p.ISDELETED
      , p.LOOKUP
+     , p.ISBLINDED
      , i.INGREDIENT
      , i.AMOUNT
      , m.PROFILEURL

@@ -50,4 +50,9 @@ public class BoardSearchServiceImp implements BoardSearchService {
 		return dao.pagingUserList(map);
 	}
 
+	@Override
+	public List<PostVo> pagingUserNameList(Map<String, String> map) throws Exception {
+		return dao.pagingUserNameList(map);
+	}
+
 }

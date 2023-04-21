@@ -33,13 +33,15 @@ public class PostVo {
 	private int followCnt;
 	private int bookmarkCnt;
 	private String hashtag;
+	private String isBlinded;
+	
 	@Override
 	public String toString() {
 		return "PostVo [postId=" + postId + ", userId=" + userId + ", nickname=" + nickname + ", foodName=" + foodName
 				+ ", createDate=" + createDate + ", UpdateDate=" + UpdateDate + ", isDeleted="
 				+ isDeleted + ", profileUrl=" + profileUrl + ", profile=" + profile + ", ingredients=" + ingredients
 				+ ", lookUp=" + lookUp + ", likeCnt=" + likeCnt + ", followCnt=" + followCnt + ", bookmarkCnt="
-				+ bookmarkCnt + ", hashtag=" + hashtag + "]";
+				+ bookmarkCnt + ", hashtag=" + hashtag +", isBlinded=" + isBlinded + "]";
 	}
 	@Override
 	public int hashCode() {

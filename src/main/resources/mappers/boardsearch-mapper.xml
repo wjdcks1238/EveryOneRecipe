@@ -100,6 +100,9 @@
 	<select id="searchUserId" parameterType="map" resultType="mvo">
 		select USERID, NICKNAME, PROFILE, PROFILEURL from members where USERID LIKE '%'||#{keyword}||'%'
 	</select>
+	<select id="searchUserNickname" parameterType="map" resultType="mvo">
+		select USERID, NICKNAME, PROFILE, PROFILEURL from members where NICKNAME LIKE '%'||#{keyword}||'%'
+	</select>
 	<insert id="insertSearchData" parameterType="String">
 		insert into search values(#{keyword}, (select NVL(MAX(TIMES), 0)+1 from search where KEWORD=#{keyword}))
 	</insert>

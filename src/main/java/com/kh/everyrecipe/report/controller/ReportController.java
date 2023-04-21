@@ -69,8 +69,8 @@ public class ReportController {
 		vo.setReportType('p');
 		
 		
-		result = rService.submitPostReport(vo);
-		//rService.reportPost(vo);
+//		result = rService.submitPostReport(vo);
+		rService.reportPost(vo);
 		
 		
 		return result;
@@ -121,8 +121,8 @@ public class ReportController {
 		vo.setReportContent(reportContent);
 		vo.setReportType('c');
 		
-		result = rService.submitCommentReport(vo);
-		//rService.reportComment(vo);
+//		result = rService.submitCommentReport(vo);
+		rService.reportComment(vo);
 		return result;
 	}
 }
