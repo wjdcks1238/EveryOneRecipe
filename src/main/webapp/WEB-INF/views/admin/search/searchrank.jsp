@@ -138,16 +138,24 @@
                                             <th>순위</th>
                                             <th>검색어</th>
                                             <th>조회수</th>
-                                            <th>마지막 검색 시간</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-	                                        <tr >
+                                    	<c:forEach items="${searchRank }" var="sr" varStatus="srStatus">
+                                    		<tr>
+                                    			<td>${sr.rowN }</td>
+                                    			<td>${sr.keword }</td>
+                                    			<td>${sr.times }</td>
+                                    		</tr>
+                                    	</c:forEach>
+                                    	<!-- 
+	                                        <tr>
 	                                            <td></td>
 	                                            <td></td>
 	                                            <td ></td>
 	                                            <td ></td>
 	                                        </tr>
+	                                         -->
                                     </tbody>
                                 </table>
                   </div>

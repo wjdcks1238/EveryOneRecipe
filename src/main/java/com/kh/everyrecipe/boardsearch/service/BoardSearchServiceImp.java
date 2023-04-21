@@ -55,4 +55,9 @@ public class BoardSearchServiceImp implements BoardSearchService {
 		return dao.pagingUserNameList(map);
 	}
 
+	@Override
+	public List<SearchVo> rankSearchList() throws Exception {
+		return dao.rankSearchList();
+	}
+
 }
