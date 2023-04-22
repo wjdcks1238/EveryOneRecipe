@@ -36,4 +36,9 @@
 		GROUP BY p.postid, p.foodname, p.nickname,p.ISBLINDED, r.userid
 	</select>
 	
+	<select id="getReportInfoP" resultType="com.kh.everyrecipe.report.vo.ReportVo">
+		SELECT REPORTID,USERID,POSTID,REPORTCONTENT,REPORTTIME FROM REPORT WHERE POSTID =#{postId}
+	
+	</select>
+	
 </mapper>

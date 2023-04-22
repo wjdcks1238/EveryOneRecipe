@@ -42,4 +42,9 @@ public class ReportServiceImp implements ReportService {
 		return dao.getReportedPosts();
 	}
 
+	@Override
+	public List<ReportVo> getReportInfoP(String postId) {
+		return dao.getReportInfoP(postId);
+	}
+
 }

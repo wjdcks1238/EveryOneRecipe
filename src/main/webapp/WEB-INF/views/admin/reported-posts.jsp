@@ -20,48 +20,16 @@
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath() %>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 <style type="text/css">
-.modal {
-    position: absolute;
-    top: 0;
-    left: 0;
 
-    width: 100%;
-    height: 100%;
-
-    display: none;
-
-    background-color: rgba(0, 0, 0, 0.4);
-     
-}
-
-.modal.show {
-    display: block;
-}
-
-.modal_body {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
-    width: 400px;
-    height: 200px;
-
-    padding: 40px;
-
-    text-align: center;
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-
-    transform: translateX(-50%) translateY(-50%);
-   
+.modal-xl {
+  max-width: 2000px;
 }
 </style>
 </head>
 <body id="page-top" style="overflow: auto;">
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -73,8 +41,6 @@
         ...
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -221,7 +187,7 @@
 	                                            <td>${list.foodName }</td>
 	                                            <td>${list.userId }</td>
 	                                            <td>${list.nickName }</td>
-	                                            <td data-toggle="modal" data-target="#exampleModal"><a href="#">${list.reportCnt }</a></td>
+	                                            <td><a  data-toggle="modal" data-target="#exampleModal" class="detail" href="#">${list.reportCnt }</a></td>
 	                                            <td>${list.status }</td>
 	                                        </tr>	                                       
                                     	</c:forEach>
@@ -256,9 +222,68 @@
     <!-- Page level custom scripts -->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
 
-  
-    
+  	<script type="text/javascript">
+  	
+  	$(document).on("click",".detail" ,function() {
+  		$(".modal-body").empty();
+  		$(".modal-title").empty();
+	  	var postId=$(this).parent().parent().children().first().text();
+	  	console.log(postId);
+	  	console.log($(this));
+		$.ajax({
+			url: "${pageContext.request.contextPath}/admin/modal-p",
+			type: "POST", 
+			data: {postId: postId},
+			async : false,
+			success:function(result){
+				$(".modal-title").text("게시글 번호: "+result[0].postId);
+				var tbody = $("<tbody></tbody>");
+				for(i = 0; i < result.length; i++){
+				    var list = result[i];
+				    var ms = list.reportTime;
+				    var date = new Date(ms); 
+				    var yyyy = date.getFullYear();
+				    var mm = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+				    var dd = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+				    var hh = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+				    var mi = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+				    var ss = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+				    var formattedDate = yyyy + "-" + mm + "-" + dd + " " + hh + ":" + mi + ":" + ss;
 
+				    var tr = $("<tr></tr>");
+				    tr.append($("<td></td>").text(list.reportId));
+				    tr.append($("<td></td>").text(list.userId));
+				    tr.append($("<td></td>").text(list.reportContent));
+				    tr.append($("<td></td>").text(formattedDate));
+
+				    tbody.append(tr);
+				}
+
+				var table = $('<table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">'+
+				            '<thead>'+
+				                '<tr>'+
+				                    '<th>신고 번호</th>'+
+				                    '<th>신고자 ID</th>'+
+				                    '<th>신고 내용</th>'+
+				                    '<th>신고 시각</th>'+
+				                '</tr>'+
+				            '</thead>'+
+				        '</table>');
+
+				table.append(tbody);
+				$(".modal-body").append(table);
+				$('#dataTable2').DataTable({
+				  	searching: true,
+			  	    ordering: true
+			  	});
+				
+			}
+			
+		});
+  	});
+  	
+  	</script>
+    
 
 		</body>
 </html>

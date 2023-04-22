@@ -13,5 +13,6 @@ public interface ReportService {
 	public void reportComment(ReportVo vo);
 	public void reportPost(ReportVo vo);
 	public List<ReportedPostVo> getReportedPosts();
+	public List<ReportVo> getReportInfoP(String postId);
 
 }

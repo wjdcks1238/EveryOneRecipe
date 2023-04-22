@@ -456,7 +456,7 @@ $(document).on("click","#bookmarkBtn" ,function() {
 $(document).on("click","#followBtn" ,function() {
 	var isFollowed = $("#isFollowed").text();
 	$.ajax({
-		url: "${pageContext.request.contextPath}follow",
+		url: "${pageContext.request.contextPath}/follow",
 		type: "POST", 
 		data: {userId: "${post.userId }" },
 		async : false,

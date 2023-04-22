@@ -35,5 +35,9 @@ public class ReportDao {
 		return session.selectList("reportMapper.getReportedPosts");
 	}
 
+	public List<ReportVo> getReportInfoP(String postId) {
+		return session.selectList("reportMapper.getReportInfoP",postId);
+	}
+
 
 }
