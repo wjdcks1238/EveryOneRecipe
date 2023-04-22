@@ -27,6 +27,13 @@
         #{reportContent, mode=IN, jdbcType=VARCHAR}
     )}
 	</insert>
-	
+
+	<select id="getReportedPosts" resultType="com.kh.everyrecipe.report.vo.ReportedPostVo">
+		SELECT p.postid, p.foodname,r.userid,p.nickname, COUNT(*) as reportCnt , p.ISBLINDED as status
+		FROM post p
+		LEFT JOIN report r ON p.postid = r.postid
+		WHERE r.userid IS NOT NULL
+		GROUP BY p.postid, p.foodname, p.nickname,p.ISBLINDED, r.userid
+	</select>
 	
 </mapper>

@@ -56,12 +56,12 @@
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 
-<div class="modal">
-  	<div class="modal_body">
-  		<div>정말 삭제하시겠습니까?</div>
-		<button class="mt-5" id="deletePost">삭제</button>
+	<div class="modal">
+	  	<div class="modal_body">
+	  		<div>정말 삭제하시겠습니까?</div>
+			<button class="mt-5" id="deletePost">삭제</button>
+		</div>
 	</div>
-</div>
 
 <div class="container">
 	
@@ -503,13 +503,16 @@ const body = document.querySelector('body');
 const modal = document.querySelector('.modal');
 const btnOpenPopup = document.querySelector('.btn-open-popup');
 
-btnOpenPopup.addEventListener('click', () => {
-  modal.classList.toggle('show');
-
-  if (modal.classList.contains('show')) {
-    body.style.overflow = 'hidden';
-  }
-});
+if(btnOpenPopup!=null){
+	
+	btnOpenPopup.addEventListener('click', () => {
+	  modal.classList.toggle('show');
+	
+	  if (modal.classList.contains('show')) {
+	    body.style.overflow = 'hidden';
+	  }
+	});
+}
 
 modal.addEventListener('click', (event) => {
   if (event.target === modal) {

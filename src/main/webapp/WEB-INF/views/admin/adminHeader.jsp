@@ -75,7 +75,7 @@
 			    </a>
 			    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
 			        <div class="bg-white py-2 collapse-inner rounded">
-			            <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">게시글 관리</a>
+			            <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-posts">게시글 관리</a>
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">댓글 관리</a>
 			        </div>
 			    </div>

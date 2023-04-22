@@ -19,23 +19,66 @@
     <link href="<%=request.getContextPath() %>/resources/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath() %>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<style type="text/css">
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+     
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal_body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 400px;
+    height: 200px;
+
+    padding: 40px;
+
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+   
+}
+</style>
 </head>
-<body id="page-top">
-<script>
-let newPopup;
-function openPopup(event, userId) {
-    event.preventDefault();
-    let openUrl = "${pageContext.request.contextPath}/admin/details/"+userId;
-    let popOption = "width=700,height=700";
-    
-    newPopup = window.open(openUrl, "_blank", popOption);
-}
-function closePopup() {
-    if (newPopup && !newPopup.closed) {
-        newPopup.close();
-    }
-}
-</script>
+<body id="page-top" style="overflow: auto;">
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -106,7 +149,7 @@ function closePopup() {
 			    </a>
 			    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
 			        <div class="bg-white py-2 collapse-inner rounded">
-			            <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-posts">게시글 관리</a>
+			            <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">게시글 관리</a>
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">댓글 관리</a>
 			        </div>
 			    </div>
@@ -157,58 +200,45 @@ function closePopup() {
                 <div class="container-fluid">
                 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">회원목록</h1>
-                
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <h1 class="h3 mb-2 text-gray-800">신고 목록</h1>
+                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>닉네임</th>
-                                            <th>가입일</th>
-                                            <th>탈퇴여부</th>
-                                           	<th>차단상태</th>
-                                            <th>작성한 게시글(수)</th>
-                                            <th>신고된 게시글(수)</th>
-                                            <th>작성한 댓글(수)</th>
-                                            <th>신고된 댓글(수)</th>
+                                        <tr>                                        	
+                                            <th>게시글 번호</th>
+                                            <th>게시글 이름</th>
+                                            <th>작성자 ID</th>
+                                            <th>작성자 닉네임</th>
+                                            <th>신고 횟수</th>
+                                            <th>처리 상태</th>
+      
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    	<c:forEach var="admin" items="${memberDto}">
+                                    		
+                                    	<c:forEach items="${reportList }" var="list">
 	                                        <tr >
-	                                            <td >
-	                                            <c:out value="${admin.userId }"/>
-	                                            </td>
-	                                            <td><c:out value="${admin.nickName}"/></td>
-	                                            <td ><c:out value="${admin.createAt}"/></td>
-	
-												<!-- 작성한 게시글 표현 -->
-	                                            <td>0</td>
-	                                            
-												<!-- 차단 상태 표현 (댓글차단, 게시글작성 차단)	-->
-	                                            <td>0</td>
-	                                            
-												<!-- 탈퇴일 표현 -->
-	                                            <td>탈퇴</td>
-	                                            
-	                                            <!-- 게시글 신고여부 표시 코드 구현-->
-	                                            <td>2011/04/25</td>
-	                                            
-	                                            <!-- 댓글 신고여부 표시 코드 구현-->
-	                                            <td>2011/04/25</td>
-	                                            <td>..</td>
-	                                        </tr>
-	                                    </c:forEach>
-	                                    
+	                                            <td><a href="<%=request.getContextPath() %>/board/list/${list.postId }">${list.postId }</a> </td>
+	                                            <td>${list.foodName }</td>
+	                                            <td>${list.userId }</td>
+	                                            <td>${list.nickName }</td>
+	                                            <td data-toggle="modal" data-target="#exampleModal"><a href="#">${list.reportCnt }</a></td>
+	                                            <td>${list.status }</td>
+	                                        </tr>	                                       
+                                    	</c:forEach>
                                     </tbody>
                                 </table>
+	                                    
                   </div>
             </div>
             <!-- End of Main Content -->
          </div>
       </div>
       	
-
+<!-- footer -->    
+<%@ include file="adminFooter.jsp" %>   
+<script src="<%=request.getContextPath()%>/resources/mediumish/assets/js/jquery.min.js"></script>
+   
+    
     <!-- Bootstrap core JavaScript-->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/jquery/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -225,9 +255,10 @@ function closePopup() {
 
     <!-- Page level custom scripts -->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
+
+  
     
-<!-- footer -->    
-<%@ include file="adminFooter.jsp" %>   
+
 
 		</body>
 </html>

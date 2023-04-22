@@ -23,6 +23,8 @@ import com.kh.everyrecipe.boardsearch.service.BoardSearchService;
 import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
+import com.kh.everyrecipe.report.service.ReportService;
+import com.kh.everyrecipe.report.vo.ReportedPostVo;
 
 @Controller
 @RequestMapping("/admin")
@@ -34,6 +36,8 @@ public class AdminController {
 	private BoardService bService;
 	@Autowired
 	private BoardSearchService bsService;
+	@Autowired
+	private ReportService rService;
 	
 	@GetMapping("")
 	public String admin() {
@@ -127,6 +131,21 @@ public class AdminController {
 
 	
 
+	
+	//post id 기준으로 정렬/게시글 번호/ 작성자 정보/신고 횟수
+	@GetMapping("/reported-posts")
+	public ModelAndView pManage(ModelAndView mv, Principal principal) throws Exception {
+
+		//mv.addObject("postingCount");
+		
+		List<ReportedPostVo> reportList= rService.getReportedPosts();
+		
+		mv.addObject("reportList",reportList);
+		
+		mv.setViewName("admin/reported-posts");
+		
+		return mv;
+	}
 	
 	
 }

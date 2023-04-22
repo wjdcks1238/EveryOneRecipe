@@ -330,6 +330,8 @@ public class BoardController {
 					return mv;
 				}
 				
+				
+				//TODO 관리자는 접근 가능하게
 				//블라인드된 게시글로 접근
 				if("Y".equals(pvo.getIsBlinded())) {
 					mv.addObject("blinded", "블라인드 처리된 게시물입니다.");

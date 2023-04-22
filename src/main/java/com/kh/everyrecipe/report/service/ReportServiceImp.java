@@ -1,5 +1,6 @@
 package com.kh.everyrecipe.report.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.everyrecipe.report.dao.ReportDao;
 import com.kh.everyrecipe.report.vo.ReportVo;
+import com.kh.everyrecipe.report.vo.ReportedPostVo;
 
 @Service
 public class ReportServiceImp implements ReportService {
@@ -33,6 +35,11 @@ public class ReportServiceImp implements ReportService {
 	public void reportPost(ReportVo vo) {
 		dao.reportPost(vo);
 		
+	}
+
+	@Override
+	public List<ReportedPostVo> getReportedPosts() {
+		return dao.getReportedPosts();
 	}
 
 }
