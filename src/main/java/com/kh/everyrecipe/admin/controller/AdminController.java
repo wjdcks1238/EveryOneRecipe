@@ -1,7 +1,6 @@
 package com.kh.everyrecipe.admin.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,10 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +23,7 @@ import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
 import com.kh.everyrecipe.report.service.ReportService;
 import com.kh.everyrecipe.report.vo.ReportVo;
+import com.kh.everyrecipe.report.vo.ReportedCommentVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVo;
 
 @Controller
@@ -156,6 +154,31 @@ public class AdminController {
 		//postid를 받아서 신고 정보를 넘겨준다.
 		
 		List<ReportVo> reportList = rService.getReportInfoP(postId);
+		
+		return reportList;
+	}
+	
+	
+	//cmtId 기준으로 정렬/게시글 번호/ 작성자 정보/신고 횟수
+	@GetMapping("/reported-comments")
+	public ModelAndView cManage(ModelAndView mv, Principal principal) throws Exception {
+		
+		List<ReportedCommentVo> reportList= rService.getReportedComments();
+		
+		mv.addObject("reportList",reportList);
+		
+		mv.setViewName("admin/reported-comments");
+		
+		return mv;
+	}
+	
+	
+	@PostMapping("/modal-c")
+	@ResponseBody
+	public List<ReportVo> modalC(String cmtId){
+		//cmtId를 받아서 신고 정보를 넘겨준다.
+		
+		List<ReportVo> reportList = rService.getReportInfoC(cmtId);
 		
 		return reportList;
 	}

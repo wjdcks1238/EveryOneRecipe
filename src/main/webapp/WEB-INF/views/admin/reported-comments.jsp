@@ -38,7 +38,7 @@
         </button>
       </div>
       <div class="modal-body">
-        
+       
       </div>
       <div class="modal-footer">
       </div>
@@ -102,8 +102,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-posts">계정관리</a>
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-comments">권한관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">계정관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">권한관리</a>
                     </div>
                 </div>
             </li>
@@ -170,8 +170,8 @@
                                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>                                        	
+                                            <th>댓글 번호</th>
                                             <th>게시글 번호</th>
-                                            <th>게시글 이름</th>
                                             <th>작성자 ID</th>
                                             <th>작성자 닉네임</th>
                                             <th>신고 횟수</th>
@@ -182,8 +182,8 @@
                                     		
                                     	<c:forEach items="${reportList }" var="list">
 	                                        <tr >
+	                                            <td>${list.cmtId }</td>
 	                                            <td><a href="<%=request.getContextPath() %>/board/list/${list.postId }">${list.postId }</a> </td>
-	                                            <td>${list.foodName }</td>
 	                                            <td>${list.userId }</td>
 	                                            <td>${list.nickName }</td>
 	                                            <td><a  data-toggle="modal" data-target="#exampleModal" class="detail" href="#">${list.reportCnt }</a></td>
@@ -226,15 +226,16 @@
   	$(document).on("click",".detail" ,function() {
   		$(".modal-body").empty();
   		$(".modal-title").empty();
-	  	var postId=$(this).parent().parent().children().first().text();
-	  	console.log(postId);
+	  	var cmtId=$(this).parent().parent().children().first().text();	
+	  	var postId=$(this).parent().parent().children().eq(1).text()
+	  	console.log(cmtId);
 	  	console.log($(this));
 		$.ajax({
-			url: "${pageContext.request.contextPath}/admin/modal-p",
+			url: "${pageContext.request.contextPath}/admin/modal-c",
 			type: "POST", 
-			data: {postId: postId},
+			data: {cmtId: cmtId},
 			success:function(result){
-				$(".modal-title").text("게시글 번호: "+result[0].postId);
+				$(".modal-title").text("댓글 번호: "+cmtId +", 게시글 번호: "+postId);
 				var tbody = $("<tbody></tbody>");
 				for(i = 0; i < result.length; i++){
 				    var list = result[i];

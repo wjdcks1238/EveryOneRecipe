@@ -29,16 +29,33 @@
 	</insert>
 
 	<select id="getReportedPosts" resultType="com.kh.everyrecipe.report.vo.ReportedPostVo">
-		SELECT p.postid, p.foodname,r.userid,p.nickname, COUNT(*) as reportCnt , p.ISBLINDED as status
+		SELECT p.postid, p.foodname, p.userid,p.nickname, COUNT(*) as reportCnt , p.ISBLINDED as status
 		FROM post p
 		LEFT JOIN report r ON p.postid = r.postid
 		WHERE r.userid IS NOT NULL
-		GROUP BY p.postid, p.foodname, p.nickname,p.ISBLINDED, r.userid
+		GROUP BY p.postid, p.foodname, p.nickname,p.ISBLINDED, p.userid
 	</select>
 	
 	<select id="getReportInfoP" resultType="com.kh.everyrecipe.report.vo.ReportVo">
 		SELECT REPORTID,USERID,POSTID,REPORTCONTENT,REPORTTIME FROM REPORT WHERE POSTID =#{postId}
 	
 	</select>
+	
+	
+	
+	
+	<select id="getReportedComments" resultType="com.kh.everyrecipe.report.vo.ReportedCommentVo">
+		SELECT c.postid, c.cmtid ,r.userid, m.nickname, COUNT(*) as reportCnt , c.ISBLINDED as status
+		  FROM TBCOMMENT c
+     LEFT JOIN report r ON  c.cmtid = r.cmtid
+     LEFT JOIN members m ON r.userid = m.userid
+	     WHERE r.userid IS NOT NULL
+		 GROUP BY c.postid, c.cmtid, m.nickname, c.ISBLINDED, r.userid
+	</select>
+	
+	<select id="getReportInfoC" resultType="com.kh.everyrecipe.report.vo.ReportVo">
+		SELECT REPORTID,USERID,CMTID,REPORTCONTENT,REPORTTIME FROM REPORT WHERE CMTID =#{cmtId}
+	</select>
+	
 	
 </mapper>
