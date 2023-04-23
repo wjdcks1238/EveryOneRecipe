@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -304,13 +305,27 @@ public class MemberController {
 		mv.setViewName("member/infoupdate");
 		return mv;
 	}
-	@PostMapping("/modify")
+	//ajax로 비밀번호 인증
+	@PostMapping("/infoupdate")
+	@ResponseBody
+	public String infoupdateAjax(@RequestParam("password") String password, Principal principal) throws Exception {
+	    String id = principal.getName();
+	    
+	    if(id != null && mService.login(id, password)) {
+	        return "success";
+	    } else {
+	       return "fail";
+	    }
+	}
+
+
+	@GetMapping("/modify")
 	public ModelAndView modify(ModelAndView mv, Principal principal) throws Exception {
 		String id = principal.getName();
 		if(id != null) {
 			mv.addObject("memberDto", mService.selectOne(id));
 		}
-		mv.setViewName("member/infoupdate");
+		mv.setViewName("member/modify");
 		return mv;
 	}
 

@@ -130,23 +130,33 @@
 	<%@ include file="/WEB-INF/views/js_import.jsp"%>
 
 	<script>
-      $(document).on("click","#passwordchk" ,function() { 	
-      	var map = {password: $.trim($("input[name=password]").val())};
-      	if($.trim($("input[name=password]").val()).length !== 0){
-	      	$.ajax({
-	      		url: '<%=request.getContextPath()%>/member/infoupdate',
-	      		type: 'POST', 
-	      		data: map,
-	      		success:function(result){
-	      			console.log("어어 됐다");
-	      			location.href="<%=request.getContextPath()%>/member/modify"
-											}
-										});
-							} else {
-								alert("비밀번호가 일치하지 않습니다.");
-							}
+	$(document).on("click","#passwordchk", function(event) {
+	    event.preventDefault();
+	    var password = $.trim($("input[name=password]").val());
+	    console.log("~~~~~~~~~~~~~~입력된 암호:" + password);
+	    if (password.length !== 0) {
+	        $.ajax({
+	            url: '<%=request.getContextPath()%>/member/infoupdate',
+	            type: 'POST',
+	            data: JSON.stringify({password: password}),
+	            contentType: 'application/json',
+	            success:function(result){
+	            	console.log("서버 응답:", result); 
+	                if (result === "success") {
+	                    console.log("어어 됐다??"+ password);
+	                    location.href="<%=request.getContextPath()%>/member/modify";
+	                } else {
+	                    alert("비밀번호가 일치하지 않습니다.");
+	                }
+	            },
+	            error:function(){
+	                alert("오류가 발생하였습니다. 다시 시도해주세요.");
+	            }
+	        });
+	    }
+	});
 
-						});
+
 	</script>
 </body>
 </html>

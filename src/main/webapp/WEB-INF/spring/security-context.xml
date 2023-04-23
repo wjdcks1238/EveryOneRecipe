@@ -19,6 +19,7 @@
 		<s:intercept-url pattern="/board/posting" access="hasAnyRole('MEMBER', 'ADMIN')" />
 		<s:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<s:intercept-url pattern="/member/**" access="hasAnyRole('MEMBER', 'ADMIN')" />
+		<s:intercept-url pattern="/member/modify" access="hasAnyRole('MEMBER', 'ADMIN')" />
 	<s:csrf disabled="true"/>
 		<s:form-login 
 			login-page="/member/login"

@@ -79,6 +79,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.login(vo);
 	}
 
+	@Override
+	public boolean login(String id, String password) {
+		return false;
+	}
+
 
 
 
