@@ -12,6 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 <style>
@@ -58,7 +59,7 @@ select {
 }
 #slide_wrap_div img{
 	width: 100%;
-	height: 450px;
+	height: 350px;
 	vertical-align: middle;
 }
 
@@ -84,6 +85,7 @@ body{
 .select_postbar{
 	padding-top:0;
 	padding-bottom: 0;
+	margin-bottom: 30px;
 }
 .select_postbar .row div{
 	text-align: center;
@@ -97,6 +99,23 @@ body{
 	opacity: 0.8;
 }
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 700,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.floating {
+ 	position: absolute;
+    width: 150px;
+    height: 350px;
+    right: 25px;
+    top: 470px;
+    border: 1px solid;
+    border-radius: 10px;
+}
 </style>
 </head>
 <body>
@@ -106,19 +125,16 @@ body{
 <div id="slide_wrap_div">
 	<div id="slide_div">
 		<div>
-			<img src="./resources/img/image1.jpg">
+			<img src="./resources/img/image4.jpg">
 		</div>
 		<div>
-			<img src="./resources/img/image2.jpg">
+			<img src="./resources/img/image5.jpg">
 		</div>
-		<div>
-			<img src="./resources/img/image3.jpg">
-		</div>	
 	</div>
 	<div class="title_div col-8">
 		<div class="mainheading">
 			<h1 class="sitetitle">every recipe</h1>
-			<p class="lead">
+			<p class="lead" style="color: white;">
 				 소중한 나의 식사 기록장
 			</p>
 		</div>
@@ -143,22 +159,7 @@ body{
 	</nav>
 	<%} %>
 
-<div class="container">
-	<div class="row">			
-		<div class="col-3">
-			<h4>실시간 검색어 순위</h4>
-			<br>
-			<select class="form-select" id="selectBox" onchange="redirectToSearch(this)">
-			  <c:forEach var="pw" items="${pword }">
-			  	<option value="${pageContext.request.contextPath }/board/search?keyword=${pw.keword}">${pw.rownum}. ${pw.keword }</option>
-			  </c:forEach>
-			</select>
-		</div>
-	</div>
-	<div>	
-		<h2><a href="<%=request.getContextPath() %>/chat?id=${userId}" onclick="chk_id(event)">채팅</a></h2>
-	</div>
-	
+<div class="container">		
 	<!-- End Site Title================================================== -->
 
 	<!-- Begin Featured	================================================== -->
@@ -409,6 +410,26 @@ body{
 </div>
 <!-- /.container -->
 
+<div class="floating bg-success bg-gradient text-white" style="opacity: 0.9;">
+	<div style="height: 200px; margin-top:15px;">			
+			실시간 검색어 순위
+			<br>
+			<select class="form-select" id="selectBox" onchange="redirectToSearch(this)" style="width:140px;">
+			  <c:forEach var="pw" items="${pword }">
+			  	<option value="${pageContext.request.contextPath }/board/search?keyword=${pw.keword}">${pw.rownum}. ${pw.keword }</option>
+			  </c:forEach>
+			</select>
+	</div>
+	<div class="chat_div">	
+		<a href="<%=request.getContextPath() %>/chat?id=${userId}" onclick="chk_id(event)" style="color: white; text-decoration: none;">
+			<span class="material-symbols-outlined">
+			chat
+			</span>채팅		
+		</a>
+	</div>
+</div>
+
+
 <%@ include file="/WEB-INF/views/footer.jsp" %>
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 
@@ -474,6 +495,7 @@ $(document).ready(function(){
 	}	
 });
 
+/* 채팅 진입시 로그인 여부 확인 */
 function chk_id(e){
 	var userid = "${userId}";
 	if(userid == ""){
@@ -482,6 +504,16 @@ function chk_id(e){
 	}	
 }
 
+/* 플로팅 배너 */
+$(document).ready(function(){
+    var pst = parseInt($(".floating").css('top'));
+    $(window).scroll(function(){
+        var menu_pst = $(window).scrollTop() + pst + "px";
+        $(".floating").stop().animate({
+            "top": menu_pst
+        }, 500);
+    }).scroll();
+});
 
 
 
@@ -512,7 +544,7 @@ function redirectToSearch(select) {
 	    window.location.href = selectedValue;
 	  }
 	}
-	
+
 </script>
 
 

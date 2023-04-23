@@ -220,6 +220,7 @@ span.post-name a,span.post-read-more a:hover {
 }
 .mainheading h1.sitetitle {
 	font-family:Righteous;
+	color: #d2d2d2;
 }
 .mainheading h1.posttitle {
 	font-weight:700;
