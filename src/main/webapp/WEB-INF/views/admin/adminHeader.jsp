@@ -76,7 +76,7 @@
 			    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
 			        <div class="bg-white py-2 collapse-inner rounded">
 			            <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-posts">게시글 관리</a>
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">댓글 관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-comments">댓글 관리</a>
 			        </div>
 			    </div>
 			</li>
@@ -124,18 +124,7 @@
                  <div class="container-fluid">
                 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">실시간 검색어 차트</h1>
-                
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                   <tr>
-                                   	<td>
-                                   	차트 삽입 위치
-                                   	</td>
-                                   	<td>
-                                   	차트 삽입 위치
-                                   	</td>
-                                   </tr>
-                                </table>
+                   
                   </div>
                 
                 <!-- End of Topbar -->
