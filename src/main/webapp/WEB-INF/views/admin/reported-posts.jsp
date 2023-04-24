@@ -163,10 +163,12 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
                 <!-- End of Topbar -->
                 
-                <div class="container-fluid">
+                <div class="container-fluid" id>
                 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">게시글 신고 목록</h1>
+                    	<div id="table">
+                    	
                                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>                                        	
@@ -192,7 +194,8 @@
                                     	</c:forEach>
                                     </tbody>
                                 </table>
-	                                    
+	                   </div>                 
+                  <button type="button" id="viewAll" class="btn btn-primary mt-2">게시글 신고내역 전체 보기</button>
                   </div>
             </div>
             <!-- End of Main Content -->
@@ -236,7 +239,6 @@
 			type: "POST", 
 			data: {postId: postId},
 			success:function(result){
-				$(".modal-title").text("게시글 번호: "+result[0].postId);
 				var tbody = $("<tbody></tbody>");
 				for(i = 0; i < result.length; i++){
 				    var list = result[i];
@@ -277,10 +279,81 @@
 			  	    ordering: true
 			  	});
 				
+				
 			}
 			
 		});
   	});
+  	$(document).on("click","#viewAll" ,function() {
+  		$("#table").empty();
+
+		$.ajax({
+			url: "${pageContext.request.contextPath}/admin/all-reported-p",
+			type: "POST", 
+			success:function(result){
+				console.log(result[0]);
+				
+				
+			
+				var tbody = $("<tbody></tbody>");
+				for(i = 0; i < result.length; i++){
+				    var list = result[i];
+				    var ms = list.reportTime;
+				    var date = new Date(ms); 
+				    var yyyy = date.getFullYear();
+				    var mm = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+				    var dd = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+				    var hh = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+				    var mi = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+				    var ss = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+				    var formattedDate = yyyy + "-" + mm + "-" + dd + " " + hh + ":" + mi + ":" + ss;
+
+				    var tr = $("<tr></tr>");
+				    tr.append($("<td></td>").text(list.reportId));
+				    tr.append($("<td></td>").html('<a href="${pageContext.request.contextPath}/board/list/${list.postId }">'+list.postId+'</a>'));
+				    tr.append($("<td></td>").text(list.foodName));
+				    tr.append($("<td></td>").text(list.puserId));
+				    tr.append($("<td></td>").text(list.nickName));
+				    tr.append($("<td></td>").text(list.ruserId));
+				    tr.append($("<td></td>").text(list.reportContent));
+				    tr.append($("<td></td>").text(list.status));
+				    tr.append($("<td></td>").text(formattedDate));
+
+				    tbody.append(tr);
+				}
+
+				var table = $('<table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0">'+
+				            '<thead>'+
+				                '<tr>'+
+				                    '<th>신고 번호</th>'+
+				                    '<th>게시글 ID</th>'+
+				                    '<th>게시글 이름</th>'+
+				                    '<th>게시글 작성자 ID</th>'+
+				                    '<th>게시글 작성자 닉네임</th>'+
+				                    '<th>신고자 ID</th>'+
+				                    '<th>신고 내용</th>'+
+				                    '<th>처리 상태</th>'+
+				                    '<th>신고 시각</th>'+
+				                '</tr>'+
+				            '</thead>'+
+				        '</table>');
+
+				table.append(tbody);
+				$("#table").append(table);
+				$('#dataTable3').DataTable({
+				  	searching: true,
+			  	    ordering: true
+			  	});
+			$("#viewAll").text("게시글 ID별로 보기");
+			$("#viewAll").attr("id", "reload");
+			
+			}
+			
+		});
+  	});
+	$(document).on("click","#reload" ,function() {
+		location.reload();	
+	});
   	
   	</script>
     

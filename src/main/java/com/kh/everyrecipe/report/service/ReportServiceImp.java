@@ -1,7 +1,6 @@
 package com.kh.everyrecipe.report.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import com.kh.everyrecipe.report.dao.ReportDao;
 import com.kh.everyrecipe.report.vo.ReportVo;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVo;
+import com.kh.everyrecipe.report.vo.ReportedPostVoAll;
 
 @Service
 public class ReportServiceImp implements ReportService {
@@ -47,6 +47,12 @@ public class ReportServiceImp implements ReportService {
 	public List<ReportVo> getReportInfoP(String postId) {
 		return dao.getReportInfoP(postId);
 	}
+	
+	@Override
+	public List<ReportedPostVoAll> getAllReportedP() {
+		return dao.getAllReportedP();
+	}
+	
 
 	@Override
 	public List<ReportedCommentVo> getReportedComments() {
@@ -57,6 +63,7 @@ public class ReportServiceImp implements ReportService {
 	public List<ReportVo> getReportInfoC(String cmtId) {
 		return dao.getReportInfoC(cmtId);
 	}
+
 
 	
 }

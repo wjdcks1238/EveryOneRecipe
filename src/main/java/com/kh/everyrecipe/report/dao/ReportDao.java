@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.everyrecipe.report.vo.ReportVo;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVo;
+import com.kh.everyrecipe.report.vo.ReportedPostVoAll;
 
 @Repository
 public class ReportDao {
@@ -35,12 +36,18 @@ public class ReportDao {
 	}
 
 	//신고된 게시물
+	
+	//postId로 구분됨
 	public List<ReportedPostVo> getReportedPosts() {
 		return session.selectList("reportMapper.getReportedPosts");
 	}
 
 	public List<ReportVo> getReportInfoP(String postId) {
 		return session.selectList("reportMapper.getReportInfoP",postId);
+	}
+	//postId로 구분하지 않음
+	public List<ReportedPostVoAll> getAllReportedP() {
+		return session.selectList("reportMapper.getAllReportedP");
 	}
 
 	//신고된 댓글
@@ -51,6 +58,7 @@ public class ReportDao {
 	public List<ReportVo> getReportInfoC(String cmtId) {
 		return session.selectList("reportMapper.getReportInfoC",cmtId);
 	}
+
 
 
 }

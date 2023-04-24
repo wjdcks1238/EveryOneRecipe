@@ -25,6 +25,7 @@ import com.kh.everyrecipe.report.service.ReportService;
 import com.kh.everyrecipe.report.vo.ReportVo;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVo;
+import com.kh.everyrecipe.report.vo.ReportedPostVoAll;
 
 @Controller
 @RequestMapping("/admin")
@@ -159,6 +160,18 @@ public class AdminController {
 		
 		return reportList;
 	}
+	
+	//분류하지 않은 전체 목록 보기
+	@PostMapping("/all-reported-p")
+	@ResponseBody
+	public List<ReportedPostVoAll> pGetAllReported(){
+		
+		List<ReportedPostVoAll> reportList = rService.getAllReportedP();
+	//신고 번호, 게시글 번호, 게시글 이름,	게시글 작성자 id, 신고자 id, 신고 내용, 신고 시각 
+		return reportList;
+	}
+	
+	
 	
 	
 	//cmtId 기준으로 정렬/게시글 번호/ 작성자 정보/신고 횟수
