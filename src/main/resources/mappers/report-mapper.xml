@@ -13,18 +13,20 @@
 		
 	</select>
 	
-	<insert id="reportPost" parameterType="com.kh.everyrecipe.report.vo.ReportVo" statementType="CALLABLE" >
+	<insert id="reportPost" parameterType="com.kh.everyrecipe.report.vo.ReportVo"  statementType="CALLABLE" >
     { call PROC_REPORT_POST (
         #{userId, mode=IN, jdbcType=VARCHAR},
         #{postId, mode=IN, jdbcType=INTEGER},
-        #{reportContent, mode=IN, jdbcType=VARCHAR}
+        #{reportContent, mode=IN, jdbcType=VARCHAR},
+        #{cmtId, mode=OUT, jdbcType=INTEGER}
     )}
 	</insert>
 	<insert id="reportComment" parameterType="com.kh.everyrecipe.report.vo.ReportVo" statementType="CALLABLE" >
     { call PROC_REPORT_COMMENT (
         #{userId, mode=IN, jdbcType=VARCHAR},
         #{cmtId, mode=IN, jdbcType=INTEGER},
-        #{reportContent, mode=IN, jdbcType=VARCHAR}
+        #{reportContent, mode=IN, jdbcType=VARCHAR},
+        #{postId, mode=OUT, jdbcType=INTEGER}
     )}
 	</insert>
 
