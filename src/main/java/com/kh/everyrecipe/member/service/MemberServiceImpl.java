@@ -84,6 +84,11 @@ public class MemberServiceImpl implements MemberService{
 		return false;
 	}
 
+	@Override
+	public int modify(MemberVo vo) throws Exception {
+		return dao.modify(vo);
+	}
+
 
 
 

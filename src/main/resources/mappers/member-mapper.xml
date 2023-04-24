@@ -63,4 +63,20 @@
 	<select id="login" parameterType="String" resultType="mvo">
 		select * from members where userid =#{userId} and password=#{password}	
 	</select>
+	
+	<!-- 개인정보수정 (비밀번호, 이메일변경)-->
+	<update id="modify" parameterType="mvo">
+		update members 
+		   set userid = #{userId},
+		   	   password = #{password},
+		   	   email = #{email} 
+		 where  userid = #{userId}
+	</update>
+	
+	<!-- 탈퇴하기 -->
+	<delete id="memberDelete">
+		delete from members
+		 where userid = #{userId}
+		   and password = #{password}
+	</delete>
 </mapper>
