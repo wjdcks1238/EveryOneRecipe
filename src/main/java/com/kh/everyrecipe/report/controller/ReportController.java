@@ -59,7 +59,7 @@ public class ReportController {
 		System.out.println(postId);
 		
 		if(reportContext != "") {
-			reportContent = selectedRadio + " | " + reportContext;
+			reportContent = reportContext;
 		} else {
 			reportContent = selectedRadio;
 		}
