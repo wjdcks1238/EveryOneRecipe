@@ -25,6 +25,7 @@ import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
 import com.kh.everyrecipe.report.service.ReportService;
 import com.kh.everyrecipe.report.vo.ReportVo;
+import com.kh.everyrecipe.report.vo.ReportedCmtVoAll;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVoAll;
@@ -232,6 +233,14 @@ public class AdminController {
 		
 		return reportList;
 	}
-	
+	//분류하지 않은 전체 목록 보기
+		@PostMapping("/all-reported-c")
+		@ResponseBody
+		public List<ReportedCmtVoAll> cGetAllReported(){
+			
+			List<ReportedCmtVoAll> reportList = rService.getAllReportedC();
+		//신고 번호, 댓글 번호, 게시글 번호, 댓글 작성자 id, 작성자 닉네임, 신고자 id, 신고 내용, 처리 상태, 신고 시각 
+			return reportList;
+		}
 	
 }

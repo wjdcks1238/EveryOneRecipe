@@ -65,6 +65,12 @@
 	<select id="getReportInfoC" resultType="com.kh.everyrecipe.report.vo.ReportVo">
 		SELECT REPORTID,USERID,CMTID,REPORTCONTENT,REPORTTIME FROM REPORT WHERE CMTID =#{cmtId}
 	</select>
-	
+	<select id="getAllReportedC" resultType="com.kh.everyrecipe.report.vo.ReportedCmtVoAll">
+		SELECT r.reportid, c.cmtid, c.postid,c.userid as cuserid ,m.nickname, r.userid as rUserId, r.REPORTCONTENT, c.ISBLINDED as status, r.REPORTTIME
+		  FROM TBCOMMENT c
+     LEFT JOIN report r ON  c.cmtid = r.cmtid
+     LEFT JOIN members m ON r.userid = m.userid
+	     WHERE r.userid IS NOT NULL
+	</select>
 	
 </mapper>

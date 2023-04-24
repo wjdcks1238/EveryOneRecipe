@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.everyrecipe.report.vo.ReportVo;
+import com.kh.everyrecipe.report.vo.ReportedCmtVoAll;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVoAll;
@@ -45,11 +46,13 @@ public class ReportDao {
 	public List<ReportVo> getReportInfoP(String postId) {
 		return session.selectList("reportMapper.getReportInfoP",postId);
 	}
-	//postId로 구분하지 않음
+	//postId로 분류하지 않음
 	public List<ReportedPostVoAll> getAllReportedP() {
 		return session.selectList("reportMapper.getAllReportedP");
 	}
 
+	
+	
 	//신고된 댓글
 	public List<ReportedCommentVo> getReportedComments() {
 		return session.selectList("reportMapper.getReportedComments");
@@ -57,6 +60,10 @@ public class ReportDao {
 
 	public List<ReportVo> getReportInfoC(String cmtId) {
 		return session.selectList("reportMapper.getReportInfoC",cmtId);
+	}
+	//cmtId로 분류하지 않음
+	public List<ReportedCmtVoAll> getAllReportedC() {
+		return session.selectList("reportMapper.getAllReportedC");
 	}
 
 

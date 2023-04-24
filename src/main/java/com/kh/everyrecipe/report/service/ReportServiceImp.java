@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.everyrecipe.report.dao.ReportDao;
 import com.kh.everyrecipe.report.vo.ReportVo;
+import com.kh.everyrecipe.report.vo.ReportedCmtVoAll;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVoAll;
@@ -54,6 +55,7 @@ public class ReportServiceImp implements ReportService {
 	}
 	
 
+	
 	@Override
 	public List<ReportedCommentVo> getReportedComments() {
 		return dao.getReportedComments();
@@ -62,6 +64,11 @@ public class ReportServiceImp implements ReportService {
 	@Override
 	public List<ReportVo> getReportInfoC(String cmtId) {
 		return dao.getReportInfoC(cmtId);
+	}
+
+	@Override
+	public List<ReportedCmtVoAll> getAllReportedC() {
+		return dao.getAllReportedC();
 	}
 
 
