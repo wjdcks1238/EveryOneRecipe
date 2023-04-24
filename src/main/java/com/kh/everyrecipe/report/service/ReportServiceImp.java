@@ -27,14 +27,14 @@ public class ReportServiceImp implements ReportService {
 	}
 
 	@Override
-	public void reportComment(ReportVo vo) {
-		dao.reportComment(vo);
+	public int reportComment(ReportVo vo) {
+		return dao.reportComment(vo);
 		
 	}
 
 	@Override
-	public void reportPost(ReportVo vo) {
-		dao.reportPost(vo);
+	public int reportPost(ReportVo vo) {
+		return dao.reportPost(vo);
 		
 	}
 

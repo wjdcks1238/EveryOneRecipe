@@ -24,11 +24,13 @@ public class ReportDao {
 		return session.insert("reportMapper.insertCommentReport", vo);
 	}
 
-	public void reportPost(ReportVo vo) {
+	public int reportPost(ReportVo vo) {
 		session.insert("reportMapper.reportPost", vo);
+		return vo.getCmtId(); 
 	}
-	public void reportComment(ReportVo vo) {
+	public int reportComment(ReportVo vo) {
 		session.insert("reportMapper.reportComment", vo);
+		return vo.getPostId();
 		
 	}
 
