@@ -34,13 +34,20 @@
 		SELECT p.postid, p.foodname, p.userid,p.nickname, COUNT(*) as reportCnt , p.ISBLINDED as status
 		FROM post p
 		LEFT JOIN report r ON p.postid = r.postid
-		WHERE r.userid IS NOT NULL
+		WHERE r.postid IS NOT NULL
 		GROUP BY p.postid, p.foodname, p.nickname,p.ISBLINDED, p.userid
 	</select>
 	
 	<select id="getReportInfoP" resultType="com.kh.everyrecipe.report.vo.ReportVo">
 		SELECT REPORTID,USERID,POSTID,REPORTCONTENT,REPORTTIME FROM REPORT WHERE POSTID =#{postId}
 	
+	</select>
+	<select id="getAllReportedP" resultType="com.kh.everyrecipe.report.vo.ReportedPostVoAll">
+		SELECT r.reportid, p.postid, p.foodname, p.userid as pUserId, p.nickname, r.userid as rUserId, r.reportContent, r.reportTime, p.ISBLINDED as status
+		FROM post p
+		LEFT JOIN report r ON p.postid = r.postid
+		WHERE r.userid IS NOT NULL AND r.POSTID IS NOT NULL
+        order by reportid
 	</select>
 	
 	

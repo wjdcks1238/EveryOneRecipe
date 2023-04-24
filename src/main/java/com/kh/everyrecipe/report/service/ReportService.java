@@ -1,11 +1,11 @@
 package com.kh.everyrecipe.report.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.kh.everyrecipe.report.vo.ReportVo;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVo;
+import com.kh.everyrecipe.report.vo.ReportedPostVoAll;
 
 public interface ReportService {
 
@@ -19,5 +19,6 @@ public interface ReportService {
 	
 	public List<ReportedCommentVo> getReportedComments();
 	public List<ReportVo> getReportInfoC(String cmtId);
+	public List<ReportedPostVoAll> getAllReportedP();
 
 }
