@@ -166,7 +166,7 @@
                 <div class="container-fluid">
                 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">신고 목록</h1>
+                    <h1 class="h3 mb-2 text-gray-800">댓글 신고 목록</h1>
                                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>                                        	
@@ -222,7 +222,9 @@
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
 
   	<script type="text/javascript">
-  	
+  	$('#exampleModal').on('show.bs.modal', function () {
+ 		 $('body').removeAttr("style");
+ 	})
   	$(document).on("click",".detail" ,function() {
   		$(".modal-body").empty();
   		$(".modal-title").empty();
