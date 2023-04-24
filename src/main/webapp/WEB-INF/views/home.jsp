@@ -420,11 +420,16 @@ body{
 			  </c:forEach>
 			</select>
 	</div>
-	<div class="chat_div">	
+	<div class="chat_div" style="margin-bottom: 15px;">	
 		<a href="<%=request.getContextPath() %>/chat?id=${userId}" onclick="chk_id(event)" style="color: white; text-decoration: none;">
 			<span class="material-symbols-outlined">
 			chat
 			</span>채팅		
+		</a>
+	</div>
+	<div>
+		<a href="<%=request.getContextPath() %>/chat/chatroom" onclick="chk_id(event)" style="color: white; text-decoration: none;">
+			채팅방(작업중)	
 		</a>
 	</div>
 </div>

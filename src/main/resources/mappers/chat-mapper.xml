@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chatMapper">
+	<resultMap type="com.kh.everyrecipe.chat.vo.RoomVo" id="chatResultMap">
+		<id column="KEY" property="key"/>
+		<result column="TITLE" property="title"/>
+		<result column="ISDELETED" property="isDeleted"/>
+		<result column="USERID" property="userId"/>
+		<result column="USER_NAME" property="userName"/>
+		<result column="CNT" property="cnt"/>
+	</resultMap>
+	<resultMap type="com.kh.everyrecipe.chat.vo.MessageVo" id="chatMsgResultMap" >
+		<id column="MESSAGENO" property="messageNo"/>
+		<result column="MESSAGE" property="message"/>
+		<result column="UPDATEAT" property="createDate"/>
+		<result column="KEY" property="key"/>
+		<result column="USERID" property="userId"/>
+		<result column="USER_NAME" property="userName"/>
+	</resultMap>
+  
+	<select id="selectChatRoomList" resultMap="chatResultMap">
+		SELECT KEY, TITLE, USERID,
+			(SELECT COUNT(*) 
+			FROM CHATROOMCHK B
+			WHERE B.KEY = A.KEY) AS CNT
+		FROM CHATTINGROOM A
+		JOIN MEMBERS USING (USERID)
+		WHERE A.ISDELETED ='N'
+		ORDER BY KEY DESC 
+	</select> 
+
+	<insert id="openChatRoom" useGeneratedKeys="true">
+    	<selectKey keyProperty="key" resultType="int" order="BEFORE">
+        	SELECT SEQ_ROOMNUM.NEXTVAL FROM DUAL
+    	</selectKey>
+	    INSERT ALL
+	    INTO CHATTINGROOM VALUES (#{key}, #{userId}, #{title}, DEFAULT)
+	    INTO CHATROOMCHK VALUES(#{key}, #{userId})
+	    SELECT * FROM SYS.DUAL
+	</insert> 
+ 
+	<insert id="insertMessage">
+		INSERT INTO DIRECTMESSAGE
+		VALUES(SEQ_MESSAGENUM, #{message}, SYSDATE, #{key}, #{userId})
+	</insert>
+ 
+	<select id="enterChk" resultType="int">
+	 	SELECT COUNT(*)
+	 	FROM CHATROOMCHK
+	 	WHERE KEY = #{key} AND USERID = #{userId}
+	</select>
+ 
+	<insert id="enterRoom">
+	 	INSERT INTO CHATROOMCHK
+	 	VALUES(#{key}, #{userId}) 
+	</insert>
+ 
+	<select id="selectChatList" resultMap="chatMsgResultMap">
+		SELECT D.MESSAGE, D.UPDATEAT, USERID
+		FROM DIRECTMESSAGE D
+		JOIN MEMBERS USING(USERID)
+		WHERE KEY = #{key}
+		ORDER BY MESSAGENO
+	</select>
+	
+	<delete id="exitChatRoom">
+	    DELETE FROM CHATROOMCHK
+	    WHERE USERID = #{userId} AND KEY = #{key}
+	</delete>
+	
+	<select id="countRoomMember" resultType="int">
+	    SELECT COUNT(*)
+	    FROM CHATROOMCHK
+	    WHERE KEY = #{key}
+	</select>
+
+	<update id="closeRoom">
+	    UPDATE CHATTINGROOM
+	    SET ISDELETED = 'Y'
+	    WHERE KEY = #{key}
+	</update>
+	
+</mapper>
