@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.everyrecipe.board.service.BoardService;
 import com.kh.everyrecipe.boardsearch.service.BoardSearchService;
 import com.kh.everyrecipe.boardsearch.vo.SearchVo;
@@ -49,10 +51,43 @@ public class AdminController {
 	@GetMapping("/search/searchword")
 	public ModelAndView searchword(ModelAndView mv) throws Exception {
 		
-		List<SearchVo> list = bsService.selectSearchList();
+		List<SearchVo> list = bsService.operatorSearchList();
 		mv.addObject("searchList", list);
 		
 		return mv;
+	}
+	
+	@GetMapping("/search/searchword/visibledata")
+	@ResponseBody
+	public String refreshSeachData(
+			@RequestParam("keword") String keyword
+			) throws Exception {
+		//json으로 변환 할 데이터를 받는 변수
+		List<SearchVo> list = null;
+		//update문 작동 시, 받아올 반환 변수
+		int swresult;
+		//검색어 숨김 여부를 가져옴
+		String isVisible = bsService.getkeywordVisible(keyword);
+		System.out.println(isVisible);
+		
+		if(isVisible.equals("N")) {
+			//검색어 제외 항목을 'Y'로 변경(검색어 순위에 표출이 안됨.)
+			swresult = bsService.swipeVisibleY(keyword);
+			if(swresult == 1) {
+				list = bsService.operatorSearchList();
+			} else {
+				
+			}
+		} else if(isVisible.equals("Y")) {
+			//검색어 제외 항목을 'N'로 변경(검색어 순위에 표출.)
+			swresult = bsService.swipeVisibleN(keyword);
+			if(swresult == 1) {
+				list = bsService.operatorSearchList();
+			} else {
+				
+			}
+		}
+		return new Gson().toJson(list);
 	}
 	
 	//검색어순위 관리 페이지

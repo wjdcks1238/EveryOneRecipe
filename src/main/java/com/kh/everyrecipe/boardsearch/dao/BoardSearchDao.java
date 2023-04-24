@@ -54,4 +54,21 @@ public class BoardSearchDao {
 	public List<SearchVo> selectSearchList() {
 		return sqlSession.selectList("boardSearchMapper.selectSearchList");
 	}
+
+	public String getkeywordVisible(String keyword) {
+		return sqlSession.selectOne("boardSearchMapper.getkeywordvisible", keyword);
+	}
+
+	public int swipeVisibleN(String keyword) {
+		return sqlSession.update("boardSearchMapper.swipeVisibleN", keyword);
+	}
+
+	public int swipeVisibleY(String keyword) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("boardSearchMapper.swipeVisibleY", keyword);
+	}
+
+	public List<SearchVo> operatorSearchList() {
+		return sqlSession.selectList("boardSearchMapper.operatorSearchList");
+	}
 }

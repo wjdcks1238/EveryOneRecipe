@@ -17,4 +17,8 @@ public interface BoardSearchService {
 	public List<PostVo> pagingUserNameList(Map<String, String> map) throws Exception;
 	public List<SearchVo> rankSearchList() throws Exception;
 	public List<SearchVo> selectSearchList() throws Exception;
+	public String getkeywordVisible(String keyword) throws Exception;
+	public int swipeVisibleN(String keyword) throws Exception;
+	public int swipeVisibleY(String keyword) throws Exception;
+	public List<SearchVo> operatorSearchList() throws Exception;
 }

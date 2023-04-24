@@ -65,4 +65,25 @@ public class BoardSearchServiceImp implements BoardSearchService {
 		return dao.selectSearchList();
 	}
 
+	@Override
+	public String getkeywordVisible(String keyword) throws Exception {
+		return dao.getkeywordVisible(keyword);
+	}
+
+	@Override
+	public int swipeVisibleN(String keyword) throws Exception {
+		return dao.swipeVisibleN(keyword);
+	}
+
+	@Override
+	public int swipeVisibleY(String keyword) throws Exception {
+		return dao.swipeVisibleY(keyword);
+		
+	}
+
+	@Override
+	public List<SearchVo> operatorSearchList() throws Exception {
+		return dao.operatorSearchList();
+	}
+
 }

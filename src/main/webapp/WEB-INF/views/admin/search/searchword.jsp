@@ -150,12 +150,14 @@
                                             <th>마지막 검색 시간</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="searchWord">
                                     	<c:forEach items="${searchList }" var="sw" varStatus="swStatus">
 	                                        <tr>
 	                                            <td>${sw.rowN }</td>
 	                                            <td>${sw.keword }</td>
-	                                            <td>${sw.isVisible }</td>
+	                                            <td>
+	                                            	<button type="button" data-keword="${sw.keword }" class="btn_swipe_searchOption" style="border-style: none; background: none;">${sw.isVisible }</button>
+	                                            </td>
 	                                            <td>${sw.times }</td>
 	                                            <td>${sw.searchDate }</td>
 	                                        </tr>
@@ -189,6 +191,36 @@
 <!-- footer -->   
 <%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %> 
 
-
+<script>
+	$(".btn_swipe_searchOption").click(function() {
+		var keword = $(this).data('keword');
+		
+		$.ajax({
+			url: "<%=request.getContextPath() %>/admin/search/searchword/visibledata",
+			type: "GET",
+			data: {
+				keword: keword
+			},
+			dataType: "json",
+			async: false,
+			success: function(data) {
+				var htmlval = '';
+				for(i=0;i<data.length;i++) {
+					var swdata = data[i];
+					htmlval += '<tr>';
+					htmlval += '<td>' + swdata.rowN + '</td>';
+					htmlval += '<td>' + swdata.keword + '</td>';
+					htmlval += '<td>';
+					htmlval += '<button type="button" data-keword="' + swdata.keword + '" class="btn_swipe_searchOption" style="border-style: none; background: none;">' + swdata.isVisible + '</button>';
+					htmlval += '</td>';
+					htmlval += '<td>' + swdata.times + '</td>';
+					htmlval += '<td>' + swdata.searchDate + '</td>';
+					htmlval += '</tr>';
+				}
+				$("#searchWord").html(htmlval);
+			}
+		})
+	});
+</script>
 </body>
 </html>
