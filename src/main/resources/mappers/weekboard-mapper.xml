@@ -61,6 +61,7 @@
 						from(
 						select keword
 						from search
+						where ISVISIBLE='N'
 						order by times desc
 					)
 				)

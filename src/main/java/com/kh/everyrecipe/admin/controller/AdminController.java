@@ -49,7 +49,9 @@ public class AdminController {
 	@GetMapping("/search/searchword")
 	public ModelAndView searchword(ModelAndView mv) throws Exception {
 		
-		//TODO
+		List<SearchVo> list = bsService.selectSearchList();
+		mv.addObject("searchList", list);
+		
 		return mv;
 	}
 	

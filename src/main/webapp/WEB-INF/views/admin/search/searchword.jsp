@@ -143,21 +143,23 @@
                                             
                                             <th>조회수</th>
                                             
-	                                        <!-- 제외처리한 관리자 표시됨 -->
+	                                        <!-- 제외처리한 관리자 표시됨
                                             <th>작업자</th>
+                                             -->
                                             
                                             <th>마지막 검색 시간</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-	                                        <tr >
-	                                            <td></td>
-	                                            <td></td>
-	                                            <td></td>
-	                                            <td ></td>
-	                                            <td ></td>
-	                                            <td ></td>
+                                    	<c:forEach items="${searchList }" var="sw" varStatus="swStatus">
+	                                        <tr>
+	                                            <td>${sw.rowN }</td>
+	                                            <td>${sw.keword }</td>
+	                                            <td>${sw.isVisible }</td>
+	                                            <td>${sw.times }</td>
+	                                            <td>${sw.searchDate }</td>
 	                                        </tr>
+                                    	</c:forEach>
                                     </tbody>
                                 </table>
                   </div>

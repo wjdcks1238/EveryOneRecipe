@@ -60,4 +60,9 @@ public class BoardSearchServiceImp implements BoardSearchService {
 		return dao.rankSearchList();
 	}
 
+	@Override
+	public List<SearchVo> selectSearchList() throws Exception {
+		return dao.selectSearchList();
+	}
+
 }

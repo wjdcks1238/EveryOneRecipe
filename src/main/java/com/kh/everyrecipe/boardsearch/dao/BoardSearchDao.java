@@ -50,4 +50,8 @@ public class BoardSearchDao {
 	public List<SearchVo> rankSearchList() {
 		return sqlSession.selectList("boardSearchMapper.rankSearchList");
 	}
+
+	public List<SearchVo> selectSearchList() {
+		return sqlSession.selectList("boardSearchMapper.selectSearchList");
+	}
 }

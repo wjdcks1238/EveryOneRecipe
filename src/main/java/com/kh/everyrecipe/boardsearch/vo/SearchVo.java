@@ -1,5 +1,7 @@
 package com.kh.everyrecipe.boardsearch.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +20,7 @@ public class SearchVo {
 	
 	private int rowN;
 	private String keword;
+	private char isVisible;
 	private int times;
+	private Date searchDate;
 }

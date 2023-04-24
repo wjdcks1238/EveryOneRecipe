@@ -106,6 +106,9 @@
 	<select id="rankSearchList" resultType="svo">
 		select ROW_NUMBER() OVER (ORDER BY times DESC) as rown, s.* from search s where <![CDATA[rownum <= 100]]> order by times desc
 	</select>
+	<select id="selectSearchList" resultType="svo">
+		select ROW_NUMBER() OVER (ORDER BY times DESC) AS ROWN, s.* from search s where ISVISIBLE= 'Y'
+	</select>
 	<insert id="insertSearchData" parameterType="String">
 		insert into search values(#{keyword}, (select NVL(MAX(TIMES), 0)+1 from search where KEWORD=#{keyword}), default, default)
 	</insert>
