@@ -310,7 +310,7 @@
 
 				    var tr = $("<tr></tr>");
 				    tr.append($("<td></td>").text(list.reportId));
-				    tr.append($("<td></td>").html('<a href="${pageContext.request.contextPath}/board/list/${list.postId }">'+list.postId+'</a>'));
+				    tr.append($("<td></td>").html('<a href="${pageContext.request.contextPath}/board/list/'+list.postId+'">'+list.postId+'</a>'));
 				    tr.append($("<td></td>").text(list.foodName));
 				    tr.append($("<td></td>").text(list.puserId));
 				    tr.append($("<td></td>").text(list.nickName));

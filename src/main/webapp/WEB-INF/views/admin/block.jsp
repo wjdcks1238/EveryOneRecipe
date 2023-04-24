@@ -38,7 +38,7 @@
         </button>
       </div>
       <div class="modal-body">
-       
+        
       </div>
       <div class="modal-footer">
       </div>
@@ -102,8 +102,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">계정관리</a>
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">권한관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-posts">계정관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-comments">권한관리</a>
                     </div>
                 </div>
             </li>
@@ -163,38 +163,26 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
                 <!-- End of Topbar -->
                 
-                <div class="container-fluid">
+                <div class="container-fluid" id>
                 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">댓글 신고 목록</h1>
-                    <div id="table">
+                    <h1 class="h3 mb-2 text-gray-800">회원 차단 관리</h1>
+                    ${member }
+                    	<div id="table">
+                    	
                                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>                                        	
-                                            <th>댓글 번호</th>
-                                            <th>게시글 번호</th>
-                                            <th>작성자 ID</th>
-                                            <th>작성자 닉네임</th>
-                                            <th>신고 횟수</th>
-                                            <th>처리 상태</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
                                     		
-                                    	<c:forEach items="${reportList }" var="list">
-	                                        <tr >
-	                                            <td>${list.cmtId }</td>
-	                                            <td><a href="<%=request.getContextPath() %>/board/list/${list.postId }">${list.postId }</a> </td>
-	                                            <td>${list.userId }</td>
-	                                            <td>${list.nickName }</td>
-	                                            <td><a  data-toggle="modal" data-target="#exampleModal" class="detail" href="#">${list.reportCnt }</a></td>
-	                                            <td>${list.status }</td>
-	                                        </tr>	                                       
-                                    	</c:forEach>
+                                    	
                                     </tbody>
                                 </table>
-	                   </div>         
-	               <button type="button" id="viewAll" class="btn btn-primary mt-2">댓글 신고내역 전체 보기</button>        
+	                   </div>                 
+                
                   </div>
             </div>
             <!-- End of Main Content -->
@@ -223,145 +211,7 @@
     <!-- Page level custom scripts -->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
 
-  	<script type="text/javascript">
-  	$('#exampleModal').on('show.bs.modal', function () {
- 		 $('body').removeAttr("style");
- 	})
-  	$(document).on("click",".detail" ,function() {
-  		$(".modal-body").empty();
-  		$(".modal-title").empty();
-	  	var cmtId=$(this).parent().parent().children().first().text();	
-	  	var postId=$(this).parent().parent().children().eq(1).text()
-	  	console.log(cmtId);
-	  	console.log($(this));
-		$.ajax({
-			url: "${pageContext.request.contextPath}/admin/modal-c",
-			type: "POST", 
-			data: {cmtId: cmtId},
-			success:function(result){
-				$(".modal-title").text("댓글 번호: "+cmtId +", 게시글 번호: "+postId);
-				var tbody = $("<tbody></tbody>");
-				for(i = 0; i < result.length; i++){
-				    var list = result[i];
-				    var ms = list.reportTime;
-				    var date = new Date(ms); 
-				    var yyyy = date.getFullYear();
-				    var mm = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-				    var dd = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-				    var hh = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-				    var mi = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-				    var ss = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-				    var formattedDate = yyyy + "-" + mm + "-" + dd + " " + hh + ":" + mi + ":" + ss;
-
-				    var tr = $("<tr></tr>");
-				    tr.append($("<td></td>").text(list.reportId));
-				    tr.append($("<td></td>").text(list.userId));
-				    tr.append($("<td></td>").text(list.reportContent));
-				    tr.append($("<td></td>").text(formattedDate));
-
-				    tbody.append(tr);
-				}
-
-				var table = $('<table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">'+
-				            '<thead>'+
-				                '<tr>'+
-				                    '<th>신고 번호</th>'+
-				                    '<th>신고자 ID</th>'+
-				                    '<th>신고 내용</th>'+
-				                    '<th>신고 시각</th>'+
-				                '</tr>'+
-				            '</thead>'+
-				        '</table>');
-
-				table.append(tbody);
-				$(".modal-body").append(table);
-				$('#dataTable2').DataTable({
-				  	searching: true,
-			  	    ordering: true
-			  	});
-				
-			}
-			
-		});
-  	});
   	
-  	
-  	
-  	
-  	
-  	
-  	$(document).on("click","#viewAll" ,function() {
-  		$("#table").empty();
-
-		$.ajax({
-			url: "${pageContext.request.contextPath}/admin/all-reported-c",
-			type: "POST", 
-			success:function(result){
-				console.log(result[0]);
-				
-				
-			
-				var tbody = $("<tbody></tbody>");
-				for(i = 0; i < result.length; i++){
-				    var list = result[i];
-				    var ms = list.reportTime;
-				    var date = new Date(ms); 
-				    var yyyy = date.getFullYear();
-				    var mm = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-				    var dd = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-				    var hh = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-				    var mi = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-				    var ss = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-				    var formattedDate = yyyy + "-" + mm + "-" + dd + " " + hh + ":" + mi + ":" + ss;
-
-				    var tr = $("<tr></tr>");
-				    tr.append($("<td></td>").text(list.reportId));
-				    tr.append($("<td></td>").text(list.cmtId));
-				    tr.append($("<td></td>").html('<a href="${pageContext.request.contextPath}/board/list/'+list.postId+'">'+list.postId+'</a>'));
-				    tr.append($("<td></td>").text(list.cuserId));
-				    tr.append($("<td></td>").text(list.nickName));
-				    tr.append($("<td></td>").text(list.ruserId));
-				    tr.append($("<td></td>").text(list.reportContent));
-				    tr.append($("<td></td>").text(list.status));
-				    tr.append($("<td></td>").text(formattedDate));
-
-				    tbody.append(tr);
-				}
-
-				var table = $('<table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0">'+
-				            '<thead>'+
-				                '<tr>'+
-				                    '<th>신고 번호</th>'+
-				                    '<th>댓글 ID</th>'+
-				                    '<th>게시글 ID</th>'+
-				                    '<th>댓글 작성자 ID</th>'+
-				                    '<th>댓글 작성자 닉네임</th>'+
-				                    '<th>신고자 ID</th>'+
-				                    '<th>신고 내용</th>'+
-				                    '<th>처리 상태</th>'+
-				                    '<th>신고 시각</th>'+
-				                '</tr>'+
-				            '</thead>'+
-				        '</table>');
-
-				table.append(tbody);
-				$("#table").append(table);
-				$('#dataTable3').DataTable({
-				  	searching: true,
-			  	    ordering: true
-			  	});
-			
-			$("#viewAll").text("댓글 ID별로 보기");
-			$("#viewAll").attr("id", "reload");
-			
-			}
-			
-		});
-  	});
-	$(document).on("click","#reload" ,function() {
-		location.reload();	
-	});
-  	</script>
     
 
 		</body>

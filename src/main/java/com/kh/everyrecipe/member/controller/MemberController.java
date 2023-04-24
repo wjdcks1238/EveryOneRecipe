@@ -318,7 +318,7 @@ public class MemberController {
 	    }
 	}
 
-
+	//개인정보수정 : 비밀번호 변경 후 로그아웃 후 재로그인 해야함, 비밀번호 변경 없어도 됨, 비밀번호 변경시 유효성 체크
 	@GetMapping("/modify")
 	public ModelAndView modify(ModelAndView mv, Principal principal) throws Exception {
 		String id = principal.getName();

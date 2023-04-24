@@ -25,6 +25,7 @@ import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
 import com.kh.everyrecipe.report.service.ReportService;
 import com.kh.everyrecipe.report.vo.ReportVo;
+import com.kh.everyrecipe.report.vo.ReportedCmtVoAll;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVo;
 import com.kh.everyrecipe.report.vo.ReportedPostVoAll;
@@ -238,6 +239,39 @@ public class AdminController {
 		
 		return reportList;
 	}
+	//분류하지 않은 전체 목록 보기
+	@PostMapping("/all-reported-c")
+	@ResponseBody
+	public List<ReportedCmtVoAll> cGetAllReported(){
+		
+		List<ReportedCmtVoAll> reportList = rService.getAllReportedC();
+	//신고 번호, 댓글 번호, 게시글 번호, 댓글 작성자 id, 작성자 닉네임, 신고자 id, 신고 내용, 처리 상태, 신고 시각 
+		return reportList;
+	}
 	
+	
+	
+	
+	
+	//회원 차단 페이지
+	@GetMapping("/block/{userId}")
+	public ModelAndView blockMember(@PathVariable String userId, ModelAndView mv) throws Exception {
+		MemberVo member = mService.selectOne(userId);
+		mv.addObject("member", member); 
+		
+	    mv.setViewName("admin/block");
+
+	    //확인
+	    	//유저 ID 확인
+	    	//현재 차단 여부. 차단기간과 현재시간 비교
+	    	//마지막 차단 기간. 차단 상태라면 차단 기간 변경가능. 차단 해제시 endtime을 현재시간으로 변경. 차단 시간 증가 가능
+	    	//차단 코멘트 확인
+	    	//이전 블라인드 횟수 확인
+	    //추가(차단 상태가 아닐시)
+	    	//차단기간 설정
+	    	//코멘트 
+
+	    return mv;
+	}
 	
 }

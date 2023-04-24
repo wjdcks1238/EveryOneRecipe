@@ -63,4 +63,8 @@ public class MemberDao {
 		return sqlSession.selectList("memberMapper.login", vo);
 	}
 	
+	public int modify(MemberVo vo) throws Exception {
+		return sqlSession.update("memberMapper.modify",vo);
+		
+	}
 }
