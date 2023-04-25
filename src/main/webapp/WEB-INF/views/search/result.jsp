@@ -143,9 +143,7 @@
 		    success: function(data) {
 		    	if(data.length < 1) {
 		    		alert("검색결과가 없습니다.");
-		    		searchInsertDB(keyword);
 		    	} else if(data.length > 0) {
-		    		searchInsertDB(keyword);
 		    	} else {
 		    		alert("알 수 없는 오류가 발생되었습니다.");
 		    	}
