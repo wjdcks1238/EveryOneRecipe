@@ -1,10 +1,40 @@
 --예약어 목록
 SELECT * FROM V$RESERVED_WORDS;
 
+
+SELECT *
+FROM (
+  SELECT USERID,
+         CASE WHEN STARTTIME < SYSDATE AND SYSDATE < ENDTIME THEN 'Y'
+              ELSE 'N'
+         END AS STATUS,
+         STARTTIME,
+         ENDTIME,
+         reason,
+        (select count(*) from memberblock where userid='user055') AS BLOCK_COUNT
+  FROM MEMBERBLOCK
+  WHERE USERID = 'user055'
+  ORDER BY BLOCKID DESC
+)
+WHERE ROWNUM = 1;
+
+
+delete memberblock;
+INSERT INTO MEMBERBLOCK VALUES(1,'user055','그냥',sysdate- INTERVAL '5' DAY, sysdate- INTERVAL '4' DAY);
+INSERT INTO MEMBERBLOCK VALUES(2,'user055','그냥',sysdate- INTERVAL '4' DAY, sysdate- INTERVAL '3' DAY);
+INSERT INTO MEMBERBLOCK VALUES(3,'user055','그냥',sysdate- INTERVAL '3' DAY, sysdate- INTERVAL '2' DAY);
+INSERT INTO MEMBERBLOCK VALUES(4,'user055','그냥',sysdate, sysdate+ INTERVAL '1' DAY);
+INSERT INTO MEMBERBLOCK VALUES(5,'useruser1','그냥',sysdate, sysdate+ INTERVAL '1' DAY);
+INSERT INTO MEMBERBLOCK VALUES(6,'uuu123','그냥',sysdate, sysdate+ INTERVAL '1' DAY);
+INSERT INTO MEMBERBLOCK VALUES(7,'user02','그냥',sysdate- INTERVAL '3' DAY, sysdate- INTERVAL '2' DAY);
+
+
 --<<사용자 테이블>>--
 --이용자 테이블 삭제
 drop table MEMBERS;
-
+DROP TABLE MEMBERBLIND;
+SELECT * FROM MEMBERBLOCK;
+SELECT * FROM MEMBERS;
 --이용자 테이블 생성
 /*
  * ISDELETED 'N' 논리 삭제 아님 / 'Y' 논리 삭제
