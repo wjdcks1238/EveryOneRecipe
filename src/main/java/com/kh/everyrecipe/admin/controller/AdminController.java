@@ -271,13 +271,6 @@ public class AdminController {
 	    	//차단기간 설정
 	    	//코멘트 
 
-	    
-	    //members에서 userid
-	    //blind에서 나머지
-	    
-		
-		//차단기간 재설정 시 현재시간보다 이전 시간으로 설정할 때 차단 해제 버튼을 누르라는 알림
-		
 		
 		//기록이 있을 때
 			//현재 차단상태일 때
@@ -285,7 +278,14 @@ public class AdminController {
 			//현재 차단 상태가 아닐 때 
 				//기록 표시, 새 차단
 		//기록이 없을 때
-			//차단 상태가 아님. 새 차단 추가	
+			//차단 상태가 아님. 새 차단 추가
+		
+		//TODO 차단 예약 취소
+		//startTime이 현재시각보다 클 시 차단 예약. 취소가능하고 취소 시 기록에 남지않음
+		//예약된 차단이 있으면 새로 차단 불가능하게 변경
+
+		//TODO 게시글, 댓글 차단 분리
+		
 	    BlockedMemberVo bvo = rService.getLastBlockInfo(userId);
 	    mv.addObject("bvo", bvo);
 	    mv.addObject("userId", userId);
