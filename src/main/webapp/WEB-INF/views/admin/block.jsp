@@ -176,7 +176,7 @@
                     	<c:if test="${not empty bvo }">
 	                    
 		                    <div>
-		                                                 유저 ID: ${bvo.userId }
+		                      <b>회원 ID: ${bvo.userId }</b> 
 		                    </div>
 		                    <div>
 		                                                 차단여부: ${bvo.status }
@@ -204,6 +204,14 @@
 			                    </div>
 							</c:if>
 	                  
+						</c:if>
+						<c:if test="${empty bvo }">
+							<div>
+								<b>회원 ID: ${userId }</b>
+							</div>
+							<div>
+								 차단 기록이 없습니다.
+							</div>
 						</c:if>
 						
 						<c:if test="${empty bvo || bvo.status eq 'N'}">

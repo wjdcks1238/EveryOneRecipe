@@ -259,10 +259,8 @@ public class AdminController {
 	//회원 차단 페이지
 	@GetMapping("/block/{userId}")
 	public ModelAndView blockMember(@PathVariable String userId, ModelAndView mv) throws Exception {
-		MemberVo member = mService.selectOne(userId);
-		mv.addObject("member", member); 
-		
 
+		
 	    //확인
 	    	//유저 ID 확인
 	    	//현재 차단 여부. 차단기간과 현재시간 비교
@@ -290,6 +288,7 @@ public class AdminController {
 			//차단 상태가 아님. 새 차단 추가	
 	    BlockedMemberVo bvo = rService.getLastBlockInfo(userId);
 	    mv.addObject("bvo", bvo);
+	    mv.addObject("userId", userId);
 	    mv.setViewName("admin/block");
 	    return mv;
 	}

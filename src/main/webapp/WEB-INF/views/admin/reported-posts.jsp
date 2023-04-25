@@ -186,7 +186,7 @@
 	                                        <tr >
 	                                            <td><a href="<%=request.getContextPath() %>/board/list/${list.postId }">${list.postId }</a> </td>
 	                                            <td>${list.foodName }</td>
-	                                            <td>${list.userId }</td>
+	                                            <td><a href="<%=request.getContextPath() %>/admin/block/${list.userId }"> ${list.userId } </a></td>
 	                                            <td>${list.nickName }</td>
 	                                            <td><a  data-toggle="modal" data-target="#exampleModal" class="detail" href="#">${list.reportCnt }</a></td>
 	                                            <td>${list.status }</td>
@@ -254,7 +254,7 @@
 
 				    var tr = $("<tr></tr>");
 				    tr.append($("<td></td>").text(list.reportId));
-				    tr.append($("<td></td>").text(list.userId));
+				    tr.append($("<td></td>").html('<a href="${pageContext.request.contextPath}/admin/block/'+list.userId+'">'+list.userId+'</a>'));
 				    tr.append($("<td></td>").text(list.reportContent));
 				    tr.append($("<td></td>").text(formattedDate));
 
@@ -312,9 +312,9 @@
 				    tr.append($("<td></td>").text(list.reportId));
 				    tr.append($("<td></td>").html('<a href="${pageContext.request.contextPath}/board/list/'+list.postId+'">'+list.postId+'</a>'));
 				    tr.append($("<td></td>").text(list.foodName));
-				    tr.append($("<td></td>").text(list.puserId));
+				    tr.append($("<td></td>").html('<a href="${pageContext.request.contextPath}/admin/block/'+list.puserId+'">'+list.puserId+'</a>'));
 				    tr.append($("<td></td>").text(list.nickName));
-				    tr.append($("<td></td>").text(list.ruserId));
+				    tr.append($("<td></td>").html('<a href="${pageContext.request.contextPath}/admin/block/'+list.ruserId+'">'+list.ruserId+'</a>'));
 				    tr.append($("<td></td>").text(list.reportContent));
 				    tr.append($("<td></td>").text(list.status));
 				    tr.append($("<td></td>").text(formattedDate));
