@@ -1,6 +1,8 @@
 package com.kh.everyrecipe.admin.controller;
 
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,7 @@ import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
 import com.kh.everyrecipe.report.service.ReportService;
+import com.kh.everyrecipe.report.vo.BlockedMemberVo;
 import com.kh.everyrecipe.report.vo.ReportVo;
 import com.kh.everyrecipe.report.vo.ReportedCmtVoAll;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
@@ -259,7 +262,6 @@ public class AdminController {
 		MemberVo member = mService.selectOne(userId);
 		mv.addObject("member", member); 
 		
-	    mv.setViewName("admin/block");
 
 	    //확인
 	    	//유저 ID 확인
@@ -271,7 +273,57 @@ public class AdminController {
 	    	//차단기간 설정
 	    	//코멘트 
 
+	    
+	    //members에서 userid
+	    //blind에서 나머지
+	    
+		
+		//차단기간 재설정 시 현재시간보다 이전 시간으로 설정할 때 차단 해제 버튼을 누르라는 알림
+		
+		
+		//기록이 있을 때
+			//현재 차단상태일 때
+				//기록 표시, 차단기간 설정
+			//현재 차단 상태가 아닐 때 
+				//기록 표시, 새 차단
+		//기록이 없을 때
+			//차단 상태가 아님. 새 차단 추가	
+	    BlockedMemberVo bvo = rService.getLastBlockInfo(userId);
+	    mv.addObject("bvo", bvo);
+	    mv.setViewName("admin/block");
 	    return mv;
 	}
+	
+	
+	
+	
+	//차단시간 변경. 현재시간 이하로는 변경 불가
+	@PostMapping("/changeBlockT")
+	@ResponseBody
+	public int changeBlockTime(BlockedMemberVo bvo) {
+
+		System.out.println(bvo);
+		int result= rService.changeBlockT(bvo);
+		return result;
+	}
+	//차단시간 변경. 현재시간 이하로는 변경 불가
+	@PostMapping("/unblock")
+	@ResponseBody
+	public int unblock(int blockId) {
+		
+		int result= rService.unblock(blockId);
+		return result;
+	}
+	
+	//차단
+	@PostMapping("/block")
+	@ResponseBody
+	public int block(BlockedMemberVo bvo) {
+		System.out.println(bvo);
+		int result= rService.block(bvo);
+		return result;
+	}
+	
+	
 	
 }

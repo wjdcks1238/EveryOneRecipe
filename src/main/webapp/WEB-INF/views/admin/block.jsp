@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <title>모두의 레시피 관리자 모드</title>
 
@@ -19,6 +18,9 @@
     <link href="<%=request.getContextPath() %>/resources/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath() %>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    
+    
+    
 <style type="text/css">
 
 .modal-xl {
@@ -163,36 +165,77 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
                 <!-- End of Topbar -->
                 
-                <div class="container-fluid" id>
+                <div class="container-fluid" >
                 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">회원 차단 관리</h1>
-                    ${member }
-                    	<div id="table">
+                    <br>
+                   
+                    <div class="form-group">
+                  
+                    	<c:if test="${not empty bvo }">
+	                    
+		                    <div>
+		                                                 유저 ID: ${bvo.userId }
+		                    </div>
+		                    <div>
+		                                                 차단여부: ${bvo.status }
+		                    </div>
+		                    <div>
+		                                                 최근 차단기간: ${fn:replace(bvo.startTime, 'T', ' ')} ~ ${fn:replace(bvo.endTime, 'T', ' ')}
+		                    </div>
+		                    <div>
+		                                                 최근 차단 사유: ${bvo.reason }
+		                    </div>
+		                    <div>
+		                                                전체 차단 횟수: ${bvo.blockCnt }
+		                    </div>
+							<c:if test="${bvo.status eq 'Y'}">
+			                    <div class="mt-3">
+			                    	<input type="hidden" name="blockId" value="${bvo.blockId }">
+			                        <label><h4> 차단 해제일 변경</h4></label>
+				                 
+				                    <input 
+				                    value="${bvo.endTime }" 
+				                    min="2021-04-01T00:00" max="2031-04-28T00:00" 
+				                    style="width: 15%" class="form-control" type="datetime-local" id="datetime" name="endTime">
+			 					    <button class="mt-2" type="button" id="changeBlockT">차단 해제일 변경 </button>
+								    <button type="button" id="unblock">차단 해제</button>
+			                    </div>
+							</c:if>
+	                  
+						</c:if>
+						
+						<c:if test="${empty bvo || bvo.status eq 'N'}">
+							
+								<label class="mt-5"><h4>차단 하기</h4></label>
+							    <div class="row">
+									<input style="width: 15%" class="form-control ml-2" type="datetime-local" id="startTime"  value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(new java.util.Date()) %>">
+									<span class="ml-1 mr-1" style="margin-top: 5px"><h4>~</h4> </span>
+									<input style="width: 15%" class="form-control  " type="datetime-local" id="endTime" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(new java.util.Date().getTime() + 3*24*60*60*1000) %>">
+							    </div>	
+								<label class="mt-4"><h5>차단 사유</h5></label>
+								<div>
+								<textarea rows="5%" cols="40%" id="reason"></textarea>
+								</div>
+								<button class="mt-2" type="button" id="block">차단 하기</button>
+							
+						</c:if>
+	    		
+	    			</div>
+				</div>
+                    
                     	
-                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>                                        	
-                                            
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    		
-                                    	
-                                    </tbody>
-                                </table>
-	                   </div>                 
-                
                   </div>
             </div>
             <!-- End of Main Content -->
          </div>
-      </div>
       	
 <!-- footer -->    
 <%@ include file="adminFooter.jsp" %>   
 <script src="<%=request.getContextPath()%>/resources/mediumish/assets/js/jquery.min.js"></script>
    
+
     
     <!-- Bootstrap core JavaScript-->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/jquery/jquery.min.js"></script>
@@ -212,7 +255,89 @@
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
 
   	
-    
+    <script type="text/javascript">
+    	
+	$(document).on("click","#changeBlockT" ,function() {
+		var now = new Date();
+		var endTime = $('input[name=endTime]').val();
+		var endTimeDate = new Date(Date.parse(endTime));
+		if(now<endTimeDate){			
+	    	$.ajax({
+	    		url: "${pageContext.request.contextPath}/admin/changeBlockT",
+				type: "POST", 
+				data: {endTime: $('input[name=endTime]').val(), blockId:$('input[name=blockId]').val() },
+				success:function(result){
+					if(result!=1){
+						alert("변경에 실패했습니다.");
+					}else if(result==1){
+						alert("변경되었습니다.");
+						location.reload();
+					}
+					
+				}
+				
+	    	});
+		}else{
+			alert("현재시각 이후로 설정해주세요");
+		}
+	});
+	
+	
+	$(document).on("click","#unblock" ,function() {
+		
+    	$.ajax({
+    		url: "${pageContext.request.contextPath}/admin/unblock",
+			type: "POST", 
+			data: {blockId:$('input[name=blockId]').val()},
+			success:function(result){
+				if(result!=1){
+					alert("해제에 실패했습니다.");
+				}else if(result==1){
+					alert("해제되었습니다.");
+					location.reload();
+				}
+				
+			}
+			
+    	});
 
-		</body>
+	});
+	
+	
+	$(document).on("click","#block" ,function() {
+	    var now = new Date();
+	    var endTimeDate = new Date(Date.parse($('#endTime').val()));
+	    var startTimeDate = new Date(Date.parse($('#startTime').val()));
+	    startTimeDate.setMinutes(startTimeDate.getMinutes() + 1);
+	        
+	    if (startTimeDate < now) {
+	        alert("시작 시간은 현재 시간 이후여야 합니다.");
+	        return;
+	    }
+	    if (endTimeDate <= startTimeDate) {
+	        alert("종료 시간은 시작 시간 이후여야 합니다.");
+	        return;
+	    }
+	    if ($('#reason').val().trim()=='') {
+	        alert("차단 사유를 입력해야 합니다.");
+	        return;
+	    }
+	        
+	    $.ajax({
+	        url: "${pageContext.request.contextPath}/admin/block",
+	        type: "POST", 
+	        data: {startTime: $('#startTime').val(), endTime: $('#endTime').val(), userId:'${bvo.userId}', reason:$('#reason').val() },
+	        success:function(result){
+	            if(result!=1){
+	                alert("차단에 실패했습니다.");
+	            }else if(result==1){
+	                alert("차단되었습니다.");
+	                location.reload();
+	            }
+	        }
+	    });
+	});
+    </script>
+
+</body>
 </html>

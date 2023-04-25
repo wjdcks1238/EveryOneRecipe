@@ -2,6 +2,7 @@ package com.kh.everyrecipe.report.service;
 
 import java.util.List;
 
+import com.kh.everyrecipe.report.vo.BlockedMemberVo;
 import com.kh.everyrecipe.report.vo.ReportVo;
 import com.kh.everyrecipe.report.vo.ReportedCmtVoAll;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
@@ -22,5 +23,9 @@ public interface ReportService {
 	public List<ReportVo> getReportInfoC(String cmtId);
 	public List<ReportedPostVoAll> getAllReportedP();
 	public List<ReportedCmtVoAll> getAllReportedC();
+	public BlockedMemberVo getLastBlockInfo(String userId);
+	public int changeBlockT(BlockedMemberVo bvo);
+	public int unblock(int blockId);
+	public int block(BlockedMemberVo bvo);
 
 }

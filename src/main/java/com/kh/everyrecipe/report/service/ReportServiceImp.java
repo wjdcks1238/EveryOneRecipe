@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.everyrecipe.report.dao.ReportDao;
+import com.kh.everyrecipe.report.vo.BlockedMemberVo;
 import com.kh.everyrecipe.report.vo.ReportVo;
 import com.kh.everyrecipe.report.vo.ReportedCmtVoAll;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
@@ -69,6 +70,29 @@ public class ReportServiceImp implements ReportService {
 	@Override
 	public List<ReportedCmtVoAll> getAllReportedC() {
 		return dao.getAllReportedC();
+	}
+
+	
+	
+	//회원 블록 관련
+	@Override
+	public BlockedMemberVo getLastBlockInfo(String userId) {
+		return dao.getLastBlockInfo(userId);
+	}
+
+	@Override
+	public int changeBlockT(BlockedMemberVo bvo) {
+		return dao.changeBlockT(bvo);
+	}
+
+	@Override
+	public int unblock(int blockId) {
+		return dao.unblock(blockId);
+	}
+
+	@Override
+	public int block(BlockedMemberVo bvo) {
+		return dao.block(bvo);
 	}
 
 

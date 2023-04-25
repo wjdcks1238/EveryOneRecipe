@@ -73,4 +73,35 @@
 	     WHERE r.userid IS NOT NULL
 	</select>
 	
+	
+	<!--차단된 회원  -->
+	<select id="getLastBlockInfo" resultType="com.kh.everyrecipe.report.vo.BlockedMemberVo">
+		SELECT *
+		  FROM (
+		    SELECT BLOCKID,
+		    	   USERID,
+		           CASE WHEN STARTTIME <![CDATA[< SYSDATE AND SYSDATE  < ]]>ENDTIME THEN 'Y'
+		                ELSE 'N'
+		            END AS STATUS,
+		           to_char(STARTTIME,'yyyy-mm-dd"T"hh24:mi') STARTTIME,
+		           to_char(ENDTIME,'yyyy-mm-dd"T"hh24:mi') ENDTIME,
+		           reason,
+		           (select count(*) from memberblock where userid=#{userId}) AS BLOCKCNT
+		      FROM MEMBERBLOCK
+		     WHERE USERID =#{userId}
+		     ORDER BY BLOCKID DESC
+		  )
+		WHERE ROWNUM = 1
+	
+	</select>
+	<update id="changeBlockT">
+		UPDATE MEMBERBLOCK SET ENDTIME= TO_TIMESTAMP(#{endTime}, 'YYYY-MM-DD"T"HH24:MI')  WHERE BLOCKID=#{blockId}	
+	</update>
+	<update id="unblock">
+		UPDATE MEMBERBLOCK SET ENDTIME= SYSTIMESTAMP  WHERE BLOCKID=#{blockId}	
+	</update>
+	<insert id="block">
+		INSERT INTO MEMBERBLOCK VALUES((SELECT NVL(MAX(BLOCKID), 0) + 1 FROM MEMBERBLOCK),#{userId},#{reason}, TO_TIMESTAMP(#{startTime}, 'YYYY-MM-DD"T"HH24:MI'),  TO_TIMESTAMP(#{endTime}, 'YYYY-MM-DD"T"HH24:MI'))
+	</insert>
+	
 </mapper>

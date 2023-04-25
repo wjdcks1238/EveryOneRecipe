@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.everyrecipe.report.vo.BlockedMemberVo;
 import com.kh.everyrecipe.report.vo.ReportVo;
 import com.kh.everyrecipe.report.vo.ReportedCmtVoAll;
 import com.kh.everyrecipe.report.vo.ReportedCommentVo;
@@ -64,6 +65,24 @@ public class ReportDao {
 	//cmtId로 분류하지 않음
 	public List<ReportedCmtVoAll> getAllReportedC() {
 		return session.selectList("reportMapper.getAllReportedC");
+	}
+
+	
+	//회원 블록 관련
+	public BlockedMemberVo getLastBlockInfo(String userId) {
+		return session.selectOne("reportMapper.getLastBlockInfo",userId);
+	}
+
+	public int changeBlockT(BlockedMemberVo bvo) {
+		return session.update("reportMapper.changeBlockT",bvo);
+	}
+
+	public int unblock(int blockId) {
+		return session.update("reportMapper.unblock",blockId);
+	}
+
+	public int block(BlockedMemberVo bvo) {
+		return session.insert("reportMapper.block",bvo);
 	}
 
 
