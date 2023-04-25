@@ -170,12 +170,15 @@ public class BoardController {
 			if(dataSearchResult == 0) {
 				//검색결과가 없는 경우, insert문을 실행시켜서 최초 데이터를 삽입
 				bsService.insertSearchData(keyword);
+				bsService.insertDB(keyword);
 			} else if(dataSearchResult == 1) {
 				//검색결과가 있는경우(1개), update문을 실행시켜서 데이터를 갱신
 				bsService.updateSearchData(keyword);
+				bsService.insertDB(keyword);
 			} else {
 				//위 두 조건에 해당되지 않는 경우.
 			}
+			
 			mv.addObject("postList", result);
 			mv.setViewName("search/result");
 			return mv;
@@ -201,6 +204,18 @@ public class BoardController {
 				map.put("option", option);
 			}
 			List<PostVo> result = bsService.pagingList(map);
+			int dataSearchResult = bsService.searchKeyword(keyword);
+			if(dataSearchResult == 0) {
+				//검색결과가 없는 경우, insert문을 실행시켜서 최초 데이터를 삽입
+				bsService.insertSearchData(keyword);
+				bsService.insertDB(keyword);
+			} else if(dataSearchResult == 1) {
+				//검색결과가 있는경우(1개), update문을 실행시켜서 데이터를 갱신
+				bsService.updateSearchData(keyword);
+				bsService.insertDB(keyword);
+			} else {
+				//위 두 조건에 해당되지 않는 경우.
+			}
 			System.out.println(result);
 			
 			return new Gson().toJson(result);
@@ -224,6 +239,7 @@ public class BoardController {
 				map.put("option", option);
 			}
 			List<PostVo> result = bsService.pagingHashList(map);
+			bsService.insertHashDB(keyword);
 			System.out.println(result);
 			
 			return new Gson().toJson(result);

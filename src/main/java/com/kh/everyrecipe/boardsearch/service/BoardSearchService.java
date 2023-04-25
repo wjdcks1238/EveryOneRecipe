@@ -21,4 +21,6 @@ public interface BoardSearchService {
 	public int swipeVisibleN(String keyword) throws Exception;
 	public int swipeVisibleY(String keyword) throws Exception;
 	public List<SearchVo> operatorSearchList() throws Exception;
+	public int insertDB(String keyword) throws Exception;
+	public int insertHashDB(String keyword) throws Exception;
 }

@@ -86,4 +86,14 @@ public class BoardSearchServiceImp implements BoardSearchService {
 		return dao.operatorSearchList();
 	}
 
+	@Override
+	public int insertDB(String keyword) throws Exception {
+		return dao.insertDB(keyword);
+	}
+
+	@Override
+	public int insertHashDB(String keyword) throws Exception {
+		return dao.insertHashDB(keyword);
+	}
+
 }

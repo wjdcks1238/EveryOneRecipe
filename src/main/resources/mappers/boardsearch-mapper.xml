@@ -118,6 +118,12 @@
 	<insert id="insertSearchData" parameterType="String">
 		insert into search values(#{keyword}, (select NVL(MAX(TIMES), 0)+1 from search where KEWORD=#{keyword}), default, default)
 	</insert>
+	<insert id="insertDB" parameterType="String">
+		insert into SEARCHDB values(SEQ_SEARCHDBID.nextval, #{keyword}, default, 'R')
+	</insert>
+	<insert id="insertHashDB" parameterType="String">
+		insert into SEARCHDB values(SEQ_SEARCHDBID.nextval, #{keyword}, default, 'H')
+	</insert>
 	<update id="updateSearchData" parameterType="String">
 		update search 
 		set TIMES=(

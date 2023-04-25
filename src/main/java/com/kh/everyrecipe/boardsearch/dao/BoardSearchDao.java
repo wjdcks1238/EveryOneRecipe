@@ -71,4 +71,12 @@ public class BoardSearchDao {
 	public List<SearchVo> operatorSearchList() {
 		return sqlSession.selectList("boardSearchMapper.operatorSearchList");
 	}
+
+	public int insertDB(String keyword) {
+		return sqlSession.insert("boardSearchMapper.insertDB", keyword);
+	}
+
+	public int insertHashDB(String keyword) {
+		return sqlSession.insert("boardSearchMapper.insertHashDB", keyword);
+	}
 }
