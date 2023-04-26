@@ -138,8 +138,7 @@
 	        $.ajax({
 	            url: '<%=request.getContextPath()%>/member/infoupdate',
 	            type: 'POST',
-	            data: JSON.stringify({password: password}),
-	            contentType: 'application/json',
+	            data:{password: password},
 	            success:function(result){
 	            	console.log("서버 응답:", result); 
 	                if (result === "success") {
