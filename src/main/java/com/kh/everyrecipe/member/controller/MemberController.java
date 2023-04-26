@@ -309,13 +309,16 @@ public class MemberController {
 	@PostMapping("/infoupdate")
 	@ResponseBody
 	public String infoupdateAjax(@RequestParam("password") String password, Principal principal) throws Exception {
+	    String str = "";
 	    String id = principal.getName();
-	    
-	    if(id != null && mService.login(id, password)) {
-	        return "success";
-	    } else {
-	       return "fail";
+	    int result = mService.loginForMyInfo(id, password);
+	    if(result == 1) {
+	    	str = "success";
+	    }else {
+	    	str = "fail";
 	    }
+		return  str;
+	    
 	}
 
 	//개인정보수정 : 비밀번호 변경 후 로그아웃 후 재로그인 해야함, 비밀번호 변경 없어도 됨, 비밀번호 변경시 유효성 체크

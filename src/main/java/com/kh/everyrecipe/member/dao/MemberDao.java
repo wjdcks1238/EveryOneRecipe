@@ -63,11 +63,13 @@ public class MemberDao {
 	public List<MemberVo> login(MemberVo vo) throws Exception {
 		return sqlSession.selectList("memberMapper.login", vo);
 	}
-	public boolean login(String id, String password) throws Exception {
+	//check password before myinfo update
+	//개인정보 수정전 비밀번호 확인
+	public int loginForMyInfo(String id, String password) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put(id, password);
-//		return sqlSession.selectList("memberMapper.loginForMyInfo");
-		return false;
+		map.put("id", id);
+		map.put("password", password);
+		return sqlSession.selectOne("memberMapper.loginForMyInfo",map);
 	}
 	public int modify(MemberVo vo) throws Exception {
 		return sqlSession.update("memberMapper.modify",vo);

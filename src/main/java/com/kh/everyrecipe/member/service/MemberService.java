@@ -1,5 +1,6 @@
 package com.kh.everyrecipe.member.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +33,6 @@ public interface MemberService {
 	
 	public int idcheck(String id) throws Exception;
 
-	public List<MemberVo> login(MemberVo vo) throws Exception;
-
-	public boolean login(String id, String password) throws Exception;
-	
+	public int loginForMyInfo(String id, String password) throws Exception;
 	public int modify(MemberVo vo) throws Exception;
 }

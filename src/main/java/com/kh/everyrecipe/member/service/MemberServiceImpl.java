@@ -74,20 +74,17 @@ public class MemberServiceImpl implements MemberService{
 		return dao.idcheck(id);
 	}
 
-	@Override
-	public List<MemberVo> login(MemberVo vo) throws Exception {
-		return dao.login(vo);
-	}
-
-	@Override
-	public boolean login(String id, String password) throws Exception {
-		return dao.login(id, password);
-	}
 
 	@Override
 	public int modify(MemberVo vo) throws Exception {
 		return dao.modify(vo);
 	}
+
+	@Override
+	public int loginForMyInfo(String id, String password) throws Exception {
+		return dao.loginForMyInfo(id, password);
+	}
+
 
 
 
