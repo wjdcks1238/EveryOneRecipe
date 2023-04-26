@@ -188,7 +188,7 @@
 		                                                 최근 차단 사유: ${bvo.reason }
 		                    </div>
 		                    <div>
-		                                                전체 차단 횟수: <a data-toggle="modal" data-target="#exampleModal" class="detail" href="#">${bvo.blockCnt }</a> 
+		                      <a data-toggle="modal" data-target="#exampleModal" class="detail" href="#">전체 차단 횟수: ${bvo.blockCnt }</a> 
 		                    </div>
 							<c:if test="${bvo.status eq 'Y'}">
 			                    <div class="mt-3">
@@ -199,8 +199,8 @@
 				                    value="${bvo.endTime }" 
 				                    min="2021-04-01T00:00" max="2031-04-28T00:00" 
 				                    style="width: 15%" class="form-control" type="datetime-local" id="datetime" name="endTime">
-			 					    <button class="mt-2" type="button" id="changeBlockT">차단 해제일 변경 </button>
-								    <button type="button" id="unblock">차단 해제</button>
+			 					    <button class="btn btn-primary mt-2" type="button" id="changeBlockT">차단 해제일 변경 </button>
+								    <button class="btn btn-primary mt-2" type="button" id="unblock">차단 해제</button>
 			                    </div>
 							</c:if>
 	                  
@@ -227,15 +227,20 @@
 							
 								<label class="mt-5"><h4>차단하기</h4></label>
 							    <div class="row">
-									<input style="width: 15%" class="form-control ml-2" type="datetime-local" id="startTime">
+									<input disabled style="width: 15%" class="form-control ml-2" type="datetime-local" id="startTime">
 									<span class="ml-1 mr-1" style="margin-top: 5px"><h4>~</h4> </span>
 									<input style="width: 15%" class="form-control  " type="datetime-local" id="endTime" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(new java.util.Date().getTime() + 3*24*60*60*1000) %>">
 							    </div>	
+								<div>
+									<button id="addDay1" class="btn btn-secondary">+1 day</button>
+									<button id="addDay3" class="btn btn-secondary">+3 days</button>
+									<button id="addDay7" class="btn btn-secondary">+1 week</button>
+								</div>
 								<label class="mt-4"><h5>차단 사유</h5></label>
 								<div>
 								<textarea class="form-control" rows="5%" style="width: 32%" id="reason"></textarea>
 								</div>
-								<button class="mt-2" type="button" id="block">차단하기</button>
+								<button class="mt-2 btn btn-danger" type="button" id="block">차단하기</button>
 							
 						</c:if>
 	    		
@@ -292,6 +297,38 @@
     const dateString = year+'-'+month+'-'+day+'T'+hours+':'+minutes;
     startTimeInput.val(dateString);
   }, 1000);
+    
+    
+   
+	 $(document).ready(function() {
+		  $('#addDay1').click(function() {
+		    var datetimeInput = $('#endTime');
+		    var currentDatetime = new Date(datetimeInput.val() + 'Z'); // UTC 시간을 기준으로 계산하기 위해 'Z'를 추가
+		    currentDatetime.setDate(currentDatetime.getDate() + 1);
+		    var newDatetimeString = currentDatetime.toISOString().slice(0, 16);
+		    datetimeInput.val(newDatetimeString);
+		  });
+		});
+	 $(document).ready(function() {
+		  $('#addDay3').click(function() {
+		    var datetimeInput = $('#endTime');
+		    var currentDatetime = new Date(datetimeInput.val() + 'Z'); 
+		    currentDatetime.setDate(currentDatetime.getDate() + 3);
+		    var newDatetimeString = currentDatetime.toISOString().slice(0, 16);
+		    datetimeInput.val(newDatetimeString);
+		  });
+		});
+	 $(document).ready(function() {
+		  $('#addDay7').click(function() {
+		    var datetimeInput = $('#endTime');
+		    var currentDatetime = new Date(datetimeInput.val() + 'Z');
+		    currentDatetime.setDate(currentDatetime.getDate() + 7);
+		    var newDatetimeString = currentDatetime.toISOString().slice(0, 16);
+		    datetimeInput.val(newDatetimeString);
+		  });
+		});
+    
+    
     
     
     

@@ -15,6 +15,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Getter
+@Setter
 public class MemberVo {
 //	---------- -------- ------------------ 
 //	TABLE "MEMBERS"
@@ -43,96 +45,9 @@ public class MemberVo {
 	private Date updateAt;
 	private int status;
 	private String authority;
-	private String postBlockYn;
-	private String replyBlockYn;
-	private String blockStartDt;
-	private String blockEndDt;
+	private String isBlocked;
+
 	
-	
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getNickName() {
-		return nickName;
-	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-	public String getProfile() {
-		return profile;
-	}
-	public void setProfile(String profile) {
-		this.profile = profile;
-	}
-	public String getProfileUrl() {
-		return profileUrl;
-	}
-	public void setProfileUrl(String profileUrl) {
-		this.profileUrl = profileUrl;
-	}
-	public Date getCreateAt() {
-		return createAt;
-	}
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
-	}
-	public Date getUpdateAt() {
-		return updateAt;
-	}
-	public void setUpdateAt(Date updateAt) {
-		this.updateAt = updateAt;
-	}
-	public int getStatus() {
-		return status;
-	}
-	public void setStatus(int status) {
-		this.status = status;
-	}
-	public String getAuthority() {
-		return authority;
-	}
-	public void setAuthority(String authority) {
-		this.authority = authority;
-	}
-	public String getPostBlockYn() {
-		return postBlockYn;
-	}
-	public void setPostBlockYn(String postBlockYn) {
-		this.postBlockYn = postBlockYn;
-	}
-	public String getReplyBlockYn() {
-		return replyBlockYn;
-	}
-	public void setReplyBlockYn(String replyBlockYn) {
-		this.replyBlockYn = replyBlockYn;
-	}
-	public String getBlockStartDt() {
-		return blockStartDt;
-	}
-	public void setBlockStartDt(String blockStartDt) {
-		this.blockStartDt = blockStartDt;
-	}
-	public String getBlockEndDt() {
-		return blockEndDt;
-	}
-	public void setBlockEndDt(String blockEndDt) {
-		this.blockEndDt = blockEndDt;
-	}
 
 	
 	

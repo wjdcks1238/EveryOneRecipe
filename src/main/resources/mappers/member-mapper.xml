@@ -4,7 +4,7 @@
 	<!-- 회원가입 -->
 	<insert id="insertId" parameterType="mvo">
 	   INSERT INTO MEMBERS VALUES(#{userId}, #{email}, #{password}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT
-                            , '1','ROLE_MEMBER', DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+                            , '1','ROLE_MEMBER', DEFAULT)
     </insert>
 	
 	
@@ -43,15 +43,15 @@
 	</delete>
 	
 	<select id="selectOne" parameterType="String" resultType="mvo">
-		select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, postblockyn, replyblockyn, blockstartdt, blockenddt from members where userid=#{userId}
+		select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, isblocked from members where userid=#{userId}
 	</select>
 	
 	<select id="selectList" resultType="mvo">
-		select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, postblockyn, replyblockyn, blockstartdt, blockenddt from members
+		select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, isblocked from members
 	</select>
 	
 	<select id="selectAuth" resultType="mvo">
-				select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, postblockyn, replyblockyn, blockstartdt, blockenddt from members where authority='ROLE_ADMIN'
+				select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, isblocked from members where authority='ROLE_ADMIN'
 	</select>
 	
 	<!-- 아이디 중복체크 -->

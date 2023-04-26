@@ -10,21 +10,21 @@
 --멤버테이블
 --관리자(회원가입)
 insert into MEMBERS values('everys_recipe', 'admin@email.com', 'password', '모두의 레시피', '관리자 입니다.', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
-                            , '1','ROLE_ADMIN', default, default, default, default);
+                            , '1','ROLE_ADMIN', default);
 --이용자 추가
 INSERT INTO MEMBERS VALUES('user01', 'user01@gmail.com', 'user01', '고정찬', '횐님', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
-                            , '1','ROLE_MEMBER', default, default, default, default);
+                            , '1','ROLE_MEMBER', default);
 INSERT INTO MEMBERS VALUES('user02', 'user02@gmail.com', 'user02', '김진태', '횐님', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
-                            , '1','ROLE_MEMBER', default, default, default, default);
+                            , '1','ROLE_MEMBER', default);
 INSERT INTO MEMBERS VALUES('user03', 'user03@gmail.com', 'user03', '오경훈', '횐님', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
-                            , '1','ROLE_MEMBER', default, default, default, default);
+                            , '1','ROLE_MEMBER', default);
 INSERT INTO MEMBERS VALUES('user04', 'user04@gmail.com', 'user04', '이승걸', '횐님', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
-                            , '1','ROLE_MEMBER', default, default, default, default);
+                            , '1','ROLE_MEMBER', default);
 INSERT INTO MEMBERS VALUES('user05', 'user05@gmail.com', 'user05', '박새롬', '횐님', 'https://www.erdcloud.com/d/HHSHP4wzF4M4yuHso', default, default
-                            , '1','ROLE_MEMBER', default, default, default, default);
+                            , '1','ROLE_MEMBER', default);
 commit;
 
---select * from members;
+select * from members;
 select count (postid) from post where userid = 'everys_recipe';
 
 --회원정보 수정

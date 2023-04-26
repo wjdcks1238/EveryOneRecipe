@@ -280,33 +280,6 @@ public class AdminController {
 	public ModelAndView blockMember(@PathVariable String userId, ModelAndView mv) throws Exception {
 
 		
-	    //확인
-	    	//유저 ID 확인
-	    	//현재 차단 여부. 차단기간과 현재시간 비교
-	    	//마지막 차단 기간. 차단 상태라면 차단 기간 변경가능. 차단 해제시 endtime을 현재시간으로 변경. 차단 시간 증가 가능
-	    	//차단 코멘트 확인
-	    	//이전 블라인드 횟수 확인
-	    //추가(차단 상태가 아닐시)
-	    	//차단기간 설정
-	    	//코멘트 
-
-		
-		//기록이 있을 때
-			//현재 차단상태일 때
-				//기록 표시, 차단기간 설정
-			//현재 차단 상태가 아닐 때 
-				//기록 표시, 새 차단
-		//기록이 없을 때
-			//차단 상태가 아님. 새 차단 추가
-		
-		//TODO 차단 예약 취소
-		//startTime이 현재시각보다 클 시 차단 예약. 취소가능하고 취소 시 기록에 남지않음
-		//예약된 차단이 있으면 새로 차단 불가능하게 변경
-
-
-		
-		//TODO 차단 내역
-		
 		MemberVo mvo=mService.selectOne(userId);
 	    BlockedMemberVo bvo = rService.getLastBlockInfo(userId);
 	    mv.addObject("bvo", bvo);
