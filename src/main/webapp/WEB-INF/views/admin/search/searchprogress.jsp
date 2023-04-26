@@ -19,6 +19,11 @@
     <link href="<%=request.getContextPath() %>/resources/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath() %>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+	<style>
+		td {
+			text-align: center;
+		}
+	</style>
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -99,7 +104,8 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchword">검색어 관리</a>
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchrank">검색어 순위</a>s
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchrank">검색어 순위</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchprogress">검색 추이</a>
                         <div class="collapse-divider"></div>
                     </div>
                 </div>
@@ -131,39 +137,51 @@
                 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">검색 추이</h1>
-                
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>순위</th>
-                                            <th>검색어</th>
-                                            
-                                            <!-- 클릭시 순위에서 제외됨 -->
-                                            <th>제외</th>
-                                            
-                                            <th>조회수</th>
-                                            
-	                                        <!-- 제외처리한 관리자 표시됨
-                                            <th>작업자</th>
-                                             -->
-                                            
-                                            <th>마지막 검색 시간</th>
-                                        </tr>ㅋㅋㅋㅋㅋㅋ
-                                    </thead>
-                                    <tbody id="searchWord">
-                                    	<c:forEach items="${searchList }" var="sw" varStatus="swStatus">
-	                                        <tr>
-	                                            <td>${sw.rowN }</td>
-	                                            <td>${sw.keword }</td>
-	                                            <td>
-	                                            	<button type="button" data-keword="${sw.keword }" class="btn_swipe_searchOption" style="border-style: none; background: none;">${sw.isVisible }</button>
-	                                            </td>
-	                                            <td>${sw.times }</td>
-	                                            <td>${sw.searchDate }</td>
-	                                        </tr>
-                                    	</c:forEach>
-                                    </tbody>
-                                </table>
+                    	<form>
+                    		<table border="1" style="width: 70%; margin: auto;">
+                    			<tr>
+                    				<td>
+                    					검색어
+                    				</td>
+	                    			<td>
+									  <input type="text" style="width: 100%;" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+	                    			</td>
+                    			</tr>
+                    			<tr>
+                    				<td>검색유형</td>
+                    				<td>
+                    					<div class="form-check form-check-inline">
+									  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="레시피">
+									  <label class="form-check-label" for="inlineRadio1">레시피</label>
+									</div>
+									<div class="form-check form-check-inline">
+									  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="해시태그">
+									  <label class="form-check-label" for="inlineRadio2">해시태그</label>
+									</div>
+                    				</td>
+                    			</tr>
+                    			<tr>
+                    				<td>검색날짜</td>
+                    				<td>
+                    					<span>시작일</span>
+                    					<span><input type="date" value="<%=java.time.LocalDate.now().minusDays(5)%>"></span>
+                    					~
+                    					<span>종료일</span>
+                    					<span><input type="date" value="<%=java.time.LocalDate.now()%>"></span>
+                    				</td>
+                    			</tr>
+                    			<tr>
+                    			<td colspan="2">
+                    				<button type="submit">검색</button>
+                    				<button type="reset">초기화</button>
+                    			</td>
+                    		</table>
+                    	</form>
+                   	<div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="myAreaChart"></canvas>
+                        </div>
+                    </div>
                   </div>
             </div>
             <!-- End of Main Content -->
@@ -184,9 +202,12 @@
     <!-- Page level plugins -->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/sbadmin2//vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/chart-area-demo.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/chart-pie-demo.js"></script>
     
 <!-- footer -->   
 <%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %> 
