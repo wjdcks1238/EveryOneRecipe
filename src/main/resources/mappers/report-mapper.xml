@@ -123,5 +123,8 @@
 		 WHERE CMTID=#{cmtId}
 	</update>
 	
+	<select id="getBlockInfo" resultType="com.kh.everyrecipe.report.vo.BlockedMemberVo">
+		SELECT * FROM MEMBERBLOCK WHERE USERID= #{userId}
 	
+	</select>
 </mapper>

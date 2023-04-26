@@ -284,12 +284,17 @@ public class AdminController {
 		//startTime이 현재시각보다 클 시 차단 예약. 취소가능하고 취소 시 기록에 남지않음
 		//예약된 차단이 있으면 새로 차단 불가능하게 변경
 
-		//TODO 게시글, 댓글 차단 분리
+
+		
 		//TODO 차단 내역
 		
+		MemberVo mvo=mService.selectOne(userId);
 	    BlockedMemberVo bvo = rService.getLastBlockInfo(userId);
 	    mv.addObject("bvo", bvo);
-	    mv.addObject("userId", userId);
+	    
+	    if(mvo!=null) {	    	
+	    	mv.addObject("userid", mvo.getUserId());
+	    }
 	    mv.setViewName("admin/block");
 	    return mv;
 	}
@@ -329,6 +334,7 @@ public class AdminController {
 		int result= rService.tgBlindPost(postId);
 		return result;
 	}
+	
 	@PostMapping("/tgblind-c")
 	@ResponseBody
 	public int tgBlindCmt(int cmtId) {
@@ -337,5 +343,15 @@ public class AdminController {
 	}
 	
 	
+	
+	@PostMapping("/modal-b")
+	@ResponseBody
+	public List<BlockedMemberVo> modalB(String userId){
+		//userId를 받아서 차단 기록을 넘겨준다.
+		
+		List<BlockedMemberVo> blockList = rService.getBlockInfo(userId);
+		
+		return blockList;
+	}
 	
 }
