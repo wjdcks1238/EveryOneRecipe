@@ -179,7 +179,7 @@
 		                      <b>회원 ID: ${bvo.userId }</b> 
 		                    </div>
 		                    <div>
-		                                                 차단여부: ${bvo.status }
+		                                                 차단여부: <b> ${bvo.status }</b>
 		                    </div>
 		                    <div>
 		                                                 최근 차단기간: ${fn:replace(bvo.startTime, 'T', ' ')} ~ ${fn:replace(bvo.endTime, 'T', ' ')}
@@ -216,17 +216,17 @@
 						
 						<c:if test="${empty bvo || bvo.status eq 'N'}">
 							
-								<label class="mt-5"><h4>차단 하기</h4></label>
+								<label class="mt-5"><h4>차단하기</h4></label>
 							    <div class="row">
-									<input style="width: 15%" class="form-control ml-2" type="datetime-local" id="startTime"  value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(new java.util.Date()) %>">
+									<input style="width: 15%" class="form-control ml-2" type="datetime-local" id="startTime">
 									<span class="ml-1 mr-1" style="margin-top: 5px"><h4>~</h4> </span>
 									<input style="width: 15%" class="form-control  " type="datetime-local" id="endTime" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(new java.util.Date().getTime() + 3*24*60*60*1000) %>">
 							    </div>	
 								<label class="mt-4"><h5>차단 사유</h5></label>
 								<div>
-								<textarea rows="5%" cols="40%" id="reason"></textarea>
+								<textarea class="form-control" rows="5%" style="width: 32%" id="reason"></textarea>
 								</div>
-								<button class="mt-2" type="button" id="block">차단 하기</button>
+								<button class="mt-2" type="button" id="block">차단하기</button>
 							
 						</c:if>
 	    		
@@ -265,6 +265,27 @@
   	
     <script type="text/javascript">
     	
+    
+    
+    // input 요소 선택
+   	const startTimeInput = $('#startTime');
+    
+    // 1초마다 현재 시간을 가져와서 input 요소에 할당
+	 setInterval(() => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const dateString = year+'-'+month+'-'+day+'T'+hours+':'+minutes;
+    startTimeInput.val(dateString);
+  }, 1000);
+    
+    
+    
+    
+    
 	$(document).on("click","#changeBlockT" ,function() {
 		var now = new Date();
 		var endTime = $('input[name=endTime]').val();

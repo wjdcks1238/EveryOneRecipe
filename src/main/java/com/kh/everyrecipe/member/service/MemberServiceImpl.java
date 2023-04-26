@@ -80,8 +80,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public boolean login(String id, String password) {
-		return false;
+	public boolean login(String id, String password) throws Exception {
+		return dao.login(id, password);
 	}
 
 	@Override
