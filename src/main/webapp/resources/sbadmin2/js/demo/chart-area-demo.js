@@ -27,8 +27,25 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
+var chartdata = [];
+var charlabel = [];
+
+function searchdata() {
+	var keyword = $("[id=keyword]").val();
+	var option = $("[name=inlineRadioOptions]").val();
+	var start = $("[id=startdate]").val();
+	var end = $("[id=enddate]").val();
+	
+	console.log(keyword);
+	console.log(option);
+	console.log(start);
+	console.log(end);
+}
+
+
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
+
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {

@@ -137,46 +137,43 @@
                 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">검색 추이</h1>
-                    	<form>
-                    		<table border="1" style="width: 70%; margin: auto;">
-                    			<tr>
-                    				<td>
-                    					검색어
-                    				</td>
-	                    			<td>
-									  <input type="text" style="width: 100%;" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-	                    			</td>
-                    			</tr>
-                    			<tr>
-                    				<td>검색유형</td>
-                    				<td>
-                    					<div class="form-check form-check-inline">
-									  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="레시피">
-									  <label class="form-check-label" for="inlineRadio1">레시피</label>
-									</div>
-									<div class="form-check form-check-inline">
-									  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="해시태그">
-									  <label class="form-check-label" for="inlineRadio2">해시태그</label>
-									</div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>검색날짜</td>
-                    				<td>
-                    					<span>시작일</span>
-                    					<span><input type="date" value="<%=java.time.LocalDate.now().minusDays(5)%>"></span>
-                    					~
-                    					<span>종료일</span>
-                    					<span><input type="date" value="<%=java.time.LocalDate.now()%>"></span>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    			<td colspan="2">
-                    				<button type="submit">검색</button>
-                    				<button type="reset">초기화</button>
+                   		<table border="1" style="width: 70%; margin: auto;">
+                   			<tr>
+                   				<td>
+                   					검색어
+                   				</td>
+                    			<td>
+								  <input type="text" id="keyword" style="width: 100%;" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                     			</td>
-                    		</table>
-                    	</form>
+                   			</tr>
+                   			<tr>
+                   				<td>검색유형</td>
+                   				<td>
+                   					<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="레시피">
+								  <label class="form-check-label" for="inlineRadio1">레시피</label>
+								</div>
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="해시태그">
+								  <label class="form-check-label" for="inlineRadio2">해시태그</label>
+								</div>
+                   				</td>
+                   			</tr>
+                   			<tr>
+                   				<td>검색날짜</td>
+                   				<td>
+                   					<span>시작일</span>
+                   					<span><input type="date" value="<%=java.time.LocalDate.now().minusDays(5)%>" id="startdate"></span>
+                   					~
+                   					<span>종료일</span>
+                   					<span><input type="date" value="<%=java.time.LocalDate.now()%>" id="enddate"></span>
+                   				</td>
+                   			</tr>
+                   			<tr>
+                   			<td colspan="2">
+                   				<button type="button" onclick="searchdata()">검색</button>
+                   			</td>
+                   		</table>
                    	<div class="card-body">
                         <div class="chart-area">
                             <canvas id="myAreaChart"></canvas>
