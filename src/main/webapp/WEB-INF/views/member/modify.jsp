@@ -129,16 +129,21 @@
 									</div>
 									<div class="col-sm-4">여기도  나눠진 구역</div>
 								</div>
+								<!-- 등록된 이메일이 표시됨
+								1.등록된 이메일이 입력되어 있다면 중복확인 버튼 비활성화, 다른값 입력 후 등록된 이메일 재입력해도 비활성화
+								2.이메일을 새로 입력하면 중복확인 활성화
+								3.중복확인 버튼 누르면 이메일 유효성, DB중복 확인
+								4.중복확인 버튼 누르지 않고 회원정보수정 버튼 누르면 alert창 띄움  -->
 								<div class="row">
 									<div class="col-sm-4">
 										<label>이메일</label>
 									</div>
 									<div class="col-sm-4">
 										<input type="email" name="email"
-											value="">
+											value="${memberDto.email }">
 									</div>
 									<div class="col-sm-4">
-										<button>중복확인</button>
+										<button  id="emailChkBtn">중복확인</button>
 									</div>
 								</div>
 							</div>
@@ -187,6 +192,8 @@
 	        });
 	    }
 	});
+	
+	
 	</script>
 </body>
 </html>
