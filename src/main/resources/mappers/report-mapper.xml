@@ -114,6 +114,14 @@
 		 WHERE POSTID=#{postId}
 		 	
 	</update>
+	<update id="tgBlindCmt">
+		UPDATE TBCOMMENT 
+		   SET ISBLINDED = CASE 
+			  				WHEN ISBLINDED='N' THEN 'Y'
+							WHEN ISBLINDED='Y' THEN 'N'
+						  END
+		 WHERE CMTID=#{cmtId}
+	</update>
 	
 	
 </mapper>

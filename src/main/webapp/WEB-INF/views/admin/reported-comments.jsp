@@ -228,18 +228,29 @@
  		 $('body').removeAttr("style");
  	})
   	$(document).on("click",".detail" ,function() {
+	  	var cmtId=$(this).parent().parent().children().first().text();	
+	  	var postId=$(this).parent().parent().children().eq(1).text();
+	  	var status=$(this).parent().parent().children().last().text();
   		$(".modal-body").empty();
   		$(".modal-title").empty();
-	  	var cmtId=$(this).parent().parent().children().first().text();	
-	  	var postId=$(this).parent().parent().children().eq(1).text()
-	  	console.log(cmtId);
-	  	console.log($(this));
+  		
+  		var div1 = $("<div style='text-align: center;' ></div>");
+  		div1.html("<h3>댓글 블라인드</h3>");
+  		var div2 = $("<div style='height: 50px;' class='container mt-2 mb-3' ></div>");
+  		if(status=='N'){
+	  		div2.html("댓글 번호: "+cmtId+", 게시글 번호: "+postId+" , 블라인드 여부: "+status+" <button class='btn btn-danger' id='tgBlind' style='float: right;'>블라인드</button>");  			
+  		}else if(status=='Y'){
+	  		div2.html("댓글 번호: "+cmtId+", 게시글 번호: "+postId+" , 블라인드 여부: "+status+" <button class='btn btn-danger' id='tgBlind' style='float: right;'>블라인드 해제</button>");  			
+  		}
+  		var hidden=$("<input id='modalCmtId' type='hidden' value="+cmtId+"></input>");
+  		$(".modal-body").append(div1);
+  		$(".modal-body").append(div2);
+  		$(".modal-body").append(hidden);
 		$.ajax({
 			url: "${pageContext.request.contextPath}/admin/modal-c",
 			type: "POST", 
 			data: {cmtId: cmtId},
 			success:function(result){
-				$(".modal-title").text("댓글 번호: "+cmtId +", 게시글 번호: "+postId);
 				var tbody = $("<tbody></tbody>");
 				for(i = 0; i < result.length; i++){
 				    var list = result[i];
@@ -361,6 +372,22 @@
 	$(document).on("click","#reload" ,function() {
 		location.reload();	
 	});
+	
+	$(document).on("click","#tgBlind" ,function() {
+		const cmtId= $("#modalCmtId").val();
+		$.ajax({
+			url: "${pageContext.request.contextPath}/admin/tgblind-c",
+			type: "POST", 
+			data: {cmtId: cmtId},
+			success:function(result){
+				if(result==1){
+					alert("처리되었습니다.");
+					location.reload();	
+				}
+			}
+		});
+	});
+	
   	</script>
     
 

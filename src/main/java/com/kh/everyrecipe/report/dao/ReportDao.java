@@ -89,6 +89,10 @@ public class ReportDao {
 		return session.update("reportMapper.tgBlindPost",postId);
 	}
 
+	public int tgBlindCmt(int cmtId) {
+		return session.update("reportMapper.tgBlindCmt",cmtId);
+	}
+
 
 
 }

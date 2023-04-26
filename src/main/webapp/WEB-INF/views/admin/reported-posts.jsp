@@ -231,8 +231,6 @@
   	$(document).on("click",".detail" ,function() {
 	  	var postId=$(this).parent().parent().children().first().text();
 	  	var status=$(this).parent().parent().children().last().text();
-	  	console.log(postId);
-	  	console.log($(this));
 	  	
 	  	
   		$(".modal-body").empty();
@@ -246,9 +244,9 @@
   		div1.html("<h3>게시글 블라인드</h3>");
   		var div2 = $("<div style='height: 50px;' class='container mt-2 mb-3' ></div>");
   		if(status=='N'){
-	  		div2.html("게시글 번호: "+postId+" , 블라인드 여부: "+status+" <button id='tgBlind' style='float: right;'>블라인드</button>");  			
+	  		div2.html("게시글 번호: "+postId+", 블라인드 여부: "+status+" <button class='btn btn-danger' id='tgBlind' style='float: right;'>블라인드</button>");  			
   		}else if(status=='Y'){
-	  		div2.html("게시글 번호: "+postId+" , 블라인드 여부: "+status+" <button id='tgBlind' style='float: right;'>블라인드 해제</button>");  			
+	  		div2.html("게시글 번호: "+postId+", 블라인드 여부: "+status+" <button class='btn btn-danger' id='tgBlind' style='float: right;'>블라인드 해제</button>");  			
   		}
   		var hidden=$("<input id='modalPostId' type='hidden' value="+postId+"></input>");
   		
