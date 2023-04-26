@@ -188,7 +188,7 @@
 		                                                 최근 차단 사유: ${bvo.reason }
 		                    </div>
 		                    <div>
-		                                                전체 차단 횟수: ${bvo.blockCnt }
+		                                                전체 차단 횟수: <a data-toggle="modal" data-target="#exampleModal" class="detail" href="#">${bvo.blockCnt }</a> 
 		                    </div>
 							<c:if test="${bvo.status eq 'Y'}">
 			                    <div class="mt-3">
@@ -207,14 +207,23 @@
 						</c:if>
 						<c:if test="${empty bvo }">
 							<div>
-								<b>회원 ID: ${userId }</b>
+								<c:choose>
+									<c:when test="${empty userid}">
+										회원이 존재하지 않습니다.
+									</c:when>
+									<c:otherwise>
+										<b>회원 ID:${userid } </b>
+										<div>
+											 차단 기록이 없습니다.
+										</div>
+									</c:otherwise>
+								</c:choose>
+								
 							</div>
-							<div>
-								 차단 기록이 없습니다.
-							</div>
+								
 						</c:if>
 						
-						<c:if test="${empty bvo || bvo.status eq 'N'}">
+						<c:if test="${(not empty userid && empty bvo) || bvo.status eq 'N'}">
 							
 								<label class="mt-5"><h4>차단하기</h4></label>
 							    <div class="row">
@@ -264,7 +273,9 @@
 
   	
     <script type="text/javascript">
-    	
+	$('#exampleModal').on('show.bs.modal', function () {
+ 		 $('body').removeAttr("style");
+ 	})
     
     
     // input 요소 선택
@@ -366,6 +377,71 @@
 	        }
 	    });
 	});
+	
+  	$(document).on("click",".detail" ,function() {	
+  		$(".modal-body").empty();
+  		$(".modal-title").empty();
+		$.ajax({
+			url: "${pageContext.request.contextPath}/admin/modal-b",
+			type: "POST", 
+			data: {userId: '${bvo.userId }'},
+			success:function(result){
+				var tbody = $("<tbody></tbody>");
+				for(i = 0; i < result.length; i++){
+				    var list = result[i];
+				    var sdate = new Date(list.startTime); 
+				    var edate = new Date(list.endTime); 
+				    
+				    var syyyy = sdate.getFullYear();
+				    var smm = sdate.getMonth() + 1 < 10 ? "0" + (sdate.getMonth() + 1) : sdate.getMonth() + 1;
+				    var sdd = sdate.getDate() < 10 ? "0" + sdate.getDate() : sdate.getDate();
+				    var shh = sdate.getHours() < 10 ? "0" + sdate.getHours() : sdate.getHours();
+				    var smi = sdate.getMinutes() < 10 ? "0" + sdate.getMinutes() : sdate.getMinutes();
+				    var sss = sdate.getSeconds() < 10 ? "0" + sdate.getSeconds() : sdate.getSeconds();
+				    var startTime = syyyy + "-" + smm + "-" + sdd + " " + shh + ":" + smi + ":" + sss;
+				    console.log(startTime);
+				    var eyyyy = edate.getFullYear();
+				    var emm = edate.getMonth() + 1 < 10 ? "0" + (edate.getMonth() + 1) : edate.getMonth() + 1;
+				    var edd = edate.getDate() < 10 ? "0" + edate.getDate() : edate.getDate();
+				    var ehh = edate.getHours() < 10 ? "0" + edate.getHours() : edate.getHours();
+				    var emi = edate.getMinutes() < 10 ? "0" + edate.getMinutes() : edate.getMinutes();
+				    var ess = edate.getSeconds() < 10 ? "0" + edate.getSeconds() : edate.getSeconds();
+				    var endTime = eyyyy + "-" + emm + "-" + edd + " " + ehh + ":" + emi + ":" + ess;
+				    console.log(endTime);
+				    var tr = $("<tr></tr>");
+				    tr.append($("<td></td>").text(list.blockId));
+				    tr.append($("<td></td>").text(list.userId));
+				    tr.append($("<td></td>").text(list.reason));
+				    tr.append($("<td></td>").text(startTime));
+				    tr.append($("<td></td>").text(endTime));
+
+				    tbody.append(tr);
+				}
+
+				var table = $('<table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">'+
+				            '<thead>'+
+				                '<tr>'+
+				                    '<th>차단 ID</th>'+
+				                    '<th>회원 ID</th>'+
+				                    '<th>차단 사유</th>'+
+				                    '<th>시작 시각</th>'+
+				                    '<th>종료 시각</th>'+
+				                '</tr>'+
+				            '</thead>'+
+				        '</table>');
+
+				table.append(tbody);
+				$(".modal-body").append(table);
+
+				
+				
+			}
+			
+		});
+  	});
+	
+	
+	
     </script>
 
 </body>

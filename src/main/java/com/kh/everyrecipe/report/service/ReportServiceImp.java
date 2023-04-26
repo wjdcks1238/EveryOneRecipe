@@ -107,6 +107,13 @@ public class ReportServiceImp implements ReportService {
 		return dao.tgBlindCmt(cmtId);
 	}
 
+	
+	//차단 기록 
+	@Override
+	public List<BlockedMemberVo> getBlockInfo(String userId) {
+		return dao.getBlockInfo(userId);
+	}
+
 
 	
 }

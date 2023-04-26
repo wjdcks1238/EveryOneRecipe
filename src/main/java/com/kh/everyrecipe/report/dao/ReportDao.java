@@ -92,6 +92,12 @@ public class ReportDao {
 	public int tgBlindCmt(int cmtId) {
 		return session.update("reportMapper.tgBlindCmt",cmtId);
 	}
+	
+	
+	//차단 기록
+	public List<BlockedMemberVo> getBlockInfo(String userId) {
+		return session.selectList("reportMapper.getBlockInfo",userId);
+	}
 
 
 
