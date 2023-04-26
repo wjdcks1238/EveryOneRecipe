@@ -285,6 +285,7 @@ public class AdminController {
 		//예약된 차단이 있으면 새로 차단 불가능하게 변경
 
 		//TODO 게시글, 댓글 차단 분리
+		//TODO 차단 내역
 		
 	    BlockedMemberVo bvo = rService.getLastBlockInfo(userId);
 	    mv.addObject("bvo", bvo);
@@ -321,6 +322,13 @@ public class AdminController {
 		System.out.println(bvo);
 		int result= rService.block(bvo);
 		return result;
+	}
+	@PostMapping("/tgblind-p")
+	@ResponseBody
+	public int tgBlindPost(int postId) {
+		System.out.println(postId);
+		int result= rService.tgBlindPost(postId);
+		return 1;
 	}
 	
 	

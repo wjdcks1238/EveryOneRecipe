@@ -95,6 +95,11 @@ public class ReportServiceImp implements ReportService {
 		return dao.block(bvo);
 	}
 
+	@Override
+	public int tgBlindPost(int postId) {
+		return dao.tgBlindPost(postId);
+	}
+
 
 	
 }

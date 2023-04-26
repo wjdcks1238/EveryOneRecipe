@@ -103,5 +103,17 @@
 	<insert id="block">
 		INSERT INTO MEMBERBLOCK VALUES((SELECT NVL(MAX(BLOCKID), 0) + 1 FROM MEMBERBLOCK),#{userId},#{reason}, TO_TIMESTAMP(#{startTime}, 'YYYY-MM-DD"T"HH24:MI'),  TO_TIMESTAMP(#{endTime}, 'YYYY-MM-DD"T"HH24:MI'))
 	</insert>
+
+<!--블라인드 토글 -->	
+	<update id="tgBlindPost">
+		UPDATE POST 
+		   SET ISBLINDED = CASE 
+			  				WHEN ISBLINDED='N' THEN 'Y'
+							WHEN ISBLINDED='Y' THEN 'N'
+						  END
+		 WHERE POSTID=#{postId}
+		 	
+	</update>
+	
 	
 </mapper>

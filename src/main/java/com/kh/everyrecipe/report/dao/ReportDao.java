@@ -85,6 +85,10 @@ public class ReportDao {
 		return session.insert("reportMapper.block",bvo);
 	}
 
+	public int tgBlindPost(int postId) {
+		return session.update("reportMapper.tgBlindPost",postId);
+	}
+
 
 
 }
