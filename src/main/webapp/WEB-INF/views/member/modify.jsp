@@ -56,6 +56,17 @@
 	border-top: 2px solid rgb(81, 81, 81);
 	border-bottom: 1px solid rgb(221, 221, 221);
 }
+
+.error {
+	font-size: 13px;
+	color: red;
+	font-weight: 500;
+}
+
+.hide {
+	display: none;
+}
+
 </style>
 </head>
 <body>
@@ -97,7 +108,7 @@
 										<input type="text" name="userId" value="${memberDto.userId }"
 											readonly="${memberDto.userId }">
 									</div>
-									<div class="colsm-4">여기도  나눠진 구역</div>
+									<div class="colsm-4">여기도 나눠진 구역</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4">
@@ -107,30 +118,30 @@
 										<input type="password" name="password"
 											value="${memberDto.password }" placeholder="현재 비밀번호를 입력해주세요.">
 									</div>
-									<div class="col-sm-4">여기도  나눠진 구역</div>
+									<div class="col-sm-4">여기도 나눠진 구역</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4">
 										<label>새 비밀번호</label>
 									</div>
 									<div class="col-sm-4">
-										<input type="password" name="password"
-											value="" placeholder="새 비밀번호를 입력해주세요.">
+										<input type="password" name="password" value=""
+											placeholder="새 비밀번호를 입력해주세요.">
 									</div>
-									<div class="col-sm-4">여기도  나눠진 구역</div>
+									<div class="col-sm-4">여기도 나눠진 구역</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4">
 										<label>새 비밀번호 확인</label>
 									</div>
 									<div class="col-sm-4">
-										<input type="password" name="password"
-											value="" placeholder="새 비밀번호를 다시 입력해주세요.">
+										<input type="password" name="password" value=""
+											placeholder="새 비밀번호를 다시 입력해주세요.">
 									</div>
-									<div class="col-sm-4">여기도  나눠진 구역</div>
+									<div class="col-sm-4">여기도 나눠진 구역</div>
 								</div>
 								<!-- 등록된 이메일이 표시됨
-								1.등록된 이메일이 입력되어 있다면 중복확인 버튼 비활성화, 다른값 입력 후 등록된 이메일 재입력해도 비활성화
+								1.가입시 등록된 이메일이 입력되어 있다면 중복확인 버튼 비활성화, 다른값 입력 후 등록된 이메일 재입력해도 비활성화
 								2.이메일을 새로 입력하면 중복확인 활성화
 								3.중복확인 버튼 누르면 이메일 유효성, DB중복 확인
 								4.중복확인 버튼 누르지 않고 회원정보수정 버튼 누르면 alert창 띄움  -->
@@ -139,13 +150,19 @@
 										<label>이메일</label>
 									</div>
 									<div class="col-sm-4">
-										<input type="email" name="email"
-											value="${memberDto.email }">
+										<input type="email" name="email" value="${memberDto.email }"
+											placeholder="이메일을 입력해주세요." id="emailInput">
 									</div>
 									<div class="col-sm-4">
-										<button  id="emailChkBtn">중복확인</button>
+										<button id="emailChkBtn">중복확인</button>
 									</div>
 								</div>
+								<div class="error-message hide error" id="email-error">이메일을
+									입력해주세요.</div>
+								<div class="error-message hide error" id="regMail-error">올바른
+									이메일 형식이 아닙니다.</div>
+								<div class="error-message hide error" id="regMail-error2">이메일
+									주소는 50자 이하여야 합니다.</div>
 							</div>
 							<div align="center">
 								<button id="" type="submit">탈퇴하기</button>
@@ -182,18 +199,43 @@
 	                if (result === "success") {
 	                    console.log("어어 됐다??"+ password);
 	                    location.href="<%=request.getContextPath()%>/member/modify";
-	                } else {
-	                    alert("비밀번호가 일치하지 않습니다.");
-	                }
-	            },
-	            error:function(){
-	                alert("오류가 발생하였습니다. 다시 시도해주세요.");
-	            }
-	        });
-	    }
-	});
-	
-	
+												} else {
+													alert("비밀번호가 일치하지 않습니다.");
+												}
+											},
+											error : function() {
+												alert("오류가 발생하였습니다. 다시 시도해주세요.");
+											}
+										});
+							}
+						});
+
+		$("#emailInput").on("input", function() {
+			$("#emailChkBtn").prop("disabled", false);
+		});
+		//이메일 정규식
+		let regMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+		let emailError = document.getElementById("email-error");
+		let regEmailError = document.getElementById("regMail-error");
+		let regEmailError2 = document.getElementById("regMail-error2");
+		//이메일 확인
+		emailInput.onkeyup = function() {
+			if (emailInput.value === "") {
+				emailError.classList.remove('hide');
+				emailError.classList.add('hide');
+			} else {
+				if (!regMail.test(emailInput.value)) {
+					regEmailError.classList.remove('hide');
+				} else {
+					if (emailInput.value.length > 50) { // 수정: 이메일 길이가 50 초과인 경우 처리
+						regEmailError2.classList.remove('hide');
+					} else {
+						regEmailError2.classList.add('hide');
+					}
+					regEmailError.classList.add('hide');
+				}
+			}
+		}
 	</script>
 </body>
 </html>
