@@ -59,8 +59,8 @@
 		select count(*) from members where userid=#{userId}
 	</select>
 	
-	<!-- 로그인 아이디,비밀번호 검증 -->
-	<select id="login" parameterType="String" resultType="mvo">
+	<!-- 개인정보수정 페이지 넘어가기 전 비밀번호 검증 -->
+	<select id="loginForMyInfo" parameterType="_int" resultType="mvo">
 		select * from members where userid =#{userId} and password=#{password}	
 	</select>
 	

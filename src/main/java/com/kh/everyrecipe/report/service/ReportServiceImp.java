@@ -95,9 +95,23 @@ public class ReportServiceImp implements ReportService {
 		return dao.block(bvo);
 	}
 
+	
+	//블라인드 토글
 	@Override
 	public int tgBlindPost(int postId) {
 		return dao.tgBlindPost(postId);
+	}
+
+	@Override
+	public int tgBlindCmt(int cmtId) {
+		return dao.tgBlindCmt(cmtId);
+	}
+
+	
+	//차단 기록 
+	@Override
+	public List<BlockedMemberVo> getBlockInfo(String userId) {
+		return dao.getBlockInfo(userId);
 	}
 
 

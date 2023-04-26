@@ -28,5 +28,7 @@ public interface ReportService {
 	public int unblock(int blockId);
 	public int block(BlockedMemberVo bvo);
 	public int tgBlindPost(int postId);
+	public int tgBlindCmt(int cmtId);
+	public List<BlockedMemberVo> getBlockInfo(String userId);
 
 }

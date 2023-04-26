@@ -114,6 +114,17 @@
 		 WHERE POSTID=#{postId}
 		 	
 	</update>
+	<update id="tgBlindCmt">
+		UPDATE TBCOMMENT 
+		   SET ISBLINDED = CASE 
+			  				WHEN ISBLINDED='N' THEN 'Y'
+							WHEN ISBLINDED='Y' THEN 'N'
+						  END
+		 WHERE CMTID=#{cmtId}
+	</update>
 	
+	<select id="getBlockInfo" resultType="com.kh.everyrecipe.report.vo.BlockedMemberVo">
+		SELECT * FROM MEMBERBLOCK WHERE USERID= #{userId}
 	
+	</select>
 </mapper>
