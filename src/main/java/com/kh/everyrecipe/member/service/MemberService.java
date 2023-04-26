@@ -34,7 +34,7 @@ public interface MemberService {
 
 	public List<MemberVo> login(MemberVo vo) throws Exception;
 
-	public boolean login(String id, String password);
+	public boolean login(String id, String password) throws Exception;
 	
 	public int modify(MemberVo vo) throws Exception;
 }

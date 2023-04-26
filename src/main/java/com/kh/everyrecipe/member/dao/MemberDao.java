@@ -1,5 +1,6 @@
 package com.kh.everyrecipe.member.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,12 @@ public class MemberDao {
 	public List<MemberVo> login(MemberVo vo) throws Exception {
 		return sqlSession.selectList("memberMapper.login", vo);
 	}
-	
+	public boolean login(String id, String password) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put(id, password);
+//		return sqlSession.selectList("memberMapper.loginForMyInfo");
+		return false;
+	}
 	public int modify(MemberVo vo) throws Exception {
 		return sqlSession.update("memberMapper.modify",vo);
 		
