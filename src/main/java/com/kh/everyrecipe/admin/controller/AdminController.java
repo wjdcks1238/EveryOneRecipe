@@ -326,9 +326,14 @@ public class AdminController {
 	@PostMapping("/tgblind-p")
 	@ResponseBody
 	public int tgBlindPost(int postId) {
-		System.out.println(postId);
 		int result= rService.tgBlindPost(postId);
-		return 1;
+		return result;
+	}
+	@PostMapping("/tgblind-c")
+	@ResponseBody
+	public int tgBlindCmt(int cmtId) {
+		int result= rService.tgBlindCmt(cmtId);
+		return result;
 	}
 	
 	
