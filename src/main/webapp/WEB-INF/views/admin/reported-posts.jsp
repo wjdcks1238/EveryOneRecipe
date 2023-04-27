@@ -102,8 +102,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-posts">계정관리</a>
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-comments">권한관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">계정관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/members">권한관리</a>
                     </div>
                 </div>
             </li>

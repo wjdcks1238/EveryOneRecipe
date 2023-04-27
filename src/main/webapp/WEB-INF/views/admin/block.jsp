@@ -403,7 +403,7 @@
 	    $.ajax({
 	        url: "${pageContext.request.contextPath}/admin/block",
 	        type: "POST", 
-	        data: {startTime: $('#startTime').val(), endTime: $('#endTime').val(), userId:'${bvo.userId}', reason:$('#reason').val() },
+	        data: {startTime: $('#startTime').val(), endTime: $('#endTime').val(), userId:'${userid}', reason:$('#reason').val() },
 	        success:function(result){
 	            if(result!=1){
 	                alert("차단에 실패했습니다.");

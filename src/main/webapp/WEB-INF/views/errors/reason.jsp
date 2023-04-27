@@ -18,6 +18,9 @@
 <c:if test="${not empty deleted }">
 	<title>${deleted}</title>
 </c:if>
+<c:if test="${not empty blocked }">
+	<title>차단된 상태입니다.</title>
+</c:if>
 
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
@@ -49,6 +52,15 @@
 			<h2>
 				${deleted}
 			</h2>
+		</c:if>
+		<c:if test="${not empty blocked }">
+			<h2>
+				${blocked}
+			</h2>
+			<h4 class="mt-5">차단 기간</h4>
+			<div class="mt-3">
+				${startTime } ~ ${endTime }
+			</div>
 		</c:if>
 	</div>
  </div>

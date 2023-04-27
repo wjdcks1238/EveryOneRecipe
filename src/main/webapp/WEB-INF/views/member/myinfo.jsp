@@ -65,7 +65,7 @@
   	
   main{
   height: auto;
-  min-height: 39vh;
+  min-height: 39.75vh;
   padding-bottom: 63.19px;
 }
 .footer{

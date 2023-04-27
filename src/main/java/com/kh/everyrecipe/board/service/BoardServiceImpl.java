@@ -58,24 +58,7 @@ public class BoardServiceImpl implements BoardService{
 	public int upView(int postId) throws Exception {
 		return dao.upView(postId);
 	}
-	@Override
-	public Boolean isNewClient(ClientChkVo chk) throws Exception {
-		if(dao.isNewClient(chk)==0) {
-			return true;
-		}
-		return false;
-	}
-	@Override
-	public int addNewClient(ClientChkVo chk) throws Exception{
-		return dao.addNewClient(chk);
-	}
-	@Override
-	public Boolean checkTime() throws Exception {
-		if(dao.checkTime()==1) {
-			return true;
-		}
-		return false;
-	}
+
 	@Override
 	public int updateAccessTime(ClientChkVo chk) throws Exception {
 		return dao.updateAccessTime(chk);

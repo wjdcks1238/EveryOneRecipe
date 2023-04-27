@@ -29,7 +29,7 @@
 					<a class="nav-link" href="<%=request.getContextPath()%>/board/list">전체 게시글</a>
 			    </li>
 			    <li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/posting">글 작성</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/posting">레시피 작성</a>
 			    </li>
 			    <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보</a>
