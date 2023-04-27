@@ -4,6 +4,7 @@ SELECT * FROM V$RESERVED_WORDS;
 --<<사용자 테이블>>--
 --이용자 테이블 삭제
 drop table MEMBERS;
+select * from members;
 
 --이용자 테이블 생성
 /*
@@ -29,6 +30,7 @@ insert into MEMBERS values('everys_recipe', 'admin@email.com','password', '모�
 --이용자 테이블 조회
 SELECT * FROM MEMBERS;
 
+UPDATE MEMBERS SET ISBLOCKED ='N';
 --이용자 추가(회원가입)
 INSERT INTO MEMBERS VALUES('user0', 'user0@example.com', 'user0', '이용자0', null, null
                             , DEFAULT, null, 'N', 'M');
@@ -211,13 +213,14 @@ p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p
     
     
     
-create or replace PROCEDURE block_proc IS
+CREATE OR REPLACE PROCEDURE block_proc IS
 BEGIN
     UPDATE MEMBERS M
-    SET M.ISBLOCKED  = CASE 
-        WHEN (SELECT B.STARTTIME FROM MEMBERBLOCK B WHERE B.USERID = M.USERID) < SYSDATE AND SYSDATE < (SELECT B.ENDTIME FROM MEMBERBLOCK B WHERE B.USERID = M.USERID) THEN 'Y'
-        WHEN (SELECT B.STARTTIME FROM MEMBERBLOCK B WHERE B.USERID = M.USERID) > SYSDATE OR SYSDATE > (SELECT B.ENDTIME FROM MEMBERBLOCK B WHERE B.USERID = M.USERID) THEN 'Y'
-        END;
+    SET M.ISBLOCKED  = 
+    CASE 
+        WHEN EXISTS (SELECT 1 FROM MEMBERBLOCK B WHERE B.USERID = M.USERID AND B.STARTTIME < SYSDATE AND SYSDATE < B.ENDTIME) THEN 'Y'
+        ELSE 'N'
+    END;
 END;
 
 create or replace PROCEDURE PROC_CHK_ACCESS(

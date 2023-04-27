@@ -50,9 +50,9 @@ public interface BoardService {
 
 	// 관리자 회원별 작성 글 관리
 	public List<BoardManagementDto> boardManagementList() throws Exception;
-	public Boolean isNewClient(ClientChkVo chk) throws Exception;
-	public Boolean checkTime() throws Exception;
-	public int addNewClient(ClientChkVo chk) throws Exception;
+
+	
+	
 	
 	public int updateAccessTime(ClientChkVo chk) throws Exception;
 	public int upOrNot(ClientChkVo chk) throws Exception;

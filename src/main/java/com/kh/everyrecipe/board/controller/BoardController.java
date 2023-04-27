@@ -2,7 +2,6 @@ package com.kh.everyrecipe.board.controller;
 
 import java.io.PrintWriter;
 import java.security.Principal;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,6 +39,8 @@ import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
 import com.kh.everyrecipe.postBookmark.service.PostBookmarkService;
 import com.kh.everyrecipe.postLike.service.PostLikeService;
+import com.kh.everyrecipe.report.service.ReportService;
+import com.kh.everyrecipe.report.vo.BlockedMemberVo;
 
 @Controller
 @RequestMapping("/board")
@@ -65,11 +64,29 @@ public class BoardController {
 		private BoardSearchService bsService;
 		@Autowired
 		private BadWordFilter badWordFilter;
+		@Autowired
+		private ReportService rService;
 		
 		
 		@GetMapping("posting")
-		public String postingPage() {
-			return "post/posting";
+		public ModelAndView postingPage(ModelAndView mv, Principal principal) throws Exception {
+			String userId= principal.getName();
+			String blocked=  mService.selectOne(userId).getIsBlocked();
+			if("Y".equals(blocked)) {
+				mv.addObject("blocked", "게시글, 댓글 등록 차단 상태입니다.");
+				BlockedMemberVo bmvo= rService.getLastBlockInfo(userId);
+				String startTime= bmvo.getStartTime().replace("T", " ");
+				String endTime=bmvo.getEndTime().replace("T", " ");
+				
+				mv.addObject("startTime",startTime);
+				mv.addObject("endTime", endTime);
+				
+				mv.setViewName("errors/reason");
+				return mv;
+			}
+			
+			mv.setViewName("post/posting");
+			return mv;
 		}
 		
 		

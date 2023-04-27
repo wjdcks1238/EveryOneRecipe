@@ -17,13 +17,18 @@
 	</c:choose>
 </title>
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+
+<style type="text/css">
+.wrapper{
+	min-height: 80vh;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 
 
-<div  class="container">
+<div  class="container wrapper">
 
 		<div class="row ">
 			<div class="col-md-2 col-xs-12">
