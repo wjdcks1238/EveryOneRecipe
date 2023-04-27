@@ -210,35 +210,36 @@
 <%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %> 
 
 <script>
-	$(".btn_swipe_searchOption").click(function() {
-		var keword = $(this).data('keword');
-		
-		$.ajax({
-			url: "<%=request.getContextPath() %>/admin/search/searchword/visibledata",
-			type: "GET",
-			data: {
-				keword: keword
-			},
-			dataType: "json",
-			async: false,
-			success: function(data) {
-				var htmlval = '';
-				for(i=0;i<data.length;i++) {
-					var swdata = data[i];
-					htmlval += '<tr>';
-					htmlval += '<td>' + swdata.rowN + '</td>';
-					htmlval += '<td>' + swdata.keword + '</td>';
-					htmlval += '<td>';
-					htmlval += '<button type="button" data-keword="' + swdata.keword + '" class="btn_swipe_searchOption" style="border-style: none; background: none;">' + swdata.isVisible + '</button>';
-					htmlval += '</td>';
-					htmlval += '<td>' + swdata.times + '</td>';
-					htmlval += '<td>' + swdata.searchDate + '</td>';
-					htmlval += '</tr>';
-				}
-				$("#searchWord").html(htmlval);
-			}
-		})
+var chartdata = [];
+var charlabel = [];
+
+function searchdata() {
+	var keyword = $("[id=keyword]").val();
+	var option = $("[name=inlineRadioOptions]").val();
+	var start = $("[id=startdate]").val();
+	var end = $("[id=enddate]").val();
+	
+	console.log(keyword);
+	console.log(option);
+	console.log(start);
+	console.log(end);
+	
+	$.ajax({
+		url:'<%=request.getContextPath() %>/admin/search/ajaxsearchprogress',
+		type: "GET",
+		data:{
+			keyword: keyword,
+			option: option,
+			start: start,
+			end: end
+		},
+		dataType: "json",
+		async: false,
+		success: function(data) {
+			console.log(data);
+		}
 	});
+}
 </script>
 </body>
 </html>

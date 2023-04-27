@@ -96,4 +96,9 @@ public class BoardSearchServiceImp implements BoardSearchService {
 		return dao.insertHashDB(keyword);
 	}
 
+	@Override
+	public List<Map<String, String>> selectData(Map<String, String> data) throws Exception {
+		return dao.selectData(data);
+	}
+
 }

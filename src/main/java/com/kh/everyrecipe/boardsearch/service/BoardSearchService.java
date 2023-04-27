@@ -23,4 +23,5 @@ public interface BoardSearchService {
 	public List<SearchVo> operatorSearchList() throws Exception;
 	public int insertDB(String keyword) throws Exception;
 	public int insertHashDB(String keyword) throws Exception;
+	public List<Map<String, String>> selectData(Map<String, String> data) throws Exception;
 }

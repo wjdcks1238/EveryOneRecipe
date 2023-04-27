@@ -40,6 +40,21 @@
 			<result property="amount" column="AMOUNT"/>
 		</collection>
 	</resultMap>
+	<resultMap id="searchDBMap" type="java.util.Map">
+	  <result column="searchDate" property="SEARCHDATE" />
+	  <result column="count" property="CNT" />
+	</resultMap>
+	<select id="selectData" parameterType="map" resultMap="searchDBMap">
+		select searchdate, count(*) as CNT
+		    from searchdb
+		    where
+		        keword=#{keyword} and 
+		        searchdate between TO_DATE(#{startDate},'YYYY-MM-DD')
+		            and TO_DATE(#{endDate},'YYYY-MM-DD')
+		        and SEARCHOPTION='R'
+		group by searchdate
+		order by searchdate asc
+	</select>
 	<select id="pagingList" parameterType="map" resultMap="postResultMap">
 		SELECT 
 		  <if test="userId !=null">

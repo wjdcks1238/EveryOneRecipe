@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -114,20 +115,28 @@ public class AdminController {
 		return mv;
 	}
 	
-	@PostMapping("/search/searchprogress")
+	@GetMapping("/search/ajaxsearchprogress")
+	@ResponseBody
 	public String searchProgressKeyword(
 			@RequestParam("keyword") String keyword,
-			@RequestParam("inlineRadioOptions") String selectOption,
-			@RequestParam("startdate") Date startDate,
-			@RequestParam("enddate") Date endDate 
-			) {
+			@RequestParam("option") String selectOption,
+			@RequestParam("start") String startDate,
+			@RequestParam("end") String endDate 
+			) throws Exception {
+		Map<String, String> data = new HashMap<String, String>();
+		data.put("keyword", keyword);
+		if(selectOption.equals("레시피")) {
+			data.put("option", "R");
+		} else if(selectOption.equals("해시태그")) {
+			data.put("option", "H");
+		}
+		data.put("startDate", startDate);
+		data.put("endDate", endDate);
 		
-		System.out.println("키워드: " + keyword);
-		System.out.println("옵션: " + selectOption);
-		System.out.println("시작날짜: " + startDate);
-		System.out.println("종료날짜: " + endDate);
+		List<Map<String, String>> result = bsService.selectData(data);
 		
-		return "";
+		
+		return new Gson().toJson(result);
 	}
 	
 	//직원 관리 - 계정관리 페이지의 ADMIN권한을 가진 직원목록

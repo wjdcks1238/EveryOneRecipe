@@ -79,4 +79,8 @@ public class BoardSearchDao {
 	public int insertHashDB(String keyword) {
 		return sqlSession.insert("boardSearchMapper.insertHashDB", keyword);
 	}
+
+	public List<Map<String, String>> selectData(Map<String, String> data) {
+		return sqlSession.selectList("boardSearchMapper.selectData", data);
+	}
 }
