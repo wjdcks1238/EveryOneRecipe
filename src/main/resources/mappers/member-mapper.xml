@@ -61,7 +61,7 @@
 	
 	<!-- 개인정보수정 페이지 넘어가기 전 비밀번호 검증 -->
 	<select id="loginForMyInfo" parameterType="_int" resultType="mvo">
-		select * from members where userid =#{userId} and password=#{password}	
+		select count(*) from members where userid =#{userId} and password=#{password}	
 	</select>
 	
 	<!-- 개인정보수정 (비밀번호, 이메일변경)-->
