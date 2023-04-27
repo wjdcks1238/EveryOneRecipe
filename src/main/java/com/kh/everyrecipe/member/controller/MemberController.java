@@ -311,10 +311,14 @@ public class MemberController {
 	public String infoupdateAjax(@RequestParam("password") String password, Principal principal) throws Exception {
 	    String str = "";
 	    String id = principal.getName();
+	    
 	    int result = mService.loginForMyInfo(id, password);
+	    System.out.println("~~~~~~~~~~~~~~~dfsfs"+result);
 	    if(result == 1) {
+	    	System.out.println("~~~~~~~~~~~~~~~dfsfs"+result);
 	    	str = "success";
 	    }else {
+	    	System.out.println("~~~~~~~~~~~~~~~dfsfs"+result);
 	    	str = "fail";
 	    }
 		return  str;
