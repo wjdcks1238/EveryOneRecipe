@@ -12,7 +12,6 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 <style>
@@ -421,15 +420,10 @@ body{
 			</select>
 	</div>
 	<div class="chat_div" style="margin-bottom: 15px;">	
-		<a href="<%=request.getContextPath() %>/chat?id=${userId}" onclick="chk_id(event)" style="color: white; text-decoration: none;">
+		<a href="<%=request.getContextPath() %>/chat/chatroom" onclick="chk_id(event)" style="color: white; text-decoration: none;">
 			<span class="material-symbols-outlined">
 			chat
-			</span>채팅		
-		</a>
-	</div>
-	<div>
-		<a href="<%=request.getContextPath() %>/chat/chatroom" onclick="chk_id(event)" style="color: white; text-decoration: none;">
-			채팅방(작업중)	
+			</span>채팅방(방+채팅 연계중)
 		</a>
 	</div>
 </div>

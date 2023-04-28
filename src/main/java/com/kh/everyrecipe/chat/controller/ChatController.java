@@ -18,13 +18,17 @@ import com.kh.everyrecipe.chat.service.ChatService;
 import com.kh.everyrecipe.chat.vo.MessageChkVo;
 import com.kh.everyrecipe.chat.vo.MessageVo;
 import com.kh.everyrecipe.chat.vo.RoomVo;
+import com.kh.everyrecipe.member.service.MemberService;
+import com.kh.everyrecipe.member.vo.MemberVo;
 
 
 @Controller
 @SessionAttributes({"loginUser", "chatRoomNo"})
-public class ChatControllerTest {
+public class ChatController {
 	@Autowired
 	private ChatService service;
+	@Autowired
+	private MemberService mService;
 	
 	//채팅방 목록 조회
 	@GetMapping("/chat/chatroom")
@@ -71,17 +75,20 @@ public class ChatControllerTest {
 				@PathVariable("chatRoomNo") int chatRoomNo,
 				MessageChkVo chk,
 				RedirectAttributes ra		
-			) {
+			) throws Exception {
 		String loginUser = req.getRemoteUser();
 		chk.setUserId(loginUser);
 		
 		List<MessageVo> list = service.enterRoom(chk);
 		
+		List<MemberVo> idlist = mService.selectList();
+		model.addAttribute("idlist", idlist);		
+		
 		model.addAttribute("list", list);
 		model.addAttribute("chatRoomNo", chatRoomNo);		
 		model.addAttribute("loginUser", loginUser);
 		
-		return "chat/chatroomchk";
+		return "chat";
 	}
 	
 	@GetMapping("/chat/exit")
