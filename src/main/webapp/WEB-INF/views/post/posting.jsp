@@ -71,12 +71,12 @@ input[type="text"]{
 			
 			
 			
-			<div>
+			<div id="mainImageDiv">
 			<label for="image">
-  					<a  class="btn btn-primary">대표 이미지 선택</a>
+  					<a  class="btn btn-success">대표 이미지 선택</a>
 			</label>
 				<input style="display: none" type="file" id="image" accept="image/*" onchange="setThumbnail(event);" name="report" >
-				<div id="image_container"></div>
+				<div id="image_container" class="mb-3"></div>
 				
 			</div>
 			
@@ -140,6 +140,7 @@ input[type="text"]{
 		    };
 		
 		    reader.readAsDataURL(event.target.files[0]);
+		    $("#mainImageDiv").append('<button class="mb-3" id="remove" type="button">x</button>');
 		  }
 		
 		
@@ -171,7 +172,6 @@ input[type="text"]{
 				return false;
 			}
 			var formDataS=$("#frm").serialize();
-			var content = CKEDITOR.instances.editor.getData();
 			formDataS+="&content="+encodeURIComponent(content);
 			//console.log(formData);
 			
@@ -179,15 +179,24 @@ input[type="text"]{
 			  var pair = item.split("=");
 			  return { name: decodeURIComponent(pair[0]), value: decodeURIComponent(pair[1]) };
 			});
+			
+			
 			var formData = new FormData();
 			serializedArray.forEach(function(item) {
 			  formData.append(item.name, item.value);
 			});
+			
+			var img = CKEDITOR.instances.editor.document.find('img').getItem(0);
+			var imgUrl = img ? img.getAttribute('src') : '';
+			
 			formData.append('image', $('input[type=file]')[0].files[0]);
+			formData.append('firstImage',imgUrl);
+			
+			/*
 			for (var pair of formData.entries()) {
 				  console.log(pair[0] + ': ' + pair[1]);
 			}
-			
+			*/
 			$.ajax({
 			  url: "${pageContext.request.contextPath}/board/postajax",
 			  type: "POST", 
@@ -207,7 +216,18 @@ input[type="text"]{
 			
 		})
 		
+	$(document).on("click","#remove" ,function() {
+		$("#image").val('');
+		$("#image_container").empty();
+		$("#remove").remove();
 		
+	});
+		
+	if($("#image-container").text()!=''){
+		console.log($("#image-container").text());
+		$("#mainImageDiv").append('<button class="mb-3" id="remove" type="button">x</button>');
+		
+	}
 		
 		
 	</script>

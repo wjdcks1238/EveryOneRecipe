@@ -67,7 +67,19 @@ input[type="text"]{
 			</div>
 			<button  class="btn btn-dark mt-2" id="addIng" type="button">재료 추가</button>
 		</div>
-		<textarea form="frm" name="editor" id="editor">${post.content }</textarea>
+		
+		<div id="mainImageDiv">
+			<label for="image">
+	 					<a  class="btn btn-success">대표 이미지 선택</a> 
+			</label>
+				<input style="display: none" type="file" id="image" accept="image/*" onchange="setThumbnail(event);" name="report" >
+				<div id="image_container" class="mb-3"><img alt="" src="${post.mainImage }"> </div>
+				
+		</div>
+		
+		
+		
+		<textarea  form="frm" name="editor" id="editor">${post.content }</textarea>
 		
 		<div class="mt-3">
 			<input style="width: 40%" class="form-control" value="${hashtags}" name="hashtag" type="text" placeholder="해쉬태그 입력">
@@ -104,6 +116,22 @@ $(document).on("click","button[name=deleteIng]" ,function(){
 });
 
 
+function setThumbnail(event) {
+    var reader = new FileReader();
+
+    reader.onload = function(event) {
+      
+      var img = document.createElement("img");
+      img.setAttribute("src", event.target.result);
+      img.setAttribute("width", '40%');
+      $("#image_container").html("");
+      document.querySelector("div#image_container").appendChild(img);
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+    $("#mainImageDiv").append('<button class="mb-3" id="remove" type="button">x</button>');
+  }
+
 $("#sb").click(function(){
 	var isValid = true;
 	$('.chk').each(function() {
@@ -135,13 +163,31 @@ $("#sb").click(function(){
 	if(!isValid){
 		return false;
 	}
-	var formData=$("#frm").serialize();
-	formData+="&content="+encodeURIComponent(content);
+	var formDataS=$("#frm").serialize();
+	formDataS+="&content="+encodeURIComponent(content);
 
+	var serializedArray = formDataS.match(/([^&]+)/g).map(function(item) {
+		  var pair = item.split("=");
+		  return { name: decodeURIComponent(pair[0]), value: decodeURIComponent(pair[1]) };
+		});
+	
+	var formData = new FormData();
+	serializedArray.forEach(function(item) {
+	  formData.append(item.name, item.value);
+	});
+	
+	var img = CKEDITOR.instances.editor.document.find('img').getItem(0);
+	var imgUrl = img ? img.getAttribute('src') : '';
+	
+	formData.append('image', $('input[type=file]')[0].files[0]);
+	formData.append('firstImage',imgUrl);
+	
 	$.ajax({
 	  url: "${pageContext.request.contextPath}/board/list/update",
 	  type: "POST", 
 	  data:formData,
+	  processData : false,
+ 	  contentType : false,
 	  success: function(data) { 
 	    if(data=='false'){
 	    	alert("비속어를 포함한 게시글은 등록할 수 없습니다.");
@@ -152,7 +198,17 @@ $("#sb").click(function(){
 	
 	});
 })
-
+ 	$(document).on("click","#remove" ,function() {
+		$("#image").val('');
+		$("#image_container").empty();
+		$("#remove").remove();
+		
+	});
+		
+	if($("#image-container").html()!=''){
+		$("#mainImageDiv").append('<button class="mb-3" id="remove" type="button">x</button>');
+		
+	}
 </script>
 </body>
 
