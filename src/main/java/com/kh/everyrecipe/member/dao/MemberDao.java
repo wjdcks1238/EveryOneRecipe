@@ -65,10 +65,8 @@ public class MemberDao {
 	}
 	//check password before myinfo update
 	//개인정보 수정전 비밀번호 확인
-	public int loginForMyInfo(String id, String password) throws Exception {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("id", id);
-		map.put("password", password);
+	public int loginForMyInfo(Map<String, String> map) throws Exception {
+		
 		return sqlSession.selectOne("memberMapper.loginForMyInfo",map);
 	}
 	public int modify(MemberVo vo) throws Exception {

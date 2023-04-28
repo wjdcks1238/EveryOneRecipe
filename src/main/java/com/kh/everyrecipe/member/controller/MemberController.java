@@ -306,23 +306,25 @@ public class MemberController {
 		return mv;
 	}
 	//ajax로 비밀번호 인증
-	@PostMapping("/infoupdate")
+	@PostMapping("/infoupdateAjax")
 	@ResponseBody
 	public String infoupdateAjax(@RequestParam("password") String password, Principal principal) throws Exception {
 	    String str = "";
 	    String id = principal.getName();
 	    
-	    int result = mService.loginForMyInfo(id, password);
-	    System.out.println("~~~~~~~~~~~~~~~dfsfs"+result);
+	    Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("password", password);
+	    int result = mService.loginForMyInfo(map);
+	    System.out.println("~~~~~~~~~~~~~~~dfsfs  : "+result);
 	    if(result == 1) {
-	    	System.out.println("~~~~~~~~~~~~~~~dfsfs"+result);
+	    	System.out.println("~~~~~~~~~~~~~~~dfsfs  : "+result);
 	    	str = "success";
 	    }else {
-	    	System.out.println("~~~~~~~~~~~~~~~dfsfs"+result);
+	    	System.out.println("~~~~~~~~~~~~~~~dfsfs  : "+result);
 	    	str = "fail";
 	    }
 		return  str;
-	    
 	}
 
 	//개인정보수정 : 비밀번호 변경 후 로그아웃 후 재로그인 해야함, 비밀번호 변경 없어도 됨, 비밀번호 변경시 유효성 체크
