@@ -243,15 +243,8 @@
 						<tr class="editbox ${cvo.cmtId }">
 							<td colspan="2"><textarea rows="3" cols="61" name="updateBox">${cvo.content }</textarea>
 								<br>
-								<button type="button" onclick="updateComment(${cvo.cmtId})">수정</button>
+								<button type="button" data-cmtid="${cvo.cmtId}" onclick="clickUpdateComment()">수정</button>
 								<button type="button" onclick="closeEdit(${cvo.cmtId})">취소</button>
-							</td>
-						</tr>
-						<tr class="insertbox ${cvo.cmtId }">
-							<td colspan="2"><textarea rows="3" cols="61" name="insertBox"></textarea>
-								<br>
-								<button type="button" onclick="inscmt(${cvo.cmtId})">작성</button>
-								<button type="button" onclick="closeInsert(${cvo.cmtId})">취소</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -303,12 +296,23 @@ function closeEdit(num) {
 	$(".editbox."+num).hide();
 }
 
-function openInsert(num) {
-	$(".insertbox."+num).show();
-}
-
-function closeInsert(num) {
-	$(".insertbox."+num).hide();
+function clickUpdateComment() {
+	var cid = $(this).data('cmtid');
+	
+	$.ajax({
+		url: "${pageContext.request.contextPath}/member/checkuserblocked",
+		type: "GET",
+		dataType:"text",
+		success: function(data) {
+			console.log(data);
+			if(data === 'N') {
+				updateComment(cid);
+			} else if(data === 'Y') {
+				getReason();
+			}
+		}
+	});
+	
 }
 
 function updateComment(cid) {
@@ -388,7 +392,7 @@ function getReason() {
 			console.log(reason);
 			console.log(startTime);
 			console.log(endTime);
-			alert("현재 이용이 정지되어 댓글 작성이 불가능합니다.\n정지일자 : " + startTime + " ~ " + endTime +"\n정지사유 : " + reason);
+			alert("현재 이용이 정지되어 커뮤니티 활동이 불가능합니다.\n정지일자 : " + startTime + " ~ " + endTime +"\n정지사유 : " + reason);
 			document.getElementById("commentContent").value = "";
 		}
 	});
