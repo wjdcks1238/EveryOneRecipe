@@ -27,8 +27,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
-var chartdata = [];
-var charlabel = [];
+
 
 function searchdata() {
 	var keyword = $("[id=keyword]").val();
@@ -54,11 +53,19 @@ function searchdata() {
 		async: false,
 		success: function(data) {
 			console.log(data);
-			var jsonObj = JSON.parse(data);
-			chartdata = data.CNT;
-			charlabel = data.SEARCHDATE;
-			console.log(chartdata);
-			console.log(charlabel);
+			var cdata = [];
+			var clabel = [];
+			
+			for(i=0;i<data.length;i++) {
+				cdata.push(data[i].CNT);
+				let subStr = data[i].SEARCHDATE;
+				clabel.push(subStr.substring(0,12));
+			}
+			
+			console.log(cdata);
+			console.log(clabel);
+			
+			myLineChart(cdata, clabel);
 		}
 	});
 }
@@ -67,12 +74,12 @@ function searchdata() {
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 
-var myLineChart = new Chart(ctx, {
+function myLineChart(cdata, clabel){new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: clabel,
     datasets: [{
-      label: "Earnings",
+      label: "검색횟수",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -84,7 +91,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data: cdata,
     }],
   },
   options: {
@@ -116,7 +123,7 @@ var myLineChart = new Chart(ctx, {
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            return '$' + number_format(value);
+            return number_format(value) + '건';
           }
         },
         gridLines: {
@@ -148,9 +155,10 @@ var myLineChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+          return datasetLabel + ' : ' + number_format(tooltipItem.yLabel) + '건';
         }
       }
     }
   }
 });
+}

@@ -174,6 +174,9 @@
                    				<button type="button" onclick="searchdata()">검색</button>
                    			</td>
                    		</table>
+                   	<div class="card-header py-3">
+                   		<h6 class="m-0 font-weight-bold text-primary">검색어 별 검색 통계</h6>
+                   	</div>
                    	<div class="card-body">
                         <div class="chart-area">
                             <canvas id="myAreaChart"></canvas>
@@ -204,6 +207,7 @@
     <!-- Page level custom scripts -->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/chart-area-demo.js"></script>
+    
     
 <!-- footer -->   
 <%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %> 
