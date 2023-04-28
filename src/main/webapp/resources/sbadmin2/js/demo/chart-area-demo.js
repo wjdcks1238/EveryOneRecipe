@@ -27,6 +27,42 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
+var chartdata = [];
+var charlabel = [];
+
+function searchdata() {
+	var keyword = $("[id=keyword]").val();
+	var option = $("[name=inlineRadioOptions]").val();
+	var start = $("[id=startdate]").val();
+	var end = $("[id=enddate]").val();
+	
+	console.log(keyword);
+	console.log(option);
+	console.log(start);
+	console.log(end);
+	
+	$.ajax({
+		url:'/everyrecipe/admin/search/ajaxsearchprogress',
+		type: "GET",
+		data:{
+			keyword: keyword,
+			option: option,
+			start: start,
+			end: end
+		},
+		dataType: "json",
+		async: false,
+		success: function(data) {
+			console.log(data);
+			var jsonObj = JSON.parse(data);
+			chartdata = data.CNT;
+			charlabel = data.SEARCHDATE;
+			console.log(chartdata);
+			console.log(charlabel);
+		}
+	});
+}
+
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");

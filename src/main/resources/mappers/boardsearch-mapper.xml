@@ -42,7 +42,7 @@
 	</resultMap>
 	<resultMap id="searchDBMap" type="java.util.Map">
 	  <result column="searchDate" property="SEARCHDATE" />
-	  <result column="count" property="CNT" />
+	  <result column="cnt" property="CNT" />
 	</resultMap>
 	<select id="selectData" parameterType="map" resultMap="searchDBMap">
 		select searchdate, count(*) as CNT
