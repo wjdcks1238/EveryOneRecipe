@@ -35,4 +35,6 @@ public interface MemberService {
 
 	public int loginForMyInfo(String id, String password) throws Exception;
 	public int modify(MemberVo vo) throws Exception;
+
+	public String getBlockData(String name) throws Exception;
 }

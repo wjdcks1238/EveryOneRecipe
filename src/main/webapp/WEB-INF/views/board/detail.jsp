@@ -233,7 +233,6 @@
 							<td colspan="2">${cvo.updateAt }&nbsp;
 								<c:choose>
 									<c:when test="${loggedIn}">
-										<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="openInsert(${cvo.cmtId})">답글 쓰기</button>
 										<c:if test="${uName eq cvo.userId }">
 											<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="openEdit(${cvo.cmtId})">댓글 수정</button>
 											<button type="button" style="border-style: none; background-color: white; font-size: xx-small;"	onclick="deleteCmt(${cvo.cmtId})">댓글 삭제</button>
@@ -265,9 +264,9 @@
 					<form id="frmReply">
 						<fieldset>
 						<legend>댓글 작성</legend>
-						<div><textarea rows="3"   style="width:80%;" name="commentContent" ></textarea></div>
+						<div><textarea rows="3"   style="width:80%;" name="commentContent" id="commentContent"></textarea></div>
 						<input type="hidden" name="boardNum" value="${post.postId }">
-						<button type="button" class="btn reply">댓글 작성</button>
+						<button type="button" data-uname="${uName }" class="btn reply">댓글 작성</button>
 						</fieldset>
 					</form>
 				</c:when>
@@ -356,9 +355,27 @@ function deleteCmt(cid) {
 			
 		}
 	});
+	
 }
 
 $(document).on("click", ".btn.reply", function() {
+	$.ajax({
+		url: "${pageContext.request.contextPath}/member/checkuserblocked",
+		type: "GET",
+		dataType:"text",
+		success: function(data) {
+			console.log(data);
+			if(data === 'N') {
+				submitReply();
+			} else if(data === 'Y') {
+				alert("현재 이용이 정지되어 댓글 작성이 불가능합니다.");
+				document.getElementById("commentContent").value = "";
+			}
+		}
+	});
+});
+
+function submitReply() {
 	$.ajax({
 		url: "${pageContext.request.contextPath}/board/insertReplyAjax",
 		type: "POST",
@@ -383,7 +400,7 @@ $(document).on("click", ".btn.reply", function() {
 			
 		}
 	});
-});
+}
 
 function displayReply(result) {
 	console.log(result);

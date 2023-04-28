@@ -64,6 +64,11 @@
 		select count(*) from members where userid =#{userId} and password=#{password}	
 	</select>
 	
+	<!-- 유저의 블라인드를 체크 하여 반환 -->
+	<select id="getBlockData" parameterType="String" resultType="String">
+		select ISBLOCKED from members where userid=#{name}
+	</select>
+	
 	<!-- 개인정보수정 (비밀번호, 이메일변경)-->
 	<update id="modify" parameterType="mvo">
 		update members 

@@ -85,6 +85,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.loginForMyInfo(id, password);
 	}
 
+	@Override
+	public String getBlockData(String name) throws Exception {
+		return dao.getBlockData(name);
+	}
+
 
 
 

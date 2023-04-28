@@ -335,5 +335,18 @@ public class MemberController {
 		mv.setViewName("member/modify");
 		return mv;
 	}
+	
+	@GetMapping("/checkuserblocked")
+	@ResponseBody
+	public String ajaxCheckUserBlocked(
+			Principal principal
+			) throws Exception {
+		String name = principal.getName();
+		
+		String isBlocked = mService.getBlockData(name);
+		System.out.println(isBlocked);
+		
+		return isBlocked;
+	}
 
 }
