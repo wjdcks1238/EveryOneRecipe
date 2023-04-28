@@ -1,10 +1,20 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
+function searchdata() {
+	var keyword = $("[id=keyword]").val();
+	var option = $("[name=inlineRadioOptions]").val();
+	var start = $("[id=currentdate]").val();
+	
+	console.log(keyword);
+	console.log(option);
+	console.log(start);
+}
+
 
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
+function myPieChart() { new Chart(ctx, {
   type: 'doughnut',
   data: {
     labels: ["Direct", "Referral", "Social"],
@@ -33,3 +43,4 @@ var myPieChart = new Chart(ctx, {
     cutoutPercentage: 80,
   },
 });
+}

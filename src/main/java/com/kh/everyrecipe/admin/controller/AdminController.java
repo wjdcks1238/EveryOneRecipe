@@ -109,7 +109,7 @@ public class AdminController {
 	}
 	
 	//검색추이 페이지
-	@GetMapping("/search/searchprogress")
+	@GetMapping("/search/keywordsearchprogress")
 	public ModelAndView searchProgress(ModelAndView mv) throws Exception{
 		return mv;
 	}
@@ -136,6 +136,11 @@ public class AdminController {
 		
 		
 		return new Gson().toJson(result);
+	}
+	
+	@GetMapping("/search/datasearchprogress")
+	public ModelAndView dataSearchProgress(ModelAndView mv) {
+		return mv;
 	}
 	
 	//직원 관리 - 계정관리 페이지의 ADMIN권한을 가진 직원목록
