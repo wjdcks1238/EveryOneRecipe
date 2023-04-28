@@ -98,20 +98,25 @@ public class BoardController {
 		@PostMapping("postajax")
 		@ResponseBody
 		public String postajax(Principal principal
+				, HttpServletRequest request
 				, BoardVo bvo
 				, @RequestParam("ingredient") List<String> ingredients
 				, @RequestParam("amount") List<String> amounts
 				, @RequestParam("hashtag") String hashtag
-				, @RequestParam(name="image", required = false) MultipartFile multi) throws Exception {
+				, @RequestParam(name="image", required = false) MultipartFile multi
+				, @RequestParam("firstImage") String firstImage ) throws Exception {
 			System.out.println(bvo);
 			System.out.println(ingredients);
 			System.out.println(amounts);
 			System.out.println(hashtag);
 			System.out.println(multi);
+			System.out.println(firstImage);
 			
+			//TODO view에서 재료 중복입력 방지 
+		
 			int lastPostId = bService.getLastPostId();
 			
-			 List<IngredientVo> ivoList = new ArrayList<>(); // 공백일 때 처리 필요 
+			 List<IngredientVo> ivoList = new ArrayList<>();
 		     for (int i = 0; i < ingredients.size(); i++) { 
 		    	 ivoList.add(new IngredientVo(lastPostId+1, ingredients.get(i), amounts.get(i)));
 		     }
@@ -122,15 +127,21 @@ public class BoardController {
 		
 			}
 		     
+		     
 		     //대표 이미지. 업로드 후 리턴받은 url을 컬럼에 넣어야 함
-		     Map<String, String> uploadResult = fileUtil.saveFile(multi);
-		     uploadResult.get("url") ;
-		    
+		     if(multi!=null) {
+		    	 Map<String, String> uploadResult = fileUtil.saveFile(multi);
+		    	 bvo.setMainImage(uploadResult.get("url"));
+		     }else {
+		    	 //대표 이미지를 설정하지 않았을 경우 첫번째 이미지가 대표 이미지가 되게 한다.
+		    	 if("".equals(firstImage)) {
+		    		 bvo.setMainImage(request.getContextPath()+"/resources/img/default.jpeg");
+		    	 }else {		    		 
+		    		 bvo.setMainImage(firstImage);
+		    	 }
+		    	 
+		     }
 
-		     
-		     //TODO 대표 이미지를 설정하지 않았을 경우 첫번째 이미지가 대표 이미지가 되게 한다.
-		     //이미 클라우드에 업로드 되어있어 그냥 url만 컬럼에 넣으면 됨
-		     
 		     
 		     
 		     
@@ -138,9 +149,9 @@ public class BoardController {
 			MemberVo mvo= mService.selectOne(principal.getName());
 			bvo.setNickname(mvo.getNickName());		
 				
-			if (bService.insertPost(bvo) != 0) {
-				bService.insertIngList(ivoList);
-			}	
+			bService.insertPost(bvo);
+			bService.insertIngList(ivoList);
+				
 			List<HashtagVo> hashtagList = new ArrayList<>();
 
 			if(!(   ("").equals(hashtag.trim()) || hashtag==null        )) {
@@ -170,7 +181,7 @@ public class BoardController {
 				
 				
 				
-			return "false";
+			return "true";
 			
 		}
 		
@@ -320,8 +331,9 @@ public class BoardController {
 		public ModelAndView boardList(ModelAndView mv
 				, Principal principal
 				) throws Exception {
-				
-		
+				//TODO 게시글 내용 일정량 자르고 이미지 제외하기 
+			
+			
 				//isdelete 필드가 'N'인 게시글만 불러온다. 	
 				Map<String, String> map = new HashMap<>();
 				map.put("from", 0+"");
@@ -515,10 +527,13 @@ public class BoardController {
 		@PostMapping("/list/update")
 		@ResponseBody
 		public String updateajax(Principal principal
+				, HttpServletRequest request
 				, BoardVo bvo
 				, @RequestParam("ingredient") List<String> ingredients
 				, @RequestParam("amount") List<String> amounts
-				, @RequestParam("hashtag") String hashtag) throws Exception {
+				, @RequestParam("hashtag") String hashtag
+				, @RequestParam(name="image", required = false) MultipartFile multi
+				, @RequestParam("firstImage") String firstImage) throws Exception {
 				
 			//받은 bvo를 그대로 업데이트
 			
@@ -534,7 +549,19 @@ public class BoardController {
 				 return "false";
 				 
 			}
-		     
+		     //대표 이미지. 업로드 후 리턴받은 url을 컬럼에 넣어야 함
+		     if(multi!=null) {
+		    	 Map<String, String> uploadResult = fileUtil.saveFile(multi);
+		    	 bvo.setMainImage(uploadResult.get("url"));
+		     }else {
+		    	 //대표 이미지를 설정하지 않았을 경우 첫번째 이미지가 대표 이미지가 되게 한다.
+		    	 if("".equals(firstImage)) {
+		    		 bvo.setMainImage(request.getContextPath()+"/resources/img/default.jpeg");
+		    	 }else {		    		 
+		    		 bvo.setMainImage(firstImage);
+		    	 }
+		    	 
+		     } 
 		     
 		     
 			List<HashtagVo> hashtagList = new ArrayList<>();

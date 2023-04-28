@@ -22,9 +22,7 @@
 	<c:forEach items="${postList }" var="list" varStatus="stqatus">
 	<div class="col-md-3 mt-3">
 		<div class="card">
-			<a href="<%=request.getContextPath() %>/board/list/${list.postId}">
-				이미지 삽입 예정.
-			</a>
+			<img alt="" src="${list.mainImage }" width="100%">
 			<div class="card-block">
 				<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></h2>
 				<h4 class="card-text">${list.content }</h4>
@@ -165,9 +163,7 @@ var start = {
 	            		
 	            		var card = $('<div class="col-md-3 mt-3">'+
 	            						'<div class="card">'+
-		            						'<a href="${pageContext.request.contextPath}/board/list/'+reply.postId+'">'+
-		            							'이미지 삽입 예정.'+
-		            						'</a>'+
+	            						'<img alt="" src="'+reply.mainImage +'" width="100%">'+
 		            						'<div class="card-block">'+
 		            							'<h2 class="card-title"><a href="${pageContext.request.contextPath}/board/list/'+reply.postId+'">'+reply.foodName+'</a></h2>'+
 		            							'<h4 class="card-text">'+reply.content+'</h4>'+
