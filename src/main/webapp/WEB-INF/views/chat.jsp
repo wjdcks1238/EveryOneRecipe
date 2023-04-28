@@ -68,11 +68,21 @@
    <input type="text" id="targetUser" placeholder="상대방 아이디">
     --> 
    	상대방 아이디:
-    <select id="targetUser">
-    	<c:forEach var="id" items="${idlist }">
-    		<option value="${id.userId }">${id.userId }</option>
-    	</c:forEach>
-    </select>
+   	<c:choose>
+   		<c:when test="${loginUser ne 'everys_recipe'}">
+   			<select class="targetUser" disabled>
+   				<option value="everys_recipe" selected>everys_recipe</option>
+   			</select>
+   		</c:when>
+   		<c:otherwise>
+   			<select class="targetUser">
+    			<c:forEach var="id" items="${idlist }">
+    				<option value="${id.userId }">${id.userId }</option>
+    			</c:forEach>
+    		</select>
+    	</c:otherwise>   	
+   	</c:choose>
+    
     <div class="chat">
             <textarea id="msgArea" readonly="readonly">
 			</textarea>
@@ -80,6 +90,9 @@
     <div class="input-div">
         <textarea placeholder="Press Enter for send message." id="chatMsg"></textarea>
     </div>
+</div>
+<div>
+${loginUser }
 </div>
 
 <script type="text/javascript">
@@ -108,7 +121,8 @@ function connect(){
 	function register(){
 		var msg = {
 			type: "register",
-			userid: "${loginUser }"
+			userid: "${loginUser }",
+			key : "${chatRoomNo}"
 		}
 		ws.send(JSON.stringify(msg));
 	};
@@ -116,8 +130,10 @@ function connect(){
 	function sendMsg(){
 		var msg = {
 			type: "chat",
-			target: $("#targetUser option:selected").val(),
-			message: $("#chatMsg").val()
+			target: $(".targetUser option:selected").val(),
+			userid: "${loginUser }",
+			message: $("#chatMsg").val(),
+			key : "${chatRoomNo}"
 		}
 		ws.send(JSON.stringify(msg));
 	};
@@ -129,7 +145,7 @@ function connect(){
 			if(e.keyCode == 13 && !e.shiftKey) {
 	        e.preventDefault();
 	        
-	        if($("#targetUser option:selected").val() != ""){
+	        if($(".targetUser option:selected").val() != ""){
 				var chat = $("#msgArea").val();
 				chat = chat + "\n" + userid +" :" + $("#chatMsg").val();
 				

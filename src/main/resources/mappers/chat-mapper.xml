@@ -40,8 +40,8 @@
 	</insert> 
  
 	<insert id="insertMessage">
-		INSERT INTO DIRECTMESSAGE
-		VALUES(SEQ_MESSAGENUM, #{message}, SYSDATE, #{key}, #{userId})
+		INSERT INTO DIRECTMESSAGE(MESSAGENO, MESSAGE, UPDATEAT, KEY, USERID)
+		VALUES(SEQ_MESSAGENUM.NEXTVAL, #{message}, SYSDATE, #{key}, #{userId})
 	</insert>
  
 	<select id="enterChk" resultType="int">
