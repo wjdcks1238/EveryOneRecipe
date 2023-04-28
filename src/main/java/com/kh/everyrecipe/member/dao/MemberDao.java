@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.everyrecipe.member.vo.MemberBlockVo;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
 @Repository
@@ -78,5 +79,9 @@ public class MemberDao {
 
 	public String getBlockData(String name) {
 		return sqlSession.selectOne("memberMapper.getBlockData",name);
+	}
+
+	public MemberBlockVo getUserBlock(String name) {
+		return sqlSession.selectOne("memberMapper.getUserBlock",name);
 	}
 }

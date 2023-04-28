@@ -18,6 +18,7 @@
 		<typeAlias type="com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo" alias="rcvo"/>
 		<typeAlias type="com.kh.everyrecipe.report.vo.ReportVo" alias="revo"/>
 		<typeAlias type="com.kh.everyrecipe.boardsearch.vo.SearchVo" alias="svo"/>
+		<typeAlias type="com.kh.everyrecipe.member.vo.MemberBlockVo" alias="mbvo"/>
 	</typeAliases>
 	
 	<mappers>

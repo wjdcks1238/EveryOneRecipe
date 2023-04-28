@@ -26,11 +26,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.kh.everyrecipe.board.service.BoardService;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.fileutil.FileUtil;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.member.service.MemberService;
+import com.kh.everyrecipe.member.vo.MemberBlockVo;
 import com.kh.everyrecipe.member.vo.MemberVo;
 import com.kh.everyrecipe.postBookmark.service.PostBookmarkService;
 import com.kh.everyrecipe.postLike.service.PostLikeService;
@@ -347,6 +349,18 @@ public class MemberController {
 		System.out.println(isBlocked);
 		
 		return isBlocked;
+	}
+	
+	@GetMapping("/getuserblocked")
+	@ResponseBody
+	public String ajaxgetUserBlocked(
+			Principal principal
+			) throws Exception {
+		String name = principal.getName();
+		MemberBlockVo data = mService.getUserBlock(name);
+		System.out.println(data);
+		
+		return new Gson().toJson(data);
 	}
 
 }

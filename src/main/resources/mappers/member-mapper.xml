@@ -69,6 +69,11 @@
 		select ISBLOCKED from members where userid=#{name}
 	</select>
 	
+	<!-- 유저의 블라인드 정보를 반환 -->
+	<select id="getUserBlock" parameterType="String" resultType="mbvo">
+		select USERID, REASON, STARTTIME, ENDTIME from MEMBERBLOCK where USERID=#{name}
+	</select>
+	
 	<!-- 개인정보수정 (비밀번호, 이메일변경)-->
 	<update id="modify" parameterType="mvo">
 		update members 

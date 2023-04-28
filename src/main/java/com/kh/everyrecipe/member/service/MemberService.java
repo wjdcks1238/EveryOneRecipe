@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.everyrecipe.board.vo.BoardManagementDto;
+import com.kh.everyrecipe.member.vo.MemberBlockVo;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
 
@@ -37,4 +38,6 @@ public interface MemberService {
 	public int modify(MemberVo vo) throws Exception;
 
 	public String getBlockData(String name) throws Exception;
+
+	public MemberBlockVo getUserBlock(String name) throws Exception;
 }

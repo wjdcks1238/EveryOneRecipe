@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.everyrecipe.member.dao.MemberDao;
+import com.kh.everyrecipe.member.vo.MemberBlockVo;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
 @Transactional
@@ -88,6 +89,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String getBlockData(String name) throws Exception {
 		return dao.getBlockData(name);
+	}
+
+	@Override
+	public MemberBlockVo getUserBlock(String name) throws Exception {
+		return dao.getUserBlock(name);
 	}
 
 

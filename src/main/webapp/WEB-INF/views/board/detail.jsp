@@ -368,12 +368,31 @@ $(document).on("click", ".btn.reply", function() {
 			if(data === 'N') {
 				submitReply();
 			} else if(data === 'Y') {
-				alert("현재 이용이 정지되어 댓글 작성이 불가능합니다.");
-				document.getElementById("commentContent").value = "";
+				getReason();
 			}
 		}
 	});
 });
+
+function getReason() {
+	$.ajax({
+		url: "${pageContext.request.contextPath}/member/getuserblocked",
+		type: "GET",
+		dataType: "json",
+		success: function(data) {
+			console.log(data);
+			var reason = data.Reason;
+			var startTime = data.startTime;
+			var endTime = data.endTime;
+			
+			console.log(reason);
+			console.log(startTime);
+			console.log(endTime);
+			alert("현재 이용이 정지되어 댓글 작성이 불가능합니다.\n정지일자 : " + startTime + " ~ " + endTime +"\n정지사유 : " + reason);
+			document.getElementById("commentContent").value = "";
+		}
+	});
+}
 
 function submitReply() {
 	$.ajax({
