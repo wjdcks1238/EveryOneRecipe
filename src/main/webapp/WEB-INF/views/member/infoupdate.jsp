@@ -55,6 +55,16 @@
 	border-top: 2px solid rgb(51, 51, 51);
 	border-bottom: 1px solid rgb(221, 221, 221);
 }
+.error {
+	font-size: 13px;
+	color: red;
+	font-weight: 500;
+}
+
+.hide {
+	display: none;
+}
+
 </style>
 </head>
 <body>
@@ -83,7 +93,8 @@
 			<div class="col-md-10 col-md-offset-2 col-xs-12">
 				<div class="row">
 					<div class="col-8">
-						<form id="updateForm">
+					
+					
 							<div>
 								<h5>개인 정보 수정</h5>
 							</div>
@@ -106,15 +117,16 @@
 										<label>비밀번호</label>
 									</div>
 									<div>
-										<input type="password" name="password"
-											value="${memberDto.password }" placeholder="현재 비밀번호를 입력해주세요.">
+										<input type="password" name="password" value="${memberDto.password }" placeholder="현재 비밀번호를 입력해주세요.">
+										<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 									</div>
+									
 								</div>
 							</div>
 							<div align="center">
 								<button id="passwordchk" type="submit">확인</button>
 							</div>
-						</form>
+						
 					</div>
 				</div>
 
@@ -130,32 +142,34 @@
 	<%@ include file="/WEB-INF/views/js_import.jsp"%>
 
 	<script>
-	$(document).on("click","#passwordchk", function(event) {
-	    event.preventDefault();
+	$(document).on("click","#passwordchk", function() {
 	    var password = $.trim($("input[name=password]").val());
 	    console.log("~~~~~~~~~~~~~~입력된 암호:" + password);
 	    if (password.length !== 0) {
+	        var result; // 변수 초기화
+	        if (password == "") {
+	        	alert("비밀번호를 다시 입력해주세요.");
+	        }
 	        $.ajax({
-	            url: '<%=request.getContextPath()%>/member/infoupdate',
-	            type: 'POST',
-	            data:{password: password},
-	            success:function(result){
-	            	console.log("서버 응답:", result); 
+	            type : "POST",
+	            url : "${pageContext.request.contextPath }/member/infoupdateAjax",
+	            data : { "password" : password },
+	            dataType : "text",
+	            success : function(data) {
+	                result = data; // 변수에 값 할당
 	                if (result === "success") {
 	                    console.log("어어 됐다??"+ password);
 	                    location.href="<%=request.getContextPath()%>/member/modify";
 	                } else {
-	                    alert("비밀번호가 일치하지 않습니다.");
+	                	alert("비밀번호를 다시 입력해주세요.");
 	                }
 	            },
-	            error:function(){
-	                alert("오류가 발생하였습니다. 다시 시도해주세요.");
+	            error : function(xhr, textStatus, errorThrown) {
+	                console.log("Ajax 요청 실패: " + textStatus + ", " + errorThrown);
 	            }
 	        });
 	    }
 	});
-
-
 	</script>
 </body>
 </html>

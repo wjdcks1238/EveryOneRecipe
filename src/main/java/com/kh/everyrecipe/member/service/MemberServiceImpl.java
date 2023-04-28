@@ -82,8 +82,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int loginForMyInfo(String id, String password) throws Exception {
-		return dao.loginForMyInfo(id, password);
+	public int loginForMyInfo(Map<String, String> map) throws Exception {
+		return dao.loginForMyInfo(map);
 	}
 
 	@Override

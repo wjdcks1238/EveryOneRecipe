@@ -60,8 +60,8 @@
 	</select>
 	
 	<!-- 개인정보수정 페이지 넘어가기 전 비밀번호 검증 -->
-	<select id="loginForMyInfo" parameterType="_int" resultType="mvo">
-		select count(*) from members where userid =#{userId} and password=#{password}	
+	<select id="loginForMyInfo" parameterType="map" resultType="_int" >
+		select count(*) from members where userid =#{id} and password=#{password}	
 	</select>
 	
 	<!-- 유저의 블라인드를 체크 하여 반환 -->
