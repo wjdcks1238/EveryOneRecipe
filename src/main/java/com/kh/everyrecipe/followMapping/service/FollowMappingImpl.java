@@ -7,10 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.followMapping.dao.FollowMappingDao;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
-import com.kh.everyrecipe.member.vo.MemberVo;
 import com.kh.everyrecipe.weekboard.vo.weekVo;
 
 @Service

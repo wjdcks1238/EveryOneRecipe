@@ -68,7 +68,7 @@
 			<div id="image_container"></div>
 			<div>
 				<button type="button" id="updatePI">프로필 이미지 변경</button>
-							</div>
+			</div>
 			<div id="error"></div>
 		</form>				
 	</div>

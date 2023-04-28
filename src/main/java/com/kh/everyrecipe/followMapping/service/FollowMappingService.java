@@ -3,9 +3,7 @@ package com.kh.everyrecipe.followMapping.service;
 import java.util.List;
 import java.util.Map;
 
-import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
-import com.kh.everyrecipe.member.vo.MemberVo;
 import com.kh.everyrecipe.weekboard.vo.weekVo;
 
 
