@@ -174,6 +174,9 @@
                    				<button type="button" onclick="searchdata()">검색</button>
                    			</td>
                    		</table>
+                   	<div class="card-header py-3">
+                   		<h6 class="m-0 font-weight-bold text-primary">검색어 별 검색 통계</h6>
+                   	</div>
                    	<div class="card-body">
                         <div class="chart-area">
                             <canvas id="myAreaChart"></canvas>
@@ -204,42 +207,13 @@
     <!-- Page level custom scripts -->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/chart-area-demo.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/chart-pie-demo.js"></script>
+    
     
 <!-- footer -->   
 <%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %> 
 
 <script>
-var chartdata = [];
-var charlabel = [];
 
-function searchdata() {
-	var keyword = $("[id=keyword]").val();
-	var option = $("[name=inlineRadioOptions]").val();
-	var start = $("[id=startdate]").val();
-	var end = $("[id=enddate]").val();
-	
-	console.log(keyword);
-	console.log(option);
-	console.log(start);
-	console.log(end);
-	
-	$.ajax({
-		url:'<%=request.getContextPath() %>/admin/search/ajaxsearchprogress',
-		type: "GET",
-		data:{
-			keyword: keyword,
-			option: option,
-			start: start,
-			end: end
-		},
-		dataType: "json",
-		async: false,
-		success: function(data) {
-			console.log(data);
-		}
-	});
-}
 </script>
 </body>
 </html>

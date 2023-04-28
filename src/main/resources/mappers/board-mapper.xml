@@ -17,6 +17,7 @@
 		<result property="followCnt" column="FOLLOWCNT"/>
 		<result property="bookmarkCnt" column="BOOKMARKCNT"/>
 		<result property="isBlinded" column="ISBLINDED"/>
+		<result property="mainImage" column="MAINIMAGE"/>
 		<collection property="ingredients" ofType="ivo">
 			<result property="ingredient" column="INGREDIENT"/>
 			<result property="amount" column="AMOUNT"/>
@@ -49,7 +50,7 @@
 		 ,
 		   </if>
 		   p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p2.UPDATEAT 
-         , p2.ISDELETED , p2.LOOKUP, i.INGREDIENT , i.AMOUNT, m.PROFILEURL
+         , p2.ISDELETED , p2.LOOKUP, p2.MAINIMAGE, i.INGREDIENT , i.AMOUNT, m.PROFILEURL
 	  FROM
 			(SELECT * 
 			   FROM (SELECT p.*
@@ -80,6 +81,7 @@
      , p.ISDELETED
      , p.LOOKUP
      , p.ISBLINDED
+     , p.MAINIMAGE
      , i.INGREDIENT
      , i.AMOUNT
      , m.PROFILEURL
@@ -121,11 +123,11 @@ SELECT
 	</select>
 
 	<insert id="insertPost" parameterType="bvo">
-		INSERT INTO post values( (SELECT NVL(MAX(postid), 0) + 1 FROM post), #{userId}, #{nickname}, #{foodName}, #{content}, default, default, default,0,default) 
+		INSERT INTO post values( (SELECT NVL(MAX(postid), 0) + 1 FROM post), #{userId}, #{nickname}, #{foodName}, #{content}, default, default, default, 0, default, #{mainImage}) 
 	</insert>
 	<update id="insertBasicPost" parameterType="java.util.List">
   		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" >
-   			INTO post VALUES(#{item.postId}, #{item.userId}, #{item.nickname},#{item.foodName},#{item.content},default,default,default,0,default )
+   			INTO post VALUES(#{item.postId}, #{item.userId}, #{item.nickname},#{item.foodName},#{item.content}, default, default, default, 0, default, #{item.mainImage})
   		</foreach>
 	</update>
 	<update id="delete" parameterType="_int">
@@ -136,6 +138,7 @@ SELECT
 		   SET FOODNAME=#{foodName}
 		     , CONTENT =#{content} 
 		     , UPDATEAT = default
+		     , MAINIMAGE= #{mainImage}
 		 WHERE POSTID=#{postId}
 	</update>
 	

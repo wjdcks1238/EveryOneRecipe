@@ -84,7 +84,7 @@
 
 <script type="text/javascript">
 var ws;
-var userid = "${param.id}";
+var userid = "${loginUser }";
 
 function connect(){
 	ws = new WebSocket("ws://localhost:8090/everyrecipe/chat/websocket");
@@ -108,7 +108,7 @@ function connect(){
 	function register(){
 		var msg = {
 			type: "register",
-			userid: "${param.id}"
+			userid: "${loginUser }"
 		}
 		ws.send(JSON.stringify(msg));
 	};

@@ -73,4 +73,8 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.modify",vo);
 		
 	}
+
+	public String getBlockData(String name) {
+		return sqlSession.selectOne("memberMapper.getBlockData",name);
+	}
 }

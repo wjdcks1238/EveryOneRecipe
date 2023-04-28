@@ -67,6 +67,25 @@ input[type="text"]{
 
 				<button class="btn btn-dark mt-2" id="addIng"  type="button">재료 추가</button>
 			</div>
+			
+			
+			
+			
+			<div>
+			<label for="image">
+  					<a  class="btn btn-primary">대표 이미지 선택</a>
+			</label>
+				<input style="display: none" type="file" id="image" accept="image/*" onchange="setThumbnail(event);" name="report" >
+				<div id="image_container"></div>
+				
+			</div>
+			
+			
+			
+			
+			
+			
+			
 			<textarea form="frm" name="editor" id="editor">${board.content }</textarea>
 			
 			<div class="mt-3">
@@ -108,12 +127,28 @@ input[type="text"]{
 		});
 		
 		
+		function setThumbnail(event) {
+		    var reader = new FileReader();
+		
+		    reader.onload = function(event) {
+		      
+		      var img = document.createElement("img");
+		      img.setAttribute("src", event.target.result);
+		      img.setAttribute("width", '40%');
+		      $("#image_container").html("");
+		      document.querySelector("div#image_container").appendChild(img);
+		    };
+		
+		    reader.readAsDataURL(event.target.files[0]);
+		  }
+		
+		
 		
 		$("#sb").click(function(){
 			var isValid = true;
 			$('.chk').each(function() {
-				console.log($(this).val().trim());
-				console.log($(this).val());
+//				console.log($(this).val().trim());
+//				console.log($(this).val());
 				if($(this).val().trim()==''){
 					alert("음식이름, 재료, 수량을 전부 입력해주세요");
 					isValid =false;
@@ -135,14 +170,30 @@ input[type="text"]{
 			if(!isValid){
 				return false;
 			}
-			var formData=$("#frm").serialize()
+			var formDataS=$("#frm").serialize();
 			var content = CKEDITOR.instances.editor.getData();
-			formData+="&content="+encodeURIComponent(content);
-			console.log(formData);
+			formDataS+="&content="+encodeURIComponent(content);
+			//console.log(formData);
+			
+			var serializedArray = formDataS.match(/([^&]+)/g).map(function(item) {
+			  var pair = item.split("=");
+			  return { name: decodeURIComponent(pair[0]), value: decodeURIComponent(pair[1]) };
+			});
+			var formData = new FormData();
+			serializedArray.forEach(function(item) {
+			  formData.append(item.name, item.value);
+			});
+			formData.append('image', $('input[type=file]')[0].files[0]);
+			for (var pair of formData.entries()) {
+				  console.log(pair[0] + ': ' + pair[1]);
+			}
+			
 			$.ajax({
 			  url: "${pageContext.request.contextPath}/board/postajax",
 			  type: "POST", 
 			  data:formData,
+			  processData : false,
+	     	  contentType : false,
 			  success: function(data) { 
 			    if(data=='false'){
 			    	alert("비속어를 포함한 게시글은 등록할 수 없습니다.");
@@ -152,6 +203,7 @@ input[type="text"]{
 			  },
 			
 			});
+			
 			
 		})
 		

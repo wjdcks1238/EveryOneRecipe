@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
@@ -278,7 +279,7 @@ public class TempForTable {
 	@Value("${recipe}")
 	private String key ;
 	@GetMapping("/temp")
-	public String insertTable() {
+	public String insertTable(HttpServletRequest request ) {
 		
 		
 		
@@ -635,6 +636,7 @@ public class TempForTable {
 			bvo.setFoodName(m.get(i+""));
 			bvo.setContent(cs.get(i+""));
 			bvo.setPostId(i);
+			bvo.setMainImage(request.getContextPath()+"/resources/img/default.jpeg");
 			bvoList.add(bvo);
 		}
 //		System.out.println("bvolist"+bvoList);
