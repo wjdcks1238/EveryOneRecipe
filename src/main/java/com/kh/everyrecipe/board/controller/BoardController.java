@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -34,6 +36,7 @@ import com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo;
 import com.kh.everyrecipe.comment.service.CommentService;
 import com.kh.everyrecipe.comment.vo.CommentVo;
 import com.kh.everyrecipe.common.BadWordFilter;
+import com.kh.everyrecipe.fileutil.FileUtil;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
@@ -66,7 +69,9 @@ public class BoardController {
 		private BadWordFilter badWordFilter;
 		@Autowired
 		private ReportService rService;
-		
+		@Autowired
+		@Qualifier("fileUtil")
+		private FileUtil fileUtil;
 		
 		@GetMapping("posting")
 		public ModelAndView postingPage(ModelAndView mv, Principal principal) throws Exception {
@@ -96,11 +101,13 @@ public class BoardController {
 				, BoardVo bvo
 				, @RequestParam("ingredient") List<String> ingredients
 				, @RequestParam("amount") List<String> amounts
-				, @RequestParam("hashtag") String hashtag) throws Exception {
+				, @RequestParam("hashtag") String hashtag
+				, @RequestParam(name="image", required = false) MultipartFile multi) throws Exception {
 			System.out.println(bvo);
 			System.out.println(ingredients);
 			System.out.println(amounts);
 			System.out.println(hashtag);
+			System.out.println(multi);
 			
 			int lastPostId = bService.getLastPostId();
 			
@@ -114,6 +121,17 @@ public class BoardController {
 				return "false";
 		
 			}
+		     
+		     //대표 이미지. 업로드 후 리턴받은 url을 컬럼에 넣어야 함
+		     Map<String, String> uploadResult = fileUtil.saveFile(multi);
+		     uploadResult.get("url") ;
+		    
+
+		     
+		     //TODO 대표 이미지를 설정하지 않았을 경우 첫번째 이미지가 대표 이미지가 되게 한다.
+		     //이미 클라우드에 업로드 되어있어 그냥 url만 컬럼에 넣으면 됨
+		     
+		     
 		     
 		     
 		    bvo.setUserId(principal.getName());
@@ -152,7 +170,7 @@ public class BoardController {
 				
 				
 				
-			return "true";
+			return "false";
 			
 		}
 		
@@ -504,6 +522,7 @@ public class BoardController {
 				
 			//받은 bvo를 그대로 업데이트
 			
+			//TODO 대표 이미지
 			 List<IngredientVo> ivoList = new ArrayList<>(); // 공백일 때 처리 필요 
 		     for (int i = 0; i < ingredients.size(); i++) { 
 		    	 ivoList.add(new IngredientVo(bvo.getPostId(), ingredients.get(i), amounts.get(i)));

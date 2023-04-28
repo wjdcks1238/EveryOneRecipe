@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
 import com.kh.everyrecipe.weekboard.vo.weekVo;

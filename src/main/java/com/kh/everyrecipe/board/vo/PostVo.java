@@ -34,6 +34,7 @@ public class PostVo {
 	private int bookmarkCnt;
 	private String hashtag;
 	private String isBlinded;
+	private String mainImage;
 	
 	@Override
 	public String toString() {
@@ -41,7 +42,7 @@ public class PostVo {
 				+ ", createDate=" + createDate + ", UpdateDate=" + UpdateDate + ", isDeleted="
 				+ isDeleted + ", profileUrl=" + profileUrl + ", profile=" + profile + ", ingredients=" + ingredients
 				+ ", lookUp=" + lookUp + ", likeCnt=" + likeCnt + ", followCnt=" + followCnt + ", bookmarkCnt="
-				+ bookmarkCnt + ", hashtag=" + hashtag +", isBlinded=" + isBlinded + "]";
+				+ bookmarkCnt + ", hashtag=" + hashtag +", isBlinded=" + isBlinded +", mainImage=" + mainImage+ "]";
 	}
 	@Override
 	public int hashCode() {

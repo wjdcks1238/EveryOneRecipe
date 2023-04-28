@@ -27,4 +27,6 @@ public class BoardVo {
 	private Date UpdateDate;
 	private String isDeleted; //논리삭제여부 'N'
 	private int lookUp;		  //조회수
+	private String mainImage; 
+	
 }
