@@ -55,9 +55,9 @@ input[type="text"]:focus{
 					$("#searchResult").text("");
 					for(i =0; i<result.length;i++){
 						var existEqaulCing = false;
-						console.log("### "+result[i]);
+						//console.log("### "+result[i]);
 						$("span[name=cing]").each(function(){
-							console.log("# " +$(this).text());
+							//console.log("# " +$(this).text());
 							if($(this).text() && result[i]){
 								if(result[i] == $(this).text()){
 									existEqaulCing = true;
@@ -66,7 +66,7 @@ input[type="text"]:focus{
 							}
 						});
 						if(existEqaulCing == false){
-							console.log("확인"+result[i]);
+							//console.log("확인"+result[i]);
 							var a = $('<a name="ing" href="#">'+result[i]+'</a><span>/</span>');
 							$("#searchResult").append(a);	
 						}
@@ -80,7 +80,7 @@ input[type="text"]:focus{
 		
 		})
 	$(document).on("click", "a[name=ing]", function() {
-		console.log($(this).text());
+		//console.log($(this).text());
 		var cList =$("#chosenList").val();
 		var span= $("<span name='cing'>").text($(this).text());
 		$(this).remove();

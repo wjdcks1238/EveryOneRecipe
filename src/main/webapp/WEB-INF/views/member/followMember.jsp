@@ -40,27 +40,63 @@
 			</div>
 			
 			<div class="col-md-8 col-md-offset-2 col-xs-12">
-		
-				
-					<c:choose >
-						<c:when test="${following ne null}">
-						팔로잉 목록
-						<c:forEach var="fw" items="${following}">
-							<div>
-								<a href="<%=request.getContextPath() %>/member/info/${fw}">${fw}</a> 
-							</div>
-						</c:forEach>
-						</c:when>
-						<c:when test="${follower ne null}">
-						팔로워 목록
-						<c:forEach var="fw" items="${follower}">	
-							<div>
-								<a href="<%=request.getContextPath() %>/member/info/${fw}">${fw}</a> 
-							</div>
-						</c:forEach>
-						</c:when>
-					</c:choose>
+			  <div class="card">
+			    <div class="card-header">
+			      <h5 class="mb-0">
+			        <c:choose>
+			          <c:when test="${following ne null}">
+			            <span>팔로잉 목록</span>
+			          </c:when>
+			          <c:when test="${follower ne null}">
+			            <span>팔로워 목록</span>
+			          </c:when>
+			        </c:choose>
+			      </h5>
+			    </div>
+			    <div class="card-body">
+			      <c:choose>
+			        <c:when test="${following ne null}">
+			          <ul class="list-group">
+			            <c:forEach var="fw" items="${following}">
+			              <li class="list-group-item">
+			                <div class="media">
+			                  <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.PROFILEURL}" class="mr-3 rounded-circle" alt="프로필 이미지">
+			                  <div class="media-body">
+			                    <a href="<%=request.getContextPath() %>/member/info/${fw.USERID}" id="${fw.USERID}">
+			                      ${fw.USERID}
+			                    </a>
+			                    <span class="nickname ml-2">[${fw.NICKNAME}]</span>
+
+			                  </div>
+			                </div>
+			              </li>
+			            </c:forEach>
+			          </ul>
+			        </c:when>
+			        <c:when test="${follower ne null}">
+			          <ul class="list-group">
+			            <c:forEach var="fw" items="${follower}">
+			              <li class="list-group-item">
+			                <div class="media">
+			                  <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.PROFILEURL}" class="mr-3 rounded-circle" alt="프로필 이미지">
+			                  <div class="media-body">
+			                    <a href="<%=request.getContextPath() %>/member/info/${fw.USERID}" id="${fw.USERID}">
+			                      ${fw.USERID}
+			                    </a>
+			                    <span class="nickname ml-2">[${fw.NICKNAME}]</span>
+
+			                  </div>
+			                </div>
+			              </li>
+			            </c:forEach>
+			          </ul>
+			        </c:when>
+			      </c:choose>
+			    </div>
+			  </div>
 			</div>
+			
+			
 		</div>
 	</div>
 

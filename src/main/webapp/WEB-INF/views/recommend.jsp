@@ -12,79 +12,105 @@
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 	<div class="container">
-		<div>
-			<h3>선택한 재료 목록</h3>
-		</div>
-		<div>
-			${chosenList }
-		</div>
-		<div class="mt-5">
-			<h3>선택한 재료들로 만들 수 있는 레시피 목록</h3>
-		</div>
-		<c:forEach items="${recList0 }" var="list" >
-			<div>
-					${list.postId }
-					${list.foodName }
-					<div>
-					<c:forEach items="${list.ingredients }" var="ing">
-						${ing.ingredient }
-						${ing.amount }/	
-					</c:forEach>
-					
-					</div>
-					
-			</div>
-		</c:forEach>
-			<div class="mt-5">
-				<h3>선택한 재료들로 만들 수 있는 레시피 목록(1개 부족)</h3>
-			</div>
-			
-		<c:forEach items="${recList1 }" var="list" varStatus="status">
-			<div>
-					${list.postId }
-					${list.foodName }
-					<div>
-					<c:forEach items="${list.ingredients }" var="ing">
-						${ing.ingredient }
-						${ing.amount }/
-					</c:forEach>
-					</div>
-					부족한 재료: ${needList1[status.index] }
-			</div>
-		</c:forEach>
-			<div class="mt-5">
-				<h3>선택한 재료를 모두 포함한 레시피 목록(2개 부족)</h3>
-			</div>
-		<c:forEach items="${recList2 }" var="list" varStatus="status">
-			<div>
-					${list.postId }
-					${list.foodName }
-					<div>
-					<c:forEach items="${list.ingredients }" var="ing">
-						${ing.ingredient }
-						${ing.amount }/
-					</c:forEach>
-					</div>
-					부족한 재료: ${needList2[status.index] }
-			</div>
-		</c:forEach>
-			<div class="mt-5">
-				<h3>선택한 재료를 모두 포함한 레시피 목록(3개부족)</h3>
-			</div>
-		<c:forEach items="${recList3 }" var="list" varStatus="status">
-			<div>
-					${list.postId }
-					${list.foodName }
-					<div>
-					<c:forEach items="${list.ingredients }" var="ing">
-						${ing.ingredient }
-						${ing.amount }/
-					</c:forEach>
-					</div>
-					부족한 재료: ${needList3[status.index] }
-			</div>
-		</c:forEach>
-	</div>	
+  <div class="row mt-5">
+    <div class="col">
+      <h3 class="text-center">선택한 재료 목록</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      ${chosenList}
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col">
+      <h3 class="text-center">선택한 재료들로 만들 수 있는 레시피 목록</h3>
+    </div>
+  </div>
+    <div class="row">
+	  <c:forEach items="${recList0}" var="list">
+	      <div class="col">
+	        <div class="card mb-3">
+	          <div class="card-body p-3">
+	            <h5 class="card-title"><a href="<%=request.getContextPath()%>/board/list/${list.postId}">${list.foodName}</a> </h5>
+	            <ul>
+	              <c:forEach items="${list.ingredients}" var="ing">
+	                <li>${ing.ingredient} ${ing.amount}</li>
+	              </c:forEach>
+	            </ul>
+	          </div>
+	        </div>
+	      </div>
+	  </c:forEach>
+    </div>
+  <div class="row mt-5">
+    <div class="col">
+      <h3 class="text-center">1개의 재료만 더 있으면 가능한 레시피</h3>
+    </div>
+  </div>
+    <div class="row">
+	  <c:forEach items="${recList1}" var="list" varStatus="status">
+	      <div class="col">
+	        <div class="card mb-3">
+	          <div class="card-body p-3">
+	            <h5 class="card-title"><a href="<%=request.getContextPath()%>/board/list/${list.postId}">${list.foodName}</a> </h5>
+	            <ul>
+	              <c:forEach items="${list.ingredients}" var="ing">
+	                <li>${ing.ingredient} ${ing.amount}</li>
+	              </c:forEach>
+	            </ul>
+	            <p class="card-text">부족한 재료: ${needList1[status.index]}</p>
+	          </div>
+	        </div>
+	      </div>
+	  </c:forEach>
+    </div>
+  <div class="row mt-5">
+    <div class="col">
+      <h3 class="text-center">2개의 재료만 더 있으면 가능한 레시피</h3>
+    </div>
+  </div>
+    <div class="row">
+	  <c:forEach items="${recList2}" var="list" varStatus="status">
+	      <div class="col">
+	        <div class="card mb-3">
+	          <div class="card-body p-3">
+	            <h5 class="card-title"><a href="<%=request.getContextPath()%>/board/list/${list.postId}">${list.foodName}</a> </h5>	            <ul>
+	              <c:forEach items="${list.ingredients}" var="ing">
+	                <li>${ing.ingredient} ${ing.amount}</li>
+	              </c:forEach>
+	            </ul>
+	            <p class="card-text">부족한 재료: ${needList2[status.index]}</p>
+	          </div>
+	        </div>
+	      </div>
+	  </c:forEach>
+    </div>
+  <div class="row mt-5">
+    <div class="col">
+      <h3 class="text-center">3개의 재료만 더 있으면 가능한 레시피</h3>
+    </div>
+  </div>
+    <div class="row">
+	  <c:forEach items="${recList3}" var="list" varStatus="status">
+	      <div class="col-3 ">
+	        <div class="card mb-3">
+	          <div class="card-body p-3">
+	            <h5 class="card-title"><a href="<%=request.getContextPath()%>/board/list/${list.postId}">${list.foodName}</a> </h5>
+	            <ul>
+	              <c:forEach items="${list.ingredients}" var="ing">
+	                <li>${ing.ingredient} ${ing.amount}</li>
+	              </c:forEach>
+	            </ul>
+	            <p class="card-text">부족한 재료: ${needList3[status.index]}</p>
+	          </div>
+	        </div>
+	      </div>
+	  </c:forEach>
+    </div>
+  </div>
+  
+
 	<%@ include file="/WEB-INF/views/footer.jsp" %>
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 </body>

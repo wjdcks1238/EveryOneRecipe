@@ -134,7 +134,7 @@
     		<div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
     			<c:forEach items="${postList }" var="list" >
 	    			<div class="col-md-2 card card-pin mt-3 ml-3" style="padding: 0">
-	    				<img class="card-img" src="https://images.unsplash.com/photo-1489743342057-3448cc7c3bb9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6d284a2efbca5f89528546307f7e7b87&auto=format&fit=crop&w=500&q=60" alt="Card image">
+	    				<img class="card-img" src="${list.mainImage }" alt="Card image">
 	    				<div class="overlay">
 	    					<h2 class="card-title title">${list.foodName }</h2>
 	    					<div class="more">
@@ -209,12 +209,12 @@
     	            		var reply = data[i];	
     	            		
     	            		var card = $('<div class="col-md-2 card card-pin mt-3 ml-3" style="padding: 0">'+
-    	            				'<img class="card-img" src="https://images.unsplash.com/photo-1489743342057-3448cc7c3bb9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6d284a2efbca5f89528546307f7e7b87&auto=format&fit=crop&w=500&q=60" alt="Card image">'+
+    	            				'<img class="card-img" src="'+reply.mainImage +'"alt="Card image">'+
     	            				'<div class="overlay">'+
     	            					'<h2 class="card-title title">'+reply.foodName+'</h2>'+
     	            					'<div class="more">'+
     	            						'<div class="card-block">'+
-    	            							'<a href="+<%=request.getContextPath()%>/board/list/${list.postId}">'+
+    	            						'<a href="${pageContext.request.contextPath}/board/list/'+reply.postId+'">'+
     	            							'<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> 더보기 </a>'+
     	            							'</div>'+
     	            							'</div>'+
@@ -240,7 +240,7 @@
     $(document).on("click","#followBtn" ,function() {
     	var isFollowed = $("#isFollowed").text();
     	$.ajax({
-    		url: "<%=request.getContextPath()%>/follow",
+    		url: "${pageContext.request.contextPath}/follow",
     		type: "POST", 
     		data: {userId: "${memberDto.userId }" },
     		async : false,

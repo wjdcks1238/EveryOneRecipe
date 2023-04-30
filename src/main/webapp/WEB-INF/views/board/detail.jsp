@@ -191,9 +191,10 @@
 			</div>
 		</c:if>
 </c:if>
-			<div class="ml-2" id="likeCount">
+			<div class="ml-2 mt-2" id="likeCount">
 				: ${likeCount } 
 			</div> 
+			
 </div>
 
 
@@ -213,7 +214,7 @@
 				</ul>
 			</div>
 			<!-- End Tags -->
-
+ <hr>
 		<!-- End Post -->
 
 
