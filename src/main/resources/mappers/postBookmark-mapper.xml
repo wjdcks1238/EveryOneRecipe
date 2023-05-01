@@ -27,7 +27,7 @@
 	</select>
 	
 	<select id="getBookmarkPosts" resultType="bvo">
-		select POSTID, USERID, NICKNAME, FOODNAME, CREATEAT, LOOKUP from POST where
+		select POSTID, USERID, NICKNAME, FOODNAME, CREATEAT as createDate, LOOKUP from POST where
 		<foreach collection="list" item="item" open="(" separator=")or(" close=")">
 			 POSTID=#{item}
 		</foreach>

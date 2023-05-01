@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="getLikePosts" resultType="bvo">
-		select postid, userid, nickname, foodname, createat, lookup from post where
+		select postid, userid, nickname, foodname, createat as createDate, lookup from post where
 		<foreach collection="list" item="item" open="(" separator=")or(" close=")">
 			 postid=#{item}
 		</foreach>

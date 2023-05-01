@@ -65,9 +65,9 @@
 				</label>
 				<input style="display: none" type="file" id="image" accept="image/*" onchange="setThumbnail(event);" name="report" >
 			</div>
-			<div id="image_container"></div>
-			<div>
-				<button type="button" id="updatePI">프로필 이미지 변경</button>
+			<div class="mt-3" id="image_container"></div>
+			<div class="mt-3">
+				<button class="btn" type="button" id="updatePI">프로필 이미지 변경</button>
 			</div>
 			<div id="error"></div>
 		</form>				
@@ -99,8 +99,8 @@
 				<div class="col-4">
 						<label>프로필 이미지</label>
 						<img width="100%" alt="<%=request.getContextPath()%>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
-   	 					<button type="button" class="btn-open-popup">프로필 이미지 변경</button>
-   	 					<button type="button" id="deletePI">삭제</button>
+   	 					<button type="button" class="btn-open-popup btn mt-3">프로필 이미지 변경</button>
+   	 					<button class="btn mt-3" type="button" id="deletePI">삭제</button>
 				</div>
 				<div class="col-8">
 					<form id="updateForm">
@@ -108,11 +108,11 @@
 							<h3>아이디: ${memberDto.userId }</h3>
 						</div>
 						<label>닉네임</label>
-						<input type="text" name="nickName" value="${memberDto.nickName }">
-						<label>프로필 설명</label>
-						<input type="text" name="profile" value="${memberDto.profile }">
+						<input class="form-control" style="width: 300px" type="text" name="nickName" value="${memberDto.nickName }">
+						<label class="mt-3">프로필 설명</label>
+						<input class="form-control" style="width: 500px" type="text" name="profile" value="${memberDto.profile }">
 						
-						<button id="updateBtn" type="button">프로필 업데이트</button>
+						<button class="btn mt-2" id="updateBtn" type="button">프로필 업데이트</button>
 					</form>
 				</div>
 			</div>
@@ -189,7 +189,7 @@
       $(document).on("click","#updateBtn" ,function() {
       	
       	var map = {nickName: $.trim($("input[name=nickName]").val()),profile:$("input[name=profile]").val()};
-      	if($.trim($("input[name=nickName]").val()).length !== 0){
+      	if($.trim($("input[name=nickName]").val()).length !== 0 && validateNickname($.trim($("input[name=nickName]").val()))){
 	      	$.ajax({
 	      		url: '<%=request.getContextPath()%>/member/update',
 	      		type: 'POST', 
@@ -202,7 +202,7 @@
 	      		
 	      	});
       	}else{
-      		alert("닉네임을 입력해 주세요");
+      		alert("닉네임은 영문 대소문자, 숫자, 한글로 이루어진 5개 이상의 문자열이어야 하며, 공백이나 특수문자는 사용할 수 없습니다.");
       	}
       	
       }); 
@@ -219,6 +219,14 @@
       		
       	});
       }); 
+      
+      function validateNickname(nickname) {
+    	  // 닉네임 유효성 검사를 위한 정규식
+    	  const regex = /^[a-zA-Z0-9ㄱ-ㅎ가-힣]{5,}$/;
+    	  // 닉네임이 유효한지 검증하여 결과 반환
+    	  return regex.test(nickname);
+    	}
+      
       
     </script>
 </body>
