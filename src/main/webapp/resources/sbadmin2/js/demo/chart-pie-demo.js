@@ -2,7 +2,7 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 var viewChart1 = null;
-var ctx = document.getElementById("div_ChartArea");
+var ctx = document.getElementById("myPieChart");
 var cdata = [];
 var clabel = [];
 
@@ -42,13 +42,10 @@ function fn_data1(){
 	
 	
 	if(viewChart1 != null) {
-		$('myPieChart').remove();
-		$('div_ChartArea').append('<canvas id="myPieChart"></canvas>');
-		
-		if(!document.getElementById("myPieChart")) {
-			ctx = document.getElementById("div_ChartArea");
+		$('#myPieChart').remove();
+		$('#div_ChartArea').append('<canvas id="myPieChart"></canvas>');
+			ctx = document.getElementById("myPieChart");
 			fn_draw_data1();
-		}
 	} else {
 		fn_draw_data1();
 	}
