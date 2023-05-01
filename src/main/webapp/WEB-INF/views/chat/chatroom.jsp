@@ -10,10 +10,17 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js" ></script>
+<style>
+td, th{
+	text-align: center;
+}
+
+</style>
+
 </head>
 <body>
 <table class="table table-hover" align="center">
-    <thead>
+    <thead style="background-color: #FFD7D1; color: #FA7F7F;">
         <tr>
             <th>방번호</th>
             <th>채팅방 제목</th>
@@ -21,16 +28,13 @@
             <th>참여자수</th>
         </tr>
     </thead>
-
     <tbody>
         <c:choose>
-
             <c:when test="${empty chatRoomList}">
                 <tr>
                     <td colspan="4" align="center">존재하는 채팅방이 없습니다.</td>
                 </tr>
             </c:when>
-
             <c:otherwise>
                 <c:forEach var="chatRoom" items="${chatRoomList }">
                     <tr>
@@ -40,19 +44,19 @@
                             <c:if test="${!empty loginUser }">
                             	<c:choose>
                             		<c:when test="${loginUser eq 'everys_recipe'}">
-		                                <button class="btn btn-primary" 
+		                                <button class="btn btn-outline-secondary" 
 		                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}'">
 		                                	입장
 		                                </button>
                                 	</c:when>
                                 	<c:when test="${loginUser eq chatRoom.userId}">
-		                                <button class="btn btn-primary" 
+		                                <button class="btn btn-outline-secondary" 
 		                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}'">
 		                                	입장
 		                                </button>
                                 	</c:when>
                                 	<c:otherwise>
-                                		<button class="btn btn-primary" onclick="alert('관리자 또는 개설자만 입장 가능합니다.')">
+                                		<button class="btn btn-outline-secondary" onclick="alert('관리자 또는 개설자만 입장 가능합니다.')">
                                 			입장
                                 		</button>
                                 	</c:otherwise>
@@ -71,15 +75,15 @@
         </c:choose>
     </tbody>
 </table>
-<div>
-    ${loginUser }
+<div style="margin-left: 3%;">
+ 	 <h5>${loginUser }</h5>님 안녕하세요.
 </div>
 
 <!-- 로그인이 되어있는 경우 -->
 <c:if test="${!empty loginUser }">
-    <div class="btn-area">
-        <button data-toggle="modal" data-target="#chatModal" class="btn btn-danger">
-            채팅방 만들기
+    <div class="btn-area" style="float: right; margin-right: 8%;">
+        <button data-toggle="modal" data-target="#chatModal" class="btn btn-primary">
+            채팅방 생성
         </button>
     </div>
 </c:if>
@@ -91,7 +95,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">채팅방 만들기</h4>
+                <h5 class="modal-title">채팅방 생성</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <form action="<%=request.getContextPath() %>/chat/openChatRoom" method="post">
