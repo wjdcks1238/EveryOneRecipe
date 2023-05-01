@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -342,12 +343,21 @@ public class MemberController {
 	}
 	//개인정보수정(
 	@PostMapping("/modify")
-	public String modifyUser(Principal principal) throws Exception{
-		String result = ""; 
-		
-		
-		return result;
+	public String modifyUser(@RequestParam("password") String password, @RequestParam("email") String email, Model model) {
+//	    try {
+//	        int result = mService.modify();
+//	        if (result > 0) {
+//	            model.addAttribute("msg", "수정에 성공했습니다.");
+//	        } else {
+//	            model.addAttribute("msg", "수정에 실패했습니다.");
+//	        }
+//	    } catch (Exception e) {
+//	        model.addAttribute("msg", "수정 중 오류가 발생했습니다.");
+//	    }
+	    return "member/infoupdate";// 결과 페이지로 이동
 	}
+
+
 	//회원탈퇴
 	
 	

@@ -95,7 +95,7 @@
 			<div class="col-md-10 col-md-offset-2 col-xs-12">
 				<div class="row">
 					<div class="col-8">
-						<form id="updateForm" action="" method="POST">
+						<form id="updateForm">
 							<div>
 								<h5>개인 정보 수정</h5>
 							</div>
@@ -186,14 +186,16 @@
 	<script>
 	$(document).on("click","#modifyBtn", function(event) {
 	    event.preventDefault();
+	    
 	    var password = $.trim($("input[name=password]").val());
+	    var email = $.trim($("input[name=email]").val());
+	    
 	    console.log("~~~~~~~~~~~~~~입력된 암호:" + password);
 	    if (password.length !== 0) {
 	        $.ajax({
-	            url: '<%=request.getContextPath()%>/member/infoupdate',
+	            url: '<%=request.getContextPath()%>/member/modify',
 	            type: 'POST',
-	            data: JSON.stringify({password: password}),
-	            contentType: 'application/json',
+	            data: {password: password, email: email}),
 	            success:function(result){
 	            	console.log("서버 응답:", result); 
 	                if (result === "success") {
