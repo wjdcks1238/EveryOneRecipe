@@ -62,12 +62,7 @@
 		WHERE KEY = #{key}
 		ORDER BY MESSAGENO
 	</select>
-	
-	<delete id="exitChatRoom">
-	    DELETE FROM CHATROOMCHK
-	    WHERE USERID = #{userId} AND KEY = #{key}
-	</delete>
-	
+
 	<select id="countRoomMember" resultType="int">
 	    SELECT COUNT(*)
 	    FROM CHATROOMCHK
