@@ -56,18 +56,13 @@
 	</insert>
  
 	<select id="selectChatList" resultMap="chatMsgResultMap">
-		SELECT D.MESSAGE, D.UPDATEAT, USERID
+		SELECT D.MESSAGE, D.UPDATEAT, USERID, KEY
 		FROM DIRECTMESSAGE D
 		JOIN MEMBERS USING(USERID)
 		WHERE KEY = #{key}
 		ORDER BY MESSAGENO
 	</select>
-	
-	<delete id="exitChatRoom">
-	    DELETE FROM CHATROOMCHK
-	    WHERE USERID = #{userId} AND KEY = #{key}
-	</delete>
-	
+
 	<select id="countRoomMember" resultType="int">
 	    SELECT COUNT(*)
 	    FROM CHATROOMCHK
@@ -79,5 +74,13 @@
 	    SET ISDELETED = 'Y'
 	    WHERE KEY = #{key}
 	</update>
+	
+	<delete id="deleteChatlist" parameterType="int">
+		DELETE FROM DIRECTMESSAGE WHERE KEY = #{key}
+	</delete>
+	
+	<delete id="deleteChatroom" parameterType="int">
+		DELETE FROM CHATTINGROOM WHERE KEY = #{key}
+	</delete>
 	
 </mapper>

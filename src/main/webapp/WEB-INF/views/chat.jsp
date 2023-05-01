@@ -97,6 +97,8 @@ ${ctlist.userId }: ${ctlist.message }
 <div>
 ${loginUser }
 </div>
+<button id="deleteRoom" onclick="location.href='<%=request.getContextPath()%>/chat/delete?chatRoomNo=${chatRoomNo}'">방삭제</button>
+
 
 <script type="text/javascript">
 var ws;
@@ -163,17 +165,7 @@ function connect(){
 	        }
 		}
 	})	
-});
-
-	
-	$('.editable').each(function(){
-	    this.contentEditable = true;
-	});
-	
-	
-	
-	
-		
+});		
 </script>
 </body>
 </html>

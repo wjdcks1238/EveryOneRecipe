@@ -46,16 +46,20 @@ public class ChatDao {
 		return sqlsession.selectList("chatMapper.selectChatList", chatRoomNo);
 	}
 	
-	public int exitChatRoom(MessageChkVo chk) {
-		return sqlsession.delete("chatMapper.exitChatRoom", chk);
-	}
-	
 	public int countRoomMember(int chatRoomNo) {
 		return sqlsession.selectOne("chatMapper.countRoomMember", chatRoomNo);
 	}
 	
 	public int closeRoom(int chatRoomNo) {
 		return sqlsession.update("chatMapper.closeRoom", chatRoomNo);
+	}
+	
+	public int deleteChatlist(int chatRoomNo) {
+		return sqlsession.delete("chatMapper.deleteChatlist", chatRoomNo);
+	}
+	
+	public int deleteChatroom(int chatRoomNo) {
+		return sqlsession.delete("chatMapper.deleteChatroom", chatRoomNo);
 	}
 	
 	

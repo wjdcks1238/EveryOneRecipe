@@ -58,36 +58,36 @@
 			        <c:when test="${following ne null}">
 			          <ul class="list-group">
 			            <c:forEach var="fw" items="${following}">
-			              <li class="list-group-item">
-			                <div class="media">
-			                  <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.PROFILEURL}" class="mr-3 rounded-circle" alt="프로필 이미지">
-			                  <div class="media-body">
-			                    <a href="<%=request.getContextPath() %>/member/info/${fw.USERID}" id="${fw.USERID}">
-			                      ${fw.USERID}
-			                    </a>
-			                    <span class="nickname ml-2">[${fw.NICKNAME}]</span>
-
-			                  </div>
-			                </div>
-			              </li>
+			              <li class="list-group-item d-flex justify-content-between align-items-center">
+							  <div class="media">
+							    <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.PROFILEURL}" class="mr-3 rounded-circle" alt="프로필 이미지">
+							    <div class="media-body">
+							      <a href="<%=request.getContextPath() %>/member/info/${fw.USERID}" id="${fw.USERID}">
+							        ${fw.USERID}
+							      </a>
+							      <span class="nickname ml-2">[${fw.NICKNAME}]</span>
+							    </div>
+							  </div>
+							  <span>팔로워: ${fw.FOLLOWERCNT}</span>
+						  </li>
 			            </c:forEach>
 			          </ul>
-			        </c:when>
+			        </c:when> 
 			        <c:when test="${follower ne null}">
 			          <ul class="list-group">
 			            <c:forEach var="fw" items="${follower}">
-			              <li class="list-group-item">
-			                <div class="media">
-			                  <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.PROFILEURL}" class="mr-3 rounded-circle" alt="프로필 이미지">
-			                  <div class="media-body">
-			                    <a href="<%=request.getContextPath() %>/member/info/${fw.USERID}" id="${fw.USERID}">
-			                      ${fw.USERID}
-			                    </a>
-			                    <span class="nickname ml-2">[${fw.NICKNAME}]</span>
-
-			                  </div>
-			                </div>
-			              </li>
+			              <li class="list-group-item d-flex justify-content-between align-items-center">
+							  <div class="media">
+							    <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.PROFILEURL}" class="mr-3 rounded-circle" alt="프로필 이미지">
+							    <div class="media-body">
+							      <a href="<%=request.getContextPath() %>/member/info/${fw.USERID}" id="${fw.USERID}">
+							        ${fw.USERID}
+							      </a>
+							      <span class="nickname ml-2">[${fw.NICKNAME}]</span>
+							    </div>
+							  </div>
+							  <span>팔로워: ${fw.FOLLOWERCNT}</span>
+						  </li>
 			            </c:forEach>
 			          </ul>
 			        </c:when>

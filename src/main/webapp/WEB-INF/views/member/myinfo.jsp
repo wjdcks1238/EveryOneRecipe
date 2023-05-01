@@ -96,7 +96,7 @@
 			<div class="row">
 				<div class="col-4">
 						<div>
-							프로필 이미지
+							<label>프로필 이미지</label> 
 							<img  width="100%" alt="<%=request.getContextPath() %>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
 						</div>
 				</div>

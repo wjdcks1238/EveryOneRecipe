@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +15,6 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
-
 <div id="temp">
 </div>
 <br>
@@ -25,7 +26,8 @@
 			<img alt="" src="${list.mainImage }" width="100%">
 			<div class="card-block">
 				<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></h2>
-				<h4 class="card-text">${list.content }</h4>
+				<c:set var="text" value="${fn:replace(list.content, '<img[^>]*>', '')}" />
+				<h4 class="card-text" id="content">${text }</h4>
 				<div class="wrapfooter">
 					<span class="meta-footer-thumb">
 						프로필이미지
@@ -254,6 +256,11 @@ $(document).on("click",".bookmarkBtn" ,function() {
 		
 	});
 });
+/*
+$(function() {
+	  $('#content img').remove();
+	});
+*/
 </script>
 
 

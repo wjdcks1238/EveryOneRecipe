@@ -30,13 +30,13 @@
 		select count(*) from FOLLOWMAPPING where fwid=#{userId} and ISDELETED ='N'
 	</select>
 	<select id="getFollower" parameterType="string" resultType="map">
-		SELECT m.userId, m.nickname, m.PROFILEURL
+		SELECT m.userId, m.nickname, m.PROFILEURL, (select count(*) from FOLLOWMAPPING where userid= m.userid) as followercnt
 		  FROM members m 
 		  JOIN FOLLOWMAPPING f ON m.userId = f.fwid 
 		 WHERE f.userId = #{userId} AND f.ISDELETED = 'N'
 	</select>
 	<select id="getFollowing" parameterType="string" resultType="map">
-		SELECT m.userId, m.nickname, m.PROFILEURL
+		SELECT m.userId, m.nickname, m.PROFILEURL, (select count(*) from FOLLOWMAPPING where userid= m.userid) as followercnt
 		  FROM members m 
 		  JOIN FOLLOWMAPPING f ON m.userId = f.userId 
 		 WHERE f.FWID = #{userId} AND f.ISDELETED = 'N'

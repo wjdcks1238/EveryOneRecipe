@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
  <style>
 .wrapper{
 	min-height: 80vh;
@@ -33,24 +34,28 @@
 		</div>
 
 
-		<div class="col-md-8 col-md-offset-2 col-xs-12">
-			<table>
-				<tr>
-					<th>글 번호</th>
-					<th>레시피명</th>
-					<th>닉네임</th>
-					<th>작성일자</th>
-					<th>조회수</th>
-				</tr>
-				<c:forEach items="${bList}" var="list">
+		<div class="col-md-8 col-md-offset-2 col-xs-12 table-responsive">
+			<table class="table">
+				<thead>
 					<tr>
-						<td>${list.postId }</td>
-						<td><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></td>
-						<td>${list.nickname }</td>
-						<td>${list.createDate }</td>
-						<td>${list.lookUp }</td>
-					</tr>
+					    <th class="col-md-2 text-center">글 번호</th>
+					    <th class="col-md-2 text-center">레시피명</th>
+					    <th class="col-md-3 text-center">닉네임</th>
+					    <th class="col-md-3 text-center">작성일자</th>
+					    <th class="col-md-2 text-center">조회수</th>
+				    </tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${bList}" var="list">
+				    <tr>
+				        <td class="text-right">${list.postId }</td>
+				        <td class="text-right"><a href="<%=request.getContextPath() %>/board/list/${list.postId}" class="text-primary">${list.foodName }</a></td>
+				        <td class="text-right">${list.nickname }</td>
+				        <td class="text-right">${list.createDate }</td>
+				        <td class="text-right">${list.lookUp }</td>
+				    </tr>
 				</c:forEach>
+				</tbody>
 			</table>
 
 
