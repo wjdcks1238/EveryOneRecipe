@@ -95,7 +95,7 @@
 			<div class="col-md-10 col-md-offset-2 col-xs-12">
 				<div class="row">
 					<div class="col-8">
-						<form id="updateForm">
+						<form id="updateForm" action="" method="POST">
 							<div>
 								<h5>개인 정보 수정</h5>
 							</div>
@@ -165,7 +165,7 @@
 									주소는 50자 이하여야 합니다.</div>
 							</div>
 							<div align="center">
-								<button id="" type="submit">탈퇴하기</button>
+								<button type="button" onclick="removeMember();">탈퇴하기</button>
 								<button id="modifyBtn" type="submit">회원정보수정</button>
 							</div>
 						</form>
@@ -234,6 +234,12 @@
 					}
 					regEmailError.classList.add('hide');
 				}
+			}
+		}
+		//회원탈퇴
+		function removeMember(){
+			if(window.confirm("정말 탈퇴하시겠습니까?")){
+				location.href="<%=request.getContextPath()%>/login"
 			}
 		}
 	</script>

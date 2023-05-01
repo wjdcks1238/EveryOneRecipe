@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -339,6 +340,16 @@ public class MemberController {
 		mv.setViewName("member/modify");
 		return mv;
 	}
+	//개인정보수정(
+	@PostMapping("/modify")
+	public String modifyUser(Principal principal) throws Exception{
+		String result = ""; 
+		
+		
+		return result;
+	}
+	//회원탈퇴
+	
 	
 	@GetMapping("/checkuserblocked")
 	@ResponseBody

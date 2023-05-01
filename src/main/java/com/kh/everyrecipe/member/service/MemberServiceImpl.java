@@ -77,8 +77,8 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public int modify(MemberVo vo) throws Exception {
-		return dao.modify(vo);
+	public int modify(MemberVo mvo) throws Exception {
+		return dao.modify(mvo);
 	}
 
 	@Override
