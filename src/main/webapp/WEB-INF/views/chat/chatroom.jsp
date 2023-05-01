@@ -38,10 +38,25 @@
                         <td>
                             ${chatRoom.title }
                             <c:if test="${!empty loginUser }">
-                                <button class="btn btn-primary" 
-                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}'">
-                                	입장
-                                </button>
+                            	<c:choose>
+                            		<c:when test="${loginUser eq 'everys_recipe'}">
+		                                <button class="btn btn-primary" 
+		                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}'">
+		                                	입장
+		                                </button>
+                                	</c:when>
+                                	<c:when test="${loginUser eq chatRoom.userId}">
+		                                <button class="btn btn-primary" 
+		                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}'">
+		                                	입장
+		                                </button>
+                                	</c:when>
+                                	<c:otherwise>
+                                		<button class="btn btn-primary" onclick="alert('관리자 또는 개설자만 입장 가능합니다.')">
+                                			입장
+                                		</button>
+                                	</c:otherwise>
+                                </c:choose>
                             </c:if>
                         </td>
                         <td>
@@ -55,10 +70,10 @@
             </c:otherwise>
         </c:choose>
     </tbody>
-    <div>
-    ${loginUser }
-    </div>
 </table>
+<div>
+    ${loginUser }
+</div>
 
 <!-- 로그인이 되어있는 경우 -->
 <c:if test="${!empty loginUser }">
@@ -68,7 +83,7 @@
         </button>
     </div>
 </c:if>
-</div>
+<div>
 <br><br>
 </div>
 

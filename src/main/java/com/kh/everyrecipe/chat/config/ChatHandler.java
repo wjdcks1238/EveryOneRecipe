@@ -40,8 +40,8 @@ public class ChatHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{
 		JSONObject object = new JSONObject(message.getPayload());
-		String type = object.getString("type");
-		System.out.println(object);		
+		String type = object.getString("type");			
+		
 		
 	
 			if(type != null && type.contentEquals("register")) {

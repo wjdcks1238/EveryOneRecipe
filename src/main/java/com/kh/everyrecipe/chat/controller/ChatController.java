@@ -82,10 +82,14 @@ public class ChatController {
 		List<MessageVo> list = service.enterRoom(chk);
 		
 		List<MemberVo> idlist = mService.selectList();
+		List<MessageVo> chatlist = service.selectChatMessage(chatRoomNo);
+		
+		
 		model.addAttribute("idlist", idlist);		
 		
 		model.addAttribute("list", list);
-		model.addAttribute("chatRoomNo", chatRoomNo);		
+		model.addAttribute("chatRoomNo", chatRoomNo);	
+		model.addAttribute("chatlist", chatlist);
 		model.addAttribute("loginUser", loginUser);
 		
 		return "chat";

@@ -85,6 +85,9 @@
     
     <div class="chat">
             <textarea id="msgArea" readonly="readonly">
+            <c:forEach var="ctlist" items="${chatlist }">
+${ctlist.userId }: ${ctlist.message }
+            </c:forEach>
 			</textarea>
     </div>
     <div class="input-div">
@@ -120,7 +123,7 @@ function connect(){
 	
 	function register(){
 		var msg = {
-			type: "register",
+			type: "register", //메세지 구분하는 구분자 . 상대방 아이디와 메세지 포함해서 보냄
 			userid: "${loginUser }",
 			key : "${chatRoomNo}"
 		}
@@ -129,7 +132,7 @@ function connect(){
 	
 	function sendMsg(){
 		var msg = {
-			type: "chat",
+			type: "chat", //메세지 구분하는 구분자 . 상대방 아이디와 메세지 포함해서 보냄
 			target: $(".targetUser option:selected").val(),
 			userid: "${loginUser }",
 			message: $("#chatMsg").val(),
@@ -161,6 +164,15 @@ function connect(){
 		}
 	})	
 });
+
+	
+	$('.editable').each(function(){
+	    this.contentEditable = true;
+	});
+	
+	
+	
+	
 		
 </script>
 </body>

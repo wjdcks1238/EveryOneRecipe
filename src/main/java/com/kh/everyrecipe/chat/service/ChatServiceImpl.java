@@ -40,6 +40,15 @@ public class ChatServiceImpl implements ChatService{
 	}
 	
 	@Override
+	public List<MessageVo> selectChatMessage(int chatRoomNo){
+		return Dao.selectChatMessage(chatRoomNo);
+	}
+	
+	
+	
+	
+	
+	@Override
 	public int exitChatRoom(MessageChkVo chk) {
 		int result = Dao.exitChatRoom(chk);
 		if(result > 0) {
