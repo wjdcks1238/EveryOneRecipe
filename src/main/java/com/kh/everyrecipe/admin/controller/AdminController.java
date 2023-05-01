@@ -143,6 +143,28 @@ public class AdminController {
 		return mv;
 	}
 	
+	@GetMapping("/search/ajaxdataprogress")
+	@ResponseBody
+	public String ajaxDataProgress(
+			@RequestParam("option") String option,
+			@RequestParam("curr") String currentDate
+			) throws Exception {
+		
+		Map<String, String> data = new HashMap<String, String>();
+		if(option.equals("레시피")) {
+			data.put("option", "R");
+		} else if(option.equals("해시태그")) {
+			data.put("option", "H");
+		}
+		data.put("date", currentDate);
+		
+		System.out.println(data);
+		
+		List<Map<String, String>> result = bsService.selectDateSearchData(data);
+		
+		return new Gson().toJson(result);
+	}
+	
 	//직원 관리 - 계정관리 페이지의 ADMIN권한을 가진 직원목록
 	@GetMapping("/employee")
 	public ModelAndView employee(ModelAndView mv, Principal principal) throws Exception {

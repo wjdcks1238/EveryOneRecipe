@@ -2,26 +2,51 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 function searchdata() {
-	var keyword = $("[id=keyword]").val();
 	var option = $("[name=inlineRadioOptions]").val();
-	var start = $("[id=currentdate]").val();
+	var curr = $("[id=currentdate]").val();
 	
-	console.log(keyword);
+	console.log(curr);
 	console.log(option);
-	console.log(start);
+	
+	$.ajax({
+		url:'/everyrecipe/admin/search/ajaxdataprogress',
+		type: "GET",
+		data:{
+			option: option,
+			curr: curr
+		},
+		dataType: "json",
+		async: false,
+		success: function(data) {
+			console.log(data);
+			var cdata = [];
+			var clabel = [];
+			
+			for(i=0;i<data.length;i++) {
+				cdata.push(data[i].CNT);
+				clabel.push(data[i].KEWORD);
+			}
+			
+			console.log(cdata);
+			console.log(clabel);
+			
+			myPieChart(cdata, clabel);
+		}
+	});
 }
 
 
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
-function myPieChart() { new Chart(ctx, {
+function myPieChart(cdata, clabel) { new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Direct", "Referral", "Social"],
+    labels: clabel,
     datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      data: cdata,
+      backgroundColor: ['#01579B', '#0277BD', '#0288D1', '#039BE5', '#03A9F4',
+    	  '#29B6F6', '#4FC3F7', '#81D4FA', '#B3Е5FC', '#E1F5FE'],
+      hoverBackgroundColor: [],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },

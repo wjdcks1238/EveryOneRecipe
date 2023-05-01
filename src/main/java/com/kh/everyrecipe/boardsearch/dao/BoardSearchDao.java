@@ -83,4 +83,8 @@ public class BoardSearchDao {
 	public List<Map<String, String>> selectData(Map<String, String> data) {
 		return sqlSession.selectList("boardSearchMapper.selectData", data);
 	}
+
+	public List<Map<String, String>> selectDateSearchData(Map<String, String> data) {
+		return sqlSession.selectList("boardSearchMapper.selectDateSearchData", data);
+	}
 }

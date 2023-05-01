@@ -44,6 +44,11 @@
 	  <result column="searchDate" property="SEARCHDATE" />
 	  <result column="cnt" property="CNT" />
 	</resultMap>
+	<resultMap id="searchDateMap" type="java.util.Map">
+		<result column="rownum" property="ROWNUM"/>
+		<result column="keword" property="KEWORD"/>
+		<result column="cnt" property="CNT"/>
+	</resultMap>
 	<select id="selectData" parameterType="map" resultMap="searchDBMap">
 		select searchdate, count(*) as CNT
 		    from searchdb
@@ -54,6 +59,22 @@
 		        and SEARCHOPTION='R'
 		group by searchdate
 		order by searchdate asc
+	</select>
+	<select id="selectDateSearchData" parameterType="map" resultMap="searchDateMap">
+		select rownum, keword, cnt
+			from(
+			    select seq, keword, cnt
+			    from(
+			        select rownum as seq, keword, cnt
+			            from(
+			                select keword, count(*) as cnt
+			                from searchdb
+			                where searchdate=TO_DATE(#{date},'YYYY-MM-DD')
+			                    and searchdb.SEARCHOPTION=#{option}
+			                group by keword
+			                order by cnt desc))
+			        where seq <![CDATA[>=]]> 1)
+			    where rownum <![CDATA[<=]]> 10
 	</select>
 	<select id="pagingList" parameterType="map" resultMap="postResultMap">
 		SELECT 

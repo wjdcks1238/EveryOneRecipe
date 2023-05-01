@@ -101,4 +101,9 @@ public class BoardSearchServiceImp implements BoardSearchService {
 		return dao.selectData(data);
 	}
 
+	@Override
+	public List<Map<String, String>> selectDateSearchData(Map<String, String> data) throws Exception {
+		return dao.selectDateSearchData(data);
+	}
+
 }

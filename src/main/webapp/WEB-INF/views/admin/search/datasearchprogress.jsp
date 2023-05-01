@@ -140,14 +140,6 @@
                     <h1 class="h3 mb-2 text-gray-800">일자별 검색 추이</h1>
                    		<table border="1" style="width: 70%; margin: auto;">
                    			<tr>
-                   				<td>
-                   					검색어
-                   				</td>
-                    			<td>
-								  <input type="text" id="keyword" style="width: 100%;" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-                    			</td>
-                   			</tr>
-                   			<tr>
                    				<td>검색유형</td>
                    				<td>
                    					<div class="form-check form-check-inline">
@@ -172,10 +164,10 @@
                    			</td>
                    		</table>
                    	<div class="card-header py-3">
-                   		<h6 class="m-0 font-weight-bold text-primary">검색어 별 검색 통계</h6>
+                   		<h6 class="m-0 font-weight-bold text-primary">일자 별 검색 통계</h6>
                    	</div>
                    	<div class="card-body">
-                        <div class="chart-area">
+                        <div class="chart-area" id="div_ChartArea">
                             <canvas id="myPieChart"></canvas>
                         </div>
                     </div>
