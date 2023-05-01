@@ -35,7 +35,9 @@
 				<ul class="navbar-nav">
 					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
-					<li class="nav-item "><a class="nav-link" href="#">비밀번호 변경</a></li>
+					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/infoupdate">개인정보 수정</a></li>
+					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/bookmark">북마크한 게시물</a></li>
+					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/like">좋아요 표시한 게시물</a></li>
 				</ul>
 			</div>
 			
@@ -63,9 +65,8 @@
 							    <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.PROFILEURL}" class="mr-3 rounded-circle" alt="프로필 이미지">
 							    <div class="media-body">
 							      <a href="<%=request.getContextPath() %>/member/info/${fw.USERID}" id="${fw.USERID}">
-							        ${fw.USERID}
+							        ${fw.NICKNAME}
 							      </a>
-							      <span class="nickname ml-2">[${fw.NICKNAME}]</span>
 							    </div>
 							  </div>
 							  <span>팔로워: ${fw.FOLLOWERCNT}</span>
@@ -81,9 +82,8 @@
 							    <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.PROFILEURL}" class="mr-3 rounded-circle" alt="프로필 이미지">
 							    <div class="media-body">
 							      <a href="<%=request.getContextPath() %>/member/info/${fw.USERID}" id="${fw.USERID}">
-							        ${fw.USERID}
+							        ${fw.NICKNAME}
 							      </a>
-							      <span class="nickname ml-2">[${fw.NICKNAME}]</span>
 							    </div>
 							  </div>
 							  <span>팔로워: ${fw.FOLLOWERCNT}</span>

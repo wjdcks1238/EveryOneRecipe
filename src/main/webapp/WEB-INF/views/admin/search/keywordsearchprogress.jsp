@@ -179,7 +179,7 @@
                    		<h6 class="m-0 font-weight-bold text-primary">검색어 별 검색 통계</h6>
                    	</div>
                    	<div class="card-body">
-                        <div class="chart-area">
+                        <div class="chart-area" id="div_barArea">
                             <canvas id="myAreaChart"></canvas>
                         </div>
                     </div>

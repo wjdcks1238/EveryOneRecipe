@@ -1,6 +1,10 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
+var barChart1 = null;
+var ctx = document.getElementById("myAreaChart");
+var chartData = [];
+var chartLabel = [];
 
 function number_format(number, decimals, dec_point, thousands_sep) {
   // *     example: number_format(1234.56, 2, ',', ' ');
@@ -30,6 +34,12 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 
 
 function searchdata() {
+	ct_data();
+}
+
+function ct_data(){
+	chartData=[];
+	chartLabel=[];
 	var keyword = $("[id=keyword]").val();
 	var option = $("[name=inlineRadioOptions]").val();
 	var start = $("[id=startdate]").val();
@@ -53,31 +63,35 @@ function searchdata() {
 		async: false,
 		success: function(data) {
 			console.log(data);
-			var cdata = [];
-			var clabel = [];
 			
 			for(i=0;i<data.length;i++) {
-				cdata.push(data[i].CNT);
+				chartData.push(data[i].CNT);
 				let subStr = data[i].SEARCHDATE;
-				clabel.push(subStr.substring(0,12));
+				chartLabel.push(subStr.substring(0,12));
 			}
 			
-			console.log(cdata);
-			console.log(clabel);
-			
-			myLineChart(cdata, clabel);
+			console.log(chartData);
+			console.log(chartLabel);
 		}
 	});
+	
+	if(barChart1 != null) {
+		$('#myAreaChart').remove();
+		$('#div_barArea').append('<canvas id="myAreaChart"></canvas>');
+		ctx = document.getElementById("myAreaChart");
+		fn_draw_chart1();
+	} else {
+		fn_draw_chart1();
+	}
 }
 
 
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart");
-
-function myLineChart(cdata, clabel){new Chart(ctx, {
+function fn_draw_chart1(){
+barChart1 = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: clabel,
+    labels: chartLabel,
     datasets: [{
       label: "검색횟수",
       lineTension: 0.3,
@@ -91,7 +105,7 @@ function myLineChart(cdata, clabel){new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: cdata,
+      data: chartData,
     }],
   },
   options: {
