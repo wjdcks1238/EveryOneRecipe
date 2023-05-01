@@ -3,6 +3,7 @@ package com.kh.everyrecipe.board.controller;
 import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import com.kh.everyrecipe.board.vo.ClientChkVo;
 import com.kh.everyrecipe.board.vo.HashtagVo;
 import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.board.vo.RecommendVo;
 import com.kh.everyrecipe.boardsearch.service.BoardSearchService;
 import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 import com.kh.everyrecipe.comment.replycomment.service.ReplyCommentService;
@@ -341,7 +343,16 @@ public class BoardController {
 				if(principal!=null) {
 					map.put("userId",principal.getName());					
 				}
-				mv.addObject("postList", bService.pagingList(map));
+				List<PostVo> pvoList= bService.pagingList(map);
+				
+				for(PostVo pvo : pvoList) {
+					pvo.setContent(pvo.getContent().replaceAll("<img[^>]*>", ""));
+					if(pvo.getContent().length()>150) {
+						pvo.setContent(pvo.getContent().substring(0,151)+"...");
+					}
+				}
+				
+				mv.addObject("postList", pvoList);
 				
 	
 			mv.setViewName("board/list");
@@ -367,6 +378,14 @@ public class BoardController {
 				map.put("userId",principal.getName());					
 			}
 			pvoList= bService.pagingList(map);
+			for(PostVo pvo : pvoList) {
+				pvo.setContent(pvo.getContent().replaceAll("<img[^>]*>", ""));
+				if(pvo.getContent().length()>150) {
+					pvo.setContent(pvo.getContent().substring(0,101)+"...");
+				}
+					
+			}
+			
 			
 			
 			return new Gson().toJson(pvoList);
@@ -466,8 +485,8 @@ public class BoardController {
 			chk.setPostId(postId);
 			
 					
-			int lookUp= bService.upOrNot(chk);
-			pvo.setLookUp(lookUp);
+			//int lookUp= bService.upOrNot(chk);
+			//pvo.setLookUp(lookUp);
 			
 			//bService.upView(postId);
 			mv.addObject("post",pvo);
@@ -680,4 +699,109 @@ public class BoardController {
 			
 			return new Gson().toJson(replyList);
 		}
+		
+		
+		//재료조합 기능
+		@GetMapping("/findRecipe")
+		public String findRecipe() {
+			
+			return "find";
+		}
+		@PostMapping("recommend")
+		public ModelAndView recommend(ModelAndView mv, @RequestParam("list") String list ) throws Exception {
+			System.out.println("값"+list);
+			
+			List<String> chosenList = new ArrayList<String>(Arrays.asList(list.split("\\$")));
+			chosenList.remove("");
+
+			List<PostVo> recList0 = new ArrayList();
+			List<PostVo> recList1 = new ArrayList();
+			List<PostVo> recList2 = new ArrayList();
+			List<PostVo> recList3 = new ArrayList();
+			
+			List<List<String>> needList1 = new ArrayList();
+			List<List<String>> needList2 = new ArrayList();
+			List<List<String>> needList3 = new ArrayList();		
+//			//TODO 재료 입력시 $문자 사용 불가능하게 변경
+
+
+			List<RecommendVo> recList= bService.getIngForRec(chosenList);
+			
+			//선택한 재료와 레시피 재료의 차집합 구해서 같이넣어줌
+			
+			for(RecommendVo vo: recList) {
+				//레시피의 전체 재료수    레시피 재료들중 가지고있는 재료 수
+				if(vo.getIngcnt()-vo.getCnt()==0) {
+					PostVo pvo = bService.selectOne(vo.getPostId());
+					recList0.add(pvo);
+					
+				}
+				if(vo.getIngcnt()-vo.getCnt()==1) {
+					PostVo pvo = bService.selectOne(vo.getPostId());
+					recList1.add(pvo);
+					List<String> inglist = new ArrayList<String>();
+					for(IngredientVo ivo  : pvo.getIngredients()) {
+						inglist.add(ivo.getIngredient());
+					}
+					inglist.removeAll(chosenList);
+					needList1.add(inglist);
+				}	
+				if(vo.getIngcnt()-vo.getCnt()==2) {
+					PostVo pvo = bService.selectOne(vo.getPostId());
+					recList2.add(pvo);
+					
+					List<String> inglist = new ArrayList<String>();
+					for(IngredientVo ivo  : pvo.getIngredients()) {
+						inglist.add(ivo.getIngredient());
+					}
+					inglist.removeAll(chosenList);
+					needList2.add(inglist);
+				}
+				if(vo.getIngcnt()-vo.getCnt()==3) {
+					PostVo pvo = bService.selectOne(vo.getPostId());
+					recList3.add(pvo);
+					
+					List<String> inglist = new ArrayList<String>();
+					for(IngredientVo ivo  : pvo.getIngredients()) {
+						inglist.add(ivo.getIngredient());
+					}
+					inglist.removeAll(chosenList);
+					needList3.add(inglist);
+				}
+			}
+			
+			
+			mv.addObject("recList0", recList0);
+			mv.addObject("recList1", recList1);
+			mv.addObject("recList2", recList2);
+			mv.addObject("recList3", recList3);
+			
+			mv.addObject("needList1", needList1);
+			mv.addObject("needList2", needList2);
+			mv.addObject("needList3", needList3);
+			
+			
+			mv.addObject("chosenList", chosenList);
+			
+			mv.setViewName("recommend");
+
+			return mv;
+		}
+		@PostMapping("searchAjax")
+		@ResponseBody
+		public List<String> searchAjax(String ingSearch) {
+			List<String> ingList =null;
+			
+			try {
+				//재료 선택(ajax를 이용해 검색)
+				//재료 중복 제거 
+				ingList = bService.searchIng(ingSearch);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return ingList;
+		}
+		
+		
 }

@@ -39,11 +39,11 @@
 			<table class="table">
 				<thead>
 					<tr>
-					    <th class="col-md-2 text-center">글 번호</th>
-					    <th class="col-md-2 text-center">레시피명</th>
-					    <th class="col-md-3 text-center">닉네임</th>
-					    <th class="col-md-3 text-center">작성일자</th>
-					    <th class="col-md-2 text-center">조회수</th>
+					    <th class="col-md-2 text-right">글 번호</th>
+					    <th class="col-md-2 text-right">레시피명</th>
+					    <th class="col-md-3 text-right">닉네임</th>
+					    <th class="col-md-3 text-right">작성일자</th>
+					    <th class="col-md-2 text-right">조회수</th>
 				    </tr>
 				</thead>
 				<tbody>

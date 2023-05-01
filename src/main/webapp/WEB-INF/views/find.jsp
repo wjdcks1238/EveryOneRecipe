@@ -18,7 +18,10 @@ input[type="text"]:focus{
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <div class="container" style="min-height: 80vh">
-
+	<div class="mt-5">
+		<h3>가지고 있는 모든 재료를 선택해 주세요.</h3>
+		 <p class="mt-3"> 선택한 재료들을 조합하여, 현재 만들 수 있는 레시피를 찾아드립니다.</p> 
+	</div>
 	<input style="width: 20%" class="form-control mt-5" type="text" name="ingSearch" placeholder="재료를 입력해 주세요">
 	<form action="recommend" method="post">
 	
@@ -33,6 +36,7 @@ input[type="text"]:focus{
 	
 	<button class="btn btn-dark mt-2" type="submit">레시피 찾기</button>
 	</form>
+	빈값 처리 필요
 </div>
 
 
@@ -47,7 +51,7 @@ input[type="text"]:focus{
 	$("input[name=ingSearch]").on("propertychange change paste input",function(){
 		var ingSearch= $("input[name=ingSearch]").val();
 			$.ajax({
-			  url: "searchAjax",
+			  url: "${pageContext.request.contextPath}/board/searchAjax",
 			  type: "POST", 
 			  data: {ingSearch: ingSearch},
 			  async : false,

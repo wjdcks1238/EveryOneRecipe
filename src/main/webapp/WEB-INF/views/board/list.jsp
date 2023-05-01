@@ -26,8 +26,7 @@
 			<img alt="" src="${list.mainImage }" width="100%">
 			<div class="card-block">
 				<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></h2>
-				<c:set var="text" value="${fn:replace(list.content, '<img[^>]*>', '')}" />
-				<h4 class="card-text" id="content">${text }</h4>
+				<h4 class="card-text" id="content">${list.content }</h4>
 				<div class="wrapfooter">
 					<span class="meta-footer-thumb">
 						프로필이미지
