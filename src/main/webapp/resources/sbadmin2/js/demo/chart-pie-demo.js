@@ -1,7 +1,18 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
+var viewChart1 = null;
+var ctx = document.getElementById("div_ChartArea");
+var cdata = [];
+var clabel = [];
+
 function searchdata() {
+	fn_data1();
+}
+
+function fn_data1(){
+	cdata=[];
+	clabel=[];
 	var option = $("[name=inlineRadioOptions]").val();
 	var curr = $("[id=currentdate]").val();
 	
@@ -19,9 +30,6 @@ function searchdata() {
 		async: false,
 		success: function(data) {
 			console.log(data);
-			var cdata = [];
-			var clabel = [];
-			
 			for(i=0;i<data.length;i++) {
 				cdata.push(data[i].CNT);
 				clabel.push(data[i].KEWORD);
@@ -29,16 +37,28 @@ function searchdata() {
 			
 			console.log(cdata);
 			console.log(clabel);
-			
-			myPieChart(cdata, clabel);
 		}
 	});
+	
+	
+	if(viewChart1 != null) {
+		$('myPieChart').remove();
+		$('div_ChartArea').append('<canvas id="myPieChart"></canvas>');
+		
+		if(!document.getElementById("myPieChart")) {
+			ctx = document.getElementById("div_ChartArea");
+			fn_draw_data1();
+		}
+	} else {
+		fn_draw_data1();
+	}
 }
 
 
 // Pie Chart Example
-var ctx = document.getElementById("myPieChart");
-function myPieChart(cdata, clabel) { new Chart(ctx, {
+
+function fn_draw_data1() { 
+ viewChart1 = new Chart(ctx, {
   type: 'doughnut',
   data: {
     labels: clabel,
