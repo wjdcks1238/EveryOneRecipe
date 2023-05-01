@@ -60,4 +60,15 @@ public class ChatServiceImpl implements ChatService{
 		return result;
 	}
 
+	@Override
+	public int deleteChatlist(int chatRoomNo) {
+		return Dao.deleteChatlist(chatRoomNo);
+	}
+	
+	@Override
+	public int deleteChatroom(int chatRoomNo) {
+		return Dao.deleteChatroom(chatRoomNo);
+	}
+	
+	
 }

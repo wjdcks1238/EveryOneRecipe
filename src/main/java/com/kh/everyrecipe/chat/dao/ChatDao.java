@@ -58,5 +58,13 @@ public class ChatDao {
 		return sqlsession.update("chatMapper.closeRoom", chatRoomNo);
 	}
 	
+	public int deleteChatlist(int chatRoomNo) {
+		return sqlsession.delete("chatMapper.deleteChatlist", chatRoomNo);
+	}
+	
+	public int deleteChatroom(int chatRoomNo) {
+		return sqlsession.delete("chatMapper.deleteChatroom", chatRoomNo);
+	}
+	
 	
 }

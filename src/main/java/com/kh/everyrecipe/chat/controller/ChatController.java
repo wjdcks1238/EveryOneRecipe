@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.kh.everyrecipe.chat.service.ChatService;
 import com.kh.everyrecipe.chat.vo.MessageChkVo;
@@ -84,7 +86,6 @@ public class ChatController {
 		List<MemberVo> idlist = mService.selectList();
 		List<MessageVo> chatlist = service.selectChatMessage(chatRoomNo);
 		
-		
 		model.addAttribute("idlist", idlist);		
 		
 		model.addAttribute("list", list);
@@ -102,5 +103,17 @@ public class ChatController {
 		return service.exitChatRoom(chk);
 	}
 	
+	@GetMapping("/chat/delete")
+	public ModelAndView deleteRoom(ModelAndView mv, int chatRoomNo) {
+		service.deleteChatlist(chatRoomNo);	
+		service.deleteChatroom(chatRoomNo);
+		
+		RedirectView red = new RedirectView();
+		red.setUrl("/everyrecipe/chat/chatroom");
+		red.setExposeModelAttributes(false);
+		
+		mv.setView(red);		
+		return mv;
+	}
 	
 }
