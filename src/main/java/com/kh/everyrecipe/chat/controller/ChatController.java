@@ -96,13 +96,6 @@ public class ChatController {
 		return "chat";
 	}
 	
-	@GetMapping("/chat/exit")
-	@ResponseBody
-	public int exitChatRoom(HttpServletRequest req,
-							MessageChkVo chk) {
-		return service.exitChatRoom(chk);
-	}
-	
 	@GetMapping("/chat/delete")
 	public ModelAndView deleteRoom(ModelAndView mv, int chatRoomNo) {
 		service.deleteChatlist(chatRoomNo);	

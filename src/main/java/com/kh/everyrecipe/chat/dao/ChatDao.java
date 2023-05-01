@@ -46,10 +46,6 @@ public class ChatDao {
 		return sqlsession.selectList("chatMapper.selectChatList", chatRoomNo);
 	}
 	
-	public int exitChatRoom(MessageChkVo chk) {
-		return sqlsession.delete("chatMapper.exitChatRoom", chk);
-	}
-	
 	public int countRoomMember(int chatRoomNo) {
 		return sqlsession.selectOne("chatMapper.countRoomMember", chatRoomNo);
 	}

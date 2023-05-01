@@ -44,22 +44,6 @@ public class ChatServiceImpl implements ChatService{
 		return Dao.selectChatMessage(chatRoomNo);
 	}
 	
-	
-	
-	
-	
-	@Override
-	public int exitChatRoom(MessageChkVo chk) {
-		int result = Dao.exitChatRoom(chk);
-		if(result > 0) {
-			int cnt = Dao.countRoomMember(chk.getKey());
-			if(cnt == 0) {
-				result = Dao.closeRoom(chk.getKey());
-			}
-		}
-		return result;
-	}
-
 	@Override
 	public int deleteChatlist(int chatRoomNo) {
 		return Dao.deleteChatlist(chatRoomNo);
