@@ -177,7 +177,7 @@ body{
 				<div class="row">
 					<div class="col-md-5 wrapthumbnail">
 						<a href="<%=request.getContextPath() %>/board/list/${fw.postId}">
-							<div class="thumbnail" style="background-image:url(<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/1.jpg);">
+							<div class="thumbnail" style="background-image:url(${fw.mainImage});">
 							</div>
 						</a>
 					</div> 
@@ -232,7 +232,7 @@ body{
 				<div class="row">
 					<div class="col-md-5 wrapthumbnail">
 						<a href="<%=request.getContextPath() %>/board/list/${lu.postId}">
-							<div class="thumbnail" style="background-image:url(<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/1.jpg);">
+							<div class="thumbnail" style="background-image:url(${lu.mainImage});">
 							</div>
 						</a>
 					</div>
@@ -288,7 +288,7 @@ body{
 				<div class="row">
 					<div class="col-md-5 wrapthumbnail">
 						<a href="<%=request.getContextPath() %>/board/list/${post.postId}">
-							<div class="thumbnail" style="background-image:url(<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/1.jpg);">
+							<div class="thumbnail" style="background-image:url(${post.mainImage});">
 							</div>
 						</a>
 					</div>
@@ -350,7 +350,7 @@ body{
 			<c:forEach items="${weekboard }" var="list">
 			<div class="card">
 				<a href="<%=request.getContextPath() %>/board/list/${list.postId}">
-					<img class="img-fluid" src="<%=request.getContextPath()%>/resources/mediumish/assets/img/demopic/5.jpg" alt="">
+					<img class="img-fluid" src="${list.mainImage}" alt="" style="width: 100%; height: 100%;">
 				</a>
 				<div class="card-block">
 					<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${list.postId}" id="chk_data">${list.foodName }</a></h2>

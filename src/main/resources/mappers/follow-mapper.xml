@@ -46,12 +46,12 @@
 	<select id="getRecommendPost" resultType="wvo">
 		SELECT P.*
 		FROM (
-   			SELECT post.postid, nickname, content, FOODNAME, CREATEAT, LOOKUP, count(post.postid)
+   			SELECT post.postid, nickname, content, FOODNAME, CREATEAT, LOOKUP, count(post.postid), MAINIMAGE
 			FROM POST
 			inner join POSTLIKE
 			on POST.postid = POSTLIKE.POSTID
 			where POSTLIKE.ISDELETED='N'
-			group by post.postid, nickname, content, FOODNAME, CREATEAT, LOOKUP
+			group by post.postid, nickname, content, FOODNAME, CREATEAT, LOOKUP, MAINIMAGE
 			ORDER BY count(post.postid) DESC
    			) P
 		WHERE ROWNUM<![CDATA[<=]]>10			
