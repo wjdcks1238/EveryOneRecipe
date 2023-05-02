@@ -109,6 +109,7 @@ ${loginUser }
 <script type="text/javascript">
 var ws;
 var userid = "${loginUser }";
+var targetid = $(".targetUser option:selected").val();
 
 function connect(){
 	ws = new WebSocket("ws://localhost:8090/everyrecipe/chat/websocket");
@@ -125,13 +126,13 @@ function connect(){
 }
 	function addMsg(msg){
 		var chat = $("#msgArea").val();
-		chat = chat + "\n"+ "상대방 : " + msg;
+		chat = chat + "\n"+ targetid + " : " + msg;
 		$('#msgArea').val(chat);
 	};
 	
 	function register(){
 		var msg = {
-			type: "register", //메세지 구분하는 구분자 . 상대방 아이디와 메세지 포함해서 보냄
+			type: "register",
 			userid: "${loginUser }",
 			key : "${chatRoomNo}"
 		}
@@ -140,7 +141,7 @@ function connect(){
 	
 	function sendMsg(){
 		var msg = {
-			type: "chat", //메세지 구분하는 구분자 . 상대방 아이디와 메세지 포함해서 보냄
+			type: "chat", 
 			target: $(".targetUser option:selected").val(),
 			userid: "${loginUser }",
 			message: $("#chatMsg").val(),

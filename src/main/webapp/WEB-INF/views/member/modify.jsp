@@ -106,39 +106,41 @@
 									</div>
 									<div class="col-sm-4">
 										<input type="text" name="userId" value="${memberDto.userId }"
-											readonly="${memberDto.userId }">
+											readonly="${memberDto.userId }" class="form-control" style="width: 300px">
 									</div>
-									<div class="colsm-4">여기도 나눠진 구역</div>
+									<div class="colsm-4"></div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4">
 										<label>비밀번호</label>
 									</div>
 									<div class="col-sm-4">
-										<input type="password" name="password"
-											value="${memberDto.password }" placeholder="현재 비밀번호를 입력해주세요.">
+										<input type="password" name="password" placeholder="현재 비밀번호를 입력해주세요." class="form-control" style="width: 300px">
 									</div>
-									<div class="col-sm-4">여기도 나눠진 구역</div>
+									<div class="col-sm-4"></div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4">
 										<label>새 비밀번호</label>
 									</div>
 									<div class="col-sm-4">
-										<input type="password" name="password" value=""
-											placeholder="새 비밀번호를 입력해주세요.">
+										<input type="password" name="password" id="inputPassword"
+											placeholder="새 비밀번호를 입력해주세요." class="form-control" style="width: 300px">
+										<div class="error-message hide error" id="regPassword-error">공백없이 영어, 숫자, 특수문자(!,@,#)조합하여 8자 이상 16자 이하로 입력해주세요.</div>
+											
 									</div>
-									<div class="col-sm-4">여기도 나눠진 구역</div>
+									<div class="col-sm-4"></div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4">
 										<label>새 비밀번호 확인</label>
 									</div>
 									<div class="col-sm-4">
-										<input type="password" name="password" value=""
-											placeholder="새 비밀번호를 다시 입력해주세요.">
+										<input type="password" name="password" id="checkpw"
+											placeholder="새 비밀번호를 다시 입력해주세요." class="form-control" style="width: 300px">
+										<div class="error-message hide error" id="passwordCheck-error">비밀번호가 일치하지 않습니다.</div>
 									</div>
-									<div class="col-sm-4">여기도 나눠진 구역</div>
+									<div class="col-sm-4"></div>
 								</div>
 								<!-- 등록된 이메일이 표시됨
 								1.가입시 등록된 이메일이 입력되어 있다면 중복확인 버튼 비활성화, 다른값 입력 후 등록된 이메일 재입력해도 비활성화
@@ -151,10 +153,10 @@
 									</div>
 									<div class="col-sm-4">
 										<input type="email" name="email" value="${memberDto.email }"
-											placeholder="이메일을 입력해주세요." id="emailInput">
+											placeholder="이메일을 입력해주세요." id="emailInput" class="form-control" style="width: 300px">
 									</div>
 									<div class="col-sm-4">
-										<button id="emailChkBtn">중복확인</button>
+										<button type="button" id="emailChkBtn" class="btn mt-3">중복확인</button>
 									</div>
 								</div>
 								<div class="error-message hide error" id="email-error">이메일을
@@ -165,8 +167,8 @@
 									주소는 50자 이하여야 합니다.</div>
 							</div>
 							<div align="center">
-								<button type="button" onclick="removeMember();">탈퇴하기</button>
-								<button id="modifyBtn" type="submit">회원정보수정</button>
+								<button type="button" onclick="removeMember();" class="btn mt-3">탈퇴하기</button>
+								<button id="modifyBtn" type="submit" class="btn mt-3">회원정보수정</button>
 							</div>
 						</form>
 					</div>
@@ -184,23 +186,83 @@
 	<%@ include file="/WEB-INF/views/js_import.jsp"%>
 
 	<script>
+	//비밀번호
+	//비밀번호 정규식(공백없이 영어, 숫자, 특수문자(!,@,#)조합하여 8자 이상 16자 이하)
+	let regPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+	let regPasswordError = document.getElementById("regPassword-error");
+	let passwordCheckError = document.getElementById("passwordCheck-error");
+	// 비밀번호 유효성 확인
+	document.addEventListener('DOMContentLoaded', function() {
+	  // 비밀번호 유효성 확인
+	  var inputPassword = document.querySelector('input[name=password]');
+	  var regPasswordError = document.querySelector('.reg_password_error');
+	  var passwordCheckError = document.querySelector('.password_check_error');
+	
+	  inputPassword.onkeyup = function() {
+	    if (inputPassword.value === "") {
+	      regPasswordError.classList.remove('hide');
+	      passwordCheckError.classList.add('hide');
+	    } else {
+	      regPasswordError.classList.add('hide');
+	      if (!regPass.test(inputPassword.value)) {
+	        regPasswordError.classList.remove('hide');
+	      } else {
+	        passwordCheckError.classList.remove('hide');
+	      }
+	    }
+	  }
+	});
+
+	// 비밀번호 일치 확인
+	checkpw.onkeyup = function(){
+		if(inputPassword.value !== checkpw.value ){
+			passwordCheckError.classList.remove('hide');
+		} else {
+			passwordCheckError.classList.add('hide');
+		}
+	}
+	//이메일 정규식
+	let regMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+	let emailError = document.getElementById("email-error");
+	let regEmailError = document.getElementById("regMail-error");
+	let regEmailError2 = document.getElementById("regMail-error2");
+	//이메일 확인
+	emailInput.onkeyup = function() {
+		if (emailInput.value === "") {
+			emailError.classList.remove('hide');
+			/* emailError.classList.add('hide'); */
+		} else {
+			if (!regMail.test(emailInput.value)) {
+				regEmailError.classList.remove('hide');
+			} else {
+				if (emailInput.value.length > 50) { // 수정: 이메일 길이가 50 초과인 경우 처리
+					regEmailError2.classList.remove('hide');
+				} else {
+					regEmailError2.classList.add('hide');
+				}
+				regEmailError.classList.add('hide');
+			}
+		}
+	}
+	//비밀번호, 이메일 회원정보수정
 	$(document).on("click","#modifyBtn", function(event) {
 	    event.preventDefault();
 	    
 	    var password = $.trim($("input[name=password]").val());
 	    var email = $.trim($("input[name=email]").val());
 	    
-	    console.log("~~~~~~~~~~~~~~입력된 암호:" + password);
+	    console.log("~~~~~~~~~~~~~~입력된 암호  (☞ﾟヮﾟ)☞:" + password);
+	    
 	    if (password.length !== 0) {
 	        $.ajax({
 	            url: '<%=request.getContextPath()%>/member/modify',
 	            type: 'POST',
-	            data: {password: password, email: email}),
+	            data: {password: password, email: email},
 	            success:function(result){
-	            	console.log("서버 응답:", result); 
+	            	console.log("아니이게뭐야 (☞ﾟヮﾟ)☞"+result); 
 	                if (result === "success") {
 	                    console.log("어어 됐다??"+ password);
-	                    location.href="<%=request.getContextPath()%>/member/modify";
+	                    location.href="<%=request.getContextPath()%>/member/infoupdate";
 												} else {
 													alert("비밀번호가 일치하지 않습니다.");
 												}
@@ -208,36 +270,16 @@
 											error : function() {
 												alert("오류가 발생하였습니다. 다시 시도해주세요.");
 											}
-										});
-							}
-						});
+				});
+			}
+		});
 
 		$("#emailInput").on("input", function() {
 			$("#emailChkBtn").prop("disabled", false);
 		});
-		//이메일 정규식
-		let regMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-		let emailError = document.getElementById("email-error");
-		let regEmailError = document.getElementById("regMail-error");
-		let regEmailError2 = document.getElementById("regMail-error2");
-		//이메일 확인
-		emailInput.onkeyup = function() {
-			if (emailInput.value === "") {
-				emailError.classList.remove('hide');
-				emailError.classList.add('hide');
-			} else {
-				if (!regMail.test(emailInput.value)) {
-					regEmailError.classList.remove('hide');
-				} else {
-					if (emailInput.value.length > 50) { // 수정: 이메일 길이가 50 초과인 경우 처리
-						regEmailError2.classList.remove('hide');
-					} else {
-						regEmailError2.classList.add('hide');
-					}
-					regEmailError.classList.add('hide');
-				}
-			}
-		}
+		
+				
+		
 		//회원탈퇴
 		function removeMember(){
 			if(window.confirm("정말 탈퇴하시겠습니까?")){

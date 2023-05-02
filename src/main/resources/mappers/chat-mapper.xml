@@ -26,7 +26,7 @@
 		FROM CHATTINGROOM A
 		JOIN MEMBERS USING (USERID)
 		WHERE A.ISDELETED ='N'
-		ORDER BY KEY DESC 
+		ORDER BY KEY ASC 
 	</select> 
 
 	<insert id="openChatRoom" useGeneratedKeys="true">

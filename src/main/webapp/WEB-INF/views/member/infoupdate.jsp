@@ -109,7 +109,7 @@
 									</div>
 									<div>
 										<input type="text" name="userId" value="${memberDto.userId }"
-											readonly="${memberDto.userId }">
+											readonly="${memberDto.userId }" class="form-control" style="width: 300px">
 									</div>
 								</div>
 								<div>
@@ -117,14 +117,14 @@
 										<label>비밀번호</label>
 									</div>
 									<div>
-										<input type="password" name="password" value="${memberDto.password }" placeholder="현재 비밀번호를 입력해주세요.">
+										<input type="password" name="password" value="${memberDto.password }" placeholder="현재 비밀번호를 입력해주세요." class="form-control" style="width: 300px">
 										<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 									</div>
 									
 								</div>
 							</div>
 							<div align="center">
-								<button id="passwordchk" type="submit">확인</button>
+								<button id="passwordchk" type="submit" class="btn mt-3">확인</button>
 							</div>
 						
 					</div>
@@ -142,33 +142,33 @@
 	<%@ include file="/WEB-INF/views/js_import.jsp"%>
 
 	<script>
-	$(document).on("click","#passwordchk", function() {
+	$(document).on("click", "#passwordchk", function() {
 	    var password = $.trim($("input[name=password]").val());
-	    console.log("~~~~~~~~~~~~~~입력된 암호:" + password);
-	    if (password.length !== 0) {
-	        var result; // 변수 초기화
-	        if (password == "") {
-	        	alert("비밀번호를 다시 입력해주세요.");
-	        }
-	        $.ajax({
-	            type : "POST",
-	            url : "${pageContext.request.contextPath }/member/infoupdateAjax",
-	            data : { "password" : password },
-	            dataType : "text",
-	            success : function(data) {
-	                result = data; // 변수에 값 할당
-	                if (result === "success") {
-	                    console.log("어어 됐다??"+ password);
-	                    location.href="<%=request.getContextPath()%>/member/modify";
-	                } else {
-	                	alert("비밀번호를 다시 입력해주세요.");
-	                }
-	            },
-	            error : function(xhr, textStatus, errorThrown) {
-	                console.log("Ajax 요청 실패: " + textStatus + ", " + errorThrown);
-	            }
-	        });
+	    if (password.length === 0) {
+	        alert("비밀번호를 입력해주세요.");
+	        return;
 	    }
+	    var result;
+	    
+	    $.ajax({
+	        type: "POST",
+	        url: "${pageContext.request.contextPath}/member/infoupdateAjax",
+	        data: { "password": password },
+	        dataType: "text",
+	        success: function(data) {
+	        	
+	            result = data;
+	            
+	            if (result === "success") {
+	                location.href = "<%=request.getContextPath()%>/member/modify";
+	            } else {
+	                alert("비밀번호가 일치하지 않습니다.");
+	            }
+	        },
+	        error: function(xhr, textStatus, errorThrown) {
+	            console.log("Ajax 요청 실패: " + textStatus + ", " + errorThrown);
+	        }
+	    });
 	});
 	</script>
 </body>
