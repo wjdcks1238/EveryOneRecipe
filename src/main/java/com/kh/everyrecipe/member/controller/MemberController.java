@@ -35,6 +35,7 @@ import com.kh.everyrecipe.fileutil.FileUtil;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
 import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberBlockVo;
+import com.kh.everyrecipe.member.vo.MemberModifyDto;
 import com.kh.everyrecipe.member.vo.MemberVo;
 import com.kh.everyrecipe.postBookmark.service.PostBookmarkService;
 import com.kh.everyrecipe.postLike.service.PostLikeService;
@@ -343,18 +344,18 @@ public class MemberController {
 	}
 	//개인정보수정(
 	@PostMapping("/modify")
-	public String modifyUser(@RequestParam("password") String password, @RequestParam("email") String email, Model model) {
-//	    try {
-//	        int result = mService.modify();
-//	        if (result > 0) {
-//	            model.addAttribute("msg", "수정에 성공했습니다.");
-//	        } else {
-//	            model.addAttribute("msg", "수정에 실패했습니다.");
-//	        }
-//	    } catch (Exception e) {
-//	        model.addAttribute("msg", "수정 중 오류가 발생했습니다.");
-//	    }
-	    return "member/infoupdate";// 결과 페이지로 이동
+	@ResponseBody
+	public int modifyUser(
+			MemberModifyDto vo
+			, Principal principal) 
+	{
+		int result = -1;
+	    try {
+	    	vo.setUserId(principal.getName());
+	        result = mService.modify(vo);
+	    } catch (Exception e) {
+	    }
+	    return result;// ajax success결과 페이지로 이동
 	}
 
 

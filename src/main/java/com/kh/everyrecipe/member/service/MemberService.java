@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.kh.everyrecipe.board.vo.BoardManagementDto;
 import com.kh.everyrecipe.member.vo.MemberBlockVo;
+import com.kh.everyrecipe.member.vo.MemberModifyDto;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
 
@@ -35,7 +36,7 @@ public interface MemberService {
 	public int idcheck(String id) throws Exception;
 
 	public int loginForMyInfo(Map<String, String> map) throws Exception;
-	public int modify(MemberVo mvo) throws Exception;
+	public int modify(MemberModifyDto mvo) throws Exception;
 
 	public String getBlockData(String name) throws Exception;
 

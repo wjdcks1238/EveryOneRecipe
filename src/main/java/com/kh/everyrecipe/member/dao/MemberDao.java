@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.everyrecipe.member.vo.MemberBlockVo;
+import com.kh.everyrecipe.member.vo.MemberModifyDto;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
 @Repository
@@ -70,7 +71,7 @@ public class MemberDao {
 		
 		return sqlSession.selectOne("memberMapper.loginForMyInfo",map);
 	}
-	public int modify(MemberVo mvo) throws Exception {
+	public int modify(MemberModifyDto mvo) throws Exception {
 		return sqlSession.update("memberMapper.modify",mvo);
 		
 	}

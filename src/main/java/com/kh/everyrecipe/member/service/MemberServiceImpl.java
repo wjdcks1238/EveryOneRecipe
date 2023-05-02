@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.everyrecipe.member.dao.MemberDao;
 import com.kh.everyrecipe.member.vo.MemberBlockVo;
+import com.kh.everyrecipe.member.vo.MemberModifyDto;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
 @Transactional
@@ -77,7 +78,7 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public int modify(MemberVo mvo) throws Exception {
+	public int modify(MemberModifyDto mvo) throws Exception {
 		return dao.modify(mvo);
 	}
 

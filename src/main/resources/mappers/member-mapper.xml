@@ -75,13 +75,13 @@
 	</select>
 	
 	<!-- 개인정보수정 (비밀번호, 이메일변경)-->
-	<update id="modify" parameterType="mvo">
+	<update id="modify" >
 	  UPDATE members
 	  <set>
-	    <if test="password != null">password = #{password},</if>
+	    <if test="newpassword != null">password = #{newpassword},</if>
 	    <if test="email != null">email = #{email},</if>
 	  </set>
-	  WHERE userid = #{userId}
+	  WHERE userid = #{userId} and password = #{password}
 	</update>
 
 	
