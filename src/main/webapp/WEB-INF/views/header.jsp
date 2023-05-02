@@ -50,7 +50,7 @@
 			  <%} else{ %>
 			    <sec:authorize access="hasRole('ADMIN')">
 			    <li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/posting">글 작성</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/posting">레시피 작성</a>
 			    </li>
 			    <li class="nav-item">
 			      <a href="<%=request.getContextPath() %>/logout" class="nav-link">로그아웃</a>

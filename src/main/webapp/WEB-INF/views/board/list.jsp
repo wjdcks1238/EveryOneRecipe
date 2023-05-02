@@ -18,23 +18,22 @@
 <div id="temp">
 </div>
 <br>
-<div  class="listrecent">
+<div  class="listrecent container">
 <div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
 	<c:forEach items="${postList }" var="list" varStatus="stqatus">
-	<div class="col-md-3 mt-3">
-		<div class="card">
-			<img alt="" src="${list.mainImage }" width="100%">
+	<div class="col-md-4 mt-3">
+		<div class="card" >
+			<img alt="" src="${list.mainImage }" width="100%" style="max-height: 300px">
 			<div class="card-block">
 				<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></h2>
 				<h4 class="card-text" id="content">${list.content }</h4>
 				<div class="wrapfooter">
 					<span class="meta-footer-thumb">
-						프로필이미지
 						<a href="<%=request.getContextPath() %>/member/info/${list.userId }">
 							<img class="author-thumb" alt="" src="${list.profileUrl }">
 						</a>
 					</span>
-					<span class="author-meta">
+					<span class="author-meta mt-2">
 						<span class="post-name">${list.nickname }</span>
 						<span class="post-date">${list.createDate }</span><span class="post-read"></span>
 					</span>
@@ -161,23 +160,26 @@ var start = {
 			            		}
 	            		}
 	            		
+	            		var date = parseDate(reply.createDate);
+	            		var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+	            	
 	            		
-	            		var card = $('<div class="col-md-3 mt-3">'+
-	            						'<div class="card">'+
-	            						'<img alt="" src="'+reply.mainImage +'" width="100%">'+
+	            	
+	            		var card = $('<div class="col-md-4 mt-3">'+
+	            						'<div class="card" >'+
+	            						'<img alt="" style="max-height: 300px" src="'+reply.mainImage +'" width="100%">'+
 		            						'<div class="card-block">'+
 		            							'<h2 class="card-title"><a href="${pageContext.request.contextPath}/board/list/'+reply.postId+'">'+reply.foodName+'</a></h2>'+
 		            							'<h4 class="card-text">'+reply.content+'</h4>'+
 		            							'<div class="wrapfooter">'+
 		            								'<span class="meta-footer-thumb">'+
-		            									'프로필이미지'+
 		            									'<a href="${pageContext.request.contextPath}/member/info/'+reply.userId+'">'+
 		            										'<img class="author-thumb" alt="" src="'+reply.profileUrl+'">'+
 		            									'</a>'+
 		            								'</span>'+
-		            								'<span class="author-meta">'+
-		            									'<span class="post-name">'+reply.nickname+'</span>'+
-		            									'<span class="post-date">'+reply.createDate+'</span><span class="post-read"></span>'+
+		            								'<span class="author-meta mt-2">'+
+		            									'<span class="post-name">'+reply.nickname+'</span>'+' '+
+		            									'<span class="post-date">'+formattedDate+'</span><span class="post-read"></span>'+
 		            								'</span>'+
 		            								'<span class="post-read-more">' +
 		            									' <span>'+
@@ -255,6 +257,15 @@ $(document).on("click",".bookmarkBtn" ,function() {
 		
 	});
 });
+
+function parseDate(str) {
+	  var months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+	  var parts = str.split(' ');
+	  var month = months.indexOf(parts[0]) + 1;
+	  var day = parseInt(parts[1].replace(',', ''));
+	  var year = parseInt(parts[2]);
+	  return new Date(year, month - 1, day);
+}
 /*
 $(function() {
 	  $('#content img').remove();

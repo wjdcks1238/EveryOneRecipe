@@ -485,8 +485,8 @@ public class BoardController {
 			chk.setPostId(postId);
 			
 					
-			//int lookUp= bService.upOrNot(chk);
-			//pvo.setLookUp(lookUp);
+			int lookUp= bService.upOrNot(chk);
+			pvo.setLookUp(lookUp);
 			
 			//bService.upView(postId);
 			mv.addObject("post",pvo);

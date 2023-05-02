@@ -75,11 +75,17 @@
    			</select>
    		</c:when>
    		<c:otherwise>
+   			<!-- 관리자가 사용자를 선택하는 경우
    			<select class="targetUser">
     			<c:forEach var="id" items="${idlist }">
     				<option value="${id.userId }">${id.userId }</option>
     			</c:forEach>
     		</select>
+    		  -->
+    		<!-- 방 개설자 고정 -->
+			<select class="targetUser" disabled>
+				<option value="${param.id }" selected>${param.id }</option>
+			</select>    		  
     	</c:otherwise>   	
    	</c:choose>
     
@@ -119,7 +125,7 @@ function connect(){
 }
 	function addMsg(msg){
 		var chat = $("#msgArea").val();
-		chat = chat + "\n"+ "상대방 :" + msg;
+		chat = chat + "\n"+ "상대방 : " + msg;
 		$('#msgArea').val(chat);
 	};
 	
@@ -165,7 +171,14 @@ function connect(){
 	        }
 		}
 	})	
-});		
+});	
+	
+$(document).ready(function() {
+	history.replaceState({}, null, location.pathname);	    
+});
+
+	
+	
 </script>
 </body>
 </html>

@@ -134,7 +134,7 @@
     		<div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
     			<c:forEach items="${postList }" var="list" >
 	    			<div class="col-md-2 card card-pin mt-3 ml-3" style="padding: 0">
-	    				<img class="card-img" src="${list.mainImage }" alt="Card image">
+	    				<img class="card-img" style="max-height: 200px" src="${list.mainImage }" alt="Card image">
 	    				<div class="overlay">
 	    					<h2 class="card-title title">${list.foodName }</h2>
 	    					<div class="more">

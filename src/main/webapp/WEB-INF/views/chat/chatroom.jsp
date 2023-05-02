@@ -45,13 +45,13 @@ td, th{
                             	<c:choose>
                             		<c:when test="${loginUser eq 'everys_recipe'}">
 		                                <button class="btn btn-outline-secondary" 
-		                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}'">
+		                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}?id=${chatRoom.userId }'">
 		                                	입장
 		                                </button>
                                 	</c:when>
                                 	<c:when test="${loginUser eq chatRoom.userId}">
 		                                <button class="btn btn-outline-secondary" 
-		                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}'">
+		                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}?id=${chatRoom.userId }'">
 		                                	입장
 		                                </button>
                                 	</c:when>
