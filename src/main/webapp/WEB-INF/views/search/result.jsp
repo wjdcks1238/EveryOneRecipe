@@ -262,9 +262,7 @@
 			var searchResult = data[i];
 			htmlval += '<div class="col-md-3 mt-3">';
 			htmlval += '<div class="card">';
-			htmlval += '<a href="<%=request.getContextPath() %>/board/list/' + searchResult.postId + '">';
-			htmlval += '이미지 삽입 예정.';
-			htmlval += '</a>';
+			htmlval += '<img alt="" src="' + searchResult.mainImage +'" width="100%" style="max-height: 300px">';
 			htmlval += '<div class="card-block">';
 			htmlval += '<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/' + searchResult.postId + '">' + searchResult.foodName + '</a></h2>';
 			htmlval += '<h4 class="card-text"> ' + searchResult.content + '</h4>';

@@ -223,6 +223,13 @@ public class BoardController {
 			}
 			System.out.println(result);
 			
+			for(PostVo pvo : result) {
+				pvo.setContent(pvo.getContent().replaceAll("<img[^>]*>", ""));
+				if(pvo.getContent().length()>150) {
+					pvo.setContent(pvo.getContent().substring(0,151)+"...");
+				}
+			}
+			
 			return new Gson().toJson(result);
 		}
 		
@@ -246,6 +253,13 @@ public class BoardController {
 			List<PostVo> result = bsService.pagingHashList(map);
 			bsService.insertHashDB(keyword);
 			System.out.println(result);
+			
+			for(PostVo pvo : result) {
+				pvo.setContent(pvo.getContent().replaceAll("<img[^>]*>", ""));
+				if(pvo.getContent().length()>150) {
+					pvo.setContent(pvo.getContent().substring(0,151)+"...");
+				}
+			}
 			
 			return new Gson().toJson(result);
 		}
