@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>레시피 찾기</title>
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <link href="${pageContext.request.contextPath}/resources/css/detail.css" rel="stylesheet">
@@ -23,20 +23,19 @@ input[type="text"]:focus{
 		 <p class="mt-3"> 선택한 재료들을 조합하여, 현재 만들 수 있는 레시피를 찾아드립니다.</p> 
 	</div>
 	<input style="width: 20%" class="form-control mt-5" type="text" name="ingSearch" placeholder="재료를 입력해 주세요">
-	<form action="recommend" method="post">
+	<form id="ingForm">
 	
 		<div  class="chosen mt-3" >
 			<input type="hidden" name="list" id="chosenList">	
 		</div>
 	
 	
-	<div id="searchResult">
+	<div id="searchResult" class="mt-3">
 	
 	</div>
 	
-	<button class="btn btn-dark mt-2" type="submit">레시피 찾기</button>
+	<button class="btn btn-dark mt-2" id="submit" >레시피 찾기</button>
 	</form>
-	빈값 처리 필요
 </div>
 
 
@@ -86,12 +85,33 @@ input[type="text"]:focus{
 	$(document).on("click", "a[name=ing]", function() {
 		//console.log($(this).text());
 		var cList =$("#chosenList").val();
-		var span= $("<span name='cing'>").text($(this).text());
+		var span= $("<span name='cing'>").html('<a href="#" style="color: #007bff">'+$(this).text()+'</a>');
+		$(this).next().remove();
 		$(this).remove();
 		$(".chosen").append(span).append($('<span>/</span>'));
 		$("#chosenList").val(cList+ $(this).text()+'$');
 		
 		
+	});
+	$(document).on("click", "span[name=cing]", function() {
+	    $(this).next().remove();
+	    $(this).remove();
+	    var cList = $("#chosenList").val().replace($(this).text()+'$', '');
+	    $("#chosenList").val(cList);
+	});
+	$(document).on("click", "#submit", function() {
+		  var ingForm= $('#ingForm');
+		  if($("#chosenList").val()==""){
+			  
+			  alert("재료를 선택해 주세요");
+			  return;
+		  }
+		  // 요청 URL과 HTTP 메서드 설정
+		  ingForm.attr('action', 'recommend');
+		  ingForm.attr('method', 'POST');
+
+		  // 폼 제출
+		  ingForm.submit();
 	});
 		
 </script>

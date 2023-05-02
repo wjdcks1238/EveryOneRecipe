@@ -40,6 +40,9 @@ input[type="text"]{
 .btn{
 	font-weight: 700;
 }
+#image_container{
+	position: relative;
+}
 </style>
 
 </head>
@@ -76,13 +79,9 @@ input[type="text"]{
   					<a  class="btn btn-success">대표 이미지 선택</a>
 			</label>
 				<input style="display: none" type="file" id="image" accept="image/*" name="report" >
-				<div id="image_container" class="mb-3"></div>
+				<div id="image_container" class="position-relative mb-3"></div>
 				
 			</div>
-			
-			
-			
-			
 			
 			
 			
@@ -128,50 +127,52 @@ input[type="text"]{
 		
 
 		$(document).on("change","#image",function(event){
-		    var reader = new FileReader();
-		
-		    reader.onload = function(event) {
-		      
-		      var img = document.createElement("img");
-		      img.setAttribute("src", event.target.result);
-		      img.setAttribute("style", "max-width:70%; max-height:400px ");
-		      $("#image_container").html("");
-		      document.querySelector("div#image_container").appendChild(img);
-		    };
-		
-		    reader.readAsDataURL(event.target.files[0]);
-		    $("#remove").remove();
-		    $("#mainImageDiv").append('<button class="mb-3" id="remove" type="button">x</button>');
-		  });
-		
-		
+			  var reader = new FileReader();
+
+			  reader.onload = function(event) {
+			    var img = document.createElement("img");
+			    img.setAttribute("src", event.target.result);
+			    img.setAttribute("style", "max-width:70%; max-height:400px ");
+			    $("#image_container").html("");
+			    document.querySelector("div#image_container").appendChild(img);
+
+			    // X 버튼 생성 및 위치 조정
+			    $("#image_container").append('<button class="mb-3 close" id="remove" type="button"><span aria-hidden="true">&times;</span></button>');
+			    $("#remove").css({
+			      "position": "absolute",
+			      "top": "0",
+			      "right":"0"
+			    });
+			  };
+
+			  reader.readAsDataURL(event.target.files[0]);
+			});
 		
 		$("#sb").click(function(){
-			var isValid = true;
 			$('.chk').each(function() {
 //				console.log($(this).val().trim());
 //				console.log($(this).val());
 				if($(this).val().trim()==''){
 					alert("음식이름, 재료, 수량을 전부 입력해주세요");
-					isValid =false;
 					return false;
 				}
 			});
+			if($("input[name=ingredient]").val().indexOf('$')!=-1){
+				alert("재료 이름에는 $문자 사용이 불가합니다.");
+				return false;
+			}
+			console.log($("input[name=ingredient]").val());
 			var content = CKEDITOR.instances.editor.getData();
 			var content_len = content.length;
 			if(content.trim()==''){
 				alert("게시글 내용을 입력해주세요");
-				isValid =false;
 				return false;
 			}
 			if(content_len<18){
 				alert("10글자 이상 입력해주세요.");
-				isValid =false;
 				return false;
 			}
-			if(!isValid){
-				return false;
-			}
+			
 			var formDataS=$("#frm").serialize();
 			formDataS+="&content="+encodeURIComponent(content);
 			//console.log(formData);
@@ -226,7 +227,7 @@ input[type="text"]{
 		
 	if($("#image-container").text()!=''){
 		console.log($("#image-container").text());
-		$("#mainImageDiv").append('<button class="mb-3" id="remove" type="button">x</button>');
+		$("#mainImageDiv").append('<button class="mb-3 close" id="remove" type="button"><span aria-hidden="true">&times;</span></button>');
 		
 	}
 		
