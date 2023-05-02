@@ -78,12 +78,11 @@
 						<h4 class="card-text">${list.content }</h4>
 						<div class="wrapfooter">
 							<span class="meta-footer-thumb">
-								프로필이미지
 								<a href="<%=request.getContextPath() %>/member/info/${list.userId }">
 									<img class="author-thumb" alt="" src="${list.profileUrl }">
 								</a>
 							</span>
-							<span class="author-meta">
+							<span class="author-meta  mt-2">
 								<span class="post-name">${list.nickname }</span>
 								<span class="post-date">${list.createDate }</span><span class="post-read"></span>
 							</span>
@@ -268,7 +267,6 @@
 			htmlval += '<h4 class="card-text"> ' + searchResult.content + '</h4>';
 			htmlval += '<div class="wrapfooter">';
 			htmlval += '<span class="meta-footer-thumb">';
-			htmlval += '프로필이미지';
 			htmlval += '<a href="<%=request.getContextPath() %>/member/info/' + searchResult.userId + '">';
 			htmlval += '<img class="author-thumb" alt="" src="' + searchResult.profileUrl + '">';
 			htmlval += '</a>';
