@@ -79,7 +79,7 @@ input[type="text"]{
   					<a  class="btn btn-success">대표 이미지 선택</a>
 			</label>
 				<input style="display: none" type="file" id="image" accept="image/*" name="report" >
-				<div id="image_container" class="position-relative mb-3"></div>
+				<div id="image_container" class="mb-3"></div>
 				
 			</div>
 			
@@ -126,27 +126,36 @@ input[type="text"]{
 		});
 		
 
-		$(document).on("change","#image",function(event){
-			  var reader = new FileReader();
+		$(document).on("change", "#image", function(event) {
+		  var reader = new FileReader();
 
-			  reader.onload = function(event) {
-			    var img = document.createElement("img");
-			    img.setAttribute("src", event.target.result);
-			    img.setAttribute("style", "max-width:70%; max-height:400px ");
-			    $("#image_container").html("");
-			    document.querySelector("div#image_container").appendChild(img);
+		  reader.onload = function(event) {
+		    var img = $("<img>").attr({
+		      "src": event.target.result,
+		      "style": "max-width:70%; max-height:400px",
+		      "id":"img"
+		    });
+		    $("#image_container").html("");
+		    $("#image_container").append(img);
 
-			    // X 버튼 생성 및 위치 조정
-			    $("#image_container").append('<button class="mb-3 close" id="remove" type="button"><span aria-hidden="true">&times;</span></button>');
-			    $("#remove").css({
-			      "position": "absolute",
-			      "top": "0",
-			      "right":"0"
-			    });
-			  };
+		    // X 버튼 생성 및 위치 조정
+		    var removeBtn = $("<button class='mb-3 close' id='remove' type='button'>").html("<span aria-hidden='true'>&times;</span>");
+		    $("#image_container").append(removeBtn);
 
-			  reader.readAsDataURL(event.target.files[0]);
-			});
+		    img.on("load", function() {
+		      var imgWidth = img.width();
+		      var containerWidth = $("#image_container").width();
+		      var right = containerWidth - imgWidth + 8;
+		      removeBtn.css({
+		        "position": "absolute",
+		        "right": right + "px"
+		      });
+		    });
+		  };
+
+		  reader.readAsDataURL(event.target.files[0]);
+		});
+
 		
 		$("#sb").click(function(){
 			$('.chk').each(function() {
@@ -224,13 +233,13 @@ input[type="text"]{
 		$("#remove").remove();
 		
 	});
-		
+	/*	
 	if($("#image-container").text()!=''){
 		console.log($("#image-container").text());
 		$("#mainImageDiv").append('<button class="mb-3 close" id="remove" type="button"><span aria-hidden="true">&times;</span></button>');
 		
 	}
-		
+	*/
 		
 	</script>
 </body>
