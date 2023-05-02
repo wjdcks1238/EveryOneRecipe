@@ -22,7 +22,8 @@ public class weekVo {
 	private int lookUp;
 	private Date createAt;
 	private Date updateAt;
-	private String isDeleted; 
+	private String isDeleted;
+	private String mainImage;
 	private String dateWrite;
 	
 	public String getDateWrite() {
@@ -106,6 +107,12 @@ public class weekVo {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getMainImage() {
+		return mainImage;
+	}
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
 	}
 	
 	
