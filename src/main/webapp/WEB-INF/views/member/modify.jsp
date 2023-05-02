@@ -195,8 +195,6 @@
 	document.addEventListener('DOMContentLoaded', function() {
 	  // 비밀번호 유효성 확인
 	  var inputPassword = document.querySelector('input[name=password]');
-	  var regPasswordError = document.querySelector('.reg_password_error');
-	  var passwordCheckError = document.querySelector('.password_check_error');
 	
 	  inputPassword.onkeyup = function() {
 	    if (inputPassword.value === "") {
@@ -248,44 +246,49 @@
 	$(document).on("click","#modifyBtn", function(event) {
 	    event.preventDefault();
 	    
-	    var password = $.trim($("input[name=password]").val());
+	    var password = $.trim($("input[name=password]").eq(0).val());
+	    var newpassword = $.trim($("input[name=password]").eq(2).val());
 	    var email = $.trim($("input[name=email]").val());
 	    
 	    console.log("~~~~~~~~~~~~~~입력된 암호  (☞ﾟヮﾟ)☞:" + password);
 	    
 	    if (password.length !== 0) {
 	        $.ajax({
-	            url: '<%=request.getContextPath()%>/member/modify',
+	            url: '${pageContext.request.contextPath}/member/modify',
 	            type: 'POST',
-	            data: {password: password, email: email},
-	            success:function(result){
+	            data: {password: password, email: email, newpassword : newpassword},
+	            success: function(result){
 	            	console.log("아니이게뭐야 (☞ﾟヮﾟ)☞"+result); 
-	                if (result === "success") {
+	                if (result == 1) {
 	                    console.log("어어 됐다??"+ password);
-	                    location.href="<%=request.getContextPath()%>/member/infoupdate";
-												} else {
-													alert("비밀번호가 일치하지 않습니다.");
-												}
-											},
-											error : function() {
-												alert("오류가 발생하였습니다. 다시 시도해주세요.");
-											}
-				});
-			}
-		});
+	                    location.href="${pageContext.request.contextPath}/member/infoupdate";
+					} else if(result == 0) {
+						alert("비밀번호가 일치하지 않습니다.다시 입력해주세요");
+						$("input[name=password]").eq(0).focus();
+					} else {
+						alert("정보 수정에 실패했습니다.");
+						location.href="${pageContext.request.contextPath}/";
+					}
+				},  // success
+				error : function() {
+					alert("오류가 발생하였습니다. 다시 시도해주세요.");
+				}
+			});  //ajax
+		}// if (password.length !== 0)
+	});  // $(document).on("click","#modifyBtn", function(event) {
 
-		$("#emailInput").on("input", function() {
-			$("#emailChkBtn").prop("disabled", false);
-		});
-		
-				
-		
-		//회원탈퇴
-		function removeMember(){
-			if(window.confirm("정말 탈퇴하시겠습니까?")){
-				location.href="<%=request.getContextPath()%>/login"
-			}
+	$("#emailInput").on("input", function() {
+		$("#emailChkBtn").prop("disabled", false);
+	});
+	
+			
+	
+	//회원탈퇴
+	function removeMember(){
+		if(window.confirm("정말 탈퇴하시겠습니까?")){
+			location.href="<%=request.getContextPath()%>/login"
 		}
+	}
 	</script>
 </body>
 </html>
