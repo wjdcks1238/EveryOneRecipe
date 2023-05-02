@@ -67,6 +67,13 @@
 	display: none;
 }
 
+/* .disabled {
+  background: aquamarine;
+  text-decoration: white;
+} */
+.text-right {
+  text-align: right;
+}
 </style>
 </head>
 <body>
@@ -155,19 +162,16 @@
 										<input type="email" name="email" value="${memberDto.email }"
 											placeholder="이메일을 입력해주세요." id="emailInput" class="form-control" style="width: 300px">
 									</div>
-									<div class="col-sm-4">
-										<button type="button" id="emailChkBtn" class="btn mt-3">중복확인</button>
+									<div class="col-sm-4 text-rigth">
+										<button type="button" id="checkEmailBtn" class="btn mt-3">중복확인</button>
 									</div>
 								</div>
-								<div class="error-message hide error" id="email-error">이메일을
-									입력해주세요.</div>
-								<div class="error-message hide error" id="regMail-error">올바른
-									이메일 형식이 아닙니다.</div>
-								<div class="error-message hide error" id="regMail-error2">이메일
-									주소는 50자 이하여야 합니다.</div>
+								<div class="error-message hide error" id="email-error">이메일을 입력해주세요.</div>
+								<div class="error-message hide error" id="regMail-error">올바른 이메일 형식이 아닙니다.</div>
+								<div class="error-message hide error" id="regMail-error2">이메일 주소는 50자 이하여야 합니다.</div>
 							</div>
 							<div align="center">
-								<button type="button" onclick="removeMember();" class="btn mt-3">탈퇴하기</button>
+								<button type="button" onclick="removeMember();" class="btn mt-3" >탈퇴하기</button>
 								<button id="modifyBtn" type="submit" class="btn mt-3">회원정보수정</button>
 							</div>
 						</form>
@@ -219,16 +223,30 @@
 			passwordCheckError.classList.add('hide');
 		}
 	}
+
 	//이메일 정규식
 	let regMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 	let emailError = document.getElementById("email-error");
 	let regEmailError = document.getElementById("regMail-error");
 	let regEmailError2 = document.getElementById("regMail-error2");
+	
+	//이메일이 입력되어 있다면 버튼 disabled
+	const emailInput = document.getElementById('emailInput');
+	const checkEmailBtn = document.getElementById('checkEmailBtn');
+	
+	// 이메일 input 태그의 값이 변경될 때마다 이벤트 리스너를 등록합니다.
+/* 	emailInput.addEventListener('input', () => {
+	  if (emailInput.value.trim() !== '') {
+	    checkEmailBtn.disabled = false;
+	  } else {
+	    checkEmailBtn.disabled = true;
+	  }
+	}); */
 	//이메일 확인
 	emailInput.onkeyup = function() {
 		if (emailInput.value === "") {
 			emailError.classList.remove('hide');
-			/* emailError.classList.add('hide'); */
+			emailError.classList.add('hide');
 		} else {
 			if (!regMail.test(emailInput.value)) {
 				regEmailError.classList.remove('hide');
@@ -242,6 +260,9 @@
 			}
 		}
 	}
+
+	
+	
 	//비밀번호, 이메일 회원정보수정
 	$(document).on("click","#modifyBtn", function(event) {
 	    event.preventDefault();
@@ -277,11 +298,7 @@
 		}// if (password.length !== 0)
 	});  // $(document).on("click","#modifyBtn", function(event) {
 
-	$("#emailInput").on("input", function() {
-		$("#emailChkBtn").prop("disabled", false);
-	});
-	
-			
+		
 	
 	//회원탈퇴
 	function removeMember(){

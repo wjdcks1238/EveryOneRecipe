@@ -342,7 +342,7 @@ public class MemberController {
 		mv.setViewName("member/modify");
 		return mv;
 	}
-	//개인정보수정(
+	//개인정보수정(비밀번호 수정 OK, TODO:이메일 수정
 	@PostMapping("/modify")
 	@ResponseBody
 	public int modifyUser(
