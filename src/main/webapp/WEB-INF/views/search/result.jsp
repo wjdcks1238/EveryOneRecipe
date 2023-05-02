@@ -67,13 +67,12 @@
 				<button type="button" data-keyword="${key.keword }" class="btn_redirectSearch" style="border-style: dotted; border-radius: 10px; border-width: 3px; background: none;">${key.keword }</button>
 			</c:forEach>
 		</fieldset>
+	<div class="listrecent container">
 	<div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach items="${postList }" var="list" varStatus="stqatus">
-			<div class="col-md-3 mt-3">
+			<div class="col-md-4 mt-3">
 				<div class="card">
-					<a href="<%=request.getContextPath() %>/board/list/${list.postId}">
-						이미지 삽입 예정.
-					</a>
+					<img alt="" src="${list.mainImage }" width="100%" style="max-height: 300px">
 					<div class="card-block">
 						<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></h2>
 						<h4 class="card-text">${list.content }</h4>
@@ -120,6 +119,7 @@
 				</div>
 			</div>
 		</c:forEach>
+	</div>
 	</div>
 </div>
 

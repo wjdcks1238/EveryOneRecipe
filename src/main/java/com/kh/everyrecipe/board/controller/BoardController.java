@@ -189,49 +189,6 @@ public class BoardController {
 		
 		
 		
-		
-		
-		
-		@GetMapping("/search")
-		public ModelAndView searchResult(
-				ModelAndView mv,
-				@RequestParam("keyword") String keyword,
-				Principal principal
-				) throws Exception {
-			//검색어를 입력창에 추가
-			System.out.println(keyword);
-			mv.addObject("keyword", keyword);
-			List<SearchVo> recommendKeyword= bsService.getRecommendSearchKeyword();
-			mv.addObject("recommendKey",recommendKeyword);
-			
-			//isdelete 필드가 'N'인 게시글만 불러온다. 	
-			Map<String, String> map = new HashMap<>();
-			map.put("from", 0+"");
-			map.put("to", 20+"");
-			map.put("keyword", keyword);
-			if(principal!=null) {
-				map.put("userId",principal.getName());					
-			}
-			List<PostVo> result = bsService.pagingList(map);
-			
-			int dataSearchResult = bsService.searchKeyword(keyword);
-			if(dataSearchResult == 0) {
-				//검색결과가 없는 경우, insert문을 실행시켜서 최초 데이터를 삽입
-				bsService.insertSearchData(keyword);
-				bsService.insertDB(keyword);
-			} else if(dataSearchResult == 1) {
-				//검색결과가 있는경우(1개), update문을 실행시켜서 데이터를 갱신
-				bsService.updateSearchData(keyword);
-				bsService.insertDB(keyword);
-			} else {
-				//위 두 조건에 해당되지 않는 경우.
-			}
-			
-			mv.addObject("postList", result);
-			mv.setViewName("search/result");
-			return mv;
-		}
-		
 		@GetMapping("/findfoodajax")
 		@ResponseBody
 		public String findFoodAjax(
@@ -329,6 +286,54 @@ public class BoardController {
 			return new Gson().toJson(result);
 		}
 		
+		@GetMapping("/search")
+		public ModelAndView searchResult(
+				ModelAndView mv,
+				@RequestParam("keyword") String keyword,
+				Principal principal
+				) throws Exception {
+			//검색어를 입력창에 추가
+			System.out.println(keyword);
+			mv.addObject("keyword", keyword);
+			List<SearchVo> recommendKeyword= bsService.getRecommendSearchKeyword();
+			mv.addObject("recommendKey",recommendKeyword);
+			
+			//isdelete 필드가 'N'인 게시글만 불러온다. 	
+			Map<String, String> map = new HashMap<>();
+			map.put("from", 0+"");
+			map.put("to", 20+"");
+			map.put("keyword", keyword);
+			if(principal!=null) {
+				map.put("userId",principal.getName());					
+			}
+			List<PostVo> result = bsService.pagingList(map);
+			System.out.println(result);
+			
+			int dataSearchResult = bsService.searchKeyword(keyword);
+			if(dataSearchResult == 0) {
+				//검색결과가 없는 경우, insert문을 실행시켜서 최초 데이터를 삽입
+				bsService.insertSearchData(keyword);
+				bsService.insertDB(keyword);
+			} else if(dataSearchResult == 1) {
+				//검색결과가 있는경우(1개), update문을 실행시켜서 데이터를 갱신
+				bsService.updateSearchData(keyword);
+				bsService.insertDB(keyword);
+			} else {
+				//위 두 조건에 해당되지 않는 경우.
+			}
+			
+			for(PostVo pvo : result) {
+				pvo.setContent(pvo.getContent().replaceAll("<img[^>]*>", ""));
+				if(pvo.getContent().length()>150) {
+					pvo.setContent(pvo.getContent().substring(0,151)+"...");
+				}
+			}
+			
+			mv.addObject("postList", result);
+			mv.setViewName("search/result");
+			return mv;
+		}
+		
 		@GetMapping("/list")
 		public ModelAndView boardList(ModelAndView mv
 				, Principal principal
@@ -345,6 +350,7 @@ public class BoardController {
 				}
 				List<PostVo> pvoList= bService.pagingList(map);
 				
+
 				for(PostVo pvo : pvoList) {
 					pvo.setContent(pvo.getContent().replaceAll("<img[^>]*>", ""));
 					if(pvo.getContent().length()>150) {
