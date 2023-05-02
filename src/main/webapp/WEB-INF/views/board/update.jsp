@@ -72,8 +72,8 @@ input[type="text"]{
 			<label for="image">
 	 					<a  class="btn btn-success">대표 이미지 선택</a> 
 			</label>
-				<input style="display: none" type="file" id="image" accept="image/*" onchange="setThumbnail(event);" name="report" >
-				<div id="image_container" class="mb-3"><img alt="" src="${post.mainImage }"> </div>
+				<input style="display: none" type="file" id="image" accept="image/*"  name="report" >
+				<div id="image_container" class="mb-3"><img alt="" style="max-width:70%; max-height:400px "  src="${post.mainImage }"> </div>
 				
 		</div>
 		
@@ -116,22 +116,22 @@ $(document).on("click","button[name=deleteIng]" ,function(){
 });
 
 
-function setThumbnail(event) {
+$(document).on("change","#image",function(event){
     var reader = new FileReader();
 
     reader.onload = function(event) {
       
       var img = document.createElement("img");
       img.setAttribute("src", event.target.result);
-      img.setAttribute("width", '40%');
+      img.setAttribute("style", "max-width:70%; max-height:400px ");
       $("#image_container").html("");
       document.querySelector("div#image_container").appendChild(img);
     };
 
     reader.readAsDataURL(event.target.files[0]);
+    $("#remove").remove();
     $("#mainImageDiv").append('<button class="mb-3" id="remove" type="button">x</button>');
-  }
-
+});
 $("#sb").click(function(){
 	var isValid = true;
 	$('.chk').each(function() {

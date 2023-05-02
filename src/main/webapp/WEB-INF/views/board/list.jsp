@@ -22,19 +22,18 @@
 <div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
 	<c:forEach items="${postList }" var="list" varStatus="stqatus">
 	<div class="col-md-3 mt-3">
-		<div class="card">
-			<img alt="" src="${list.mainImage }" width="100%">
+		<div class="card" >
+			<img alt="" src="${list.mainImage }" width="100%" style="max-height: 400px">
 			<div class="card-block">
 				<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.foodName }</a></h2>
 				<h4 class="card-text" id="content">${list.content }</h4>
 				<div class="wrapfooter">
 					<span class="meta-footer-thumb">
-						프로필이미지
 						<a href="<%=request.getContextPath() %>/member/info/${list.userId }">
 							<img class="author-thumb" alt="" src="${list.profileUrl }">
 						</a>
 					</span>
-					<span class="author-meta">
+					<span class="author-meta mt-2">
 						<span class="post-name">${list.nickname }</span>
 						<span class="post-date">${list.createDate }</span><span class="post-read"></span>
 					</span>
@@ -163,19 +162,18 @@ var start = {
 	            		
 	            		
 	            		var card = $('<div class="col-md-3 mt-3">'+
-	            						'<div class="card">'+
-	            						'<img alt="" src="'+reply.mainImage +'" width="100%">'+
+	            						'<div class="card" >'+
+	            						'<img alt="" style="max-height: 400px" src="'+reply.mainImage +'" width="100%">'+
 		            						'<div class="card-block">'+
 		            							'<h2 class="card-title"><a href="${pageContext.request.contextPath}/board/list/'+reply.postId+'">'+reply.foodName+'</a></h2>'+
 		            							'<h4 class="card-text">'+reply.content+'</h4>'+
 		            							'<div class="wrapfooter">'+
 		            								'<span class="meta-footer-thumb">'+
-		            									'프로필이미지'+
 		            									'<a href="${pageContext.request.contextPath}/member/info/'+reply.userId+'">'+
 		            										'<img class="author-thumb" alt="" src="'+reply.profileUrl+'">'+
 		            									'</a>'+
 		            								'</span>'+
-		            								'<span class="author-meta">'+
+		            								'<span class="author-meta mt-2">'+
 		            									'<span class="post-name">'+reply.nickname+'</span>'+
 		            									'<span class="post-date">'+reply.createDate+'</span><span class="post-read"></span>'+
 		            								'</span>'+

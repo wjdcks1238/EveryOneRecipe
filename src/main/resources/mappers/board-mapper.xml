@@ -41,6 +41,7 @@
     ON p.POSTID = i.POSTID
 	</select>
 
+<!-- 페이징 -->
 <select id="pagingList" parameterType="map" resultMap="postResultMap">
 	SELECT 
 		  <if test="userId !=null">
@@ -93,28 +94,29 @@
     ON p.USERID = m.USERID
 	</select>
 
+<!-- 재료 조합을 위한 검색 -->
 <select id="getIngForRec" parameterType="java.util.List" resultType="com.kh.everyrecipe.board.vo.RecommendVo">
 
 select 
-(select count(*) from ingredient where postid= p2.postid) as ingCnt
-,POSTID
-,cnt
-,foodname
-from (    
-SELECT 
-     POSTID
-     ,count(POSTID) as cnt
-     , p.FOODNAME
- FROM (select * from post  WHERE ISDELETED = 'N') p
- JOIN (select * from ingredient where INGREDIENT in 
- 		<foreach collection="list" item="item" open="(" close=")" separator="," >
-   			 #{item}
-  		</foreach>
- ) i
-  using (POSTID)
- group by POSTID, p.FOODNAME
- order by POSTID 
- )p2  
+	(select count(*) from ingredient where postid= p2.postid) as ingCnt
+	,POSTID
+	,cnt
+	,foodname
+	from (    
+	SELECT 
+	     POSTID
+	     ,count(POSTID) as cnt
+	     , p.FOODNAME
+	 FROM (select * from post  WHERE ISDELETED = 'N') p
+	 JOIN (select * from ingredient where INGREDIENT in 
+	 		<foreach collection="list" item="item" open="(" close=")" separator="," >
+	   			 #{item}
+	  		</foreach>
+	 ) i
+	  using (POSTID)
+	 group by POSTID, p.FOODNAME
+	 order by POSTID 
+	 )p2  
 	</select>
 	
 
@@ -148,6 +150,7 @@ SELECT
 		 WHERE POSTID=#{postId}
 	</update>
 	
+	<!-- 조회수 증가 -->
 	<select id="upOrNot" parameterType="com.kh.everyrecipe.board.vo.ClientChkVo" statementType="CALLABLE" resultType="com.kh.everyrecipe.board.vo.ClientChkVo">
     { call PROC_CHK_ACCESS (
         #{postId, mode=IN, jdbcType=INTEGER},
