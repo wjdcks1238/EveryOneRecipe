@@ -187,26 +187,32 @@
 
 	<script>
 	//비밀번호
-	let inputPassword = document.getElementById("password");
-	let checkpw = document.getElementById("checkpw");
 	//비밀번호 정규식(공백없이 영어, 숫자, 특수문자(!,@,#)조합하여 8자 이상 16자 이하)
 	let regPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
 	let regPasswordError = document.getElementById("regPassword-error");
 	let passwordCheckError = document.getElementById("passwordCheck-error");
 	// 비밀번호 유효성 확인
-	inputPassword.onkeyup = function(){
-		if(inputPassword.value === ""){
-			regPasswordError.classList.remove('hide');
-			passwordCheckError.classList.add('hide');
-		} else {
-			regPasswordError.classList.add('hide');
-			if(!regPass.test(inputPassword.value)){
-				regPasswordError.classList.remove('hide');
-			} else {
-					passwordCheckError.classList.remove('hide');
-			}
-		}
-	}
+	document.addEventListener('DOMContentLoaded', function() {
+	  // 비밀번호 유효성 확인
+	  var inputPassword = document.querySelector('input[name=password]');
+	  var regPasswordError = document.querySelector('.reg_password_error');
+	  var passwordCheckError = document.querySelector('.password_check_error');
+	
+	  inputPassword.onkeyup = function() {
+	    if (inputPassword.value === "") {
+	      regPasswordError.classList.remove('hide');
+	      passwordCheckError.classList.add('hide');
+	    } else {
+	      regPasswordError.classList.add('hide');
+	      if (!regPass.test(inputPassword.value)) {
+	        regPasswordError.classList.remove('hide');
+	      } else {
+	        passwordCheckError.classList.remove('hide');
+	      }
+	    }
+	  }
+	});
+
 	// 비밀번호 일치 확인
 	checkpw.onkeyup = function(){
 		if(inputPassword.value !== checkpw.value ){
@@ -224,7 +230,7 @@
 	emailInput.onkeyup = function() {
 		if (emailInput.value === "") {
 			emailError.classList.remove('hide');
-			emailError.classList.add('hide');
+			/* emailError.classList.add('hide'); */
 		} else {
 			if (!regMail.test(emailInput.value)) {
 				regEmailError.classList.remove('hide');
@@ -245,7 +251,7 @@
 	    var password = $.trim($("input[name=password]").val());
 	    var email = $.trim($("input[name=email]").val());
 	    
-	    console.log("~~~~~~~~~~~~~~입력된 암호:" + password);
+	    console.log("~~~~~~~~~~~~~~입력된 암호  (☞ﾟヮﾟ)☞:" + password);
 	    
 	    if (password.length !== 0) {
 	        $.ajax({
@@ -253,7 +259,7 @@
 	            type: 'POST',
 	            data: {password: password, email: email},
 	            success:function(result){
-	            	console.log("아니이게뭐야"+result); 
+	            	console.log("아니이게뭐야 (☞ﾟヮﾟ)☞"+result); 
 	                if (result === "success") {
 	                    console.log("어어 됐다??"+ password);
 	                    location.href="<%=request.getContextPath()%>/member/infoupdate";
