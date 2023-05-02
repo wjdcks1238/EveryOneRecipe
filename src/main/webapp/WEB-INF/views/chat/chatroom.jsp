@@ -37,8 +37,9 @@ td, th{
             </c:when>
             <c:otherwise>
                 <c:forEach var="chatRoom" items="${chatRoomList }">
+                	<c:set var="num" value="${num+1}"/>
                     <tr>
-                        <td>${chatRoom.key }</td>
+                        <td>${num}</td>
                         <td>
                             ${chatRoom.title }
                             <c:if test="${!empty loginUser }">
