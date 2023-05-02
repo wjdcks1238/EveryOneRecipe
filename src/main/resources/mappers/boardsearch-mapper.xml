@@ -15,6 +15,9 @@
 		<result property="profile" column="PROFILE"/>
 		<result property="likeCnt" column="LIKECNT"/>
 		<result property="followCnt" column="FOLLOWCNT"/>
+		<result property="bookmarkCnt" column="BOOKMARKCNT"/>
+		<result property="isBlinded" column="ISBLINDED"/>
+		<result property="mainImage" column="MAINIMAGE"/>
 		<collection property="ingredients" ofType="ivo">
 			<result property="ingredient" column="INGREDIENT"/>
 			<result property="amount" column="AMOUNT"/>
@@ -34,7 +37,9 @@
 		<result property="profile" column="PROFILE"/>
 		<result property="likeCnt" column="LIKECNT"/>
 		<result property="followCnt" column="FOLLOWCNT"/>
-		<result property="hashtag" column="HASHTAG"/>
+		<result property="bookmarkCnt" column="BOOKMARKCNT"/>
+		<result property="isBlinded" column="ISBLINDED"/>
+		<result property="mainImage" column="MAINIMAGE"/>
 		<collection property="ingredients" ofType="ivo">
 			<result property="ingredient" column="INGREDIENT"/>
 			<result property="amount" column="AMOUNT"/>
@@ -80,11 +85,12 @@
 		SELECT 
 		  <if test="userId !=null">
 		   (select count(*) from POSTLIKE where USERID=#{userId} AND POSTID=p2.POSTID  AND ISDELETED='N') as likecnt
+		 , (select count(*) from POSTBOOKMARK where USERID=#{userId} AND POSTID=p2.POSTID  AND ISDELETED='N') as bookmarkcnt
 		 , (select count(*) from FOLLOWMAPPING where FWID=#{userId} and USERID=p2.USERID and ISDELETED='N') as followcnt
 		 ,
 		   </if>
 		   p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p2.UPDATEAT 
-         , p2.ISDELETED , p2.LOOKUP, i.INGREDIENT , i.AMOUNT, m.PROFILEURL
+         , p2.ISDELETED , p2.LOOKUP, p2.MAINIMAGE, i.INGREDIENT , i.AMOUNT, m.PROFILEURL
 	  FROM
 			(SELECT * 
 			   FROM (SELECT p.*
@@ -92,8 +98,11 @@
 			           FROM (SELECT * FROM post WHERE
                        	<if test="myPage != null">
 	                       	USERID=#{myPage} AND		
-                       	</if>                  
-                       ISDELETED = 'N' AND FOODNAME LIKE '%'||#{keyword}||'%' ORDER BY postid ) p) 
+                       	</if>
+                       	<if test="othersPage != null">
+	                       	USERID=#{othersPage} AND		
+                       	</if>                
+                       ISDELETED = 'N' AND ISBLINDED ='N' AND FOODNAME LIKE '%'||#{keyword}||'%' ORDER BY postid ) p) 
              ) p2
              JOIN ingredient i 
                    ON p2.POSTID = i.POSTID 
@@ -104,12 +113,13 @@
 		SELECT 
 		  <if test="userId !=null">
 		   (select count(*) from POSTLIKE where USERID=#{userId} AND POSTID=p2.POSTID  AND ISDELETED='N') as likecnt
+		 , (select count(*) from POSTBOOKMARK where USERID=#{userId} AND POSTID=p2.POSTID  AND ISDELETED='N') as bookmarkcnt
 		 , (select count(*) from FOLLOWMAPPING where FWID=#{userId} and USERID=p2.USERID and ISDELETED='N') as followcnt
 		 ,
 		   </if>
 		   p2.POSTID , p2.USERID , p2.NICKNAME , p2.FOODNAME , p2.CONTENT , p2.CREATEAT , p2.UPDATEAT 
-         , p2.ISDELETED , p2.LOOKUP, i.INGREDIENT , i.AMOUNT, m.PROFILEURL, h.HASHTAG
-         FROM
+         , p2.ISDELETED , p2.LOOKUP, p2.MAINIMAGE, i.INGREDIENT , i.AMOUNT, m.PROFILEURL, h.HASHTAG
+	  FROM
          	(SELECT * 
 			   FROM (SELECT p.*
 			              , ROWNUM AS RNUM
