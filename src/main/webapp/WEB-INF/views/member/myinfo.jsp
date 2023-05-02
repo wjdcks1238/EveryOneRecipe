@@ -85,8 +85,8 @@
 					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/infoupdate">개인정보 수정</a></li>
-					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/bookmark">북마크한 게시물</a></li>
-					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/like">좋아요 표시한 게시물</a></li>
+					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/bookmark">북마크</a></li>
+					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/like">좋아요</a></li>
 				</ul>
 			
 		</div>
@@ -138,7 +138,7 @@
     		<div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
     			<c:forEach items="${postList }" var="list" >
 	    			<div class="col-md-2 card card-pin mt-3 ml-3" style="padding: 0">
-	    				<img class="card-img" src="${list.mainImage }" alt="Card image">
+	    				<img class="card-img" style="max-height: 200px" src="${list.mainImage }" alt="Card image">
 	    				<div class="overlay">
 	    					<h2 class="card-title title">${list.foodName }</h2>
 	    					<div class="more">

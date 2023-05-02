@@ -63,7 +63,7 @@
                        	<if test="othersPage != null">
 	                       	USERID=#{othersPage} AND		
                        	</if>                  
-                       ISDELETED = 'N' AND ISBLINDED ='N' ORDER BY postid ) p) 
+                       ISDELETED = 'N' AND ISBLINDED ='N' ORDER BY updateat desc, postid desc ) p) 
              <![CDATA[ WHERE RNUM> #{from} AND RNUM<=#{to}]]>) p2
              JOIN ingredient i 
                    ON p2.POSTID = i.POSTID 

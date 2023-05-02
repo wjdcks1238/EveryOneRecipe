@@ -84,9 +84,9 @@
 					<li class="nav-item "><a class="nav-link"
 						href="<%=request.getContextPath()%>/member/infoupdate">개인정보 수정</a></li>
 					<li class="nav-item "><a class="nav-link"
-						href="<%=request.getContextPath()%>/member/bookmark">북마크한 게시물</a></li>
+						href="<%=request.getContextPath()%>/member/bookmark">북마크</a></li>
 					<li class="nav-item "><a class="nav-link"
-						href="<%=request.getContextPath()%>/member/like">좋아요 표시한 게시물</a></li>
+						href="<%=request.getContextPath()%>/member/like">좋아요</a></li>
 				</ul>
 
 			</div>
