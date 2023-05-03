@@ -46,13 +46,18 @@ public class PostBookmarkServiceImpl implements PostBookmarkService{
 	}
 
 	@Override
-	public List<Integer> getBookmarkList(String userId) throws Exception {
-		return dao.getBookmarkList(userId);
+	public List<Integer> getBookmarkList(String userId, int pNum, int limit) throws Exception {
+		return dao.getBookmarkList(userId, pNum, limit);
 	}
 
 	@Override
 	public List<BoardVo> getBookmarkPosts(List<Integer> list) throws Exception {
 		return dao.getBookmarkPosts(list);
+	}
+
+	@Override
+	public int getBookmarkCount(String name) {
+		return dao.getBookmarkCount(name);
 	}
 
 	

@@ -17,7 +17,8 @@ public interface PostBookmarkService {
 	public int addBookmark(Map<String, String> map)throws Exception;
 	public int reAddBookmark(Map<String, String> map)throws Exception;
 	public int removeBookmark(Map<String, String> map)throws Exception;
-	public List<Integer> getBookmarkList(String name)throws Exception;
+	public List<Integer> getBookmarkList(String name, int pNum, int limit)throws Exception;
+	public int getBookmarkCount(String name);
 	public List<BoardVo> getBookmarkPosts(List<Integer> list)throws Exception;
 
 	

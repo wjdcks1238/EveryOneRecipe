@@ -37,6 +37,7 @@ span[name=cancel-icon] i {
 }
 button[name=ing]{
 	border-radius: 7px;
+	box-shadow: 1px 1px 1px ;
 }
 </style>
 </head>

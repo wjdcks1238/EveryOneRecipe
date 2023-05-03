@@ -57,8 +57,42 @@
 				</c:forEach>
 				</tbody>
 			</table>
-
-
+			
+			
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination">
+				<c:choose>
+					<c:when test="${pageInfo.currentPage eq 1 }">
+					<li class="page-item">
+						<a aria-disabled="true" class="page-link">prev</a>
+					</li>
+					</c:when>
+					<c:otherwise>
+					<li class="page-item">
+						<a class="page-link"  href="<%=request.getContextPath()%>/member/bookmark/${pageInfo.currentPage-1}">prev</a>
+					</li>	
+					</c:otherwise>
+				</c:choose>
+			 
+			    <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" var="list"  >
+				    <li class="page-item ${list eq pageInfo.currentPage ? 'active' : '' }"><a class="page-link" href="<%=request.getContextPath()%>/member/bookmark/${list}" >${list }</a></li>
+			    </c:forEach>
+			    
+			    
+			    <c:choose>
+					<c:when test="${pageInfo.currentPage eq pageInfo.endPage }">
+					<li class="page-item">
+						<a class="page-link">next</a>
+					</li>
+					</c:when>
+					<c:otherwise>
+					<li class="page-item">
+						<a class="page-link"  href="<%=request.getContextPath()%>/member/bookmark/${pageInfo.currentPage+1}">next</a>
+					</li>	
+					</c:otherwise>
+				</c:choose>
+			  </ul>
+			</nav>
 		</div>
 	</div>
 </div>

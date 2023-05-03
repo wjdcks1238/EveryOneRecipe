@@ -24,8 +24,7 @@
   -webkit-transition: ease .2s;
   transition: ease .2s;
   background-color: #000000;
-  cursor: -webkit-zoom-in;
-  cursor: zoom-in; }
+ }
 .card-pin:hover .card-title {
   color: #ffffff;
   margin-top: 10px;
