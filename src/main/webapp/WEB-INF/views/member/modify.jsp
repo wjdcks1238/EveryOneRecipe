@@ -163,13 +163,13 @@
 										<input type="email" name="email" value="${memberDto.email }"
 											placeholder="이메일을 입력해주세요." id="emailInput" class="form-control" style="width: 300px">
 									</div>
+									<div class="error-message hide error" id="email-error">이메일을 입력해주세요.</div>
+									<div class="error-message hide error" id="regMail-error">올바른 이메일 형식이 아닙니다.</div>
+									<div class="error-message hide error" id="regMail-error2">이메일 주소는 50자 이하여야 합니다.</div>
 									<div class="col-sm-4 text-rigth">
 										<button type="button" id="checkEmailBtn" class="btn mt-3" onclick="checkEmailBtn">중복확인</button>
 									</div>
 								</div>
-								<div class="error-message hide error" id="email-error">이메일을 입력해주세요.</div>
-								<div class="error-message hide error" id="regMail-error">올바른 이메일 형식이 아닙니다.</div>
-								<div class="error-message hide error" id="regMail-error2">이메일 주소는 50자 이하여야 합니다.</div>
 							</div>
 							<div align="center">
 								<button type="button" onclick="removeMember();" class="btn mt-3" >탈퇴하기</button>
@@ -235,27 +235,30 @@
 	//const emailInput = document.getElementById('emailInput');
 	const checkEmailBtn = document.getElementById('checkEmailBtn');
 	
-	//이메일 확인
-emailInput.onkeyup = function() {
-  if (!regMail.test(emailInput.value)) {
-    if (emailInput.value === "") {
-      emailError.classList.add('hide');
-    } else {
-      emailError.classList.remove('hide');
-    }
-    regEmailError.classList.remove('hide');
-  } else {
-    emailError.classList.add('hide');
-    regEmailError.classList.add('hide');
-    if (emailInput.value.length > 50) {
-      regEmailError2.classList.remove('hide');
-    } else {
-      regEmailError2.classList.add('hide');
-    }
-  }
-}
+	// 이메일 확인
+	emailInput.onkeyup = function() {
+	  if (emailInput.value === "") {
+	    emailError.classList.remove('hide');
+	    regEmailError.classList.add('hide');
+	    regEmailError2.classList.add('hide');
+	    $("#modifyBtn").prop("disabled", true); // 개인정보수정 버튼 활성화
+	  } else if (!regMail.test(emailInput.value)) {
+	    emailError.classList.add('hide');
+	    regEmailError.classList.remove('hide');
+	    regEmailError2.classList.add('hide');
+	    $("#modifyBtn").prop("disabled", false);
+	  } else { // 입력값이 있고 이메일 형식이 맞다면
+	    emailError.classList.add('hide');
+	    regEmailError.classList.add('hide');
+	    if (emailInput.value.length > 50) {
+	      regEmailError2.classList.remove('hide');
+	      $("#modifyBtn").prop("disabled", true); // 개인정보수정 버튼 활성화
+	    } else {
+	      regEmailError2.classList.add('hide');
+	    }
+	  }
 
-
+	}
 	//이메일 중복확인 버튼 누르면 중복체크
 	let isEmailChecked = 0;
 	
