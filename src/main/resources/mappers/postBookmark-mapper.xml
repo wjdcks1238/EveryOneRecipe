@@ -25,6 +25,9 @@
 	<select id="getBookmarkList" parameterType="string" resultType="_int">
 		select POSTID from POSTBOOKMARK where USERID=#{userId} and ISDELETED='N'
 	</select>
+	<select id="getBookmarkCount" parameterType="string" resultType="_int">
+		select count(*) from POSTBOOKMARK where USERID=#{userId} and ISDELETED='N'
+	</select>
 	
 	<select id="getBookmarkPosts" resultType="bvo">
 		select POSTID, USERID, NICKNAME, FOODNAME, CREATEAT as createDate, LOOKUP from POST where
