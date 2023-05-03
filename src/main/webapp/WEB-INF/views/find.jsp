@@ -126,7 +126,7 @@ button[name=ing]{
 			</button>`;
 //		$(".chosen").append(span).append($('<span>/</span>'));
 		$(".chosen").append(a);
-		$("#chosenList").val(cList+ $(this).text()+'$');
+		$("#chosenList").val(cList+ $(this).text().trim()+'$');
 		
 		
 	});
@@ -135,6 +135,13 @@ button[name=ing]{
 	    $(this).remove();
 	    var cList = $("#chosenList").val().replace($(this).children("span[name=selected-text]").text()+'$', '');
 	    $("#chosenList").val(cList);
+	    
+	    var a=`<button type="button" name="ing" class="btn pl-1 pr-1 mr-3 mb-2">
+			  <span>`+$(this).children("span[name=selected-text]").text()+`</span>
+			</button>`;
+		
+		$("#searchResult").append(a);
+	    
 	});
 	$(document).on("click", "#submit", function() {
 		  var ingForm= $('#ingForm');
