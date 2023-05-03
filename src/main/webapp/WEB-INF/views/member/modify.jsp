@@ -117,12 +117,13 @@
 									</div>
 									<div class="colsm-4"></div>
 								</div>
+								<!-- -- -- -- 비밀번호 -- -- --  -->
 								<div class="row">
 									<div class="col-sm-4">
 										<label>비밀번호</label>
 									</div>
 									<div class="col-sm-4">
-										<input type="password" name="password" placeholder="현재 비밀번호를 입력해주세요." class="form-control" style="width: 300px">
+										<input type="password" name="prePassword" placeholder="현재 비밀번호를 입력해주세요." class="form-control" style="width: 300px">
 									</div>
 									<div class="col-sm-4"></div>
 								</div>
@@ -230,36 +231,31 @@
 	let regEmailError = document.getElementById("regMail-error");
 	let regEmailError2 = document.getElementById("regMail-error2");
 	
-	//이메일이 입력되어 있다면 버튼 disabled
-	const emailInput = document.getElementById('emailInput');
+	//TODO: 이메일이 입력되어 있다면 버튼 disabled
+	//const emailInput = document.getElementById('emailInput');
 	const checkEmailBtn = document.getElementById('checkEmailBtn');
 	
-	// 이메일 input 태그의 값이 변경될 때마다 이벤트 리스너를 등록합니다.
-/* 	emailInput.addEventListener('input', () => {
-	  if (emailInput.value.trim() !== '') {
-	    checkEmailBtn.disabled = false;
-	  } else {
-	    checkEmailBtn.disabled = true;
-	  }
-	}); */
 	//이메일 확인
-	emailInput.onkeyup = function() {
-		if (emailInput.value === "") {
-			emailError.classList.remove('hide');
-			emailError.classList.add('hide');
-		} else {
-			if (!regMail.test(emailInput.value)) {
-				regEmailError.classList.remove('hide');
-			} else {
-				if (emailInput.value.length > 50) { // 수정: 이메일 길이가 50 초과인 경우 처리
-					regEmailError2.classList.remove('hide');
-				} else {
-					regEmailError2.classList.add('hide');
-				}
-				regEmailError.classList.add('hide');
-			}
-		}
-	}
+emailInput.onkeyup = function() {
+  if (!regMail.test(emailInput.value)) {
+    if (emailInput.value === "") {
+      emailError.classList.add('hide');
+    } else {
+      emailError.classList.remove('hide');
+    }
+    regEmailError.classList.remove('hide');
+  } else {
+    emailError.classList.add('hide');
+    regEmailError.classList.add('hide');
+    if (emailInput.value.length > 50) {
+      regEmailError2.classList.remove('hide');
+    } else {
+      regEmailError2.classList.add('hide');
+    }
+  }
+}
+
+
 	//이메일 중복확인 버튼 누르면 중복체크
 	let isEmailChecked = 0;
 	
@@ -280,18 +276,21 @@
 					if($('#email').val()!=''){
 						isEmailChecked = "y";
 						alert("사용 가능한 이메일입니다.");
+						 $("#modifyBtn").prop("disabled", false); // 개인정보수정 버튼 활성화
 					}
 				} else{
 					if($('#email').val()!=''){
 						isEmailChecked = "n";
 						alert("중복된 이메일입니다.");
 						$('#email').focus();
+						$("#modifyBtn").prop("disabled", true); // 개인정보수정 버튼 비활성화
 					}
 				}
 			}
 		});//ajax	
 	}else{
 		alert("이메일을 입력해주세요.");
+		$("#modifyBtn").prop("disabled", true); // 개인정보수정 버튼 비활성화
 	}
 	})
 	
@@ -299,26 +298,38 @@
 	$(document).on("click","#modifyBtn", function(event) {
 	    event.preventDefault();
 	    
-	    var password = $.trim($("input[name=password]").eq(0).val());
-	    var newpassword = $.trim($("input[name=password]").eq(2).val());
+	    var prePassword = $.trim($("input[name=prePassword]").eq(0).val());
+	    var newpassword = $.trim($("input[name=password]").eq(1).val());
 	    var email = $.trim($("input[name=email]").val());
-	    
-	    console.log("~~~~~~~~~~~~~~입력된 암호  (☞ ﾟヮﾟ)☞ : " + password);
-	    
-	    if (password.length != 0) {
+
+	    console.log("~~~~~~~~~~~~~~입력된 암호  (☞ ﾟヮﾟ)☞ : " + prePassword);
+	    //✔이메일만 변경하고 싶으면 현재 비밀번호 입력 후 회원정보수정 성공해야함 --> newpassword eq(2)->(1)로 수정함, ajax data/prePassword : prePassword -> password : prepassword로 수정함
+	    //🔲입력되어 있는 이메일을 지운 뒤 회원정보수정 누르면 비밀번호 틀렸다는 alert 띄워짐
+	    //🔲이메일중복체크 하지 않아도 회원정보수정 버튼 진행됨;
+	    //✔재비밀번호 입력 한 뒤 지우면 새비밀번호 div error 발생함, 현재비밀번호 정상적으로 입력하면  새비밀번호 div error 사라지고, 새비밀번호 확인 div error 발생함 -> id="password"를 id="prePassword"로 변경함
+	    //✔비밀번호 입력 없이 회원정보수정 누르면 비밀번호를 입력해주세요 alert 띄우기 --> else if(prePassword.length == 0) 추가함
+	    //🔲아무것도 변경없이 회원정보수정 눌러도 변경이 완료되었다는 alert 띄우기 --...이건 하지말까..?수정사항없으면 수정 버튼 비활성으로 할까?
+	    if (prePassword.length != 0) {
+	    	console.log(prePassword);
+	    	console.log(newpassword);
+	    	
 	        $.ajax({
 	            url: '${pageContext.request.contextPath}/member/modify',
 	            type: 'POST',
-	            data: {password: password, email: email, newpassword : newpassword},
+	            data: {password: prePassword, email: email, newpassword : newpassword},
 	            success: function(result){
-	            	console.log("아니이게뭐야 (☞ﾟヮﾟ)☞"+result); 
+	            	console.log("아니이게뭐야 (☞ﾟヮﾟ)☞"+result);
+	            	
 	                if (result == 1) {
-	                    console.log("어어 됐다??"+ password);
+	                    console.log("어어 됐다??"+ prePassword);
+	                    alert("개인 정보 수정이 완료되었습니다.");
 	                    location.href="${pageContext.request.contextPath}/member/infoupdate";
+	                    
 					} else if(result == 0) {
 						alert("비밀번호가 일치하지 않습니다.다시 입력해주세요");
-						$("input[name=password]").eq(0).focus();
-					} else {
+						$("input[name=prePassword]").eq(0).focus();
+						
+					} else {//result : -1
 						alert("정보 수정에 실패했습니다.");
 						location.href="${pageContext.request.contextPath}/";
 					}
@@ -327,6 +338,11 @@
 					alert("오류가 발생하였습니다. 다시 시도해주세요.");
 				}
 			});  //ajax
+		}else if(prePassword.length == 0){
+			alert("비밀번호를 입력해주세요");
+	        $("input[name=prePassword]").eq(0).focus();
+	        return;
+			
 		}// if (password.length !== 0)
 	});  // $(document).on("click","#modifyBtn", function(event) {
 

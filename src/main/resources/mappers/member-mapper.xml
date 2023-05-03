@@ -78,7 +78,7 @@
 	<update id="modify" >
 	  UPDATE members
 	  <set>
-	    <if test="newpassword != null">password = #{newpassword},</if>
+	    <if test="newpassword != null and newpassword != '' ">password = #{newpassword},</if>
 	    <if test="email != null">email = #{email},</if>
 	  </set>
 	  WHERE userid = #{userId} and password = #{password}
