@@ -161,6 +161,16 @@
 	<select id="getkeywordvisible" parameterType="String" resultType="String">
 		select ISVISIBLE from search where keword=#{keyword}
 	</select>
+	
+	<select id="upOrNot" parameterType="com.kh.everyrecipe.boardsearch.vo.SearchClientChkVo" statementType="CALLABLE" resultType="com.kh.everyrecipe.boardsearch.vo.SearchClientChkVo">
+		{ call PROC_SEARCH_CHK_ACCESS(
+			#{keyword, mode=IN, jdbcType=VARCHAR},
+			#{browser, mode=IN, jdbcType=VARCHAR},
+			#{ip, mode=IN, jdbcType=VARCHAR},
+			#{times, mode=OUT, jdbcType=INTEGER}
+		)}
+	</select>
+	
 	<insert id="insertSearchData" parameterType="String">
 		insert into search values(#{keyword}, (select NVL(MAX(TIMES), 0)+1 from search where KEWORD=#{keyword}), default, default)
 	</insert>

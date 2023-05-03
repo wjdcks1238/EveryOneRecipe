@@ -69,7 +69,6 @@ public class BoardDao {
 		return chk.getLookUp();
 	}
 	
-	
 	//Ingredient
 	public int insertIngList(List<IngredientVo> ivoList) {
 		return sqlSession.insert("boardMapper.insertIngList",ivoList);
