@@ -228,12 +228,10 @@ public class BoardController {
 				//검색결과가 없는 경우, insert문을 실행시켜서 최초 데이터를 삽입
 				//bsService.insertSearchData(keyword);
 				times=bsService.upOrNot(chk);
-				bsService.insertDB(keyword);
 			} else if(dataSearchResult == 1) {
 				//검색결과가 있는경우(1개), update문을 실행시켜서 데이터를 갱신
 				//bsService.updateSearchData(keyword);
 				times=bsService.upOrNot(chk);
-				bsService.insertDB(keyword);
 			} else {
 				//위 두 조건에 해당되지 않는 경우.
 			}
@@ -358,12 +356,10 @@ public class BoardController {
 				//검색결과가 없는 경우, insert문을 실행시켜서 최초 데이터를 삽입
 				//bsService.insertSearchData(keyword);
 				times=bsService.upOrNot(chk);
-				bsService.insertDB(keyword);
 			} else if(dataSearchResult == 1) {
 				//검색결과가 있는경우(1개), update문을 실행시켜서 데이터를 갱신
 				//bsService.updateSearchData(keyword);
 				times=bsService.upOrNot(chk);
-				bsService.insertDB(keyword);
 			} else {
 				//위 두 조건에 해당되지 않는 경우.
 			}
