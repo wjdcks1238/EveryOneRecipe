@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.boardsearch.vo.SearchClientChkVo;
 import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 
 @Repository
@@ -86,5 +87,12 @@ public class BoardSearchDao {
 
 	public List<Map<String, String>> selectDateSearchData(Map<String, String> data) {
 		return sqlSession.selectList("boardSearchMapper.selectDateSearchData", data);
+	}
+
+	public int upOrNot(SearchClientChkVo chk) {
+		System.out.println(chk);
+		sqlSession.selectOne("boardSearchMapper.upOrNot", chk);
+		
+		return chk.getTimes();
 	}
 }

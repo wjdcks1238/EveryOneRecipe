@@ -32,6 +32,7 @@ import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
 import com.kh.everyrecipe.board.vo.RecommendVo;
 import com.kh.everyrecipe.boardsearch.service.BoardSearchService;
+import com.kh.everyrecipe.boardsearch.vo.SearchClientChkVo;
 import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 import com.kh.everyrecipe.comment.replycomment.service.ReplyCommentService;
 import com.kh.everyrecipe.comment.replycomment.vo.ReplyCommentVo;
@@ -193,9 +194,14 @@ public class BoardController {
 		@ResponseBody
 		public String findFoodAjax(
 				@RequestParam("keyword") String keyword,
-				@RequestParam(value = "option", required = false) String option,
-				Principal principal
+				Principal principal,
+				HttpServletRequest request,
+				SearchClientChkVo chk,
+				SearchVo svo
 				) throws Exception {
+			
+			String ip = request.getRemoteAddr();
+			String browser= request.getHeader("User-Agent");
 			
 			//isdelete 필드가 'N'인 게시글만 불러온다. 	
 			Map<String, String> map = new HashMap<>();
@@ -205,30 +211,40 @@ public class BoardController {
 			if(principal!=null) {
 				map.put("userId",principal.getName());					
 			}
-			if(option != null) {
-				map.put("option", option);
-			}
 			List<PostVo> result = bsService.pagingList(map);
+			System.out.println(result);
+			
+			chk.setKeyword(keyword);
+			chk.setIp(ip);
+			chk.setBrowser(browser);
+			
+			int times = 0;
+			
+			System.out.println(chk);
+			
+			
 			int dataSearchResult = bsService.searchKeyword(keyword);
 			if(dataSearchResult == 0) {
 				//검색결과가 없는 경우, insert문을 실행시켜서 최초 데이터를 삽입
-				bsService.insertSearchData(keyword);
+				//bsService.insertSearchData(keyword);
+				times=bsService.upOrNot(chk);
 				bsService.insertDB(keyword);
 			} else if(dataSearchResult == 1) {
 				//검색결과가 있는경우(1개), update문을 실행시켜서 데이터를 갱신
-				bsService.updateSearchData(keyword);
+				//bsService.updateSearchData(keyword);
+				times=bsService.upOrNot(chk);
 				bsService.insertDB(keyword);
 			} else {
 				//위 두 조건에 해당되지 않는 경우.
 			}
-			System.out.println(result);
-			
+			svo.setTimes(times);
 			for(PostVo pvo : result) {
 				pvo.setContent(pvo.getContent().replaceAll("<img[^>]*>", ""));
 				if(pvo.getContent().length()>150) {
 					pvo.setContent(pvo.getContent().substring(0,151)+"...");
 				}
 			}
+			
 			
 			return new Gson().toJson(result);
 		}
@@ -304,13 +320,18 @@ public class BoardController {
 		public ModelAndView searchResult(
 				ModelAndView mv,
 				@RequestParam("keyword") String keyword,
-				Principal principal
+				Principal principal,
+				HttpServletRequest request,
+				SearchClientChkVo chk,
+				SearchVo svo
 				) throws Exception {
 			//검색어를 입력창에 추가
 			System.out.println(keyword);
 			mv.addObject("keyword", keyword);
 			List<SearchVo> recommendKeyword= bsService.getRecommendSearchKeyword();
 			mv.addObject("recommendKey",recommendKeyword);
+			String ip = request.getRemoteAddr();
+			String browser= request.getHeader("User-Agent");
 			
 			//isdelete 필드가 'N'인 게시글만 불러온다. 	
 			Map<String, String> map = new HashMap<>();
@@ -323,19 +344,30 @@ public class BoardController {
 			List<PostVo> result = bsService.pagingList(map);
 			System.out.println(result);
 			
+			chk.setKeyword(keyword);
+			chk.setIp(ip);
+			chk.setBrowser(browser);
+			
+			int times = 0;
+			
+			System.out.println(chk);
+			
+			
 			int dataSearchResult = bsService.searchKeyword(keyword);
 			if(dataSearchResult == 0) {
 				//검색결과가 없는 경우, insert문을 실행시켜서 최초 데이터를 삽입
-				bsService.insertSearchData(keyword);
+				//bsService.insertSearchData(keyword);
+				times=bsService.upOrNot(chk);
 				bsService.insertDB(keyword);
 			} else if(dataSearchResult == 1) {
 				//검색결과가 있는경우(1개), update문을 실행시켜서 데이터를 갱신
-				bsService.updateSearchData(keyword);
+				//bsService.updateSearchData(keyword);
+				times=bsService.upOrNot(chk);
 				bsService.insertDB(keyword);
 			} else {
 				//위 두 조건에 해당되지 않는 경우.
 			}
-			
+			svo.setTimes(times);
 			for(PostVo pvo : result) {
 				pvo.setContent(pvo.getContent().replaceAll("<img[^>]*>", ""));
 				if(pvo.getContent().length()>150) {

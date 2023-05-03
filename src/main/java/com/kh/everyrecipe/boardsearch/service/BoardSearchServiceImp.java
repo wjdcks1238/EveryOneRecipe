@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.everyrecipe.board.vo.PostVo;
 import com.kh.everyrecipe.boardsearch.dao.BoardSearchDao;
+import com.kh.everyrecipe.boardsearch.vo.SearchClientChkVo;
 import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 
 @Service
@@ -104,6 +105,12 @@ public class BoardSearchServiceImp implements BoardSearchService {
 	@Override
 	public List<Map<String, String>> selectDateSearchData(Map<String, String> data) throws Exception {
 		return dao.selectDateSearchData(data);
+	}
+
+	@Override
+	public int upOrNot(SearchClientChkVo chk) throws Exception {
+		System.out.println(chk);
+		return dao.upOrNot(chk);
 	}
 
 }
