@@ -33,10 +33,8 @@
     	<selectKey keyProperty="key" resultType="int" order="BEFORE">
         	SELECT SEQ_ROOMNUM.NEXTVAL FROM DUAL
     	</selectKey>
-	    INSERT ALL
+	    INSERT
 	    INTO CHATTINGROOM VALUES (#{key}, #{userId}, #{title}, DEFAULT)
-	    INTO CHATROOMCHK VALUES(#{key}, #{userId})
-	    SELECT * FROM SYS.DUAL
 	</insert> 
  
 	<insert id="insertMessage">
@@ -82,5 +80,11 @@
 	<delete id="deleteChatroom" parameterType="int">
 		DELETE FROM CHATTINGROOM WHERE KEY = #{key}
 	</delete>
+	
+	<delete id="exitChatRoom">
+    	DELETE FROM CHATROOMCHK
+    	WHERE USERID = #{userId} AND KEY = #{key}
+	</delete>
+	
 	
 </mapper>

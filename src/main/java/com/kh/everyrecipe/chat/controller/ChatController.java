@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -70,6 +71,7 @@ public class ChatController {
 		return path;
 	}
 	
+	//채팅방 내부
 	@GetMapping("/chat/room/{chatRoomNo}")
 	public String enterRoom(
 				HttpServletRequest req,
@@ -79,7 +81,10 @@ public class ChatController {
 				RedirectAttributes ra		
 			) throws Exception {
 		String loginUser = req.getRemoteUser();
+		
+		//채팅방에 참여여부를 알기위해 입장버튼을 누르면 chkVo에 아이디, 방번호 값을 지정		
 		chk.setUserId(loginUser);
+		chk.setKey(chatRoomNo);		
 		
 		List<MessageVo> list = service.enterRoom(chk);
 		
@@ -96,6 +101,8 @@ public class ChatController {
 		return "chat";
 	}
 	
+	
+	//채팅방  + 채팅내용 삭제
 	@GetMapping("/chat/delete")
 	public ModelAndView deleteRoom(ModelAndView mv, int chatRoomNo) {
 		service.deleteChatlist(chatRoomNo);	
@@ -109,4 +116,20 @@ public class ChatController {
 		return mv;
 	}
 	
+	// 채팅방 나가기
+	@GetMapping("/chat/exit")
+	@ResponseBody
+	public int exitChatRoom(@RequestParam("key") int key,
+							@RequestParam("userid") String userid) {
+		MessageChkVo chkvo = new MessageChkVo();
+		chkvo.setKey(key);
+		chkvo.setUserId(userid);	
+		
+		return service.exitChatRoom(chkvo);
+	}
+	
+	
+	
+	
+
 }

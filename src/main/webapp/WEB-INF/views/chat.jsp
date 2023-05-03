@@ -104,6 +104,7 @@ ${ctlist.userId }: ${ctlist.message }
 ${loginUser }
 </div>
 <button id="deleteRoom" onclick="location.href='<%=request.getContextPath()%>/chat/delete?chatRoomNo=${chatRoomNo}'">방삭제</button>
+<button id="exit-btn" onclick="exit();">방 나가기</button>
 
 
 <script type="text/javascript">
@@ -173,10 +174,33 @@ function connect(){
 		}
 	})	
 });	
-	
+
+
+
+function exit() {
+	console.log("${chatRoomNo}", "${loginUser}");
+    $.ajax({
+        url: "/chat/exit",
+        data: {
+            "key": "${chatRoomNo}",
+            "userid": "${loginUser}"
+        },
+        success: function(data) {
+            if (data == 1) {
+                location.href = '<%=request.getContextPath()%>' + "/chat/chatroom"
+            } else {
+                alert("에러가 발생했습니다.");
+            }
+        }
+    })
+};
+
+
+
 $(document).ready(function() {
 	history.replaceState({}, null, location.pathname);	    
 });
+
 
 	
 	

@@ -54,5 +54,10 @@ public class ChatServiceImpl implements ChatService{
 		return Dao.deleteChatroom(chatRoomNo);
 	}
 	
+	@Override
+	public int exitChatRoom(MessageChkVo chk) {
+		return Dao.exitChatRoom(chk);
+	}
+	
 	
 }

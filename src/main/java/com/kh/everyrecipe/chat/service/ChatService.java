@@ -14,5 +14,6 @@ public interface ChatService {
 	public List<MessageVo> selectChatMessage(int chatRoomNo);
 	public int deleteChatlist(int chatRoomNo);
 	public int deleteChatroom(int chatRoomNo);
+	public int exitChatRoom(MessageChkVo chk);
 	
 }
