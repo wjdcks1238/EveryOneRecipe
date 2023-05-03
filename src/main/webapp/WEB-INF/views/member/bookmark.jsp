@@ -27,15 +27,16 @@
 					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/infoupdate">개인정보 수정</a></li>
-					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/bookmark">북마크</a></li>
-					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/like">좋아요</a></li>
+					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/bookmark/1">북마크</a></li>
+					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/like/1">좋아요</a></li>
 				</ul>
 			
 		</div>
 
 
-		<div class="col-md-8 col-md-offset-2 col-xs-12 table-responsive">
-			<table class="table">
+		<div  class="col-md-8 col-md-offset-2 col-xs-12 table-responsive">
+			<div style="min-height: 700px">
+			<table class="table"  >
 				<thead>
 					<tr>
 					    <th class="col-md-2 text-right">글 번호</th>
@@ -57,12 +58,12 @@
 				</c:forEach>
 				</tbody>
 			</table>
-			
+			</div>
 			
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination">
 				<c:choose>
-					<c:when test="${pageInfo.currentPage eq 1 }">
+					<c:when test="${pageInfo.currentPage eq pageInfo.startPage }">
 					<li class="page-item">
 						<a aria-disabled="true" class="page-link">prev</a>
 					</li>

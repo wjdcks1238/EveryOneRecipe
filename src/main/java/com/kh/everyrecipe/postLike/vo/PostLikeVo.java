@@ -1,5 +1,7 @@
 package com.kh.everyrecipe.postLike.vo;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
@@ -18,4 +20,5 @@ public class PostLikeVo {
 	private int postId;
 	private String userId;	
 	private String isDeleted;
+	private Date addDate;
 }

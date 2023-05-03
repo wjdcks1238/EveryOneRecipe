@@ -28,14 +28,15 @@
 					<li class="nav-item active" ><a class="nav-link" href="<%=request.getContextPath()%>/member/myinfo">내 정보 보기</a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/update">내 정보 수정 </a></li>
 					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/infoupdate">개인정보 수정</a></li>
-					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/bookmark">북마크</a></li>
-					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/like">좋아요</a></li>
+					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/bookmark/1">북마크</a></li>
+					<li class="nav-item "><a class="nav-link" href="<%=request.getContextPath()%>/member/like/1">좋아요</a></li>
 				</ul>
 			
 		</div>
 
 
 		<div class="col-md-8 col-md-offset-2 col-xs-12 table-responsive">
+			<div style="min-height: 700px">
 			<table class="table">
 				<thead>
 					<tr>
@@ -58,8 +59,41 @@
 				</c:forEach>
 				</tbody>
 			</table>
-
-
+			</div>
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination">
+				<c:choose>
+					<c:when test="${pageInfo.currentPage eq pageInfo.startPage }">
+					<li class="page-item">
+						<a aria-disabled="true" class="page-link">prev</a>
+					</li>
+					</c:when>
+					<c:otherwise>
+					<li class="page-item">
+						<a class="page-link"  href="<%=request.getContextPath()%>/member/like/${pageInfo.currentPage-1}">prev</a>
+					</li>	
+					</c:otherwise>
+				</c:choose>
+			 
+			    <c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage }" var="list"  >
+				    <li class="page-item ${list eq pageInfo.currentPage ? 'active' : '' }"><a class="page-link" href="<%=request.getContextPath()%>/member/like/${list}" >${list }</a></li>
+			    </c:forEach>
+			    
+			    
+			    <c:choose>
+					<c:when test="${pageInfo.currentPage eq pageInfo.endPage }">
+					<li class="page-item">
+						<a class="page-link">next</a>
+					</li>
+					</c:when>
+					<c:otherwise>
+					<li class="page-item">
+						<a class="page-link"  href="<%=request.getContextPath()%>/member/like/${pageInfo.currentPage+1}">next</a>
+					</li>	
+					</c:otherwise>
+				</c:choose>
+			  </ul>
+			</nav>
 		</div>
 	</div>
 </div>

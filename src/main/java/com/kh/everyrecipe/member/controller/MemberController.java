@@ -271,13 +271,34 @@ public class MemberController {
 	
 	
 	//좋아요 목록 페이지
-	@GetMapping("/like")
-	public ModelAndView likeList(ModelAndView mv, Principal principal)throws Exception {
-
+	@GetMapping("/like/{pNum}")
+	public ModelAndView likeList(ModelAndView mv, Principal principal,  @PathVariable int pNum)throws Exception {
+		int limit=10; //한 페이지당 글 수
 		//좋아요 표시된 게시글 id 가져오기
-		List<Integer> list= plService.getLikeList(principal.getName());
+		List<Integer> list= plService.getLikeList(principal.getName(),pNum ,limit);
 		//가져온 id들로 게시글 정보 가져오기
 		if(!list.isEmpty()) {
+			int totalCnt= plService.getLikeCountPaging(principal.getName());
+			int totalPage = (totalCnt%limit==0) ?  (totalCnt/limit): (totalCnt/limit+1);
+			
+			int startPage =1;
+			int endPage =5;
+			if(pNum >5/2+1) {
+				startPage =pNum-2;
+				endPage =pNum+2;
+			}
+			if(endPage>=totalPage) {
+				endPage=totalPage;
+			}
+			
+			Map<String, Integer> map = new HashMap();
+
+			map.put("totalPage", totalPage);
+			map.put("startPage", startPage);
+			map.put("endPage", endPage);
+			map.put("currentPage", pNum);
+			mv.addObject("pageInfo",map);
+			
 			List<BoardVo> bList = plService.getLikePosts(list);
 			mv.addObject("bList", bList);			
 		}
@@ -289,7 +310,7 @@ public class MemberController {
 	//북마크 목록 페이지
 	@GetMapping("/bookmark/{pNum}")
 	public ModelAndView bookmarkList(ModelAndView mv, Principal principal, @PathVariable int pNum)throws Exception {
-		int limit=10;
+		int limit=10; 
 		List<Integer> list= pbService.getBookmarkList(principal.getName(),pNum ,limit);
 		if(!list.isEmpty()) {
 			int totalCnt= pbService.getBookmarkCount(principal.getName());

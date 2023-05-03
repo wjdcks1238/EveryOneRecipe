@@ -4,6 +4,7 @@ package com.kh.everyrecipe.postLike.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -45,12 +46,18 @@ public class PostLikeDao {
 
 
 
-	public List<Integer> getLikeList(String userId) {
-		return sqlSession.selectList("postLikeMapper.getLikeList",userId);
+	public List<Integer> getLikeList(String userId, int pNum, int limit) {
+		return sqlSession.selectList("postLikeMapper.getLikeList",userId,new RowBounds((pNum-1)*limit, limit));
 	}
 
 	public List<BoardVo> getLikePosts(List<Integer> list) {
 		return sqlSession.selectList("postLikeMapper.getLikePosts",list);
+	}
+
+
+
+	public int getLikeCountPaging(String name) {
+		return sqlSession.selectOne("postLikeMapper.getLikeCountPaging",name);
 	}
 
 	

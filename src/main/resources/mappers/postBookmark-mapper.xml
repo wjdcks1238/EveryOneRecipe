@@ -7,15 +7,15 @@
 	</select>	
 
 	<select id="getBookmarkInfo" parameterType="map" resultType="com.kh.everyrecipe.postBookmark.vo.PostBookmarkVo">
-		select * from POSTBOOKMARK where POSTID=#{postId} and USERID=#{userId}
+		select * from POSTBOOKMARK where POSTID=#{postId} and USERID=#{userId} 
 	</select>
 	
 	<insert id="addBookmark">
-		insert into POSTBOOKMARK values(#{postId}, #{userId}, default) 
+		insert into POSTBOOKMARK values(#{postId}, #{userId}, default, default) 
 	</insert>
 	
 	<update id="reAddBookmark">
-		update POSTBOOKMARK set ISDELETED='N' where POSTID=#{postId} and USERID=#{userId}
+		update POSTBOOKMARK set ISDELETED='N', ADDDATE=SYSDATE where POSTID=#{postId} and USERID=#{userId}
 	</update>
 	
 	<update id="removeBookmark">
@@ -23,17 +23,21 @@
 	</update>
 	
 	<select id="getBookmarkList" parameterType="string" resultType="_int">
-		select POSTID from POSTBOOKMARK where USERID=#{userId} and ISDELETED='N'
+		select POSTID from POSTBOOKMARK where USERID=#{userId} and ISDELETED='N' order by adddate desc
 	</select>
 	<select id="getBookmarkCount" parameterType="string" resultType="_int">
 		select count(*) from POSTBOOKMARK where USERID=#{userId} and ISDELETED='N'
 	</select>
 	
 	<select id="getBookmarkPosts" resultType="bvo">
-		select POSTID, USERID, NICKNAME, FOODNAME, CREATEAT as createDate, LOOKUP from POST where
+		select p.POSTID, p.USERID, p.NICKNAME, p.FOODNAME, p.CREATEAT as createDate, p.LOOKUP, b.adddate from POST p
+		join postbookmark b
+          on p.postid=b.postid
+	   where
 		<foreach collection="list" item="item" open="(" separator=")or(" close=")">
-			 POSTID=#{item}
+			 b.POSTID=#{item}
 		</foreach>
+		order by b.adddate desc
 	</select>
 	
 

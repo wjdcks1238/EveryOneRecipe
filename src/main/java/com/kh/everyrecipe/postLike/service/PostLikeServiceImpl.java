@@ -51,13 +51,18 @@ public class PostLikeServiceImpl implements PostLikeService{
 	}
 
 	@Override
-	public List<Integer> getLikeList(String userId) throws Exception {
-		return dao.getLikeList(userId);
+	public List<Integer> getLikeList(String userId, int pNum, int limit) throws Exception {
+		return dao.getLikeList(userId, pNum, limit);
 	}
 
 	@Override
 	public List<BoardVo> getLikePosts(List<Integer> list) throws Exception {
 		return dao.getLikePosts(list);
+	}
+
+	@Override
+	public int getLikeCountPaging(String name) {
+		return dao.getLikeCountPaging(name);
 	}
 
 	
