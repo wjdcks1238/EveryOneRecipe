@@ -170,15 +170,19 @@
 			#{times, mode=OUT, jdbcType=INTEGER}
 		)}
 	</select>
+	<select id="insertHashDB" parameterType="com.kh.everyrecipe.boardsearch.vo.HashClientChkVo" statementType="CALLABLE" resultType="com.kh.everyrecipe.boardsearch.vo.HashClientChkVo">
+		{ call PROC_HASH_CHK_ACCESS(
+			#{keyword, mode=IN, jdbcType=VARCHAR},
+			#{browser, mode=IN, jdbcType=VARCHAR},
+			#{ip, mode=IN, jdbcType=VARCHAR}
+		)}
+	</select>
 	
 	<insert id="insertSearchData" parameterType="String">
 		insert into search values(#{keyword}, (select NVL(MAX(TIMES), 0)+1 from search where KEWORD=#{keyword}), default, default)
 	</insert>
 	<insert id="insertDB" parameterType="String">
 		insert into SEARCHDB values(SEQ_SEARCHDBID.nextval, #{keyword}, default, 'R')
-	</insert>
-	<insert id="insertHashDB" parameterType="String">
-		insert into SEARCHDB values(SEQ_SEARCHDBID.nextval, #{keyword}, default, 'H')
 	</insert>
 	<update id="updateSearchData" parameterType="String">
 		update search 

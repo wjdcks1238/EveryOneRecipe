@@ -4,6 +4,7 @@ package com.kh.everyrecipe.postBookmark.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,12 +42,18 @@ public class PostBookmarkDao {
 
 
 
-	public List<Integer> getBookmarkList(String userId) {
-		return sqlSession.selectList("postBookmarkMapper.getBookmarkList",userId);
+	public List<Integer> getBookmarkList(String userId, int pNum, int limit) {
+		return sqlSession.selectList("postBookmarkMapper.getBookmarkList",userId,new RowBounds((pNum-1)*limit, limit));
 	}
 
 	public List<BoardVo> getBookmarkPosts(List<Integer> list) {
 		return sqlSession.selectList("postBookmarkMapper.getBookmarkPosts",list);
+	}
+
+
+
+	public int getBookmarkCount(String name) {
+		return sqlSession.selectOne("postBookmarkMapper.getBookmarkCount",name);
 	}
 
 	

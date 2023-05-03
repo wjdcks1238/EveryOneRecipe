@@ -18,20 +18,21 @@
   color: #ffffff;
   margin-top: 10px;
   text-align: center;
-  font-size: 1.2em; }
+  font-size: 1.2em; 
+  }
 .card-pin:hover .overlay {
   opacity: .5;
   border: 5px solid #f3f3f3;
   -webkit-transition: ease .2s;
   transition: ease .2s;
   background-color: #000000;
-  cursor: -webkit-zoom-in;
-  cursor: zoom-in; }
+  }
 .card-pin:hover .card-title {
   color: #ffffff;
   margin-top: 10px;
   text-align: center;
-  font-size: 1.2em; }
+  font-size: 1.2em; 
+  }
 
 .card-pin:hover .more a {
   text-decoration: none;
@@ -202,7 +203,7 @@
                 function successCallback(data) {
                 	
                     if(data.length == 0 ){
-                        $("#end").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
+                        $("#end").append('<div class="noList"><span>더 이상 표시할 항목이 없습니다.</span></div>');
                         $(window).off("scroll");
                     } 
                     

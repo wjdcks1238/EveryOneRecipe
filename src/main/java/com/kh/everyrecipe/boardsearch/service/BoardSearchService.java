@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.boardsearch.vo.HashClientChkVo;
 import com.kh.everyrecipe.boardsearch.vo.SearchClientChkVo;
 import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 
@@ -23,7 +24,7 @@ public interface BoardSearchService {
 	public int swipeVisibleY(String keyword) throws Exception;
 	public List<SearchVo> operatorSearchList() throws Exception;
 	public int insertDB(String keyword) throws Exception;
-	public int insertHashDB(String keyword) throws Exception;
+	public void insertHashDB(HashClientChkVo chk) throws Exception;
 	public List<Map<String, String>> selectData(Map<String, String> data) throws Exception;
 	public List<Map<String, String>> selectDateSearchData(Map<String, String> data) throws Exception;
 	public int upOrNot(SearchClientChkVo chk) throws Exception;

@@ -287,16 +287,39 @@ public class MemberController {
 	}
 	
 	//북마크 목록 페이지
-	@GetMapping("/bookmark")
-	public ModelAndView bookmarkList(ModelAndView mv, Principal principal)throws Exception {
-		
-		List<Integer> list= pbService.getBookmarkList(principal.getName());
+	@GetMapping("/bookmark/{pNum}")
+	public ModelAndView bookmarkList(ModelAndView mv, Principal principal, @PathVariable int pNum)throws Exception {
+		int limit=10;
+		List<Integer> list= pbService.getBookmarkList(principal.getName(),pNum ,limit);
 		if(!list.isEmpty()) {
+			int totalCnt= pbService.getBookmarkCount(principal.getName());
+			int totalPage = (totalCnt%limit==0) ?  (totalCnt/limit): (totalCnt/limit+1);
+			
+			int startPage =1;
+			int endPage =5;
+			if(pNum >5/2+1) {
+				startPage =pNum-2;
+				endPage =pNum+2;
+			}
+			if(endPage>=totalPage) {
+				endPage=totalPage;
+			}
+			Map<String, Integer> map = new HashMap();
+
+			map.put("totalPage", totalPage);
+			map.put("startPage", startPage);
+			map.put("endPage", endPage);
+			map.put("currentPage", pNum);
+			mv.addObject("pageInfo",map);
+			
 			List<BoardVo> bList = pbService.getBookmarkPosts(list);
 			mv.addObject("bList", bList);
 		}
+
+		
 		mv.setViewName("member/bookmark");
 		return mv;
+		//TODO 북마크, 좋아요 페이징 처리 
 	}
 	
 	//개인정보 수정 (/infoupdate) 1. 비밀번호 재확인 후 수정페이지로 넘어감

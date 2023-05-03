@@ -13,6 +13,32 @@ input[type="text"]:focus{
 	outline: none;
 	border-color: black;
 }
+
+
+button[name=cancel-btn] {
+  border-color:#28a745;
+  border-radius: 7px;
+  display: inline;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  font-size: 16px;
+  padding: 0;
+  background-color: #28a745;
+  color: white;
+}
+
+span[name=cancel-icon] {
+  margin-left: 5px;
+}
+
+span[name=cancel-icon] i {
+  font-size: 16px;
+}
+button[name=ing]{
+	border-radius: 7px;
+	box-shadow: 1px 1px 1px ;
+}
 </style>
 </head>
 <body>
@@ -34,11 +60,9 @@ input[type="text"]:focus{
 	
 	</div>
 	
-	<button class="btn btn-dark mt-2" id="submit" >레시피 찾기</button>
+	<button class="btn btn-primary mt-2" id="submit" >레시피 찾기</button>
 	</form>
 </div>
-
-
 
 
 
@@ -59,10 +83,11 @@ input[type="text"]:focus{
 					for(i =0; i<result.length;i++){
 						var existEqaulCing = false;
 						//console.log("### "+result[i]);
-						$("span[name=cing]").each(function(){
+						$("button[name=cancel-btn]").each(function(){
 							//console.log("# " +$(this).text());
-							if($(this).text() && result[i]){
-								if(result[i] == $(this).text()){
+							//console.log($(this).children("span[name=selected-text]").text().trim());
+							if($(this).children("span[name=selected-text]").text().trim() && result[i]){
+								if(result[i] == $(this).children("span[name=selected-text]").text().trim()){
 									existEqaulCing = true;
 									return;
 								}
@@ -70,7 +95,13 @@ input[type="text"]:focus{
 						});
 						if(existEqaulCing == false){
 							//console.log("확인"+result[i]);
-							var a = $('<a name="ing" href="#">'+result[i]+'</a><span>/</span>');
+							//var a = $('<a name="ing" href="#">'+result[i]+'</a><span>/</span>');
+							
+							var a=`<button type="button" name="ing" class="btn pl-1 pr-1 mr-3 mb-2">
+								  <span>`+result[i]+`</span>
+								</button>`;
+							
+							
 							$("#searchResult").append(a);	
 						}
 					}
@@ -82,21 +113,27 @@ input[type="text"]:focus{
 			});
 		
 		})
-	$(document).on("click", "a[name=ing]", function() {
+	$(document).on("click", "button[name=ing]", function() {
 		//console.log($(this).text());
 		var cList =$("#chosenList").val();
-		var span= $("<span name='cing'>").html('<a href="#" style="color: #007bff">'+$(this).text()+'</a>');
-		$(this).next().remove();
+		//var span= $("<span name='cing'>").html('<a href="#" style="color: #007bff">'+$(this).text()+'</a>');
+		//$(this).next().remove();
 		$(this).remove();
-		$(".chosen").append(span).append($('<span>/</span>'));
+		
+		var a=`<button type="button" name="cancel-btn" class=" pl-1 pr-1 mr-2 mb-1">
+			  <span name="selected-text">`+$(this).text()+`</span>
+			  <span name="cancel-icon"><i class="fa fa-times"></i></span>
+			</button>`;
+//		$(".chosen").append(span).append($('<span>/</span>'));
+		$(".chosen").append(a);
 		$("#chosenList").val(cList+ $(this).text()+'$');
 		
 		
 	});
-	$(document).on("click", "span[name=cing]", function() {
-	    $(this).next().remove();
+	$(document).on("click", "button[name=cancel-btn]", function() {
+	    //$(this).next().remove();	
 	    $(this).remove();
-	    var cList = $("#chosenList").val().replace($(this).text()+'$', '');
+	    var cList = $("#chosenList").val().replace($(this).children("span[name=selected-text]").text()+'$', '');
 	    $("#chosenList").val(cList);
 	});
 	$(document).on("click", "#submit", function() {
@@ -104,7 +141,8 @@ input[type="text"]:focus{
 		  if($("#chosenList").val()==""){
 			  
 			  alert("재료를 선택해 주세요");
-			  return;
+			  location.reload(true);	 
+			  return
 		  }
 		  // 요청 URL과 HTTP 메서드 설정
 		  ingForm.attr('action', 'recommend');

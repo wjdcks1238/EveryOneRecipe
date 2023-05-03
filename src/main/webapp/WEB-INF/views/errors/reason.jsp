@@ -61,6 +61,10 @@
 			<div class="mt-3">
 				${startTime } ~ ${endTime }
 			</div>
+			<h4 class="mt-5">차단 사유</h4>
+			<div class="mt-3">
+				${reason }
+			</div>
 		</c:if>
 	</div>
  </div>

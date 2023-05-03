@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.everyrecipe.board.vo.PostVo;
+import com.kh.everyrecipe.boardsearch.vo.HashClientChkVo;
 import com.kh.everyrecipe.boardsearch.vo.SearchClientChkVo;
 import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 
@@ -77,8 +78,8 @@ public class BoardSearchDao {
 		return sqlSession.insert("boardSearchMapper.insertDB", keyword);
 	}
 
-	public int insertHashDB(String keyword) {
-		return sqlSession.insert("boardSearchMapper.insertHashDB", keyword);
+	public void insertHashDB(HashClientChkVo chk) {
+		sqlSession.selectOne("boardSearchMapper.insertHashDB", chk);
 	}
 
 	public List<Map<String, String>> selectData(Map<String, String> data) {

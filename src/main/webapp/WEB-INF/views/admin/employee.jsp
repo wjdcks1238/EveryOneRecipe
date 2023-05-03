@@ -192,16 +192,15 @@
 				aria-expanded="true" aria-controls="collapsePages"> <i
 					class="fas fa-fw fa-folder"></i> <span>검색어</span>
 			</a>
-				<div id="collapsePages" class="collapse"
-					aria-labelledby="headingPages" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/admin/search/searchword">검색어
-							관리</a> <a class="collapse-item"
-							href="<%=request.getContextPath()%>/admin/search/searchrank">검색어
-							순위</a>
-						<div class="collapse-divider"></div>
-					</div>
+				<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchword">검색어 관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchrank">검색어 순위</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/keywordsearchprogress">키워드 검색 추이</a>
+                        <a class="collapse-item" href="<%=request.getContextPath() %>/admin/search/datasearchprogress">일자별 검색 추이</a>
+                        <div class="collapse-divider"></div>
+                    </div>
+                </div>
 				</div></li>
 
 
