@@ -97,6 +97,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.getUserBlock(name);
 	}
 
+	@Override
+	public int checkEmail(String email) throws Exception {
+		return dao.checkEmail(email);
+	}
+
 
 
 

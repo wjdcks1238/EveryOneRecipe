@@ -163,7 +163,7 @@
 											placeholder="이메일을 입력해주세요." id="emailInput" class="form-control" style="width: 300px">
 									</div>
 									<div class="col-sm-4 text-rigth">
-										<button type="button" id="checkEmailBtn" class="btn mt-3">중복확인</button>
+										<button type="button" id="checkEmailBtn" class="btn mt-3" onclick="checkEmailBtn">중복확인</button>
 									</div>
 								</div>
 								<div class="error-message hide error" id="email-error">이메일을 입력해주세요.</div>
@@ -261,7 +261,39 @@
 		}
 	}
 	//이메일 중복확인 버튼 누르면 중복체크
+	let isEmailChecked = 0;
 	
+	$(document).on("click", "#checkEmailBtn", function(){
+		var email = $.trim($("input[name=email]").val());
+		
+		 console.log("~~~~~~~~~~~~~~입력된 이메일  (☞ﾟヮﾟ)☞:" + email);
+	if(email.length != 0){
+		$.ajax({
+			type:"POST",
+			url:"<%=request.getContextPath()%>/member/checkEmail",
+			data:{
+				email: email
+			},
+			success:function(data){
+				console.log(data);
+				if($.trim(data)=="y"){
+					if($('#email').val()!=''){
+						isEmailChecked = "y";
+						alert("사용 가능한 이메일입니다.");
+					}
+				} else{
+					if($('#email').val()!=''){
+						isEmailChecked = "n";
+						alert("중복된 이메일입니다.");
+						$('#email').focus();
+					}
+				}
+			}
+		});//ajax	
+	}else{
+		alert("이메일을 입력해주세요.");
+	}
+	})
 	
 	//비밀번호, 이메일 회원정보수정
 	$(document).on("click","#modifyBtn", function(event) {
@@ -271,9 +303,9 @@
 	    var newpassword = $.trim($("input[name=password]").eq(2).val());
 	    var email = $.trim($("input[name=email]").val());
 	    
-	    console.log("~~~~~~~~~~~~~~입력된 암호  (☞ﾟヮﾟ)☞:" + password);
+	    console.log("~~~~~~~~~~~~~~입력된 암호  (☞ ﾟヮﾟ)☞ : " + password);
 	    
-	    if (password.length !== 0) {
+	    if (password.length != 0) {
 	        $.ajax({
 	            url: '${pageContext.request.contextPath}/member/modify',
 	            type: 'POST',

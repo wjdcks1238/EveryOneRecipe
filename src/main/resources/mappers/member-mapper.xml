@@ -84,6 +84,10 @@
 	  WHERE userid = #{userId} and password = #{password}
 	</update>
 
+	<!-- 이메일 중복확인 -->
+	<select id="checkEmail" parameterType="map" resultType="_int" >
+		select count(*) from members where email =#{email}	
+	</select>
 	
 	<!-- 탈퇴하기 -->
 	<delete id="memberDelete">

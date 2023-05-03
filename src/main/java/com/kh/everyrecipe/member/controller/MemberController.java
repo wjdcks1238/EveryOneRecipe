@@ -358,7 +358,19 @@ public class MemberController {
 	    return result;// ajax success결과 페이지로 이동
 	}
 
-
+	//이메일 중복체크
+	@PostMapping("checkEmail")
+	@ResponseBody
+	public String modifyAjax(@RequestParam("email") String email) throws Exception {
+		String str ="";
+		int isEmailChecked = mService.checkEmail(email); 
+		if(isEmailChecked > 0) {
+			str = "n";
+		}else {
+			str = "y";
+		}
+		return str;
+	}
 	//회원탈퇴
 	
 	
@@ -387,4 +399,5 @@ public class MemberController {
 		return new Gson().toJson(data);
 	}
 
+	
 }
