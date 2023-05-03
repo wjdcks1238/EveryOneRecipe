@@ -32,6 +32,7 @@ import com.kh.everyrecipe.board.vo.IngredientVo;
 import com.kh.everyrecipe.board.vo.PostVo;
 import com.kh.everyrecipe.board.vo.RecommendVo;
 import com.kh.everyrecipe.boardsearch.service.BoardSearchService;
+import com.kh.everyrecipe.boardsearch.vo.HashClientChkVo;
 import com.kh.everyrecipe.boardsearch.vo.SearchClientChkVo;
 import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 import com.kh.everyrecipe.comment.replycomment.service.ReplyCommentService;
@@ -253,9 +254,13 @@ public class BoardController {
 		@ResponseBody
 		public String findHashAjax(
 				@RequestParam("keyword") String keyword,
-				@RequestParam(value = "option", required = false) String option,
-				Principal principal
+				Principal principal,
+				HttpServletRequest request,
+				HashClientChkVo chk
 				) throws Exception {
+			String ip = request.getRemoteAddr();
+			String browser= request.getHeader("User-Agent");
+			
 			Map<String, String> map = new HashMap<>();
 			map.put("from", 0+"");
 			map.put("to", 20+"");
@@ -263,12 +268,13 @@ public class BoardController {
 			if(principal!=null) {
 				map.put("userId",principal.getName());					
 			}
-			if(option != null) {
-				map.put("option", option);
-			}
 			List<PostVo> result = bsService.pagingHashList(map);
-			bsService.insertHashDB(keyword);
 			System.out.println(result);
+			
+			chk.setKeyword(keyword);
+			chk.setIp(ip);
+			chk.setBrowser(browser);
+			bsService.insertHashDB(chk);
 			
 			for(PostVo pvo : result) {
 				pvo.setContent(pvo.getContent().replaceAll("<img[^>]*>", ""));

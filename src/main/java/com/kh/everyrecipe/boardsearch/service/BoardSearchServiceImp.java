@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.everyrecipe.board.vo.PostVo;
 import com.kh.everyrecipe.boardsearch.dao.BoardSearchDao;
+import com.kh.everyrecipe.boardsearch.vo.HashClientChkVo;
 import com.kh.everyrecipe.boardsearch.vo.SearchClientChkVo;
 import com.kh.everyrecipe.boardsearch.vo.SearchVo;
 
@@ -93,8 +94,8 @@ public class BoardSearchServiceImp implements BoardSearchService {
 	}
 
 	@Override
-	public int insertHashDB(String keyword) throws Exception {
-		return dao.insertHashDB(keyword);
+	public void insertHashDB(HashClientChkVo chk) throws Exception {
+		dao.insertHashDB(chk);
 	}
 
 	@Override
