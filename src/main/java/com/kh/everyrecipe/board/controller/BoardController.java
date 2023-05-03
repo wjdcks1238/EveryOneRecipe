@@ -85,7 +85,9 @@ public class BoardController {
 				BlockedMemberVo bmvo= rService.getLastBlockInfo(userId);
 				String startTime= bmvo.getStartTime().replace("T", " ");
 				String endTime=bmvo.getEndTime().replace("T", " ");
+				String reason=bmvo.getReason();
 				
+				mv.addObject("reason",reason);
 				mv.addObject("startTime",startTime);
 				mv.addObject("endTime", endTime);
 				
@@ -699,6 +701,9 @@ public class BoardController {
 			  , Principal principal) {
 			vo.setUserId(principal.getName());
 			
+			if (badWordFilter.containsBadWord(vo.getContent()) ) {
+				return "false";
+			}
 			cmtService.insertComment(vo);
 			
 			List<CommentVo> replyList = cmtService.getCommentList(vo.getPostId());
@@ -711,6 +716,9 @@ public class BoardController {
 		public String updateReplyAjax(
 				CommentVo vo) {
 			
+			if (badWordFilter.containsBadWord(vo.getContent()) ) {
+				return "false";
+			}
 			cmtService.updateComment(vo);
 			
 			List<CommentVo> replyList = cmtService.getCommentList(vo.getPostId());

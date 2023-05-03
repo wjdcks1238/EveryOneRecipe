@@ -297,6 +297,7 @@ public class MemberController {
 		}
 		mv.setViewName("member/bookmark");
 		return mv;
+		//TODO 북마크, 좋아요 페이징 처리 
 	}
 	
 	//개인정보 수정 (/infoupdate) 1. 비밀번호 재확인 후 수정페이지로 넘어감

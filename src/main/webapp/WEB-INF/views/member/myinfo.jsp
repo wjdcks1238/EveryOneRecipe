@@ -202,7 +202,7 @@
                 function successCallback(data) {
                 	
                     if(data.length == 0 ){
-                        $("#end").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
+                        $("#end").append('<div class="noList"><span>더 이상 표시할 항목이 없습니다.</span></div>');
                         $(window).off("scroll");
                     } 
                     

@@ -328,11 +328,18 @@ function updateComment(cid) {
 		dataType:"json",
 		async:false,
 		success: function(result){
-			if(result.length >= 0) {
-				alert("댓글이 수정되었습니다.")
-			} else {
-				alert("댓글이 수정 되지 않았습니다. 댓글 확인 후, 다시 수정해 주세요.")
+			if(result==false){
+				alert("비속어를 포함한 댓글은 작성할 수 없습니다.");
+				return;
+			}else{
+				if(result.length >= 0) {
+					alert("댓글이 수정되었습니다.")
+				} else {
+					alert("댓글이 수정 되지 않았습니다. 댓글 확인 후, 다시 수정해 주세요.")
+				}
 			}
+			
+			
 			displayReply(result);
 		}
 	});
@@ -412,10 +419,17 @@ function submitReply() {
 		success: function(result){
 			console.log(result.length);
 			$("#frmReply")[0].reset();
-			if(result.length > 0) {
-				alert("댓글이 작성되었습니다.")
-			} else {
-				alert("댓글이 작성이 되지 않았습니다. 다시 작성해 주세요.")
+			
+			if(result==false){
+				alert("비속어를 포함한 댓글은 작성할 수 없습니다.");
+				return;
+			}else{
+				
+				if(result.length > 0) {
+					alert("댓글이 작성되었습니다.");
+				} else {
+					alert("댓글이 작성이 되지 않았습니다. 다시 작성해 주세요.");
+				}
 			}
 			
 			displayReply(result);
