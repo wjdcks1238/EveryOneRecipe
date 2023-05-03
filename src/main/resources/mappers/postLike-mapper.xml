@@ -11,11 +11,11 @@
 	</select>
 	
 	<insert id="addLike">
-		insert into POSTLIKE values(#{postId}, #{userId}, default) 
+		insert into POSTLIKE values(#{postId}, #{userId}, default, default) 
 	</insert>
 	
 	<update id="reAddLike">
-		update POSTLIKE set ISDELETED='N' where POSTID=#{postId} and USERID=#{userId}
+		update POSTLIKE set ISDELETED='N', ADDDATE=SYSDATE where POSTID=#{postId} and USERID=#{userId}
 	</update>
 	
 	<update id="removeLike">
@@ -28,14 +28,21 @@
 	</select>
 	
 	<select id="getLikeList" parameterType="string" resultType="_int">
-		select postid from postlike where userid=#{userId} and isdeleted='N'
+		select postid from postlike where userid=#{userId} and isdeleted='N' order by adddate desc
+	</select>
+	<select id="getLikeCountPaging" parameterType="string" resultType="_int">
+		select count(*) from postlike where USERID=#{userId} and ISDELETED='N'
 	</select>
 	
 	<select id="getLikePosts" resultType="bvo">
-		select postid, userid, nickname, foodname, createat as createDate, lookup from post where
+		select p.postid, p.userid, p.nickname, p.foodname, p.createat as createDate, p.lookup, l.adddate from post p
+		join postlike l
+		  on p.postid=l.postid
+		 where
 		<foreach collection="list" item="item" open="(" separator=")or(" close=")">
-			 postid=#{item}
+			 l.postid=#{item}
 		</foreach>
+		order by l.adddate desc
 	</select>
 
 	
