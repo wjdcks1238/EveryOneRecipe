@@ -26,6 +26,7 @@ td, th{
             <th>채팅방 제목</th>
             <th>개설자</th>
             <th>참여자수</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -41,8 +42,16 @@ td, th{
                     <tr>
                         <td>${num}</td>
                         <td>
-                            ${chatRoom.title }
-                            <c:if test="${!empty loginUser }">
+                            ${chatRoom.title }                            
+                        </td>
+                        <td>
+                            ${chatRoom.userId }
+                        </td>
+                        <td>
+                            ${chatRoom.cnt }
+                        </td>
+                        <td>
+                        <c:if test="${!empty loginUser }">
                             	<c:choose>
                             		<c:when test="${loginUser eq 'everys_recipe'}">
 		                                <button class="btn btn-outline-secondary" 
@@ -63,12 +72,6 @@ td, th{
                                 	</c:otherwise>
                                 </c:choose>
                             </c:if>
-                        </td>
-                        <td>
-                            ${chatRoom.userId }
-                        </td>
-                        <td>
-                            ${chatRoom.cnt }
                         </td>
                     </tr>
                 </c:forEach>

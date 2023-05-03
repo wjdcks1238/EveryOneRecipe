@@ -107,6 +107,7 @@ public class ChatController {
 	public ModelAndView deleteRoom(ModelAndView mv, int chatRoomNo) {
 		service.deleteChatlist(chatRoomNo);	
 		service.deleteChatroom(chatRoomNo);
+		service.deleteChatroomChk(chatRoomNo);
 		
 		RedirectView red = new RedirectView();
 		red.setUrl("/everyrecipe/chat/chatroom");
@@ -119,13 +120,9 @@ public class ChatController {
 	// 채팅방 나가기
 	@GetMapping("/chat/exit")
 	@ResponseBody
-	public int exitChatRoom(@RequestParam("key") int key,
-							@RequestParam("userid") String userid) {
-		MessageChkVo chkvo = new MessageChkVo();
-		chkvo.setKey(key);
-		chkvo.setUserId(userid);	
+	public int exitChatRoom(MessageChkVo chk) {
 		
-		return service.exitChatRoom(chkvo);
+		return service.exitChatRoom(chk);
 	}
 	
 	

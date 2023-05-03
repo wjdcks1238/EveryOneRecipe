@@ -81,6 +81,10 @@
 		DELETE FROM CHATTINGROOM WHERE KEY = #{key}
 	</delete>
 	
+	<delete id="deleteChatroomChk" parameterType="int">
+		DELETE FROM CHATROOMCHK WHERE KEY = #{key}
+	</delete>
+	
 	<delete id="exitChatRoom">
     	DELETE FROM CHATROOMCHK
     	WHERE USERID = #{userId} AND KEY = #{key}
