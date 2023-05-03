@@ -35,11 +35,13 @@
 		  JOIN FOLLOWMAPPING f ON m.userId = f.fwid 
 		 WHERE f.userId = #{userId} AND f.ISDELETED = 'N'
 	</select>
-	<select id="getFollowing" parameterType="string" resultType="map">
-		SELECT m.userId, m.nickname, m.PROFILEURL, (select count(*) from FOLLOWMAPPING where userid= m.userid) as followercnt
-		  FROM members m 
-		  JOIN FOLLOWMAPPING f ON m.userId = f.userId 
-		 WHERE f.FWID = #{userId} AND f.ISDELETED = 'N'
+	<select id="getFollowing" parameterType="map" resultType="map">
+		SELECT * 
+           FROM (SELECT ROWNUM AS RNUM, m.userid, m.nickname, m.profileurl ,(select count(*) from FOLLOWMAPPING where userid= m.userid) as followercnt
+                   FROM MEMBERS m
+                   JOIN ( select * from FOLLOWMAPPING WHERE FWID = #{userId} AND ISDELETED = 'N') f 
+                     ON m.userId = f.userId )
+          WHERE <![CDATA[RNUM>#{from} AND RNUM<=#{to}]]>
 	</select>
 	
 	<!-- 추천 게시물(좋아요 많은 순서) 피드 -->

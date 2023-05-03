@@ -20,8 +20,8 @@ public interface FollowMappingService {
 	public int getFollowerCount(String userId) throws Exception;
 	public int getFollowingCount(String userId) throws Exception;
 	
-	public List<String>  getFollower(String userId) throws Exception;
-	public List<String> getFollowing(String userId) throws Exception;
+	public List<String>  getFollower(Map<String, String> map) throws Exception;
+	public List<String> getFollowing(Map<String, String> map) throws Exception;
 	
 	
 	public List<weekVo> getRecommendPost();	

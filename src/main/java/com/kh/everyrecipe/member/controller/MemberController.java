@@ -185,19 +185,46 @@ public class MemberController {
 
 		
 //		String id = principal.getName();
-		mv.addObject("following",fService.getFollowing(userId));
+		Map<String, String> map = new HashMap<>();
+		map.put("from", 0+"");
+		map.put("to", 20+"");
+		map.put("userId", userId);
 		
-		mv.setViewName("member/followMember");
+		
+		mv.addObject("following",fService.getFollowing(map));
+		mv.addObject("userId",userId);
+
+		mv.setViewName("member/following");
+		
+		
+		
 		return mv;
+	}
+	
+	@PostMapping("/followingIS")
+	@ResponseBody
+	public String followingIS(int curPage, String userId) throws Exception{
+		String from = (curPage-1)*20+"";
+		String to = ((curPage-1)*20+20)+"";
+		Map<String, String> map = new HashMap<>();
+		map.put("from", from);
+		map.put("to", to);
+		map.put("userId", userId);
+		List<String> list = fService.getFollowing(map);
+		return new Gson().toJson(list);
 	}
 	//팔로워 목록 페이지
 	@GetMapping("/follower/{userId}")
 	public ModelAndView follower(ModelAndView mv, Principal principal, @PathVariable String userId) throws Exception {
 		
 //		String id = principal.getName();
-		mv.addObject("follower",fService.getFollower(userId));
+		Map<String, String> map = new HashMap<>();
+		map.put("from", 0+"");
+		map.put("to", 20+"");
+		map.put("userId", userId);
+		mv.addObject("follower",fService.getFollower(map));
 		
-		mv.setViewName("member/followMember");
+		mv.setViewName("member/follower");
 		return mv;
 	}
 	

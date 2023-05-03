@@ -64,14 +64,14 @@ public class FollowMappingImpl implements FollowMappingService{
 
 
 	@Override
-	public List<String> getFollower(String userId) throws Exception {
-		return dao.getFollower(userId);
+	public List<String> getFollower(Map<String, String> map) throws Exception {
+		return dao.getFollower(map);
 	}
 
 
 	@Override
-	public List<String> getFollowing(String userId) throws Exception {
-		return dao.getFollowing(userId);
+	public List<String> getFollowing(Map<String, String> map) throws Exception {
+		return dao.getFollowing(map);
 	}
 
 
