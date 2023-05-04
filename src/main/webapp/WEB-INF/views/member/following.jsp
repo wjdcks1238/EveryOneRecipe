@@ -44,15 +44,15 @@
 			            <c:forEach var="fw" items="${following}">
 			              <li class="list-group-item d-flex justify-content-between align-items-center">
 							  <div class="media">
-							    <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.PROFILEURL}" class="mr-3 rounded-circle" alt="프로필 이미지">
+							    <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.profileUrl}" class="mr-3 rounded-circle" alt="프로필 이미지">
 							    <div class="media-body">
-							      <a href="<%=request.getContextPath() %>/member/info/${fw.USERID}" id="${fw.USERID}">
-							        ${fw.NICKNAME}
-							        ${fw.USERID}
+							      <a href="<%=request.getContextPath() %>/member/info/${fw.userId}" id="${fw.userId}">
+							        ${fw.nickname}
+							        ${fw.userId}
 							      </a>
 							    </div>
 							  </div>
-							  <span>팔로워: ${fw.FOLLOWERCNT}</span>
+							  <span>팔로워: ${fw.followerCnt}</span>
 						  </li>
 			            </c:forEach>
 			          </ul>
@@ -81,10 +81,30 @@ $(window).scroll(function() {
             async : false,
             data : {curPage:curPage, userId:$("#userId").val()},
             success : function(result){
+            	 if(result.length == 0 ){
+                     $(".card").after('<div class="noList"><span>더 이상 표시할 항목이 없습니다.</span></div>');
+                     $(window).off("scroll");
+                 } 
+            	 if(result.length != 0){
+            		 for(i=0; i<result.length;i++){
+            			 var reply=result[i];
+            			 console.log(reply);
+            			 var a=`<li class="list-group-item d-flex justify-content-between align-items-center">
+			   							<div class="media">
+										    <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="`+reply.profileUrl+`" class="mr-3 rounded-circle" alt="프로필 이미지">
+										    <div class="media-body">
+										      <a href="<%=request.getContextPath() %>/member/info/`+reply.userId+`" id="`+reply.userId+`">
+										      	`+reply.nickname+`
+										       	`+reply.userId+`
+										      </a>
+										    </div>
+									  	</div>
+									  <span>팔로워: `+reply.followerCnt+`</span>
+								  </li>`
+            			 $(".list-group").append(a);
+            		 }
+            	 }
             	
-            	console.log(result);
-            	console.log(result[0]);
-            	console.log(result[1]);
             	
             },
             error : console.log("456")

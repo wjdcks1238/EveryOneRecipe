@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.everyrecipe.followMapping.dao.FollowMappingDao;
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
+import com.kh.everyrecipe.followMapping.vo.FollowVo;
 import com.kh.everyrecipe.weekboard.vo.weekVo;
 
 @Service
@@ -70,7 +71,7 @@ public class FollowMappingImpl implements FollowMappingService{
 
 
 	@Override
-	public List<String> getFollowing(Map<String, String> map) throws Exception {
+	public List<FollowVo> getFollowing(Map<String, String> map) throws Exception {
 		return dao.getFollowing(map);
 	}
 

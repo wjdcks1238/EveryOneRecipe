@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
+import com.kh.everyrecipe.followMapping.vo.FollowVo;
 import com.kh.everyrecipe.weekboard.vo.weekVo;
 
 
@@ -21,7 +22,7 @@ public interface FollowMappingService {
 	public int getFollowingCount(String userId) throws Exception;
 	
 	public List<String>  getFollower(Map<String, String> map) throws Exception;
-	public List<String> getFollowing(Map<String, String> map) throws Exception;
+	public List<FollowVo> getFollowing(Map<String, String> map) throws Exception;
 	
 	
 	public List<weekVo> getRecommendPost();	
