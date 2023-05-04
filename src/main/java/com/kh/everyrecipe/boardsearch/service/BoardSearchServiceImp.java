@@ -114,4 +114,9 @@ public class BoardSearchServiceImp implements BoardSearchService {
 		return dao.upOrNot(chk);
 	}
 
+	@Override
+	public List<Map<String, String>> getRealTimeSearchTotal() throws Exception {
+		return dao.getRealTimeSearchTotal();
+	}
+
 }

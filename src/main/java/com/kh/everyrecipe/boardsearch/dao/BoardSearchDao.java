@@ -1,5 +1,6 @@
 package com.kh.everyrecipe.boardsearch.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -95,5 +96,9 @@ public class BoardSearchDao {
 		sqlSession.selectOne("boardSearchMapper.upOrNot", chk);
 		
 		return chk.getTimes();
+	}
+
+	public List<Map<String, String>> getRealTimeSearchTotal() {
+		return sqlSession.selectList("boardSearchMapper.getRealTimeSearchTotal");
 	}
 }

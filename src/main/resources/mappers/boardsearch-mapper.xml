@@ -54,6 +54,20 @@
 		<result column="keword" property="KEWORD"/>
 		<result column="cnt" property="CNT"/>
 	</resultMap>
+	<resultMap id="realTimeTotalMap" type="java.util.Map">
+		<result column="rown" property="ROWN"/>
+		<result column="keword" property="KEWORD"/>
+		<result column="cnt" property="CNT"/>
+	</resultMap>
+	<select id="getRealTimeSearchTotal" resultMap="realTimeTotalMap">
+		select ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC) as rown
+		     , keword
+		     , count(*) as cnt 
+		from searchdb
+		where searchdate between SYSDATE - 1/24 AND SYSDATE + 1/24
+		    and SEARCHOPTION='R'
+		group by KEWORD
+	</select>
 	<select id="selectData" parameterType="map" resultMap="searchDBMap">
 		select searchdate, count(*) as CNT
 		    from searchdb

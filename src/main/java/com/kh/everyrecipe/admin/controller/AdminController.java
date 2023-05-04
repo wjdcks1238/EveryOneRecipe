@@ -53,8 +53,22 @@ public class AdminController {
 	private ReportService rService;
 	
 	@GetMapping("")
-	public String admin() {
-		return "admin/admin";
+	public ModelAndView admin(
+			ModelAndView mv
+			) throws Exception {
+		List<Map<String, String>> data = bsService.getRealTimeSearchTotal();
+		System.out.println(data);
+		
+		List<String> keywordList = new ArrayList<>(); // KEWORD 값들을 저장할 리스트
+		List<String> cntList = new ArrayList<>(); // CNT 값들을 저장할 리스트
+
+		
+		System.out.println(keywordList);
+		System.out.println(cntList);
+		
+		mv.setViewName("admin/admin");
+		
+		return mv;
 	}
 	
 	
@@ -406,6 +420,36 @@ public class AdminController {
 	    mv.setViewName("admin/deleteBadwords");
 	    return mv;
 	}
+	
+	@PostMapping("/badwordSearch")
+	@ResponseBody
+	public Set<String> badwordSearch(String keyword){
+		//검색 후 결과 반환
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("badwordList.txt");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+		Set<String> badwords = new LinkedHashSet<String>();
+		Set<String> searched = new LinkedHashSet<String>();
+		try {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				badwords.add(line);
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		for(String s : badwords) {
+			if(s.contains(keyword)) {
+				searched.add(s);
+			}
+			
+		}
+		
+		
+		return searched;
+	}
+	
+	
 	//추가
 	@GetMapping("/addBadwords")
 	public ModelAndView addBadwords(ModelAndView mv) throws Exception {
