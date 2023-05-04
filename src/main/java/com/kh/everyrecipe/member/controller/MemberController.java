@@ -15,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -56,7 +58,10 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+	//csrf토큰 사용을 위해 추가
+	@Autowired
+	private CsrfTokenRepository csrfTokenRepository;
+
 	private final String defaultProfileIMG ="/resources/tempProfileImg/defaultUser.svg" ;
 	
 	@Autowired
@@ -404,10 +409,19 @@ public class MemberController {
 	//ajax로 비밀번호 인증
 	@PostMapping("/infoupdateAjax")
 	@ResponseBody
-	public String infoupdateAjax(@RequestParam("password") String password, Principal principal) throws Exception {
+	public String infoupdateAjax(@RequestParam("password") String password, Principal principal, HttpServletRequest request) throws Exception {
 	    String str = "";
 	    String id = principal.getName();
 	    
+	    // CSRF 토큰 검증
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        if (csrfToken == null) {
+            str = "fail";
+            return str;
+        }
+        String csrfTokenValue = csrfToken.getToken();
+        String csrfHeaderName = csrfToken.getHeaderName();
+        
 	    Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("password", password);
@@ -430,7 +444,7 @@ public class MemberController {
 		mv.setViewName("member/modify");
 		return mv;
 	}
-	//개인정보수정(비밀번호 수정 OK, TODO:이메일 수정
+	//개인정보수정
 	@PostMapping("/modify")
 	@ResponseBody
 	public int modifyUser(

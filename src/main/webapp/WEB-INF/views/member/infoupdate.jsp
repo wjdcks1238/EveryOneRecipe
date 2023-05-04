@@ -93,8 +93,6 @@
 			<div class="col-md-10 col-md-offset-2 col-xs-12">
 				<div class="row">
 					<div class="col-8">
-					
-					
 							<div>
 								<h5>개인 정보 수정</h5>
 							</div>
@@ -155,6 +153,9 @@
 	        url: "${pageContext.request.contextPath}/member/infoupdateAjax",
 	        data: { "password": password },
 	        dataType: "text",
+	        beforeSend: function(xhr){
+	        	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+	        },
 	        success: function(data) {
 	        	
 	            result = data;
