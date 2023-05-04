@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>chatroom list</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -53,7 +53,7 @@ td, th{
                         <td>
                         <c:if test="${!empty loginUser }">
                             	<c:choose>
-                            		<c:when test="${loginUser eq 'everys_recipe'}">
+                            		<c:when test="${loginUser eq 'everysrecipe0'}">
 		                                <button class="btn btn-outline-secondary" 
 		                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}?id=${chatRoom.userId }'">
 		                                	입장

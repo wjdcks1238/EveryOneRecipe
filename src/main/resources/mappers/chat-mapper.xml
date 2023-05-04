@@ -10,14 +10,14 @@
 		<result column="CNT" property="cnt"/>
 	</resultMap>
 	<resultMap type="com.kh.everyrecipe.chat.vo.MessageVo" id="chatMsgResultMap" >
-		<id column="MESSAGENO" property="messageNo"/>
+		<id column="KEY" property="key"/>			
 		<result column="MESSAGE" property="message"/>
-		<result column="UPDATEAT" property="createDate"/>
-		<result column="KEY" property="key"/>
+		<result column="UPDATEAT" property="createDate"/>		
+		<result column="MESSAGENO" property="messageNo"/>	
 		<result column="USERID" property="userId"/>
 		<result column="USER_NAME" property="userName"/>
 	</resultMap>
-  
+
 	<select id="selectChatRoomList" resultMap="chatResultMap">
 		SELECT KEY, TITLE, USERID,
 			(SELECT COUNT(*) 

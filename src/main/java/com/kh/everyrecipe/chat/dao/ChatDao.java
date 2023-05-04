@@ -67,7 +67,7 @@ public class ChatDao {
 	}
 	
 	public int exitChatRoom(MessageChkVo chk) {
-		return sqlsession.delete("chattingMapper.exitChatRoom", chk);
+		return sqlsession.delete("chatMapper.exitChatRoom", chk);
 	}
 	
 }

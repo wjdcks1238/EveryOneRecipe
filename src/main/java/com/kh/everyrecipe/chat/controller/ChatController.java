@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -25,8 +25,10 @@ import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberVo;
 
 
+
+
 @Controller
-@SessionAttributes({"loginUser", "chatRoomNo"})
+@RequestMapping("/chat")
 public class ChatController {
 	@Autowired
 	private ChatService service;
@@ -34,20 +36,20 @@ public class ChatController {
 	private MemberService mService;
 	
 	//채팅방 목록 조회
-	@GetMapping("/chat/chatroom")
+	@GetMapping("/chatroom")
 	public String selectChatRoomList(Model model, HttpServletRequest req) {
 		
 		List<RoomVo> crList = service.selectChatRoomList();		
 		String userId = req.getRemoteUser();
 		
 		model.addAttribute("chatRoomList", crList);
-		model.addAttribute("loginUser", userId);
+		model.addAttribute("loginUser", userId);		
 		
 		return "chat/chatroom";
 	}
     
 	//채팅방 만들기
-	@PostMapping("/chat/openChatRoom")
+	@PostMapping("/openChatRoom")
 	public String openChatRoom(
 						HttpServletRequest req,
                         Model model, 
@@ -72,7 +74,7 @@ public class ChatController {
 	}
 	
 	//채팅방 내부
-	@GetMapping("/chat/room/{chatRoomNo}")
+	@GetMapping("/room/{chatRoomNo}")
 	public String enterRoom(
 				HttpServletRequest req,
 				Model model,
@@ -103,7 +105,7 @@ public class ChatController {
 	
 	
 	//채팅방  + 채팅내용 삭제
-	@GetMapping("/chat/delete")
+	@GetMapping("/delete")
 	public ModelAndView deleteRoom(ModelAndView mv, int chatRoomNo) {
 		service.deleteChatlist(chatRoomNo);	
 		service.deleteChatroom(chatRoomNo);
@@ -118,14 +120,22 @@ public class ChatController {
 	}
 	
 	// 채팅방 나가기
-	@GetMapping("/chat/exit")
+	@GetMapping("/exit")
 	@ResponseBody
-	public int exitChatRoom(MessageChkVo chk) {
+	public ModelAndView exitChatRoom(
+					ModelAndView mv,
+					MessageChkVo chk,
+					@RequestParam("userId") String userId,
+					@RequestParam("key") int key) {
+		//로그인 아이디값, 방번호를 받아옴
+		chk.setUserId(userId);
+		chk.setKey(key);
+		service.exitChatRoom(chk);
 		
-		return service.exitChatRoom(chk);
+		mv.setViewName("redirect:chatroom");
+		return mv;
 	}
-	
-	
+
 	
 	
 
