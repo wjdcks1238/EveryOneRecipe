@@ -215,6 +215,11 @@ public class MemberController {
 		List<FollowVo> list = fService.getFollowing(map);
 		return list;
 	}
+	
+	
+	
+	
+	
 	//팔로워 목록 페이지
 	@GetMapping("/follower/{userId}")
 	public ModelAndView follower(ModelAndView mv, Principal principal, @PathVariable String userId) throws Exception {
@@ -224,12 +229,25 @@ public class MemberController {
 		map.put("from", 0+"");
 		map.put("to", 20+"");
 		map.put("userId", userId);
+		
 		mv.addObject("follower",fService.getFollower(map));
+		mv.addObject("userId",userId);
 		
 		mv.setViewName("member/follower");
 		return mv;
 	}
-	
+	@PostMapping("/followerIS")
+	@ResponseBody
+	public List<FollowVo> followerIS(int curPage, String userId) throws Exception{
+		String from = (curPage-1)*20+"";
+		String to = ((curPage-1)*20+20)+"";
+		Map<String, String> map = new HashMap<>();
+		map.put("from", from);
+		map.put("to", to);
+		map.put("userId", userId);
+		List<FollowVo> list = fService.getFollower(map);
+		return list;
+	}
 	
 	//프로필 업데이트 페이지
 	@GetMapping("/update")

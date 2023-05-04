@@ -36,7 +36,7 @@
 			  <div class="card">
 			    <div class="card-header">
 			      <h5 class="mb-0">
-			            <span>팔로잉 목록</span>
+			            <span>팔로잉</span>
 			      </h5>
 			    </div>
 			    <div class="card-body">
@@ -71,8 +71,6 @@
 var curPage=1;
 $(window).scroll(function() {
     if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
-        //start.param.curPage++; // 현재 페이지에서 +1 처리.
-//        console.log("### 2: " + start.param.curPage);
         curPage+=1;
         console.log("### 2: "+curPage);
         $.ajax({
@@ -107,7 +105,6 @@ $(window).scroll(function() {
             	
             	
             },
-            error : console.log("456")
         });
     } 
 }); 
