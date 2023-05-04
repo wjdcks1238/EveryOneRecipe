@@ -51,7 +51,7 @@ public class FollowMappingDao {
 		return sqlSession.selectOne("followMapper.getFollowingCount",userId);
 	}
 
-	public List<String> getFollower(Map<String, String> map) {
+	public List<FollowVo> getFollower(Map<String, String> map) {
 		return sqlSession.selectList("followMapper.getFollower",map);
 	}
 

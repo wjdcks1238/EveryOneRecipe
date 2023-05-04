@@ -29,11 +29,13 @@
 	<select id="getFollowingCount" parameterType="string" resultType="_int">
 		select count(*) from FOLLOWMAPPING where fwid=#{userId} and ISDELETED ='N'
 	</select>
-	<select id="getFollower" parameterType="string" resultType="map">
-		SELECT m.userId, m.nickname, m.PROFILEURL, (select count(*) from FOLLOWMAPPING where userid= m.userid) as followercnt
-		  FROM members m 
-		  JOIN FOLLOWMAPPING f ON m.userId = f.fwid 
-		 WHERE f.userId = #{userId} AND f.ISDELETED = 'N'
+	<select id="getFollower" parameterType="map" resultType="com.kh.everyrecipe.followMapping.vo.FollowVo">
+		SELECT * 
+           FROM (SELECT ROWNUM AS RNUM, f.fwid as userid, m.nickname, m.profileurl ,(select count(*) from FOLLOWMAPPING where userid= f.fwid) as followercnt
+                   FROM MEMBERS m
+                   JOIN ( select * from FOLLOWMAPPING WHERE USERID = #{userId} AND ISDELETED = 'N') f 
+                     ON m.userId = f.fwid )
+          WHERE <![CDATA[RNUM>#{from} AND RNUM<=#{to}]]>
 	</select>
 	<select id="getFollowing" parameterType="map" resultType="com.kh.everyrecipe.followMapping.vo.FollowVo">
 		SELECT * 

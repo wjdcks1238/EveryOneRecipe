@@ -6,16 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>
-	<c:choose >
-		<c:when test="${following ne null}">
-			<title>팔로잉 목록</title>
-		</c:when>
-		<c:when test="${follower ne null}">	
-			<title>팔로워 목록</title>
-		</c:when>
-	</c:choose>
-</title>
+<title>팔로워 목록</title>
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 
 <style type="text/css">
@@ -26,8 +17,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/header.jsp" %>
-
-
+<input type="hidden" value="${userId }" id="userId">
 <div  class="container wrapper">
 
 		<div class="row ">
@@ -45,53 +35,26 @@
 			  <div class="card">
 			    <div class="card-header">
 			      <h5 class="mb-0">
-			        <c:choose>
-			          <c:when test="${following ne null}">
-			            <span>팔로잉 목록</span>
-			          </c:when>
-			          <c:when test="${follower ne null}">
-			            <span>팔로워 목록</span>
-			          </c:when>
-			        </c:choose>
+			          <span>팔로워</span>
 			      </h5>
 			    </div>
 			    <div class="card-body">
-			      <c:choose>
-			        <c:when test="${following ne null}">
-			          <ul class="list-group">
-			            <c:forEach var="fw" items="${following}">
-			              <li class="list-group-item d-flex justify-content-between align-items-center">
-							  <div class="media">
-							    <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.PROFILEURL}" class="mr-3 rounded-circle" alt="프로필 이미지">
-							    <div class="media-body">
-							      <a href="<%=request.getContextPath() %>/member/info/${fw.USERID}" id="${fw.USERID}">
-							        ${fw.NICKNAME}
-							      </a>
-							    </div>
-							  </div>
-							  <span>팔로워: ${fw.FOLLOWERCNT}</span>
-						  </li>
-			            </c:forEach>
-			          </ul>
-			        </c:when> 
-			        <c:when test="${follower ne null}">
-			          <ul class="list-group">
-			            <c:forEach var="fw" items="${follower}">
-			              <li class="list-group-item d-flex justify-content-between align-items-center">
-							  <div class="media">
-							    <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.PROFILEURL}" class="mr-3 rounded-circle" alt="프로필 이미지">
-							    <div class="media-body">
-							      <a href="<%=request.getContextPath() %>/member/info/${fw.USERID}" id="${fw.USERID}">
-							        ${fw.NICKNAME}
-							      </a>
-							    </div>
-							  </div>
-							  <span>팔로워: ${fw.FOLLOWERCNT}</span>
-						  </li>
-			            </c:forEach>
-			          </ul>
-			        </c:when>
-			      </c:choose>
+		          <ul class="list-group">
+		            <c:forEach var="fw" items="${follower}">
+		              <li class="list-group-item d-flex justify-content-between align-items-center">
+						  <div class="media">
+						    <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="${fw.profileUrl}" class="mr-3 rounded-circle" alt="프로필 이미지">
+						    <div class="media-body">
+						      <a href="<%=request.getContextPath() %>/member/info/${fw.userId}" id="${fw.userId}">
+						        ${fw.nickname}
+						        ${fw.userId}
+						      </a>
+						    </div>
+						  </div>
+						  <span>팔로워: ${fw.followerCnt}</span>
+					  </li>
+		            </c:forEach>
+		          </ul>
 			    </div>
 			  </div>
 			</div>
@@ -103,5 +66,51 @@
 
 <%@ include file="/WEB-INF/views/footer.jsp" %>
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
+<script type="text/javascript">
+var curPage=1;
+$(window).scroll(function() {
+    if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
+        curPage+=1;
+        console.log("### 2: "+curPage);
+        $.ajax({
+            type	 : 'POST',
+            url      : '${pageContext.request.contextPath}/member/followerIS',
+            async : false,
+            data : {curPage:curPage, userId:$("#userId").val()},
+            success : function(result){
+            	 if(result.length == 0 ){
+                     $(".card").after('<div class="noList"><span>더 이상 표시할 항목이 없습니다.</span></div>');
+                     $(window).off("scroll");
+                 } 
+            	 if(result.length != 0){
+            		 for(i=0; i<result.length;i++){
+            			 var reply=result[i];
+            			 console.log(reply);
+            			 var a=`<li class="list-group-item d-flex justify-content-between align-items-center">
+			   							<div class="media">
+										    <img style="width: 30px; height: 30px; border-radius: 50%;object-fit: cover;" src="`+reply.profileUrl+`" class="mr-3 rounded-circle" alt="프로필 이미지">
+										    <div class="media-body">
+										      <a href="<%=request.getContextPath() %>/member/info/`+reply.userId+`" id="`+reply.userId+`">
+										      	`+reply.nickname+`
+										       	`+reply.userId+`
+										      </a>
+										    </div>
+									  	</div>
+									  <span>팔로워: `+reply.followerCnt+`</span>
+								  </li>`
+            			 $(".list-group").append(a);
+            		 }
+            	 }
+            	
+            	
+            },
+        });
+    } 
+}); 
+
+
+
+
+</script>
 </body>
 </html>
