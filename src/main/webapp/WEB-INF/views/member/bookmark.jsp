@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>프로필 수정</title>
+<title>북마크</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <%@ include file="/WEB-INF/views/css_import.jsp" %>

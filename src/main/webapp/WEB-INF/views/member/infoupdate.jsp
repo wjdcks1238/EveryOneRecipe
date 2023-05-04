@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>모두의 레시피</title>
+<title>개인정보수정</title>
 
 <%@ include file="/WEB-INF/views/css_import.jsp"%>
 <script src="https://code.jquery.com/jquery-3.6.3.js"

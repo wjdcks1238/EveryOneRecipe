@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Insert title here</title>
+<title>게시글 등록</title>
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/ckeditor/ckeditor.js"></script>
