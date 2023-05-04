@@ -1,13 +1,16 @@
 package com.kh.everyrecipe.admin.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.Principal;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -379,6 +382,50 @@ public class AdminController {
 		List<BlockedMemberVo> blockList = rService.getBlockInfo(userId);
 		
 		return blockList;
+	}
+	
+	//비속어 관리 
+	//삭제
+	@GetMapping("/deleteBadwords")
+	public ModelAndView deleteBadwords(ModelAndView mv) throws Exception {
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("badwordList.txt");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+		Set<String> badwords = new LinkedHashSet<String>();
+		try {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				badwords.add(line);
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		mv.addObject("badwords", badwords);
+		
+	    mv.setViewName("admin/deleteBadwords");
+	    return mv;
+	}
+	//추가
+	@GetMapping("/addBadwords")
+	public ModelAndView addBadwords(ModelAndView mv) throws Exception {
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("badwordList.txt");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+		Set<String> badwords = new LinkedHashSet<String>();
+		try {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				badwords.add(line);
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		mv.addObject("badwords", badwords);
+		
+		mv.setViewName("admin/addBadwords");
+		return mv;
 	}
 	
 }
