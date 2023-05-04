@@ -9,8 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,7 +68,7 @@ public class MemberController {
 	public String login() {
 		return "member/login";
 	}
-	
+
 	//회원가입
 	@PostMapping("/signup")
 	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
@@ -388,12 +394,9 @@ public class MemberController {
 		map.put("id", id);
 		map.put("password", password);
 	    int result = mService.loginForMyInfo(map);
-	    System.out.println("~~~~~~~~~~~~~~~dfsfs  : "+result);
 	    if(result == 1) {
-	    	System.out.println("~~~~~~~~~~~~~~~dfsfs  : "+result);
 	    	str = "success";
 	    }else {
-	    	System.out.println("~~~~~~~~~~~~~~~dfsfs  : "+result);
 	    	str = "fail";
 	    }
 		return  str;

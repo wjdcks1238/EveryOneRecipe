@@ -284,7 +284,7 @@
 				} else{
 					if($('#email').val()!=''){
 						isEmailChecked = "n";
-						alert("중복된 이메일입니다.");
+						alert("이미 사용중인 이메일입니다.");
 						$('#email').focus();
 						$("#modifyBtn").prop("disabled", true); // 개인정보수정 버튼 비활성화
 					}
@@ -307,11 +307,11 @@
 
 	    console.log("~~~~~~~~~~~~~~입력된 암호  (☞ ﾟヮﾟ)☞ : " + prePassword);
 	    //✔이메일만 변경하고 싶으면 현재 비밀번호 입력 후 회원정보수정 성공해야함 --> newpassword eq(2)->(1)로 수정함, ajax data/prePassword : prePassword -> password : prepassword로 수정함
-	    //🔲입력되어 있는 이메일을 지운 뒤 회원정보수정 누르면 비밀번호 틀렸다는 alert 띄워짐
-	    //🔲이메일중복체크 하지 않아도 회원정보수정 버튼 진행됨;
+	    //✔입력되어 있는 이메일을 지운 뒤 회원정보수정 누르면 비밀번호 틀렸다는 alert 띄워짐
+	    //✔이메일중복체크 하지 않아도 회원정보수정 버튼 진행됨; -> 이메일 정규식에 정보수청버튼 비활성화 추가함
 	    //✔재비밀번호 입력 한 뒤 지우면 새비밀번호 div error 발생함, 현재비밀번호 정상적으로 입력하면  새비밀번호 div error 사라지고, 새비밀번호 확인 div error 발생함 -> id="password"를 id="prePassword"로 변경함
 	    //✔비밀번호 입력 없이 회원정보수정 누르면 비밀번호를 입력해주세요 alert 띄우기 --> else if(prePassword.length == 0) 추가함
-	    //🔲아무것도 변경없이 회원정보수정 눌러도 변경이 완료되었다는 alert 띄우기 --...이건 하지말까..?수정사항없으면 수정 버튼 비활성으로 할까?
+	    //✔아무것도 변경없이 회원정보수정 눌러도 변경이 완료되었다는 alert 띄우기
 	    if (prePassword.length != 0) {
 	    	console.log(prePassword);
 	    	console.log(newpassword);

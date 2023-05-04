@@ -29,18 +29,25 @@ let regMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 let emailError = document.getElementById("email-error");
 let regEmailError = document.getElementById("regMail-error");
 let regEmailError2 = document.getElementById("regMail-error2");
-
+//닉네임 정규식
+//닉네임 입력창 값 가져오기
+let inputNickName = document.getElementById("nickname");
+let regNickname = /^[a-zA-Z0-9ㄱ-ㅎ가-힣]{1,19}$/;
+let nickError = document.getElementById("nickname-error");
+let regNickError = document.getElementById("regidNickname-error");
 // 아이디 확인
 inputUserId.onkeyup = function(){
 	// 값이 입력된 경우
 	if (inputUserId.value === "") {
 		useridError.classList.remove('hide');
 		useridRegIdError.classList.add('hide');
+		submitBtn.disabled = true;
 	} else {
 		useridError.classList.add('hide');
 		// 정규식 검사
 		if (!regId.test(inputUserId.value)) {
 			useridRegIdError.classList.remove('hide');
+			submitBtn.disabled = true;
 		} else {
 			useridRegIdError.classList.add('hide');
 		}
@@ -51,10 +58,12 @@ inputPassword.onkeyup = function(){
 	if(inputPassword.value === ""){
 		regPasswordError.classList.remove('hide');
 		passwordCheckError.classList.add('hide');
+		submitBtn.disabled = true;
 	} else {
 		regPasswordError.classList.add('hide');
 		if(!regPass.test(inputPassword.value)){
 			regPasswordError.classList.remove('hide');
+			submitBtn.disabled = true;
 		} else {
 				passwordCheckError.classList.remove('hide');
 		}
@@ -64,8 +73,28 @@ inputPassword.onkeyup = function(){
 checkpw.onkeyup = function(){
 	if(inputPassword.value !== checkpw.value ){
 		passwordCheckError.classList.remove('hide');
+		submitBtn.disabled = true;
 	} else {
 		passwordCheckError.classList.add('hide');
+		submitBtn.disabled = true;
+	}
+}
+//닉네임 확인
+inputNickName.onkeyup = function(){
+	// 값이 입력된 경우
+	if (inputNickName.value === "") {
+		nickError.classList.remove('hide');
+		nickError.classList.add('hide');
+		submitBtn.disabled = true;
+	} else {
+		regNickError.classList.add('hide');
+		// 정규식 검사
+		if (!regNickname.test(inputNickName.value)) {
+			regNickError.classList.remove('hide');
+			submitBtn.disabled = true;
+		} else {
+			regNickError.classList.add('hide');
+		}
 	}
 }
 //이메일 확인
@@ -73,24 +102,23 @@ inputEmail.onkeyup = function(){
 	if(inputEmail.value === ""){
 		emailError.classList.remove('hide');
 		emailError.classList.add('hide');
+		submitBtn.disabled = true;
 	}else{
 		if(!regMail.test(inputEmail.value)){
 			regEmailError.classList.remove('hide');
+			submitBtn.disabled = true;
 		}else{
 			if(inputEmail.value.length > 50){ // 수정: 이메일 길이가 50 초과인 경우 처리
 				regEmailError2.classList.remove('hide');
+				submitBtn.disabled = true;
 			}else{
 				regEmailError2.classList.add('hide');
+				submitBtn.disabled = true;
 			}
 			regEmailError.classList.add('hide');
+			submitBtn.disabled = false;
 		}
 	}
 }
-//유효성 체크 통과 못하면 가입버튼 비활성
-/*function submitHandler(event){
-	event.preventDefault();
-	if(!inputEmail()) return;
-	document.getElementById("submitBtn").removeAttribute("disabled");
-	document.getElementById("signupForm").submit();
-}*/
+
 

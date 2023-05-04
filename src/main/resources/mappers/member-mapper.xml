@@ -3,7 +3,7 @@
 <mapper namespace="memberMapper">
 	<!-- 회원가입 -->
 	<insert id="insertId" parameterType="mvo">
-	   INSERT INTO MEMBERS VALUES(#{userId}, #{email}, #{password}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT
+	   INSERT INTO MEMBERS VALUES(#{userId}, #{email}, #{password}, #{nickName}, DEFAULT, DEFAULT, DEFAULT, DEFAULT
                             , '1','ROLE_MEMBER', DEFAULT)
     </insert>
 	

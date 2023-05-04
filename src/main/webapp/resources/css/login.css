@@ -152,3 +152,6 @@ section.active .right {
 .hide{
 	display: none;
 }
+button[disabled] {
+  opacity: 0.2;
+}

@@ -31,6 +31,10 @@
 		<input type="password" id="checkpw"  placeholder="비밀번호를 한번 더 입력해주세요" />
 			<div class="error-message hide error" id="passwordCheck-error">비밀번호가 일치하지 않습니다.</div>
 
+		<input type="text" id="nickname" name="nickname" placeholder="닉네임"/>
+			<div class="error-message hide error" id="nickname-error">닉네임을 입력하세요.</div>
+			<div class="error-message hide error" id="regidNickname-error">공백없이 영어, 숫자, 19자 이하로 입력해주세요.</div>
+						
         <input type="text" id="email" name="email" placeholder="이메일" />
         	<div class="error-message hide error" id="email-error">이메일을 입력해주세요.</div>
         	<div class="error-message hide error" id="regMail-error">올바른 이메일 형식이 아닙니다.</div>
@@ -42,7 +46,7 @@
        <label>동의함</label>
         </p> -->
         <!-- <input type="submit" value="가입하기" id="submitBtn" disabled/> -->
-        <button type="submit" value="가입하기" id="submitBtn" >가입하기</button>
+        <button type="submit" value="가입하기" id="submitBtn">가입하기</button>
       </form:form>
       <p>
         이미 계정이 있으신가요?
@@ -51,6 +55,14 @@
     </div>
   </div>
   <!-- 로그인 -->
+  <!--
+  	✔회원가입시 닉네임 입력 받기 -> mapper 추가, 회원가입 성공
+  	🔲회원가입 완료되면 성공 alert 띄우기
+  	🔲로그인실패시 실패 alert 띄우기
+  	🔲아무것도 입력하지 않고 회원가입 버튼 누르면 500에러 발생 조치할 것
+  	🔲회원가입시 이메일 중복 체크 추가하기 
+  	✔회원가입시 유효성 통과 못하면 가입하기 버튼 비활성화 -> 항목마다 submitBtn.disabled = true; 걸어주었다.
+    -->
   <div class="right">
     <img src="//unsplash.it/600" />
     <div class="sign-in">
@@ -62,8 +74,6 @@
         <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
         <div class="error-message hide error" id="">잘못된 비밀번호입니다.</div>
         <button type="submit" value="로그인" id="loginSubmitBtn">로그인</button>
-
-<!--<button type="submit" value="로그인" id="loginSubmitBtn" disabled>로그인</button> -->
       </form:form>
 	 <!-- 네이버 로그인 창으로 이동 -->
  	 <div id="naver_id_login" style="text-align:left"><a href="${url}">
@@ -110,7 +120,36 @@ $('#userid').blur(function(){
 		}
 	})
 })
+//회원가입 시 이메일 중복체크
+let isEmailChecked = 0;
 
+$('#email').blur(function(){
+	console.log("(☞ﾟヮﾟ)☞  이메일  blur");
+	console.log("email : "+$('#email').val());
+	$.ajax({
+		type:"POST",
+		url:'${pageContext.request.contextPath}/member/checkEmail',
+		data:{
+//			email: email
+			email: $('#email').val()
+		},
+		success:function(data){
+			console.log(data);
+			if($.trim(data)=="y"){
+				if($('#email').val()!=''){
+					isEmailChecked = "y";
+					alert("사용 가능한 이메일입니다.");
+				}
+			} else{
+				if($('#email').val()!=''){
+					isEmailChecked = "n";
+					alert("중복된 이메일입니다.");
+					$('#email').focus();
+				}
+			}
+		}
+	});//ajax	
+})
 //TODO: 로그인시 비밀번호 확인
 
 </script>

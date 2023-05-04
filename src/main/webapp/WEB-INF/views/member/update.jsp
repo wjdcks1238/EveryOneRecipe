@@ -222,7 +222,7 @@
       
       function validateNickname(nickname) {
     	  // 닉네임 유효성 검사를 위한 정규식
-    	  const regex = /^[a-zA-Z0-9ㄱ-ㅎ가-힣]{5,}$/;
+    	  const regex = /^[a-zA-Z0-9ㄱ-ㅎ가-힣]{1,19}$/;
     	  // 닉네임이 유효한지 검증하여 결과 반환
     	  return regex.test(nickname);
     	}
