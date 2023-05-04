@@ -9,16 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,11 +48,12 @@ public class MemberController {
 	@Autowired private PostLikeService plService;
 	@Autowired private PostBookmarkService pbService;
 	
+	
 	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private BCryptPasswordEncoder pwEncoder;
 	//csrf토큰 사용을 위해 추가
-	@Autowired
-	private CsrfTokenRepository csrfTokenRepository;
+//	@Autowired
+//	private CsrfTokenRepository csrfTokenRepository;
 
 	private final String defaultProfileIMG ="/resources/tempProfileImg/defaultUser.svg" ;
 	
@@ -77,8 +70,14 @@ public class MemberController {
 	//회원가입
 	@PostMapping("/signup")
 	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
+		System.out.println("@@@@@@@@@@@@@@@");
+		System.out.println(vo.getPassword());
+		System.out.println(pwEncoder.encode(vo.getPassword()));
 		if(StringUtils.hasText(vo.getPassword())) {
-			String bCryptString=bCryptPasswordEncoder.encode(vo.getPassword());
+			System.out.println("################");
+			System.out.println(vo.getPassword());
+			System.out.println(pwEncoder.encode(vo.getPassword()));
+			String bCryptString=pwEncoder.encode(vo.getPassword());
 			vo.setPassword(bCryptString);
 		}
 		
@@ -409,22 +408,33 @@ public class MemberController {
 	//ajax로 비밀번호 인증
 	@PostMapping("/infoupdateAjax")
 	@ResponseBody
-	public String infoupdateAjax(@RequestParam("password") String password, Principal principal, HttpServletRequest request) throws Exception {
+	public String infoupdateAjax(String password, Principal principal, HttpServletRequest request) throws Exception {
 	    String str = "";
 	    String id = principal.getName();
 	    
-	    // CSRF 토큰 검증
-        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-        if (csrfToken == null) {
-            str = "fail";
-            return str;
-        }
-        String csrfTokenValue = csrfToken.getToken();
-        String csrfHeaderName = csrfToken.getHeaderName();
+//	    // CSRF 토큰 검증
+//        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+//        if (csrfToken == null) {
+//            str = "fail";
+//            return str;
+//        }
+//        String csrfTokenValue = csrfToken.getToken();
+//        String csrfHeaderName = csrfToken.getHeaderName();
         
+//	    if(bCryptPasswordEncoder.matches(checkPassword, currPass)) {
+//	    bCryptPasswordEncoder.encode(password)
+	    
+	    
 	    Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
-		map.put("password", password);
+		System.out.println("aaaaaaaaaaaaaaaa");
+		System.out.println(pwEncoder.encode(password));
+		if(StringUtils.hasText(password)) {
+			System.out.println("################");
+			String bCryptString=pwEncoder.encode(password);
+			System.out.println(bCryptString);
+			map.put("password", bCryptString);
+		}
 	    int result = mService.loginForMyInfo(map);
 	    if(result == 1) {
 	    	str = "success";

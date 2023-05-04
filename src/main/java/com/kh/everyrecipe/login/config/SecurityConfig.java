@@ -14,8 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
@@ -46,13 +46,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	//
 	//String password = "password";
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	public void updatePassword(String userId, String password) {
-	    String encodedPassword = passwordEncoder.encode(password);
-	    // DB에 암호화된 비밀번호 저장 로직
-	}
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
+//	
+//	public void updatePassword(String userId, String password) {
+//	    String encodedPassword = passwordEncoder.encode(password);
+//	    // DB에 암호화된 비밀번호 저장 로직
+//	}
 
 	
 	

@@ -152,14 +152,11 @@
 	        type: "POST",
 	        url: "${pageContext.request.contextPath}/member/infoupdateAjax",
 	        data: { "password": password },
-	        dataType: "text",
 	        beforeSend: function(xhr){
 	        	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
 	        },
 	        success: function(data) {
-	        	
 	            result = data;
-	            
 	            if (result === "success") {
 	                location.href = "<%=request.getContextPath()%>/member/modify";
 	            } else {
