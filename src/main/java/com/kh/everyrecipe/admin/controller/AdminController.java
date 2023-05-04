@@ -406,6 +406,36 @@ public class AdminController {
 	    mv.setViewName("admin/deleteBadwords");
 	    return mv;
 	}
+	
+	@PostMapping("/badwordSearch")
+	@ResponseBody
+	public Set<String> badwordSearch(String keyword){
+		//검색 후 결과 반환
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("badwordList.txt");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+		Set<String> badwords = new LinkedHashSet<String>();
+		Set<String> searched = new LinkedHashSet<String>();
+		try {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				badwords.add(line);
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		for(String s : badwords) {
+			if(s.contains(keyword)) {
+				searched.add(s);
+			}
+			
+		}
+		
+		
+		return searched;
+	}
+	
+	
 	//추가
 	@GetMapping("/addBadwords")
 	public ModelAndView addBadwords(ModelAndView mv) throws Exception {

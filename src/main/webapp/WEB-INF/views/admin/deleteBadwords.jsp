@@ -216,7 +216,7 @@ span[name=cancel-icon] i {
                     <div id="deleteDiv">
                     
                     </div>
-                    <input> 
+                    <input id="search" class="form-control" style="width:400px;"  type="text" placeholder="검색"> 
                     
                 </div>
             </div>
@@ -247,6 +247,7 @@ span[name=cancel-icon] i {
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
   	
     <script type="text/javascript">
+
     $(document).on("click","button[name=cancel-btn]", function(){
     	console.log($(this).children("span[name=selected-text]").text().trim());
     	$("#deleteDiv").append(`
@@ -266,6 +267,35 @@ span[name=cancel-icon] i {
 				</button>`);
     	$(this).remove();
     	
+    });
+    
+    
+    $(function () {
+    	  // CSRF 토큰 가져오기
+    	  var csrfToken = $("meta[name='_csrf']").attr("content");
+    	  var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+    	  // Ajax 요청 전에 CSRF 토큰을 요청 헤더에 추가
+      $.ajaxSetup({
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader(csrfHeader, csrfToken);
+        }
+      });
+    });
+    $("#search").on("propertychange change paste input",function(){
+    	var keyword= $("#search").val().trim();
+    	$.ajax({
+			  url: "${pageContext.request.contextPath}/admin/badwordSearch",
+			  type: "POST", 
+			  data: {keyword: keyword},
+			  async : false,
+			  success:function(result){
+				  console.log(result);
+			  },
+			  error:function(){
+				  console.log("실패");
+			  }
+			});
     });
     
     
