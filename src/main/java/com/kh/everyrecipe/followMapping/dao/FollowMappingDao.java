@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.everyrecipe.followMapping.vo.FollowMappingVo;
+import com.kh.everyrecipe.followMapping.vo.FollowVo;
 import com.kh.everyrecipe.weekboard.vo.weekVo;
 
 
@@ -54,7 +55,7 @@ public class FollowMappingDao {
 		return sqlSession.selectList("followMapper.getFollower",map);
 	}
 
-	public List<String> getFollowing(Map<String, String> map) {
+	public List<FollowVo> getFollowing(Map<String, String> map) {
 		return sqlSession.selectList("followMapper.getFollowing",map);
 	}
 	

@@ -11,16 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +28,7 @@ import com.kh.everyrecipe.board.service.BoardService;
 import com.kh.everyrecipe.board.vo.BoardVo;
 import com.kh.everyrecipe.fileutil.FileUtil;
 import com.kh.everyrecipe.followMapping.service.FollowMappingService;
+import com.kh.everyrecipe.followMapping.vo.FollowVo;
 import com.kh.everyrecipe.member.service.MemberService;
 import com.kh.everyrecipe.member.vo.MemberBlockVo;
 import com.kh.everyrecipe.member.vo.MemberModifyDto;
@@ -203,15 +199,15 @@ public class MemberController {
 	
 	@PostMapping("/followingIS")
 	@ResponseBody
-	public String followingIS(int curPage, String userId) throws Exception{
+	public List<FollowVo> followingIS(int curPage, String userId) throws Exception{
 		String from = (curPage-1)*20+"";
 		String to = ((curPage-1)*20+20)+"";
 		Map<String, String> map = new HashMap<>();
 		map.put("from", from);
 		map.put("to", to);
 		map.put("userId", userId);
-		List<String> list = fService.getFollowing(map);
-		return new Gson().toJson(list);
+		List<FollowVo> list = fService.getFollowing(map);
+		return list;
 	}
 	//팔로워 목록 페이지
 	@GetMapping("/follower/{userId}")

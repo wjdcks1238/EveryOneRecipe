@@ -35,7 +35,7 @@
 		  JOIN FOLLOWMAPPING f ON m.userId = f.fwid 
 		 WHERE f.userId = #{userId} AND f.ISDELETED = 'N'
 	</select>
-	<select id="getFollowing" parameterType="map" resultType="map">
+	<select id="getFollowing" parameterType="map" resultType="com.kh.everyrecipe.followMapping.vo.FollowVo">
 		SELECT * 
            FROM (SELECT ROWNUM AS RNUM, m.userid, m.nickname, m.profileurl ,(select count(*) from FOLLOWMAPPING where userid= m.userid) as followercnt
                    FROM MEMBERS m
