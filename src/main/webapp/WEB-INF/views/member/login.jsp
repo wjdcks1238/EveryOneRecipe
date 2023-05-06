@@ -104,15 +104,16 @@ $('#userid').blur(function(){
 			if($.trim(data)=="y"){
 				if($('#userid').val()!=''){
 					isIdChecked = "y";
+					$("#idcheck-error").remove();
 				}
 			} else{
 				if($('#userid').val()!=''){
 					isIdChecked = "n";
 					$("#idcheck-error").html("중복된 아이디입니다.");
 					$("#idcheck-error").removeClass("hide");
-					setTimeout(function(){
+					/* setTimeout(function(){
 						$("#idcheck-error").addClass("hide");
-					}, 3000);
+					}, 3000); */
 					/* $('#userid').val(''); */
 					$('#userid').focus();
 				}
@@ -123,7 +124,7 @@ $('#userid').blur(function(){
 //회원가입 시 이메일 중복체크
 let isEmailChecked = 0;
 
-$('#email').blur(function(){
+$('#email').focusout(function(){
 	console.log("(☞ﾟヮﾟ)☞  이메일  blur");
 	console.log("email : "+$('#email').val());
 	$.ajax({
@@ -144,7 +145,7 @@ $('#email').blur(function(){
 				if($('#email').val()!=''){
 					isEmailChecked = "n";
 					alert("중복된 이메일입니다.");
-					$('#email').focus();
+					/* $('#email').focus(); */
 				}
 			}
 		}

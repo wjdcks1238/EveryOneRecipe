@@ -13,6 +13,7 @@
 	<s:http use-expressions="true">
 		<s:intercept-url pattern="/member/signup" access="permitAll"/>
 		<s:intercept-url pattern="/member/checkSignup" access="permitAll"/>
+		<s:intercept-url pattern="/member/checkEmail" access="permitAll"/>
 		<s:intercept-url pattern="/member/login" access="permitAll" />
 		<s:intercept-url pattern="/naverlogin" access="permitAll" />
 		<s:intercept-url pattern="/main/**" access="permitAll" />
@@ -20,7 +21,7 @@
 		<s:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<s:intercept-url pattern="/member/**" access="hasAnyRole('MEMBER', 'ADMIN')" />
 		<s:intercept-url pattern="/member/modify" access="hasAnyRole('MEMBER', 'ADMIN')" />
-	<s:csrf disabled="false"/>
+	<s:csrf disabled="true"/>
 		<s:form-login 
 			login-page="/member/login"
 			username-parameter="username"
