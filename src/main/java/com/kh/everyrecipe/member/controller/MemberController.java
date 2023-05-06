@@ -70,8 +70,6 @@ public class MemberController {
 	//회원가입
 	@PostMapping("/signup")
 	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
-		System.out.println("@@@@@@@@@@@@@@@");
-		System.out.println(vo.getPassword());
 		System.out.println(pwEncoder.encode(vo.getPassword()));
 		if(StringUtils.hasText(vo.getPassword())) {
 			System.out.println("################");

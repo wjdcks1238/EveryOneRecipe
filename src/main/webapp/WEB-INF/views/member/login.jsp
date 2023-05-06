@@ -31,7 +31,7 @@
 		<input type="password" id="checkpw"  placeholder="비밀번호를 한번 더 입력해주세요" />
 			<div class="error-message hide error" id="passwordCheck-error">비밀번호가 일치하지 않습니다.</div>
 
-		<input type="text" id="nickname" name="nickname" placeholder="닉네임"/>
+		<input type="text" id="nickname" name="nickName" placeholder="닉네임"/>
 			<div class="error-message hide error" id="nickname-error">닉네임을 입력하세요.</div>
 			<div class="error-message hide error" id="regidNickname-error">공백없이 영어, 숫자, 19자 이하로 입력해주세요.</div>
 						
