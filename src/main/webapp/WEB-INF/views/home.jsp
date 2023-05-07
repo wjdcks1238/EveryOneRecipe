@@ -142,8 +142,8 @@ body{
 	<%if(request.getUserPrincipal() != null || request.isUserInRole("MEMBER")){%>
 	<nav class="select_postbar navbar navbar-light bg-success text-white">
 		<div class="row">
-			<div class="col-md-3" style="cursor:pointer;" onclick="followrc()">FOLLOW RECIPE</div>
 			<div class="col-md-3" style="cursor:pointer;" onclick="bestrc()">BEST RECIPE</div>
+			<div class="col-md-3" style="cursor:pointer;" onclick="followrc()">FOLLOW RECIPE</div>			
 			<div class="col-md-3" style="cursor:pointer;" onclick="recorc()">RECOMMEND RECIPE</div>
 			<div class="col-md-3" style="cursor:pointer;" onclick="weekrc()">WEEK RECIPE</div>	
 		</div>
@@ -447,7 +447,7 @@ $(document).ready(function(){
 $.noConflict();
 
 
-/* 로그인x인 경우 추천, 주간, 팔로잉 게시글 숨김. 조회순 게시글만 표출  */
+/* 추천, 주간, 팔로잉 게시글 숨김. 조회순 게시글만 표출  */
 $(document).ready(function(){
 	$(".sort_like").hide();
 	$(".week_post").hide();
@@ -478,6 +478,7 @@ function weekrc(){
 	$(".sort_lkup").hide();
 	$(".follow_post").hide();
 	$(".week_post").show();
+	$(".lookup-hide").hide();
 };
 
 /* 팔로잉게시글 버튼 누르면 팔로잉 게시글 표출 + 추천순, 조회순, 주간 게시글 숨김 */
@@ -486,6 +487,7 @@ function followrc(){
 	$(".sort_lkup").hide();	
 	$(".week_post").hide();
 	$(".follow_post").show();
+	$(".lookup-hide").hide();
 };
 
 
