@@ -200,7 +200,7 @@ span[name=cancel-icon] i {
                 
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                	 <h1 class="h3 mb-5 text-gray-800">비속어, 금지어 설정</h1>
+                	 <h1 class="h3 mb-5 text-gray-800">비속어, 금지어 삭제</h1>
                 	 <div id="badwordDiv">
 	                     <c:forEach items="${badwords }" var="word">
 	                     	
@@ -216,8 +216,8 @@ span[name=cancel-icon] i {
                     <div id="deleteDiv">
                     
                     </div>
-                    <input id="search" class="form-control" style="width:400px;"  type="text" placeholder="검색"> 
-                    
+                    <input id="search" class="form-control mt-3" style="width:400px;"  type="text" placeholder="검색"> 
+                    <button id="submit" class="mt-3 btn btn-primary" type="button">적용</button>
                 </div>
             </div>
             <!-- End of Main Content -->
@@ -249,20 +249,20 @@ span[name=cancel-icon] i {
     <script type="text/javascript">
 
     $(document).on("click","button[name=cancel-btn]", function(){
-    	console.log($(this).children("span[name=selected-text]").text().trim());
+    	//console.log($(this).children("span[name=selected-text]").text().trim());
     	$("#deleteDiv").append(`
     			<button type="button" name="cancel-cancel-btn" class=" pl-1 pr-1 mr-2 mb-1">
-		 			<span name="selected-text">`+$(this).children("span[name=selected-text]").text().trim()+`</span>
+		 			<span name="selected-text2">`+$(this).children("span[name=selected-text]").text().trim()+`</span>
 					<span name="cancel-icon"><i class="fa fa-times"></i></span>
 				</button>`);
     	$(this).remove();
     	
     });
     $(document).on("click","button[name=cancel-cancel-btn]", function(){
-    	console.log($(this).children("span[name=selected-text]").text().trim());
+    	//console.log($(this).children("span[name=selected-text2]").text().trim());
     	$("#badwordDiv").append(`
     			<button type="button" name="cancel-btn" class=" pl-1 pr-1 mr-2 mb-1">
-		 			<span name="selected-text">`+$(this).children("span[name=selected-text]").text().trim()+`</span>
+		 			<span name="selected-text">`+$(this).children("span[name=selected-text2]").text().trim()+`</span>
 					<span name="cancel-icon"><i class="fa fa-times"></i></span>
 				</button>`);
     	$(this).remove();
@@ -270,18 +270,6 @@ span[name=cancel-icon] i {
     });
     
     
-    $(function () {
-    	  // CSRF 토큰 가져오기
-    	  var csrfToken = $("meta[name='_csrf']").attr("content");
-    	  var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-
-    	  // Ajax 요청 전에 CSRF 토큰을 요청 헤더에 추가
-      $.ajaxSetup({
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader(csrfHeader, csrfToken);
-        }
-      });
-    });
     $("#search").on("propertychange change paste input",function(){
     	var keyword= $("#search").val().trim();
     	$.ajax({
@@ -291,12 +279,66 @@ span[name=cancel-icon] i {
 			  async : false,
 			  success:function(result){
 				  console.log(result);
+				  $("#badwordDiv").empty();
+				  
+				  
+				  for(i=0;i<result.length;i++){
+					  var existWord = false;
+					  $("span[name=selected-text2]").each(function(){
+						  console.log(result[i].trim());
+						  console.log($(this).text().trim());
+						  console.log(result[i].trim()==$(this).text().trim());
+						  if($(this).text().trim()&&result[i].trim()){
+							  if(result[i]==$(this).text().trim()){
+								  existWord = true;
+								  return;
+							  }
+						  }
+						  
+					  })
+					  
+					  if(existWord==false){
+						  $("#badwordDiv").append(`<button type="button" name="cancel-btn" class=" pl-1 pr-1 mr-2 mb-1">
+									 		 			<span name="selected-text">`+result[i]+`</span>
+									  					<span name="cancel-icon"><i class="fa fa-times"></i></span>
+													</button>`);
+						  
+					  }
+				  }
+				  
 			  },
 			  error:function(){
 				  console.log("실패");
 			  }
 			});
     });
+    $("#submit").on("click",function(){
+    	var words = $('span[name="selected-text2"]').map(function() {
+    	    return $(this).text().trim();
+    	}).get();
+    	console.log(words);
+    	//var words= $("#deleteDiv").text();
+    	if(words==''){
+    		alert("취소할 비속어/금지어를 선택해주세요");
+    		return;
+    	}
+    	$.ajax({
+			  url: "${pageContext.request.contextPath}/admin/deleteWords",
+			  type: "POST", 
+			  data: {words: words},
+			  success:function(result){
+				  alert(result);
+				  location.reload();
+
+				  
+			  },
+			  error:function(){
+				  console.log("실패");
+			  }
+			});
+    });
+    
+    
     
     
     </script>

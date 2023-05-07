@@ -189,7 +189,7 @@ span[name=cancel-icon] i {
                 
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                	 <h1 class="h3 mb-5 text-gray-800">비속어, 금지어 설정</h1>
+                	 <h1 class="h3 mb-5 text-gray-800">비속어, 금지어 추가</h1>
                 	 
                      <c:forEach items="${badwords }" var="word">
                      	
@@ -200,7 +200,8 @@ span[name=cancel-icon] i {
                      	
                      </c:forEach>
                      
-                     
+                    <input id="word" class="form-control mt-3" style="width:400px;"  type="text" placeholder="입력"> 
+                    <button id="submit" class="mt-3 btn btn-primary" type="button">적용</button>
                            
                 </div>
             </div>
@@ -230,7 +231,28 @@ span[name=cancel-icon] i {
     <!-- Page level custom scripts -->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
   	
+    <script type="text/javascript">
+    $("#submit").on("click",function(){
+    	var word=$("#word").val().trim();
+    	if(word==''){
+    		alert('금지어/비속어를 입력해주세요');
+    		return;
+    	}
+    	$.ajax({
+			  url: "${pageContext.request.contextPath}/admin/addWord",
+			  type: "POST", 
+			  data: {word: word},
+			  success:function(result){
+				  alert(result);
+				  location.reload();
+			  },
+			  error:function(){
+				  console.log("실패");
+			  }
+			});
+    });
     
+    </script>
 
 </body>
 </html>
