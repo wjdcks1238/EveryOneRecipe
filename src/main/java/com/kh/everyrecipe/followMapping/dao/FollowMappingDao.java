@@ -67,8 +67,8 @@ public class FollowMappingDao {
 	}
 	
 	// 게시물 피드(조회수)
-	public List<weekVo> getBestPost(){
-		return sqlSession.selectList("followMapper.getBestPost");
+	public List<weekVo> getBestPost(Map<String, String> map){
+		return sqlSession.selectList("followMapper.getBestPost", map);
 	}
 	
 	// 좋아요 갯수

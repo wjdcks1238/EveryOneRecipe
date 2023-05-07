@@ -29,9 +29,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -140,7 +142,10 @@ public class HomeController {
 		model.addAttribute("rcpost", rcpost);
 		
 		//게시글(조회수 순서) 피드
-		List<weekVo> lupost = fService.getBestPost();
+		Map<String, String> map = new HashMap<>();
+		map.put("start", "0");
+		map.put("end", "10");
+		List<weekVo> lupost = fService.getBestPost(map);
 		model.addAttribute("lupost", lupost);		
 		
 		//팔로잉 게시글 (작성일자순)피드. 수정중
@@ -156,6 +161,22 @@ public class HomeController {
 		
 		return "home";
 	}
+	
+	@GetMapping("/lookupIS")
+	@ResponseBody
+	public List<weekVo> lookupIS(Model model, int curPage){
+		String start = (curPage - 1) * 10+"";
+		String end = ((curPage - 1) * 10 + 10)+"";
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<weekVo> list = fService.getBestPost(map);
+		return list;
+	}
+	
+	
 	
 
 }

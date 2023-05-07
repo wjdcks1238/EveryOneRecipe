@@ -63,11 +63,13 @@
 	
 	<!-- 게시물 피드(조회수 순서) 피드 -->
 	<select id="getBestPost" resultType="wvo">
-		select P.*
-    	FROM (
-       		SELECT * FROM POST WHERE ISDELETED='N' order by lookup desc
-        	) P
-		WHERE ROWNUM<![CDATA[<=]]>10
+	select *
+		FROM(SELECT ROWNUM AS SEQ, A.*		
+    		FROM (SELECT *
+        		  FROM POST
+       			  WHERE ISDELETED='N'
+       			  order by lookup desc) A)
+    	WHERE SEQ<![CDATA[>]]> #{start} AND SEQ<![CDATA[<=]]> #{end}
 	</select>
 	
 	

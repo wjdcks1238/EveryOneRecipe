@@ -270,6 +270,8 @@ body{
 			</div>
 			</c:forEach>
 		</div>
+		<div class="card-columns listfeaturedtag lookup-ISdiv">
+		</div>	
 	</section>
 	
 	
@@ -457,7 +459,8 @@ function recorc(){
 	$(".week_post").hide();
 	$(".sort_lkup").hide();
 	$(".follow_post").hide();
-	$(".sort_like").show();		
+	$(".sort_like").show();
+	$(".lookup-hide").hide();
 };
 
 /* 조회순 버튼 누르면 조회순 게시글 표출 + 주간, 추천순, 팔로잉 게시글 숨김 */
@@ -465,7 +468,8 @@ function bestrc(){
 	$(".sort_like").hide();
 	$(".week_post").hide();
 	$(".follow_post").hide();
-	$(".sort_lkup").show();	
+	$(".sort_lkup").show();
+	$(".lookup-hide").show();
 };
 
 /* 주간게시글 버튼 누르면 주간 게시글 표출 + 추천순, 조회순, 팔로잉 게시글 숨김 */
@@ -514,6 +518,81 @@ $(document).ready(function(){
     }).scroll();
 });
 
+
+const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+//조회순 피드 무한스크롤
+var curPage=1;
+$(window).scroll(function() {
+    if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
+        curPage+=1;
+        $.ajax({
+            type : 'GET',
+            url  : '${pageContext.request.contextPath}/lookupIS',
+            async : false,
+            data : {curPage:curPage},
+            success : function(result){
+            	 if(result.length != 0){
+            		 for(i=0; i<result.length;i++){
+            			 var lookup=result[i];            			 
+            			 var luDate = new Date(lookup.createAt);
+            			 
+            			 const dayOfWeek = week[new Date(luDate).getDay()];            			
+            			 const dayOfMonth = month[new Date(luDate).getMonth()];            			 
+            			 const format_day = (("00" + luDate.getDate().toString()).slice(-2));           			 
+            			 var luDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + luDate.getHours() + ":" + 
+            			 				luDate.getMinutes() + ":" + luDate.getSeconds() + " KST " + luDate.getFullYear();
+            			 				
+            			 var a= `
+            				<div class="card lookup-hide">
+            					<div class="row">
+            						<div class="col-md-5 wrapthumbnail">
+            							<a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`">
+            								<div class="thumbnail" style="background-image:url(`+lookup.mainImage+`);">
+            								</div>
+            							</a>
+            						</div>
+            						<div class="col-md-7">
+            							<div class="card-block">
+            							<div>
+            								<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`">`+lookup.foodName+`</a>							
+            								</h2>
+            								<span class="post-read-more"><a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+            							</div>
+            								<h4 class="card-text"
+            								style= "overflow: hidden;
+            								text-overflow: ellipsis;
+            								word-break: break-word;							
+            								display: -webkit-box;
+            								-webkit-line-clamp: 5;
+            								-webkit-box-orient: vertical;"						
+            								>`+lookup.content+`</h4>
+            								<div class="metafooter">
+            									<div class="wrapfooter">
+            										<span class="meta-footer-thumb">
+            										<a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+            										</span>
+            										<span class="author-meta">
+            										<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`">`+lookup.nickname+`</a></span><br/>
+            										<span id="lookup-date" class="post-date">`+luDate_format+`</span>
+            										<span class="post-read" style="white-space: pre-line;">									
+            										조회수: `+lookup.lookUp+`</span>
+            										</span>								
+            									</div>
+            								</div>
+            							</div>
+            						</div>
+            					</div>
+            				</div>
+            			`           				
+            			$(".lookup-ISdiv").append(a);	
+            		 }          	
+           		 }
+       	 	}
+    	}) 
+	}
+});
 
 
 
