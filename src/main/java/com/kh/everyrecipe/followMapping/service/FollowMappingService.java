@@ -25,9 +25,9 @@ public interface FollowMappingService {
 	public List<FollowVo> getFollowing(Map<String, String> map) throws Exception;
 	
 	
-	public List<weekVo> getRecommendPost();	
+	public List<weekVo> getRecommendPost(Map<String, String> recomap);	
 	public List<weekVo> getBestPost(Map<String, String> map);
 	public List<Integer> getPostLikeCnt();
-	public List<weekVo> getFollowingPost(String userId);
+	public List<weekVo> getFollowingPost(Map<String, String> fwmap);
 	
 }
