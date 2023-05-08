@@ -93,12 +93,12 @@
 			            from(
 			                select keword, count(*) as cnt
 			                from searchdb
-			                where searchdate=TO_DATE(#{date},'YYYY-MM-DD')
+			                where searchdate like TO_DATE(#{date},'YYYY-MM-DD')
 			                    and searchdb.SEARCHOPTION=#{option}
 			                group by keword
 			                order by cnt desc))
-			        where seq <![CDATA[>=]]> 1)
-			    where rownum <![CDATA[<=]]> 10
+			        where seq<![CDATA[>=]]>1)
+			    where rownum<![CDATA[<=]]>10
 	</select>
 	<select id="pagingList" parameterType="map" resultMap="postResultMap">
 		SELECT 

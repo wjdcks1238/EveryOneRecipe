@@ -80,7 +80,7 @@ function fn_draw_data1() {
       caretPadding: 10,
     },
     legend: {
-      display: false
+      display: true
     },
     cutoutPercentage: 80,
   },
