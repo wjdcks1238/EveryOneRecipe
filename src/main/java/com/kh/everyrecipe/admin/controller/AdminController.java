@@ -62,22 +62,8 @@ public class AdminController {
 	private ReportService rService;
 	
 	@GetMapping("")
-	public ModelAndView admin(
-			ModelAndView mv
-			) throws Exception {
-		List<Map<String, String>> data = bsService.getRealTimeSearchTotal();
-		System.out.println(data);
-		
-		List<String> keywordList = new ArrayList<>(); // KEWORD 값들을 저장할 리스트
-		List<String> cntList = new ArrayList<>(); // CNT 값들을 저장할 리스트
-
-		
-		System.out.println(keywordList);
-		System.out.println(cntList);
-		
-		mv.setViewName("admin/admin");
-		
-		return mv;
+	public String admin() throws Exception {
+		return "admin/admin";
 	}
 	
 	

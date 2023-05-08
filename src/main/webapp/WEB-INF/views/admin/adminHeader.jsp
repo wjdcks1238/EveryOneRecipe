@@ -121,10 +121,30 @@
             <!-- Main Content -->
             <div id="content">
                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">Dashboard</nav>
                 
                  <div class="container-fluid">
-                
+                 	<div>
+                 		데이터 영역1
+                 	</div>
+                 	<div>
+                 		차트 예정 영역1
+                 		<div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="chart-pie pt-4">
+                                    <canvas id="dashboardPie"></canvas>
+                                </div>
+                                <hr>
+                                Styling for the donut chart can be found in the
+                                <code>/js/demo/chart-pie-demo.js</code> file.
+                            </div>
+                        </div>
+                 	</div>
                     <!-- Page Heading -->
                    
                   </div>
