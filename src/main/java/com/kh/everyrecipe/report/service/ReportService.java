@@ -30,5 +30,7 @@ public interface ReportService {
 	public int tgBlindPost(int postId);
 	public int tgBlindCmt(int cmtId);
 	public List<BlockedMemberVo> getBlockInfo(String userId);
+	public int getPostReportCount();
+	public int getCommentReportCount();
 
 }

@@ -114,6 +114,16 @@ public class ReportServiceImp implements ReportService {
 		return dao.getBlockInfo(userId);
 	}
 
+	@Override
+	public int getPostReportCount() {
+		return dao.getPostReportCount();
+	}
+
+	@Override
+	public int getCommentReportCount() {
+		return dao.getCommentReportCount();
+	}
+
 
 	
 }

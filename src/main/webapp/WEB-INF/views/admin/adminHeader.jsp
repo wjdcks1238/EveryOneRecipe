@@ -125,16 +125,71 @@
                 
                  <div class="container-fluid">
                  	<div class="row">
+	                 	<!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                	게시글 신고 Total</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${reportPostCount }건</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                	댓글 신고 Total</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${reportCommentCount }건</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                 	</div>
+                 	
+                 	<div class="row">
+                 		 <div class="col-xl-7 col-lg-7">
+                 		 	<div class="card shadow mb-4">
+	                 		 	<div class="card-header py3">
+		                        	<h6 class="m-0 font-weight-bold text-primary">1시간 이내 실시간 검색 Top10</h6>
+		                    	</div>
+		                    	<div class="card-body">
+			                        <div class="chart-pie">
+			                            <canvas id="dashboardPie"></canvas>
+			                        </div>
+			                    </div>
+                 		 	</div>
+                 		 </div>
+                 		 <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">1주일 검색 추이 Top10</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4">
+                                        <canvas id="myPieChart"></canvas>
+                                    </div>
+                                    <hr>
+                                    Styling for the donut chart can be found in the
+                                    <code>/js/demo/chart-pie-demo.js</code> file.
+                                </div>
+                            </div>
+                        </div>
 	                     <!-- Card Header - Dropdown -->
-	                     <div class="card-header py3">
-	                         <h6 class="m-0 font-weight-bold text-primary">1시간 이내 실시간 검색 순위</h6>
-	                     </div>
+	                     
 	                     <!-- Card Body -->
-	                     <div class="card-body">
-	                         <div class="chart-pie">
-	                             <canvas id="dashboardPie"></canvas>
-	                         </div>
-	                     </div>
+	                     
 	                 </div>
                     <!-- Page Heading -->
                    

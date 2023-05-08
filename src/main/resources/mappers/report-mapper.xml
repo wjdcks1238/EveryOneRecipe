@@ -50,8 +50,24 @@
         order by reportid
 	</select>
 	
-	
-	
+	<!-- dashboard용 신고개수 반환 -->
+	<select id="getPostReportCount" resultType="_int">
+		select count(*)from
+		(SELECT p.postid, p.foodname, p.userid,p.nickname, COUNT(*) as reportCnt , p.ISBLINDED as status
+				FROM post p
+				LEFT JOIN report r ON p.postid = r.postid
+				WHERE r.postid IS NOT NULL
+				GROUP BY p.postid, p.foodname, p.nickname,p.ISBLINDED, p.userid)
+	</select>
+	<select id="getCommentReportCount" resultType="_int">
+		select count(*) from  
+		(SELECT c.postid, c.cmtid ,r.userid, m.nickname, COUNT(*) as reportCnt , c.ISBLINDED as status
+				  FROM TBCOMMENT c
+		     LEFT JOIN report r ON  c.cmtid = r.cmtid
+		     LEFT JOIN members m ON r.userid = m.userid
+			     WHERE r.userid IS NOT NULL
+				 GROUP BY c.postid, c.cmtid, m.nickname, c.ISBLINDED, r.userid)
+	</select>
 	
 	<select id="getReportedComments" resultType="com.kh.everyrecipe.report.vo.ReportedCommentVo">
 		SELECT c.postid, c.cmtid ,r.userid, m.nickname, COUNT(*) as reportCnt , c.ISBLINDED as status

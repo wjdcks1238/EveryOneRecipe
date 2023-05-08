@@ -99,6 +99,14 @@ public class ReportDao {
 		return session.selectList("reportMapper.getBlockInfo",userId);
 	}
 
+	public int getPostReportCount() {
+		return session.selectOne("reportMapper.getPostReportCount");
+	}
+
+	public int getCommentReportCount() {
+		return session.selectOne("reportMapper.getCommentReportCount");
+	}
+
 
 
 }

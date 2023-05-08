@@ -62,8 +62,15 @@ public class AdminController {
 	private ReportService rService;
 	
 	@GetMapping("")
-	public String admin() throws Exception {
-		return "admin/admin";
+	public ModelAndView admin(
+			ModelAndView mv
+			) throws Exception {
+		mv.addObject("reportPostCount", rService.getPostReportCount());
+		mv.addObject("reportCommentCount", rService.getCommentReportCount());
+		
+		
+		mv.setViewName("admin/admin");
+		return mv;
 	}
 	
 	@GetMapping("/dashboardchartajax")
