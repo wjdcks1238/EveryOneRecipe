@@ -66,6 +66,14 @@ public class AdminController {
 		return "admin/admin";
 	}
 	
+	@GetMapping("/dashboardchartajax")
+	@ResponseBody
+	public String dashBoardChartAjax() throws Exception{
+		
+		List<Map<String, String>> data = bsService.getRealTimeSearchTotal();
+		
+		return new Gson().toJson(data);
+	}
 	
 	//검색어 관리 페이지
 	@GetMapping("/search/searchword")

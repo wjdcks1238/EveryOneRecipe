@@ -46,7 +46,7 @@
 		</collection>
 	</resultMap>
 	<resultMap id="searchDBMap" type="java.util.Map">
-	  <result column="searchDate" property="SEARCHDATE" />
+	  <result column="srDate" property="SRDATE" />
 	  <result column="cnt" property="CNT" />
 	</resultMap>
 	<resultMap id="searchDateMap" type="java.util.Map">
@@ -55,29 +55,34 @@
 		<result column="cnt" property="CNT"/>
 	</resultMap>
 	<resultMap id="realTimeTotalMap" type="java.util.Map">
-		<result column="rown" property="ROWN"/>
+		<result column="rownum" property="ROWNUM"/>
 		<result column="keword" property="KEWORD"/>
 		<result column="cnt" property="CNT"/>
 	</resultMap>
 	<select id="getRealTimeSearchTotal" resultMap="realTimeTotalMap">
-		select ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC) as rown
-		     , keword
-		     , count(*) as cnt 
-		from searchdb
-		where searchdate between SYSDATE - 1/24 AND SYSDATE + 1/24
-		    and SEARCHOPTION='R'
-		group by KEWORD
+		select rownum, keword, cnt
+			from (select seq, keword, cnt
+			    from(select rownum as seq, keword, cnt
+			        from (select keword
+			            , count(*) as cnt 
+			            from searchdb
+			            where searchdate between SYSDATE - 1/24 AND SYSDATE + 1/24
+			                and SEARCHOPTION='R'
+			            group by KEWORD
+			            order by cnt desc))
+			        where seq<![CDATA[>=]]> 1)
+			    where rownum<![CDATA[<=]]>10
 	</select>
 	<select id="selectData" parameterType="map" resultMap="searchDBMap">
-		select searchdate, count(*) as CNT
+		select trunc(searchdate) srdate, count(*) as CNT
 		    from searchdb
 		    where
-		        keword=#{keyword} and 
-		        searchdate between TO_DATE(#{startDate},'YYYY-MM-DD')
-		            and TO_DATE(#{endDate},'YYYY-MM-DD')
+		        keword='콩나물' and 
+		        searchdate between TO_DATE('2023-05-01','YYYY-MM-DD')
+		            and TO_DATE('2023-05-08','YYYY-MM-DD')+1
 		        and SEARCHOPTION='R'
-		group by searchdate
-		order by searchdate asc
+		group by trunc(searchdate)
+		order by srdate asc
 	</select>
 	<select id="selectDateSearchData" parameterType="map" resultMap="searchDateMap">
 		select rownum, keword, cnt

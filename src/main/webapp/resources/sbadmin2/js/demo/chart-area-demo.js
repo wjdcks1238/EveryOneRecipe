@@ -66,8 +66,8 @@ function ct_data(){
 			
 			for(i=0;i<data.length;i++) {
 				chartData.push(data[i].CNT);
-				let subStr = data[i].SEARCHDATE;
-				chartLabel.push(subStr.substring(0,12));
+				let sLabel = (data[i].SRDATE).substring(0,11);
+				chartLabel.push(sLabel);
 			}
 			
 			console.log(chartData);
