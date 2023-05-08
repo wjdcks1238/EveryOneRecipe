@@ -61,8 +61,7 @@ function fn_draw_data1() {
     labels: clabel,
     datasets: [{
       data: cdata,
-      backgroundColor: ['#01579B', '#0277BD', '#0288D1', '#039BE5', '#03A9F4',
-    	  '#29B6F6', '#4FC3F7', '#81D4FA', '#B3Е5FC', '#E1F5FE'],
+      backgroundColor: ['#0D47A1', '#1E88E5', '#42A5F5', '#64B5F6', '#90CAF9', '#BBDEFB', '#E3F2FD', '#B3E5FC', '#81D4FA', '#4FC3F7'],
       hoverBackgroundColor: [],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],

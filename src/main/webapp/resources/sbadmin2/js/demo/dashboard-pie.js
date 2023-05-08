@@ -17,6 +17,8 @@ $.ajax({
 			
 			console.log(dashLabel);
 			console.log(dashData);
+			
+			getChart();
 		}
 	}
 });
@@ -26,12 +28,12 @@ $.ajax({
 function getChart(){
 	var ctx = document.getElementById("dashboardPie");
 	var dashboardPie = new Chart(ctx, {
-		type: 'doughnut',
+		type: 'pie',
 		data: {
 			labels: dashLabel,
 			datasets: [{
 				data: dashData,
-				backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+				backgroundColor: ['#0D47A1', '#1E88E5', '#42A5F5', '#64B5F6', '#90CAF9', '#BBDEFB', '#E3F2FD', '#B3E5FC', '#81D4FA', '#4FC3F7'],
 				hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
 				hoverBorderColor: "rgba(234, 236, 244, 1)",
 			}],
@@ -49,7 +51,7 @@ function getChart(){
 				caretPadding: 10,
 			},
 			legend: {
-				display: false
+				display: true
 			},
 			cutoutPercentage: 80,
 		},
