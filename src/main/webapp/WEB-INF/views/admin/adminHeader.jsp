@@ -163,7 +163,7 @@
 		                        	<h6 class="m-0 font-weight-bold text-primary">1시간 이내 실시간 검색 Top10</h6>
 		                    	</div>
 		                    	<div class="card-body">
-			                        <div class="chart-pie">
+			                        <div class="chart-pie" id="div_dashPie">
 			                            <canvas id="dashboardPie"></canvas>
 			                        </div>
 			                    </div>

@@ -11,17 +11,25 @@ $.ajax({
 	dataType: "json",
 	success: function(data) {
 		console.log(data);
-		for(i=0;i<data.length;i++) {
-			dashLabel.push(data[i].KEWORD);
-			dashData.push(data[i].CNT);
-			
+		if(data != 0){
+			for(i=0;i<data.length;i++) {
+				dashLabel.push(data[i].KEWORD);
+				dashData.push(data[i].CNT);
+			}
 			console.log(dashLabel);
 			console.log(dashData);
-			
 			getChart();
+		} else {
+			displayData();
 		}
 	}
 });
+
+function displayData() {
+	document.getElementById("div_dashPie");
+	$('#dashboardPie').remove();
+	$('#div_dashPie').append('<h5>현재 1시간 이내에 실시간 검색 데이터가 없습니다.</h5>');
+}
 
 
 // Pie Chart Example
