@@ -60,18 +60,18 @@ public class FollowMappingController {
 		return false;
 	}
 	
-	 @RequestMapping(value = "/board/recommend", method = RequestMethod.GET)
-		public ModelAndView getRecommendPost(ModelAndView mv, String userId) {		
-			List<weekVo> rcpost = fService.getRecommendPost();
-			mv.addObject("rcpost", rcpost);
-			
-			userId = "user02";
-			List<weekVo> fwpost  = fService.getFollowingPost(userId);
-			mv.addObject("fwpost", fwpost);		
-			
-			
-			return mv;
-		}
+//	 @RequestMapping(value = "/board/recommend", method = RequestMethod.GET)
+//		public ModelAndView getRecommendPost(ModelAndView mv, String userId) {		
+//			List<weekVo> rcpost = fService.getRecommendPost();
+//			mv.addObject("rcpost", rcpost);
+//			
+//			userId = "user02";
+//			List<weekVo> fwpost  = fService.getFollowingPost(userId);
+//			mv.addObject("fwpost", fwpost);		
+//			
+//			
+//			return mv;
+//		}
 	
 	
 }

@@ -138,7 +138,10 @@ public class HomeController {
 		model.addAttribute("pword", pwordlist);	
 	/*--------------------------------------------------------------------*/
 		//추천 게시글(좋아요가 많은 순서)피드
-		List<weekVo> rcpost = fService.getRecommendPost();
+		Map<String, String> recomap = new HashMap<>();
+		recomap.put("start", "0");
+		recomap.put("end", "10");		
+		List<weekVo> rcpost = fService.getRecommendPost(recomap);
 		model.addAttribute("rcpost", rcpost);
 		
 		//게시글(조회수 순서) 피드
@@ -148,9 +151,14 @@ public class HomeController {
 		List<weekVo> lupost = fService.getBestPost(map);
 		model.addAttribute("lupost", lupost);		
 		
-		//팔로잉 게시글 (작성일자순)피드. 수정중
+		//팔로잉 게시글 (작성일자순)피드.
 		String userId = req.getRemoteUser();
-		List<weekVo> fwpost = fService.getFollowingPost(userId);
+		Map<String, String> fwmap = new HashMap<>();
+		fwmap.put("start", "0");
+		fwmap.put("end", "10");
+		fwmap.put("fwId", userId);		
+		
+		List<weekVo> fwpost = fService.getFollowingPost(fwmap);
 		model.addAttribute("fwpost", fwpost);
 		model.addAttribute("userId", userId);
 		
@@ -162,9 +170,10 @@ public class HomeController {
 		return "home";
 	}
 	
+	//조회순 무한스크롤
 	@GetMapping("/lookupIS")
 	@ResponseBody
-	public List<weekVo> lookupIS(Model model, int curPage){
+	public List<weekVo> lookupIS(int curPage){
 		String start = (curPage - 1) * 10+"";
 		String end = ((curPage - 1) * 10 + 10)+"";
 		
@@ -176,7 +185,38 @@ public class HomeController {
 		return list;
 	}
 	
+	//추천순(좋아요) 무한스크롤
+	@GetMapping("/recommendIS")
+	@ResponseBody
+	public List<weekVo> recommendIS(int recocurPage){
+		String start = (recocurPage - 1) * 10+"";
+		String end = ((recocurPage - 1) * 10 + 10)+"";
+		
+		Map<String, String> recomap = new HashMap<>();
+		recomap.put("start", start);
+		recomap.put("end", end);
+		
+		List<weekVo> list = fService.getRecommendPost(recomap);
+		return list;
+	}
 	
+	//팔로잉(최신순) 무한스크롤
+	@GetMapping("/mainfwIS")
+	@ResponseBody
+	public List<weekVo> mainfwIS(int fwcurPage, HttpServletRequest req){
+		String start = (fwcurPage - 1) * 10+"";
+		String end = ((fwcurPage - 1) * 10 + 10)+"";
+		
+		String fwuserId = req.getRemoteUser();
+		
+		Map<String, String> fwmap = new HashMap<>();
+		fwmap.put("start", start);
+		fwmap.put("end", end);
+		fwmap.put("fwId", fwuserId);
+		
+		List<weekVo> list = fService.getFollowingPost(fwmap);
+		return list;
+	}
 	
 
 }

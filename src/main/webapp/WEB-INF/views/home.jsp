@@ -215,6 +215,8 @@ body{
 			</div>
 			</c:forEach>
 		</div>
+		<div class="card-columns listfeaturedtag fw-ISdiv">
+		</div>
 	</section>	
 	<%} %>
 		
@@ -333,6 +335,8 @@ body{
 			</div>
 			</c:forEach>
 		</div>
+		<div class="card-columns listfeaturedtag reco-ISdiv">
+		</div>	
 	</section>
 
 	
@@ -425,7 +429,7 @@ body{
 		<a href="<%=request.getContextPath() %>/chat/chatroom" onclick="chk_id(event)" style="color: white; text-decoration: none;">
 			<span class="material-symbols-outlined">
 			chat
-			</span>채팅방(방+채팅 연계중)
+			</span>채팅방
 		</a>
 	</div>
 </div>
@@ -452,6 +456,8 @@ $(document).ready(function(){
 	$(".sort_like").hide();
 	$(".week_post").hide();
 	$(".follow_post").hide();
+	$(".reco-hide").hide();
+	$(".fw-hide").hide();
 });
 
 /* 추천 버튼 누르면 추천순 게시글 표출 + 조회순, 주간, 팔로잉 게시글 숨김 */
@@ -460,16 +466,20 @@ function recorc(){
 	$(".sort_lkup").hide();
 	$(".follow_post").hide();
 	$(".sort_like").show();
+	$(".reco-hide").show();
 	$(".lookup-hide").hide();
+	$(".fw-hide").hide();
 };
 
 /* 조회순 버튼 누르면 조회순 게시글 표출 + 주간, 추천순, 팔로잉 게시글 숨김 */
 function bestrc(){
-	$(".sort_like").hide();
+	$(".sort_like").hide();  
 	$(".week_post").hide();
 	$(".follow_post").hide();
 	$(".sort_lkup").show();
 	$(".lookup-hide").show();
+	$(".reco-hide").hide();
+	$(".fw-hide").hide();
 };
 
 /* 주간게시글 버튼 누르면 주간 게시글 표출 + 추천순, 조회순, 팔로잉 게시글 숨김 */
@@ -479,6 +489,8 @@ function weekrc(){
 	$(".follow_post").hide();
 	$(".week_post").show();
 	$(".lookup-hide").hide();
+	$(".reco-hide").hide();
+	$(".fw-hide").hide();
 };
 
 /* 팔로잉게시글 버튼 누르면 팔로잉 게시글 표출 + 추천순, 조회순, 주간 게시글 숨김 */
@@ -487,7 +499,9 @@ function followrc(){
 	$(".sort_lkup").hide();	
 	$(".week_post").hide();
 	$(".follow_post").show();
+	$(".fw-hide").show();
 	$(".lookup-hide").hide();
+	$(".reco-hide").hide();
 };
 
 
@@ -525,6 +539,7 @@ const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 //조회순 피드 무한스크롤
+
 var curPage=1;
 $(window).scroll(function() {
     if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
@@ -577,7 +592,7 @@ $(window).scroll(function() {
             										</span>
             										<span class="author-meta">
             										<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`">`+lookup.nickname+`</a></span><br/>
-            										<span id="lookup-date" class="post-date">`+luDate_format+`</span>
+            										<span class="post-date">`+luDate_format+`</span>
             										<span class="post-read" style="white-space: pre-line;">									
             										조회수: `+lookup.lookUp+`</span>
             										</span>								
@@ -595,6 +610,165 @@ $(window).scroll(function() {
     	}) 
 	}
 });
+
+
+var recocurPage=1;
+$(window).scroll(function() {
+    if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
+        recocurPage+=1;
+        $.ajax({
+            type : 'GET',
+            url  : '${pageContext.request.contextPath}/recommendIS',
+            async : false,
+            data : {recocurPage:recocurPage},
+            success : function(result){
+            	 if(result.length != 0){
+            		 for(i=0; i<result.length;i++){
+            			 var reco = result[i];   
+            			 console.log(reco);
+            			 var recoDate = new Date(reco.createAt);
+            			 
+            			 const dayOfWeek = week[new Date(recoDate).getDay()];            			
+            			 const dayOfMonth = month[new Date(recoDate).getMonth()];            			 
+            			 const format_day = (("00" + recoDate.getDate().toString()).slice(-2));           			 
+            			 var recoDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + recoDate.getHours() + ":" + 
+            			 				recoDate.getMinutes() + ":" + recoDate.getSeconds() + " KST " + recoDate.getFullYear();
+            			 				
+            			 var a= `
+            			 <c:set var="j" value="${j+1}"/>
+            				<div class="card reco-hide">
+            					<div class="row">
+            						<div class="col-md-5 wrapthumbnail">
+            							<a href="<%=request.getContextPath() %>/board/list/`+reco.postId+`">
+            								<div class="thumbnail" style="background-image:url(`+reco.mainImage+`);">
+            								</div>
+            							</a>
+            						</div>
+            						<div class="col-md-7">
+            							<div class="card-block">
+            							<div>
+            								<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/`+reco.postId+`">`+reco.foodName+`</a>							
+            								</h2>
+            								<span class="post-read-more"><a href="<%=request.getContextPath() %>/board/list/`+reco.postId+`" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+            							</div>
+            								<h4 class="card-text"
+            								style= "overflow: hidden;
+            								text-overflow: ellipsis;
+            								word-break: break-word;							
+            								display: -webkit-box;
+            								-webkit-line-clamp: 5;
+            								-webkit-box-orient: vertical;"						
+            								>`+reco.content+`</h4>
+            								<div class="metafooter">
+            									<div class="wrapfooter">
+	            									<div style="width: 80%; display:inline-block">
+	            									<span class="meta-footer-thumb">
+	            									<a href="<%=request.getContextPath() %>/board/list/`+reco.postId+`"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+	            									</span>
+	            									<span class="author-meta">
+	            									<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+reco.postId+`">`+reco.nickname+`</a></span><br/>
+	            									<span class="post-date" style="padding-right: 6px">`+recoDate_format+`</span>
+	            									</span>
+	            									</div>
+	            									<div style="width: 15%; display:inline-block;">
+	            									<span class="material-symbols-outlined" style="color:red;">favorite</span>
+	            									<span class="post-read" style="display:inline-block">
+	            									${fwcnt[j-1] }
+	            									</span>
+	            									</div>								
+            									</div>
+            								</div>
+            							</div>
+            						</div>
+            					</div>
+            				</div>
+            			`           				
+            			$(".reco-ISdiv").append(a);           			
+            		 }          	
+           		 }
+       	 	}
+    	}) 
+	}
+});
+
+var fwcurPage=1;
+$(window).scroll(function() {
+    if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
+        curPage+=1;
+        $.ajax({
+            type : 'GET',
+            url  : '${pageContext.request.contextPath}/mainfwIS',
+            async : false,
+            data : {fwcurPage:fwcurPage},
+            success : function(result){
+            	 if(result.length != 0){
+            		 for(i=0; i<result.length;i++){
+            			 var fw = result[i];            			 
+            			 var fwDate = new Date(fw.createAt);
+            			 
+            			 const dayOfWeek = week[new Date(fwDate).getDay()];            			
+            			 const dayOfMonth = month[new Date(fwDate).getMonth()];            			 
+            			 const format_day = (("00" + fwDate.getDate().toString()).slice(-2));           			 
+            			 var fwDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + fwDate.getHours() + ":" + 
+            			 				fwDate.getMinutes() + ":" + fwDate.getSeconds() + " KST " + fwDate.getFullYear();
+            			 				
+            			 var a= `
+            				<div class="card fw-hide">
+	         					<div class="row">
+	         						<div class="col-md-5 wrapthumbnail">
+	         							<a href="<%=request.getContextPath() %>/board/list/`+fw.postId+`">
+	         								<div class="thumbnail" style="background-image:url(`+fw.mainImage+`);">
+	         								</div>
+	         							</a>
+	         						</div>
+	         						<div class="col-md-7">
+	         							<div class="card-block">
+	         							<div>
+	         								<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/`+fw.postId+`">`+fw.foodName+`</a>							
+	         								</h2>
+	         								<span class="post-read-more"><a href="<%=request.getContextPath() %>/board/list/`+fw.postId+`" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+	         							</div>
+	         								<h4 class="card-text"
+	         								style= "overflow: hidden;
+	         								text-overflow: ellipsis;
+	         								word-break: break-word;							
+	         								display: -webkit-box;
+	         								-webkit-line-clamp: 5;
+	         								-webkit-box-orient: vertical;"						
+	         								>`+fw.content+`</h4>
+	         								<div class="metafooter">
+	         									<div class="wrapfooter">
+	         										<span class="meta-footer-thumb">
+	         										<a href="<%=request.getContextPath() %>/board/list/`+fw.postId+`"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+	         										</span>
+	         										<span class="author-meta">
+	         										<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+fw.postId+`">`+fw.nickname+`</a></span><br/>
+	         										<span class="post-date">`+luDate_format+`</span>
+	         										<span class="post-read" style="white-space: pre-line;">									
+	         										조회수: `+fw.lookUp+`</span>
+	         										</span>								
+	         									</div>
+	         								</div>
+	         							</div>
+	         						</div>
+	         					</div>
+         					</div>
+         				`           				
+         			$(".fw-ISdiv").append(a);	          			
+            		 }          	
+           		 }
+       	 	}
+    	}) 
+	}
+});
+
+
+
+
+
+
+
+
 
 
 

@@ -48,17 +48,18 @@
 	
 	<!-- 추천 게시물(좋아요 많은 순서) 피드 -->
 	<select id="getRecommendPost" resultType="wvo">
-		SELECT P.*
-		FROM (
-   			SELECT post.postid, nickname, content, FOODNAME, CREATEAT, LOOKUP, count(post.postid), MAINIMAGE
-			FROM POST
-			inner join POSTLIKE
-			on POST.postid = POSTLIKE.POSTID
-			where POSTLIKE.ISDELETED='N'
-			group by post.postid, nickname, content, FOODNAME, CREATEAT, LOOKUP, MAINIMAGE
-			ORDER BY count(post.postid) DESC
-   			) P
-		WHERE ROWNUM<![CDATA[<=]]>10			
+		SELECT *
+			FROM (
+			SELECT ROWNUM AS SEQ, A.*
+   				FROM(
+   				SELECT post.postid, nickname, content, FOODNAME, CREATEAT, LOOKUP, count(post.postid), MAINIMAGE
+				FROM POST
+				inner join POSTLIKE
+				on POST.postid = POSTLIKE.POSTID
+				where POSTLIKE.ISDELETED='N'
+				group by post.postid, nickname, content, FOODNAME, CREATEAT, LOOKUP, MAINIMAGE
+				ORDER BY count(post.postid) DESC) A)
+		WHERE SEQ<![CDATA[>]]> #{start} AND SEQ<![CDATA[<=]]> #{end}			
 	</select>
 	
 	<!-- 게시물 피드(조회수 순서) 피드 -->
@@ -68,7 +69,7 @@
     		FROM (SELECT *
         		  FROM POST
        			  WHERE ISDELETED='N'
-       			  order by lookup desc) A)
+       			  ORDER BY lookup DESC) A)
     	WHERE SEQ<![CDATA[>]]> #{start} AND SEQ<![CDATA[<=]]> #{end}
 	</select>
 	
@@ -83,17 +84,17 @@
 	
 	<!-- 게시물 피드(팔로잉 중인 유저의 게시물만) -->
 	<select id="getFollowingPost" resultType="wvo">
-		SELECT P.*
-		FROM(
-			SELECT *
-			from POST
-			WHERE POST.userId
-			IN (select userId from FOLLOWMAPPING where FWID=#{fwId} and ISDELETED ='N')
-			order by createat desc
-			) P
-		WHERE ROWNUM<![CDATA[<=]]>10	
+		SELECT *
+			FROM(
+			SELECT ROWNUM AS SEQ, A.*
+				FROM(
+				SELECT *
+				from POST
+				WHERE POST.userId
+				IN (select userId from FOLLOWMAPPING where FWID=#{fwId} and ISDELETED ='N')
+				ORDER BY createat DESC) A)
+		WHERE SEQ<![CDATA[>]]> #{start} AND SEQ<![CDATA[<=]]> #{end}
 	</select>
-	
 	
 		
 </mapper>

@@ -79,8 +79,8 @@ public class FollowMappingImpl implements FollowMappingService{
 	
 	
 	@Override
-	public List<weekVo> getRecommendPost() {
-		return dao.getRecommendPost();
+	public List<weekVo> getRecommendPost(Map<String, String> recomap) {
+		return dao.getRecommendPost(recomap);
 	}	
 	
 	@Override
@@ -95,8 +95,8 @@ public class FollowMappingImpl implements FollowMappingService{
 	
 	
 	@Override
-	public List<weekVo> getFollowingPost(String userId){
-		return dao.getFollowingPost(userId);
+	public List<weekVo> getFollowingPost(Map<String, String> fwmap){
+		return dao.getFollowingPost(fwmap);
 	}
 
 

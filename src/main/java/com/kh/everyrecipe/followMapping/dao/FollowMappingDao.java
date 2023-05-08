@@ -62,8 +62,8 @@ public class FollowMappingDao {
 	
 	
 	// 추천 게시물 피드(좋아요)
-	public List<weekVo> getRecommendPost(){
-		return sqlSession.selectList("followMapper.getRecommendPost");
+	public List<weekVo> getRecommendPost(Map<String, String> recomap){
+		return sqlSession.selectList("followMapper.getRecommendPost", recomap);
 	}
 	
 	// 게시물 피드(조회수)
@@ -77,8 +77,8 @@ public class FollowMappingDao {
 	}
 	
 	//팔로잉 게시물 피드
-	public List<weekVo> getFollowingPost(String userId){
-		return sqlSession.selectList("followMapper.getFollowingPost", userId);
+	public List<weekVo> getFollowingPost(Map<String, String> fwmap){
+		return sqlSession.selectList("followMapper.getFollowingPost", fwmap);
 	}
 
 	
