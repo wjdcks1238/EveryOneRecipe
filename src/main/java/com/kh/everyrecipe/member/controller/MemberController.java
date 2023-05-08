@@ -406,29 +406,23 @@ public class MemberController {
 	//ajax로 비밀번호 인증
 	@PostMapping("/infoupdateAjax")
 	@ResponseBody
-	public String infoupdateAjax(String password, Principal principal, HttpServletRequest request, MemberVo mvo) throws Exception {
+	public String infoupdateAjax(String password, Principal principal, HttpServletRequest request) throws Exception {
 	    String str = "";
 	    String id = principal.getName();
+
+	    // 현재 로그인한 유저의 id로 member의 모든 정보 조
+	    MemberVo m = mService.selectOne(id);
 	    
-//	    // DB에서 회원 정보 조회
-//	    Map<String, String> map = new HashMap<String, String>();
-//	    map.put("id", id);
-//	    map.put("password", password);
-//	    mService.loginForMyInfo(map);
-//	    System.out.println("##################"+map);
-	    Map<String, String> map = new HashMap<String, String>();
-	    map.put("id", id);
-	    mService.loginForMyInfo(map);
+	    //password는 사용자가 입력한 암호화 되기 전 비밀번호, m에 담긴 비밀번호는 암호화된 비밀번호 PasswordEncoder.matches 메소드는 
+	    // 꼭!! 암호화 되기 전 비밀번호와 암호화 된 비밀번호를 파라미터로 넣어줘야 에러가 나지 않는다.
+	    boolean isPasswordMatch = passwordEncoder.matches(password, m.getPassword());
 	    
-	    // 입력받은 비밀번호와 DB에 저장된 암호화된 비밀번호 비교
-	    boolean isPasswordMatch = passwordEncoder.matches(password, mvo.getPassword());
-	    System.out.println("##################"+password);
 	    if (isPasswordMatch) {
 	        str = "success";
 	    } else {
 	        str = "fail";
 	    }
-
+	    
 	    return str;
 	}
 
@@ -444,25 +438,6 @@ public class MemberController {
 //	    if(bCryptPasswordEncoder.matches(checkPassword, currPass)) {
 //	    bCryptPasswordEncoder.encode(password)
 	    
-//	    Map<String, String> map = new HashMap<String, String>();
-//		map.put("id", id);
-//		System.out.println("aaaaaaaaaaaaaaaa");
-//		System.out.println(pwEncoder.encode(password));
-//		if(StringUtils.hasText(password)) {
-//			System.out.println("################");
-//			String bCryptString=pwEncoder.encode(password);
-//			System.out.println(bCryptString);
-//			map.put("password", bCryptString);
-//		}
-//	    int result = mService.loginForMyInfo(map);
-//	    if(result == 1) {
-//	    	str = "success";
-//	    }else {
-//	    	str = "fail";
-//	    }
-//		return  str;
-//	}
-
 	//개인정보수정 : 비밀번호 변경 후 로그아웃 후 재로그인 해야함, 비밀번호 변경 없어도 됨, 비밀번호 변경시 유효성 체크
 	@GetMapping("/modify")
 	public ModelAndView modify(ModelAndView mv, Principal principal) throws Exception {

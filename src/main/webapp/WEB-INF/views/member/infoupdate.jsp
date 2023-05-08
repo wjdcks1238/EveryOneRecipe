@@ -157,6 +157,7 @@
 	        }, */
 	        success: function(data) {
 	            result = data;
+	            console.log("@@@@@@@@@@@@@@@@@@@@@@@@ ",data);
 	            if (result === "success") {
 	                location.href = "<%=request.getContextPath()%>/member/modify";
 	            } else {

@@ -43,7 +43,7 @@
 	</delete>
 	
 	<select id="selectOne" parameterType="String" resultType="mvo">
-		select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, isblocked from members where userid=#{userId}
+		select userid, email, nickname, profile, profileurl, createat, updateat, status, authority, isblocked, password from members where userid=#{userId}
 	</select>
 	
 	<select id="selectList" resultType="mvo">
