@@ -17,14 +17,14 @@ $.ajax({
 			}
 			console.log(dashWeekLabel);
 			console.log(dashWeekData);
-			getChart();
+			getWeekChart();
 		} else {
-			displayData();
+			displayWeekData();
 		}
 	}
 });
 
-function displayData() {
+function displayWeekData() {
 	document.getElementById("div_dashPie");
 	$('#dashboardPie').remove();
 	$('#div_dashPie').append('<h5>현재 1시간 이내에 실시간 검색 데이터가 없습니다.</h5>');
@@ -32,7 +32,7 @@ function displayData() {
 
 
 // Pie Chart Example
-function getChart(){
+function getWeekChart(){
 	var ctx = document.getElementById("dashboardSearchPie");
 	var dashboardPie = new Chart(ctx, {
 		type: 'pie',
