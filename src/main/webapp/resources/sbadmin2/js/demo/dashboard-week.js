@@ -2,23 +2,21 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-var dashLabel=[];
-var dashData=[];
-
+var dashWeekLabel=[];
+var dashWeekData=[];
 
 $.ajax({
-	url: '/everyrecipe/admin/dashboardchartajax',
+	url: '/everyrecipe/admin/dashweekchartajax',
 	type: "GET",
 	dataType: "json",
 	success: function(data) {
-		console.log(data);
 		if(data != 0){
 			for(i=0;i<data.length;i++) {
-				dashLabel.push(data[i].KEWORD);
-				dashData.push(data[i].CNT);
+				dashWeekLabel.push(data[i].KEWORD);
+				dashWeekData.push(data[i].CNT);
 			}
-			console.log(dashLabel);
-			console.log(dashData);
+			console.log(dashWeekLabel);
+			console.log(dashWeekData);
 			getChart();
 		} else {
 			displayData();
@@ -35,13 +33,13 @@ function displayData() {
 
 // Pie Chart Example
 function getChart(){
-	var ctx = document.getElementById("dashboardPie");
+	var ctx = document.getElementById("dashboardSearchPie");
 	var dashboardPie = new Chart(ctx, {
 		type: 'pie',
 		data: {
-			labels: dashLabel,
+			labels: dashWeekLabel,
 			datasets: [{
-				data: dashData,
+				data: dashWeekData,
 				backgroundColor: ['#0D47A1', '#1E88E5', '#42A5F5', '#64B5F6', '#90CAF9', '#BBDEFB', '#E3F2FD', '#B3E5FC', '#81D4FA', '#4FC3F7'],
 				hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
 				hoverBorderColor: "rgba(234, 236, 244, 1)",

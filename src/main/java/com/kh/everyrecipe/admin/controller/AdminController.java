@@ -82,6 +82,15 @@ public class AdminController {
 		return new Gson().toJson(data);
 	}
 	
+	@GetMapping("/dashweekchartajax")
+	@ResponseBody
+	public String dashWeekChartAjax() throws Exception{
+		
+		List<Map<String, String>> data = bsService.getWeekSearchTotal();
+		
+		return new Gson().toJson(data);
+	}
+	
 	//검색어 관리 페이지
 	@GetMapping("/search/searchword")
 	public ModelAndView searchword(ModelAndView mv) throws Exception {

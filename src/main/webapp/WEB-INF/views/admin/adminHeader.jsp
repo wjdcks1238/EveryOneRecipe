@@ -177,8 +177,8 @@
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-pie pt-4">
-                                        <canvas id="myPieChart"></canvas>
+                                    <div class="chart-pie pt-4" id="div_weekPie">
+                                        <canvas id="dashboardSearchPie"></canvas>
                                     </div>
                                     <hr>
                                     Styling for the donut chart can be found in the

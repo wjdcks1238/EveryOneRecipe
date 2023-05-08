@@ -119,4 +119,9 @@ public class BoardSearchServiceImp implements BoardSearchService {
 		return dao.getRealTimeSearchTotal();
 	}
 
+	@Override
+	public List<Map<String, String>> getWeekSearchTotal() throws Exception {
+		return dao.getWeekSearchTotal();
+	}
+
 }

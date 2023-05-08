@@ -59,6 +59,14 @@
 		<result column="keword" property="KEWORD"/>
 		<result column="cnt" property="CNT"/>
 	</resultMap>
+	<select id="getWeekSearchTotal" resultMap="searchDateMap">
+		select rownum, keword, cnt from
+		(select seq, keword, cnt from
+		(select rownum as seq, keword, cnt from
+		(select keword, count(*) cnt from searchdb where searchdate >= trunc(sysdate)-7 group by keword order by cnt desc))
+		where seq<![CDATA[>=]]>1)
+		where rownum<![CDATA[<=]]>10
+	</select>
 	<select id="getRealTimeSearchTotal" resultMap="realTimeTotalMap">
 		select rownum, keword, cnt
 			from (select seq, keword, cnt

@@ -49,7 +49,7 @@
     <!-- Page level custom scripts -->
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
     <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/dashboard-pie.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/chart-bar-demo.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/dashboard-week.js"></script>
 
 <%@ include file="adminFooter.jsp" %>
 </body>

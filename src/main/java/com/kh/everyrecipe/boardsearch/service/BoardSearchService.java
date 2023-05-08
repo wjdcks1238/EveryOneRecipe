@@ -29,4 +29,5 @@ public interface BoardSearchService {
 	public List<Map<String, String>> selectDateSearchData(Map<String, String> data) throws Exception;
 	public int upOrNot(SearchClientChkVo chk) throws Exception;
 	public List<Map<String, String>> getRealTimeSearchTotal() throws Exception;
+	public List<Map<String, String>> getWeekSearchTotal() throws Exception;
 }

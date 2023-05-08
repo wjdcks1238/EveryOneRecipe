@@ -101,4 +101,8 @@ public class BoardSearchDao {
 	public List<Map<String, String>> getRealTimeSearchTotal() {
 		return sqlSession.selectList("boardSearchMapper.getRealTimeSearchTotal");
 	}
+
+	public List<Map<String, String>> getWeekSearchTotal() {
+		return sqlSession.selectList("boardSearchMapper.getWeekSearchTotal");
+	}
 }
