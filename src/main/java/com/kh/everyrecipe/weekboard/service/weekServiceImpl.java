@@ -18,7 +18,7 @@ public class weekServiceImpl implements weekService {
 /*	@Override
 	public List<weekVo> weekList(){
 		return dao.weekList();
-	}*/
+	}
 	
 	@Override
 	public int count() throws Exception{
@@ -29,7 +29,13 @@ public class weekServiceImpl implements weekService {
 	public List<weekVo> weeklistPage(int weekPost, int postNum) throws Exception{
 		return dao.weeklistPage(weekPost, postNum);
 	}
-
+*/
+	
+	@Override
+	public List<weekVo> weeklistPage(Map<String, String> weekmap){
+		return dao.weeklistPage(weekmap);
+	}
+	
 	@Override
 	public List<popularVo> popularWord() {		
 		return dao.popularWord();

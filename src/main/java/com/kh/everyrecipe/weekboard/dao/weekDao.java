@@ -22,17 +22,22 @@ public class weekDao {
 //	}
 	
 	// 주간 게시글 
-	public int count() throws Exception{
-		return sqlSession.selectOne("weekMapper.count");
-	}	
+//	public int count() throws Exception{
+//		return sqlSession.selectOne("weekMapper.count");
+//	}	
 	
-	public List<weekVo> weeklistPage(int weekPost, int postNum) throws Exception{
-		HashMap<String, Integer> data = new HashMap<String, Integer>();
-		data.put("weekPost", weekPost);
-		data.put("postNum", postNum);	
-		
-		return sqlSession.selectList("weekMapper.listpage", data);
-	}	
+//	public List<weekVo> weeklistPage(int weekPost, int postNum) throws Exception{
+//		HashMap<String, Integer> data = new HashMap<String, Integer>();
+//		data.put("weekPost", weekPost);
+//		data.put("postNum", postNum);	
+//		
+//		return sqlSession.selectList("weekMapper.listpage", data);
+//	}	
+	
+	// 주간게시글(월~일요일)
+	public List<weekVo> weeklistPage(Map<String, String> weekmap){
+		return sqlSession.selectList("weekMapper.listpage", weekmap);
+	}
 	
 	// 인기 검색어
 	public List<popularVo> popularWord(){		

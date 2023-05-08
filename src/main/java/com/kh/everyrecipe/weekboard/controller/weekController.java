@@ -29,8 +29,10 @@ public class weekController {
 		
 		return mv;
 	}
-*/
+*/	
+
 	
+/*	
 	// 주간 게시물 + 페이징 처리
 	@RequestMapping(value = "/weekboardpage", method = RequestMethod.GET)
 	public void weekboardPage(Model model, @RequestParam(value="num", defaultValue = "1") int num) throws Exception {
@@ -79,12 +81,11 @@ public class weekController {
 		
 		// 현재 페이지
 		model.addAttribute("select", num);
-		
-	/*--------------------------------------------------------------------*/	
+
 		// 실시간 인기 검색어
 		List<popularVo> pwordlist = service.popularWord();
 		model.addAttribute("pword", pwordlist);	
 	}
-	
+*/
 	
 }

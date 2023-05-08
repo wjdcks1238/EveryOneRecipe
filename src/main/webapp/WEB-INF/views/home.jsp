@@ -98,14 +98,6 @@ body{
 	opacity: 0.8;
 }
 
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 700,
-  'GRAD' 0,
-  'opsz' 48
-}
-
 .floating {
  	position: absolute;
     width: 150px;
@@ -407,7 +399,8 @@ body{
 				</c:if>
 			</div>
 			</div>			
-			
+		</div>
+		<div class="card-columns listrecent week-ISdiv">
 		</div>
 	</section>
 	<!-- End List Posts	================================================== -->
@@ -425,11 +418,10 @@ body{
 			  </c:forEach>
 			</select>
 	</div>
-	<div class="chat_div" style="margin-bottom: 15px;">	
+	<div class="chat_div" style="margin-bottom: 15px; margin-left: 15px;">	
 		<a href="<%=request.getContextPath() %>/chat/chatroom" onclick="chk_id(event)" style="color: white; text-decoration: none;">
-			<span class="material-symbols-outlined">
-			chat
-			</span>채팅방
+		<img src="./resources/img/chat-icon2.png">
+			채팅방
 		</a>
 	</div>
 </div>
@@ -694,7 +686,7 @@ $(window).scroll(function() {
 var fwcurPage=1;
 $(window).scroll(function() {
     if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
-        curPage+=1;
+        fwcurPage+=1;
         $.ajax({
             type : 'GET',
             url  : '${pageContext.request.contextPath}/mainfwIS',
@@ -755,6 +747,67 @@ $(window).scroll(function() {
          					</div>
          				`           				
          			$(".fw-ISdiv").append(a);	          			
+            		 }          	
+           		 }
+       	 	}
+    	}) 
+	}
+});
+
+var weekcurPage=1;
+$(window).scroll(function() {
+    if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
+        weekcurPage+=1;
+        $.ajax({
+            type : 'GET',
+            url  : '${pageContext.request.contextPath}/weekIS',
+            async : false,
+            data : {weekcurPage:weekcurPage},
+            success : function(result){
+            	 if(result.length != 0){
+            		 for(i=0; i<result.length;i++){
+            			 var week = result[i];            			 
+            			 var weekDate = new Date(week.createAt);
+            			 
+            			 const dayOfWeek = week[new Date(weekDate).getDay()];            			
+            			 const dayOfMonth = month[new Date(weekDate).getMonth()];            			 
+            			 const format_day = (("00" + weekDate.getDate().toString()).slice(-2));           			 
+            			 var weekDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + weekDate.getHours() + ":" + 
+            			 				weekDate.getMinutes() + ":" + weekDate.getSeconds() + " KST " + weekDate.getFullYear();
+            			 				
+            			 var a= `
+            				 <div class="card">
+            					<a href="<%=request.getContextPath() %>/board/list/`+week.postId+`}">
+            						<img class="img-fluid" src=`+week.mainImage+` alt="" style="width: 100%; height: 100%;">
+            					</a>
+            					<div class="card-block">
+            						<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/`+week.postId+`" id="chk_data">`+week.foodName+`</a></h2>
+            						<h4 class="card-text" 
+            						style= "overflow: hidden;
+            								text-overflow: ellipsis;
+            								word-break: break-word;							
+            								display: -webkit-box;
+            								-webkit-line-clamp: 2;
+            								-webkit-box-orient: vertical;
+            								height: 42.56px;">
+            						`+week.content+`
+            						</h4>
+            						<div class="metafooter">
+            							<div class="wrapfooter">
+            								<span class="meta-footer-thumb">
+            								<a href="<%=request.getContextPath() %>/board/list/`+week.postId+`"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+            								</span>
+            								<span class="author-meta">
+            								<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+week.postId+`">`+week.nickname+`</a></span><br/>
+            								<span class="post-date" style="white-space: pre-line;">`+fwDate_format+`</span><span class="dot"></span><span class="post-read" style="white-space: pre-line;">조회수: `+week.lookUp+`</span>
+            								</span>
+            								<span class="post-read-more exp"><a href="<%=request.getContextPath() %>/board/list/`+week.postId+`" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+            							</div>
+            						</div>
+            					</div>
+            				</div>
+         				`           				
+         			$(".week-ISdiv").append(a);	          			
             		 }          	
            		 }
        	 	}

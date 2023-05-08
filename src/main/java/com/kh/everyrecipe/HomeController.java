@@ -83,10 +83,9 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
-		
 
-		// 게시물 총 갯수
+/*		
+ 		// 게시물 총 갯수
 		int count = service.count();
 					
 		// 한페이지 출력 갯수
@@ -131,13 +130,17 @@ public class HomeController {
 		
 		// 현재 페이지
 		model.addAttribute("select", num);
-		
+*/	
 	/*--------------------------------------------------------------------*/	
 		// 실시간 인기 검색어
 		List<popularVo> pwordlist = service.popularWord();
 		model.addAttribute("pword", pwordlist);	
 	/*--------------------------------------------------------------------*/
-		//추천 게시글(좋아요가 많은 순서)피드
+		//좋아요 갯수
+		List<Integer> fwcnt = fService.getPostLikeCnt();
+		model.addAttribute("fwcnt", fwcnt);
+		
+		//추천 게시글(좋아요가 많은 순서)피드		
 		Map<String, String> recomap = new HashMap<>();
 		recomap.put("start", "0");
 		recomap.put("end", "10");		
@@ -151,7 +154,7 @@ public class HomeController {
 		List<weekVo> lupost = fService.getBestPost(map);
 		model.addAttribute("lupost", lupost);		
 		
-		//팔로잉 게시글 (작성일자순)피드.
+		//팔로잉 게시글 (작성일자순)피드
 		String userId = req.getRemoteUser();
 		Map<String, String> fwmap = new HashMap<>();
 		fwmap.put("start", "0");
@@ -162,15 +165,17 @@ public class HomeController {
 		model.addAttribute("fwpost", fwpost);
 		model.addAttribute("userId", userId);
 		
-		//좋아요 갯수
-		List<Integer> fwcnt = fService.getPostLikeCnt();
-		model.addAttribute("fwcnt", fwcnt);
-		
+		//주간 게시글(월~일요일) 피드
+		Map<String, String> weekmap = new HashMap<>();
+		weekmap.put("start", "0");
+		weekmap.put("end", "10");
+		List<weekVo> weekpost = service.weeklistPage(weekmap);
+		model.addAttribute("weekboard", weekpost);	
 		
 		return "home";
 	}
 	
-	//조회순 무한스크롤
+	//조회순피드 무한스크롤
 	@GetMapping("/lookupIS")
 	@ResponseBody
 	public List<weekVo> lookupIS(int curPage){
@@ -185,7 +190,7 @@ public class HomeController {
 		return list;
 	}
 	
-	//추천순(좋아요) 무한스크롤
+	//추천순(좋아요)피드 무한스크롤
 	@GetMapping("/recommendIS")
 	@ResponseBody
 	public List<weekVo> recommendIS(int recocurPage){
@@ -200,7 +205,7 @@ public class HomeController {
 		return list;
 	}
 	
-	//팔로잉(최신순) 무한스크롤
+	//팔로잉(최신순)피드 무한스크롤
 	@GetMapping("/mainfwIS")
 	@ResponseBody
 	public List<weekVo> mainfwIS(int fwcurPage, HttpServletRequest req){
@@ -218,5 +223,19 @@ public class HomeController {
 		return list;
 	}
 	
+	//주간(월~일요일)피드 무한스크롤
+	@GetMapping("/weekIS")
+	@ResponseBody
+	public List<weekVo> weekIS(int weekcurPage){
+		String start = (weekcurPage - 1) * 9+"";
+		String end = ((weekcurPage - 1) * 9 + 9)+"";
+		
+		Map<String, String> weekmap = new HashMap<>();
+		weekmap.put("start", start);
+		weekmap.put("end", end);
+		
+		List<weekVo> list = service.weeklistPage(weekmap);
+		return list;
+	}
 
 }

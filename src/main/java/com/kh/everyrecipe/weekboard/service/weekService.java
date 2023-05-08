@@ -10,9 +10,11 @@ public interface weekService {
 
 //	public List<weekVo> weekList();
 	
-	public int count() throws Exception;
+//	public int count() throws Exception;
+//	
+//	public List<weekVo> weeklistPage(int weekPost, int postNum) throws Exception;
 	
-	public List<weekVo> weeklistPage(int weekPost, int postNum) throws Exception;
+	public List<weekVo> weeklistPage(Map<String, String> weekmap);
 	
 	public List<popularVo> popularWord();		
 }

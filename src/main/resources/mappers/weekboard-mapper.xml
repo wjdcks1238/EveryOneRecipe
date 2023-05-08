@@ -14,6 +14,7 @@
 -->	
 
 	<!-- 주간 게시물 + 페이징 처리 추가 -->
+	<!--
 	<select id="count" resultType="_int">
     	select count(
     		CASE WHEN
@@ -49,8 +50,25 @@
 		        WHERE SEQ <![CDATA[>]]>#{weekPost}
 		   )
 	    WHERE ROWNUM <![CDATA[<=]]>#{postNum}		    
-    </select>   
-    
+    </select> 
+   	--> 
+   	<select id="listpage" resultType="wvo">
+   	    SELECT *
+        	FROM (
+        	SELECT ROWNUM AS SEQ, A.*
+            FROM (
+            	SELECT *
+	        	FROM POST
+	        	WHERE
+			    ISDELETED = 'N'
+			    AND
+			    TO_CHAR(CREATEAT, 'YYYYMMDD')	
+				between TO_CHAR(trunc(sysdate,'iw'),'YYYYMMDD')
+				AND
+				TO_CHAR(trunc(sysdate,'iw')+6,'YYYYMMDD')
+				order by LOOKUP desc) A)
+       WHERE SEQ<![CDATA[>]]> #{start} AND SEQ<![CDATA[<=]]> #{end}
+    </select> 
     <!-- 인기 검색어 (1~10위) 출력 -->
     <select id="pwordlist" resultType="WordVo">
 		select rownum, keword
