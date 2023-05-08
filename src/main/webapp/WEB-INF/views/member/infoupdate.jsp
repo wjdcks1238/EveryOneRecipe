@@ -122,7 +122,7 @@
 								</div>
 							</div>
 							<div align="center">
-								<button id="passwordchk" type="submit" class="btn mt-3">확인</button>
+								<button id="passwordchk" type="submit" class="btn btn-primary">확인</button>
 							</div>
 						
 					</div>

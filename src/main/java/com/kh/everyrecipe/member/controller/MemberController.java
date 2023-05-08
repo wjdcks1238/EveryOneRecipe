@@ -50,7 +50,7 @@ public class MemberController {
 	
 	
 	@Autowired
-	private BCryptPasswordEncoder pwEncoder;
+	private BCryptPasswordEncoder passwordEncoder;
 	//csrf토큰 사용을 위해 추가
 //	@Autowired
 //	private CsrfTokenRepository csrfTokenRepository;
@@ -70,12 +70,12 @@ public class MemberController {
 	//회원가입
 	@PostMapping("/signup")
 	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
-		System.out.println(pwEncoder.encode(vo.getPassword()));
+		System.out.println(passwordEncoder.encode(vo.getPassword()));
 		if(StringUtils.hasText(vo.getPassword())) {
 			System.out.println("################");
 			System.out.println(vo.getPassword());
-			System.out.println(pwEncoder.encode(vo.getPassword()));
-			String bCryptString=pwEncoder.encode(vo.getPassword());
+			System.out.println(passwordEncoder.encode(vo.getPassword()));
+			String bCryptString=passwordEncoder.encode(vo.getPassword());
 			vo.setPassword(bCryptString);
 		}
 		
@@ -406,10 +406,32 @@ public class MemberController {
 	//ajax로 비밀번호 인증
 	@PostMapping("/infoupdateAjax")
 	@ResponseBody
-	public String infoupdateAjax(String password, Principal principal, HttpServletRequest request) throws Exception {
+	public String infoupdateAjax(String password, Principal principal, HttpServletRequest request, MemberVo mvo) throws Exception {
 	    String str = "";
 	    String id = principal.getName();
 	    
+//	    // DB에서 회원 정보 조회
+//	    Map<String, String> map = new HashMap<String, String>();
+//	    map.put("id", id);
+//	    map.put("password", password);
+//	    mService.loginForMyInfo(map);
+//	    System.out.println("##################"+map);
+	    Map<String, String> map = new HashMap<String, String>();
+	    map.put("id", id);
+	    mService.loginForMyInfo(map);
+	    
+	    // 입력받은 비밀번호와 DB에 저장된 암호화된 비밀번호 비교
+	    boolean isPasswordMatch = passwordEncoder.matches(password, mvo.getPassword());
+	    System.out.println("##################"+password);
+	    if (isPasswordMatch) {
+	        str = "success";
+	    } else {
+	        str = "fail";
+	    }
+
+	    return str;
+	}
+
 //	    // CSRF 토큰 검증
 //        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
 //        if (csrfToken == null) {
@@ -422,25 +444,24 @@ public class MemberController {
 //	    if(bCryptPasswordEncoder.matches(checkPassword, currPass)) {
 //	    bCryptPasswordEncoder.encode(password)
 	    
-	    
-	    Map<String, String> map = new HashMap<String, String>();
-		map.put("id", id);
-		System.out.println("aaaaaaaaaaaaaaaa");
-		System.out.println(pwEncoder.encode(password));
-		if(StringUtils.hasText(password)) {
-			System.out.println("################");
-			String bCryptString=pwEncoder.encode(password);
-			System.out.println(bCryptString);
-			map.put("password", bCryptString);
-		}
-	    int result = mService.loginForMyInfo(map);
-	    if(result == 1) {
-	    	str = "success";
-	    }else {
-	    	str = "fail";
-	    }
-		return  str;
-	}
+//	    Map<String, String> map = new HashMap<String, String>();
+//		map.put("id", id);
+//		System.out.println("aaaaaaaaaaaaaaaa");
+//		System.out.println(pwEncoder.encode(password));
+//		if(StringUtils.hasText(password)) {
+//			System.out.println("################");
+//			String bCryptString=pwEncoder.encode(password);
+//			System.out.println(bCryptString);
+//			map.put("password", bCryptString);
+//		}
+//	    int result = mService.loginForMyInfo(map);
+//	    if(result == 1) {
+//	    	str = "success";
+//	    }else {
+//	    	str = "fail";
+//	    }
+//		return  str;
+//	}
 
 	//개인정보수정 : 비밀번호 변경 후 로그아웃 후 재로그인 해야함, 비밀번호 변경 없어도 됨, 비밀번호 변경시 유효성 체크
 	@GetMapping("/modify")
