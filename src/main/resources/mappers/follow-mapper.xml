@@ -52,13 +52,15 @@
 			FROM (
 			SELECT ROWNUM AS SEQ, A.*
    				FROM(
-   				SELECT post.postid, nickname, content, FOODNAME, CREATEAT, LOOKUP, count(post.postid), MAINIMAGE
-				FROM POST
-				inner join POSTLIKE
-				on POST.postid = POSTLIKE.POSTID
-				where POSTLIKE.ISDELETED='N'
-				group by post.postid, nickname, content, FOODNAME, CREATEAT, LOOKUP, MAINIMAGE
-				ORDER BY count(post.postid) DESC) A)
+   				 SELECT post.postid, post.userid, post.nickname, content, FOODNAME, post.CREATEAT, LOOKUP, count(post.postid), MAINIMAGE, MEMBERS.profileUrl
+				 FROM POST
+				 inner join POSTLIKE
+				 on POST.postid = POSTLIKE.POSTID
+                 inner join MEMBERS
+                 on post.userid = members.userid
+				 where POSTLIKE.ISDELETED='N'
+				 group by post.postid, post.userid, post.nickname, content, FOODNAME, post.CREATEAT, LOOKUP, MAINIMAGE, MEMBERS.profileUrl
+				 ORDER BY count(post.postid) DESC) A)
 		WHERE SEQ<![CDATA[>]]> #{start} AND SEQ<![CDATA[<=]]> #{end}			
 	</select>
 	
@@ -66,10 +68,13 @@
 	<select id="getBestPost" resultType="wvo">
 	select *
 		FROM(SELECT ROWNUM AS SEQ, A.*		
-    		FROM (SELECT *
-        		  FROM POST
-       			  WHERE ISDELETED='N'
-       			  ORDER BY lookup DESC) A)
+    		FROM (
+    			SELECT P.*, M.PROFILEURL
+        		FROM POST P
+                inner join MEMBERS M
+                ON P.USERID = M.USERID
+       			WHERE ISDELETED='N'
+       			ORDER BY lookup DESC) A)
     	WHERE SEQ<![CDATA[>]]> #{start} AND SEQ<![CDATA[<=]]> #{end}
 	</select>
 	
@@ -88,11 +93,13 @@
 			FROM(
 			SELECT ROWNUM AS SEQ, A.*
 				FROM(
-				SELECT *
-				from POST
-				WHERE POST.userId
-				IN (select userId from FOLLOWMAPPING where FWID=#{fwId} and ISDELETED ='N')
-				ORDER BY createat DESC) A)
+					SELECT P.*, M.profileUrl
+					from POST P
+                	INNER JOIN MEMBERS M
+                	ON P.userid = M.userid
+					WHERE P.userId
+					IN (select F.userId from FOLLOWMAPPING F where FWID=#{fwId} and F.ISDELETED ='N')
+					ORDER BY P.createat DESC) A)
 		WHERE SEQ<![CDATA[>]]> #{start} AND SEQ<![CDATA[<=]]> #{end}
 	</select>
 	

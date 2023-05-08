@@ -191,7 +191,7 @@ body{
 							<div class="metafooter">
 								<div class="wrapfooter">
 									<span class="meta-footer-thumb">
-									<a href="<%=request.getContextPath() %>/board/list/${fw.postId}"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+									<a href="<%=request.getContextPath() %>/board/list/${fw.postId}"><img class="author-thumb" src="${fw.profileUrl }" alt="Sal"></a>
 									</span>
 									<span class="author-meta">
 									<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/${fw.postId}">${fw.nickname }</a></span><br/>
@@ -248,7 +248,7 @@ body{
 							<div class="metafooter">
 								<div class="wrapfooter">
 									<span class="meta-footer-thumb">
-									<a href="<%=request.getContextPath() %>/board/list/${lu.postId}"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+									<a href="<%=request.getContextPath() %>/board/list/${lu.postId}"><img class="author-thumb" src="${lu.profileUrl }"alt="Sal"></a>
 									</span>
 									<span class="author-meta">
 									<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/${lu.postId}">${lu.nickname }</a></span><br/>
@@ -307,7 +307,7 @@ body{
 								<div class="wrapfooter">
 									<div style="width: 80%; display:inline-block">
 									<span class="meta-footer-thumb">
-									<a href="<%=request.getContextPath() %>/board/list/${post.postId}"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+									<a href="<%=request.getContextPath() %>/board/list/${post.postId}"><img class="author-thumb" src="${post.profileUrl}" alt="Sal"></a>
 									</span>
 									<span class="author-meta">
 									<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/${post.postId}">${post.nickname }</a></span><br/>
@@ -580,7 +580,7 @@ $(window).scroll(function() {
             								<div class="metafooter">
             									<div class="wrapfooter">
             										<span class="meta-footer-thumb">
-            										<a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+            										<a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`"><img class="author-thumb" src="`+lookup.profileUrl+`" alt="Sal"></a>
             										</span>
             										<span class="author-meta">
             										<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`">`+lookup.nickname+`</a></span><br/>
@@ -626,8 +626,7 @@ $(window).scroll(function() {
             			 var recoDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + recoDate.getHours() + ":" + 
             			 				recoDate.getMinutes() + ":" + recoDate.getSeconds() + " KST " + recoDate.getFullYear();
             			 				
-            			 var a= `
-            			 <c:set var="j" value="${j+1}"/>
+            			 var a= `            
             				<div class="card reco-hide">
             					<div class="row">
             						<div class="col-md-5 wrapthumbnail">
@@ -655,7 +654,7 @@ $(window).scroll(function() {
             									<div class="wrapfooter">
 	            									<div style="width: 80%; display:inline-block">
 	            									<span class="meta-footer-thumb">
-	            									<a href="<%=request.getContextPath() %>/board/list/`+reco.postId+`"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+	            									<a href="<%=request.getContextPath() %>/board/list/`+reco.postId+`"><img class="author-thumb" src="`+reco.profileUrl+`" alt="Sal"></a>
 	            									</span>
 	            									<span class="author-meta">
 	            									<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+reco.postId+`">`+reco.nickname+`</a></span><br/>
@@ -665,7 +664,7 @@ $(window).scroll(function() {
 	            									<div style="width: 15%; display:inline-block;">
 	            									<span class="material-symbols-outlined" style="color:red;">favorite</span>
 	            									<span class="post-read" style="display:inline-block">
-	            									${fwcnt[j-1] }
+	            									${fwcnt[i-1] }
 	            									</span>
 	            									</div>								
             									</div>
@@ -731,7 +730,7 @@ $(window).scroll(function() {
 	         								<div class="metafooter">
 	         									<div class="wrapfooter">
 	         										<span class="meta-footer-thumb">
-	         										<a href="<%=request.getContextPath() %>/board/list/`+fw.postId+`"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+	         										<a href="<%=request.getContextPath() %>/board/list/`+fw.postId+`"><img class="author-thumb" src="`+fw.profileUrl+`" alt="Sal"></a>
 	         										</span>
 	         										<span class="author-meta">
 	         										<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+fw.postId+`">`+fw.nickname+`</a></span><br/>

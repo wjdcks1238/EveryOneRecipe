@@ -24,6 +24,7 @@ public class weekVo {
 	private Date updateAt;
 	private String isDeleted;
 	private String mainImage;
+	private String profileUrl;
 	private String dateWrite;
 	
 	public String getDateWrite() {
@@ -113,6 +114,12 @@ public class weekVo {
 	}
 	public void setMainImage(String mainImage) {
 		this.mainImage = mainImage;
+	}
+	public String getProfileUrl() {
+		return profileUrl;
+	}
+	public void setProfileUrl(String profileUrl) {
+		this.profileUrl = profileUrl;
 	}
 	
 	
