@@ -57,12 +57,14 @@
         	FROM (
         	SELECT ROWNUM AS SEQ, A.*
             FROM (
-            	SELECT *
-	        	FROM POST
+            	SELECT P.*, M.profileUrl
+	        	FROM POST P
+                INNER JOIN MEMBERS M
+                ON P.userid = M.userid
 	        	WHERE
 			    ISDELETED = 'N'
 			    AND
-			    TO_CHAR(CREATEAT, 'YYYYMMDD')	
+			    TO_CHAR(P.CREATEAT, 'YYYYMMDD')	
 				between TO_CHAR(trunc(sysdate,'iw'),'YYYYMMDD')
 				AND
 				TO_CHAR(trunc(sysdate,'iw')+6,'YYYYMMDD')

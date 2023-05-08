@@ -191,10 +191,10 @@ body{
 							<div class="metafooter">
 								<div class="wrapfooter">
 									<span class="meta-footer-thumb">
-									<a href="<%=request.getContextPath() %>/board/list/${fw.postId}"><img class="author-thumb" src="${fw.profileUrl }" alt="Sal"></a>
+									<a href="<%=request.getContextPath() %>/member/info/${fw.userId}"><img class="author-thumb" src="${fw.profileUrl }" alt="Sal"></a>
 									</span>
 									<span class="author-meta">
-									<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/${fw.postId}">${fw.nickname }</a></span><br/>
+									<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/${fw.userId}">${fw.nickname }</a></span><br/>
 									<span class="post-date">${fw.createAt }</span>
 									<span class="post-read" style="white-space: pre-line;">
 									조회수: ${fw.lookUp}</span>				
@@ -248,10 +248,10 @@ body{
 							<div class="metafooter">
 								<div class="wrapfooter">
 									<span class="meta-footer-thumb">
-									<a href="<%=request.getContextPath() %>/board/list/${lu.postId}"><img class="author-thumb" src="${lu.profileUrl }"alt="Sal"></a>
+									<a href="<%=request.getContextPath() %>/member/info/${lu.userId}"><img class="author-thumb" src="${lu.profileUrl }"alt="Sal"></a>
 									</span>
 									<span class="author-meta">
-									<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/${lu.postId}">${lu.nickname }</a></span><br/>
+									<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/${lu.userId}">${lu.nickname }</a></span><br/>
 									<span class="post-date">${lu.createAt }</span>
 									<span class="post-read" style="white-space: pre-line;">									
 									조회수: ${lu.lookUp }</span>
@@ -307,10 +307,10 @@ body{
 								<div class="wrapfooter">
 									<div style="width: 80%; display:inline-block">
 									<span class="meta-footer-thumb">
-									<a href="<%=request.getContextPath() %>/board/list/${post.postId}"><img class="author-thumb" src="${post.profileUrl}" alt="Sal"></a>
+									<a href="<%=request.getContextPath() %>/member/info/${post.userId}"><img class="author-thumb" src="${post.profileUrl}" alt="Sal"></a>
 									</span>
 									<span class="author-meta">
-									<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/${post.postId}">${post.nickname }</a></span><br/>
+									<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/${post.userId}">${post.nickname }</a></span><br/>
 									<span class="post-date" style="padding-right: 6px">${post.createAt }</span>
 									</span>
 									</div>
@@ -365,10 +365,10 @@ body{
 					<div class="metafooter">
 						<div class="wrapfooter">
 							<span class="meta-footer-thumb">
-							<a href="<%=request.getContextPath() %>/board/list/${list.postId}"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+							<a href="<%=request.getContextPath() %>/member/info/${list.userId}"><img class="author-thumb" src="${list.profileUrl }" alt="Sal"></a>
 							</span>
 							<span class="author-meta">
-							<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/${list.postId}">${list.nickname }</a></span><br/>
+							<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/${list.userId}">${list.nickname }</a></span><br/>
 							<span class="post-date" style="white-space: pre-line;">${list.createAt }</span><span class="dot"></span><span class="post-read" style="white-space: pre-line;">조회수: ${list.lookUp }</span>
 							</span>
 							<span class="post-read-more exp"><a href="<%=request.getContextPath() %>/board/list/${list.postId}" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
@@ -377,28 +377,7 @@ body{
 				</div>
 			</div>
 			</c:forEach>
-			</div>
-			<div class="page_btn" style="text-align: center;">
-			<div style="display: inline-block;">
-				<c:if test="${prev}">
-					<a href="/everyrecipe/?num=${startPageNum - 1 }">이전</a>
-				</c:if>
-				
-				<c:forEach begin="${startPageNum }" end="${endPageNum}" var="num">
-					<span>
-						<c:if test="${select != num }">
-							<a href="/everyrecipe/?num=${num }">${num }</a>
-						</c:if>
-						<c:if test="${select == num }">
-							<b>${num }</b>
-						</c:if>
-					</span>
-				</c:forEach>
-				<c:if test="${next }">
-					<a href="/everyrecipe/?num=${endPageNum + 1 }">다음</a>
-				</c:if>
-			</div>
-			</div>			
+			</div>		
 		</div>
 		<div class="card-columns listrecent week-ISdiv">
 		</div>
@@ -580,10 +559,10 @@ $(window).scroll(function() {
             								<div class="metafooter">
             									<div class="wrapfooter">
             										<span class="meta-footer-thumb">
-            										<a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`"><img class="author-thumb" src="`+lookup.profileUrl+`" alt="Sal"></a>
+            										<a href="<%=request.getContextPath() %>/member/info/`+lookup.userId+`"><img class="author-thumb" src="`+lookup.profileUrl+`" alt="Sal"></a>
             										</span>
             										<span class="author-meta">
-            										<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`">`+lookup.nickname+`</a></span><br/>
+            										<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+lookup.userId+`">`+lookup.nickname+`</a></span><br/>
             										<span class="post-date">`+luDate_format+`</span>
             										<span class="post-read" style="white-space: pre-line;">									
             										조회수: `+lookup.lookUp+`</span>
@@ -603,7 +582,7 @@ $(window).scroll(function() {
 	}
 });
 
-
+// 추천(좋아요순)피드 무한스크롤
 var recocurPage=1;
 $(window).scroll(function() {
     if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
@@ -654,10 +633,10 @@ $(window).scroll(function() {
             									<div class="wrapfooter">
 	            									<div style="width: 80%; display:inline-block">
 	            									<span class="meta-footer-thumb">
-	            									<a href="<%=request.getContextPath() %>/board/list/`+reco.postId+`"><img class="author-thumb" src="`+reco.profileUrl+`" alt="Sal"></a>
+	            									<a href="<%=request.getContextPath() %>/member/info/`+reco.userId+`"><img class="author-thumb" src="`+reco.profileUrl+`" alt="Sal"></a>
 	            									</span>
 	            									<span class="author-meta">
-	            									<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+reco.postId+`">`+reco.nickname+`</a></span><br/>
+	            									<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+reco.userId+`">`+reco.nickname+`</a></span><br/>
 	            									<span class="post-date" style="padding-right: 6px">`+recoDate_format+`</span>
 	            									</span>
 	            									</div>
@@ -682,6 +661,7 @@ $(window).scroll(function() {
 	}
 });
 
+// 팔로잉(최신순)피드 무한스크롤
 var fwcurPage=1;
 $(window).scroll(function() {
     if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
@@ -730,10 +710,10 @@ $(window).scroll(function() {
 	         								<div class="metafooter">
 	         									<div class="wrapfooter">
 	         										<span class="meta-footer-thumb">
-	         										<a href="<%=request.getContextPath() %>/board/list/`+fw.postId+`"><img class="author-thumb" src="`+fw.profileUrl+`" alt="Sal"></a>
+	         										<a href="<%=request.getContextPath() %>/member/info/`+fw.userId+`"><img class="author-thumb" src="`+fw.profileUrl+`" alt="Sal"></a>
 	         										</span>
 	         										<span class="author-meta">
-	         										<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+fw.postId+`">`+fw.nickname+`</a></span><br/>
+	         										<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+fw.userId+`">`+fw.nickname+`</a></span><br/>
 	         										<span class="post-date">`+luDate_format+`</span>
 	         										<span class="post-read" style="white-space: pre-line;">									
 	         										조회수: `+fw.lookUp+`</span>
@@ -753,6 +733,7 @@ $(window).scroll(function() {
 	}
 });
 
+//주간 게시글 피드 무한스크롤
 var weekcurPage=1;
 $(window).scroll(function() {
     if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
@@ -794,10 +775,10 @@ $(window).scroll(function() {
             						<div class="metafooter">
             							<div class="wrapfooter">
             								<span class="meta-footer-thumb">
-            								<a href="<%=request.getContextPath() %>/board/list/`+week.postId+`"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+            								<a href="<%=request.getContextPath() %>/member/info/`+week.userId+`"><img class="author-thumb" src="`+week.profileUrl+`" alt="Sal"></a>
             								</span>
             								<span class="author-meta">
-            								<span class="post-name"><a href="<%=request.getContextPath() %>/board/list/`+week.postId+`">`+week.nickname+`</a></span><br/>
+            								<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+week.userId+`">`+week.nickname+`</a></span><br/>
             								<span class="post-date" style="white-space: pre-line;">`+fwDate_format+`</span><span class="dot"></span><span class="post-read" style="white-space: pre-line;">조회수: `+week.lookUp+`</span>
             								</span>
             								<span class="post-read-more exp"><a href="<%=request.getContextPath() %>/board/list/`+week.postId+`" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
