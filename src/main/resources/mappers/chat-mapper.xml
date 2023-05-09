@@ -66,12 +66,6 @@
 	    FROM CHATROOMCHK
 	    WHERE KEY = #{key}
 	</select>
-
-	<update id="closeRoom">
-	    UPDATE CHATTINGROOM
-	    SET ISDELETED = 'Y'
-	    WHERE KEY = #{key}
-	</update>
 	
 	<delete id="deleteChatlist" parameterType="int">
 		DELETE FROM DIRECTMESSAGE WHERE KEY = #{key}

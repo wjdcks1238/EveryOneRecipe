@@ -50,10 +50,6 @@ public class ChatDao {
 		return sqlsession.selectOne("chatMapper.countRoomMember", chatRoomNo);
 	}
 	
-	public int closeRoom(int chatRoomNo) {
-		return sqlsession.update("chatMapper.closeRoom", chatRoomNo);
-	}
-	
 	public int deleteChatlist(int chatRoomNo) {
 		return sqlsession.delete("chatMapper.deleteChatlist", chatRoomNo);
 	}
