@@ -51,6 +51,7 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
 	//csrf토큰 사용을 위해 추가
 //	@Autowired
 //	private CsrfTokenRepository csrfTokenRepository;
@@ -72,9 +73,6 @@ public class MemberController {
 	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
 		System.out.println(passwordEncoder.encode(vo.getPassword()));
 		if(StringUtils.hasText(vo.getPassword())) {
-			System.out.println("################");
-			System.out.println(vo.getPassword());
-			System.out.println(passwordEncoder.encode(vo.getPassword()));
 			String bCryptString=passwordEncoder.encode(vo.getPassword());
 			vo.setPassword(bCryptString);
 		}
@@ -451,9 +449,7 @@ public class MemberController {
 	//개인정보수정
 	@PostMapping("/modify")
 	@ResponseBody
-	public int modifyUser(
-			MemberModifyDto vo
-			, Principal principal) 
+	public int modifyUser(String password, MemberModifyDto vo, Principal principal) 
 	{
 		int result = -1;
 	    try {
@@ -463,6 +459,24 @@ public class MemberController {
 	    }
 	    return result;// ajax success결과 페이지로 이동
 	}
+	
+//    String str = "";
+//    String id = principal.getName();
+//
+//    // 현재 로그인한 유저의 id로 member의 모든 정보 조
+//    MemberVo m = mService.selectOne(id);
+//    
+//    //password는 사용자가 입력한 암호화 되기 전 비밀번호, m에 담긴 비밀번호는 암호화된 비밀번호 PasswordEncoder.matches 메소드는 
+//    // 꼭!! 암호화 되기 전 비밀번호와 암호화 된 비밀번호를 파라미터로 넣어줘야 에러가 나지 않는다.
+//    boolean isPasswordMatch = passwordEncoder.matches(password, m.getPassword());
+//    
+//    if (isPasswordMatch) {
+//        str = "success";
+//    } else {
+//        str = "fail";
+//    }
+//    
+//    return str;
 
 	//이메일 중복체크
 	@PostMapping("checkEmail")
@@ -478,7 +492,14 @@ public class MemberController {
 		return str;
 	}
 	//회원탈퇴
-	
+	@GetMapping("/withdrawal")
+	public int memberDelete(@RequestParam("userId") String userId, Principal principal, MemberModifyDto dto) throws Exception {
+		dto.setUserId(principal.getName());
+		int result = mService.memberDelete(userId);
+		
+		return result;
+		
+	}
 	
 	@GetMapping("/checkuserblocked")
 	@ResponseBody

@@ -44,4 +44,6 @@ public interface MemberService {
 	public MemberBlockVo getUserBlock(String name) throws Exception;
 	
 	public int checkEmail(String email) throws Exception;
+	
+	public int memberDelete(String id ) throws Exception;
 }

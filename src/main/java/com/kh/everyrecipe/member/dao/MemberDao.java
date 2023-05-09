@@ -87,4 +87,8 @@ public class MemberDao {
 	public int checkEmail(String email) throws Exception {
 		return sqlSession.selectOne("memberMapper.checkEmail", email);
 	}
+	
+	public int memberDelete(String id ) throws Exception {
+		return sqlSession.delete("memberMapper.memberDelete",id);
+	}
 }
