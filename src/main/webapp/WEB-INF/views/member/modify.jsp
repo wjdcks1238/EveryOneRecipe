@@ -191,7 +191,6 @@
 	<%@ include file="/WEB-INF/views/js_import.jsp"%>
 
 	<script>
-	//비밀번호
 	//비밀번호 정규식(공백없이 영어, 숫자, 특수문자(!,@,#)조합하여 8자 이상 16자 이하)
 	let regPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
 	let regPasswordError = document.getElementById("regPassword-error");
@@ -231,8 +230,6 @@
 	let regEmailError = document.getElementById("regMail-error");
 	let regEmailError2 = document.getElementById("regMail-error2");
 	
-	//TODO: 이메일이 입력되어 있다면 버튼 disabled
-	//const emailInput = document.getElementById('emailInput');
 	const checkEmailBtn = document.getElementById('checkEmailBtn');
 	
 	// 이메일 확인

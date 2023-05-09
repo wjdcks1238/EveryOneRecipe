@@ -102,6 +102,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.checkEmail(email);
 	}
 
+	@Override
+	public int memberDelete(String id) throws Exception {
+		return dao.memberDelete(id);
+	}
+
 
 
 

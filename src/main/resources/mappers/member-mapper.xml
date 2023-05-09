@@ -90,7 +90,7 @@
 	</select>
 	
 	<!-- 탈퇴하기 -->
-	<delete id="memberDelete">
+	<delete id="memberDelete" parameterType="string">
 		delete from members
 		 where userid = #{userId}
 		   and password = #{password}

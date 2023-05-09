@@ -115,7 +115,7 @@
 										<label>비밀번호</label>
 									</div>
 									<div>
-										<input type="password" name="password" value="${memberDto.password }" placeholder="현재 비밀번호를 입력해주세요." class="form-control" style="width: 300px">
+										<input type="password" name="password" placeholder="현재 비밀번호를 입력해주세요." class="form-control" style="width: 300px">
 									</div>
 									
 								</div>
