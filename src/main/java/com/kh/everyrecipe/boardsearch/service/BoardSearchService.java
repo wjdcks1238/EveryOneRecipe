@@ -30,4 +30,6 @@ public interface BoardSearchService {
 	public int upOrNot(SearchClientChkVo chk) throws Exception;
 	public List<Map<String, String>> getRealTimeSearchTotal() throws Exception;
 	public List<Map<String, String>> getWeekSearchTotal() throws Exception;
+	public int getkeywordVisibleCount(String keyword) throws Exception;
+	public int getAvailedKeywordCount(String keyword) throws Exception;
 }

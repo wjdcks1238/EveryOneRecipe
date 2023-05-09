@@ -66,10 +66,10 @@
 			<sec:authorize var="loggedIn" access="isAuthenticated()" />
 			<!-- End Menu -->
 			<!-- Begin Search -->
-			<form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/board/search"  method="get">
+			<div class="form-inline my-2 my-lg-0">
 				<input id="keyword" name="keyword" class="form-control mr-sm-2" type="text" placeholder="Search">
 				<span class="search-icon"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M20.067 18.933l-4.157-4.157a6 6 0 1 0-.884.884l4.157 4.157a.624.624 0 1 0 .884-.884zM6.5 11c0-2.62 2.13-4.75 4.75-4.75S16 8.38 16 11s-2.13 4.75-4.75 4.75S6.5 13.62 6.5 11z"></path></svg></span>
-			</form>
+			</div>
 			<!-- End Search -->
 		</div>
 	</div>
@@ -78,6 +78,36 @@
 <script>
 	$(".search-icon").click(function() {
 		var keyword = $("#keyword").val();
-		location.href="${pageContext.request.contextPath}/board/search?keyword=" + encodeURIComponent(keyword);
+		$.ajax({
+			url:'${pageContext.request.contextPath}/keyword/isvisiblekeyword',
+			type:"GET",
+			data:{
+				keyword: keyword
+			},
+			success: function(data) {
+				if(data == 1) { //차단된 여부 확인
+					location.href="${pageContext.request.contextPath}/board/search?keyword=" + encodeURIComponent(keyword);
+				} else if(data == 0) { //차단되었거나 검색어가 없음.
+					searchKeywordData(keyword)
+				}
+			}
+		});
 	});
+	
+function searchKeywordData(keyword) {
+	$.ajax({
+		url: '${pageContext.request.contextPath}/keyword/isavailedkeyword',
+		type: "GET",
+		data:{
+			keyword: keyword
+		},
+		success: function(data) {
+			if(data == 1) { // 차단되어 검색어가 검색이 안되었던 상황
+				alert('관리자에 의해 차단되어진 검색어 이거나, 검색이 불간능한 검색어 입니다.다른 키워드로 검색 바랍니다.');
+			} else { //검색어가 아예 없음
+				location.href="${pageContext.request.contextPath}/board/search?keyword=" + encodeURIComponent(keyword);
+			}
+		}
+	});
+}
 </script>

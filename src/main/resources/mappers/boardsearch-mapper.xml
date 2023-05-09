@@ -205,6 +205,14 @@
 		)}
 	</select>
 	
+	<select id="getkeywordVisibleCount" parameterType="String" resultType="_int">
+		select count(*) from search where keword=#{keyword} and ISVISIBLE='Y'
+	</select>
+	
+	<select id="getAvailedKeywordCount" parameterType="String" resultType="_int">
+		select count(*) from search where keword=#{keyword}
+	</select>
+	
 	<insert id="insertSearchData" parameterType="String">
 		insert into search values(#{keyword}, (select NVL(MAX(TIMES), 0)+1 from search where KEWORD=#{keyword}), default, default)
 	</insert>

@@ -124,4 +124,14 @@ public class BoardSearchServiceImp implements BoardSearchService {
 		return dao.getWeekSearchTotal();
 	}
 
+	@Override
+	public int getkeywordVisibleCount(String keyword) throws Exception {
+		return dao.getkeywordVisibleCount(keyword);
+	}
+
+	@Override
+	public int getAvailedKeywordCount(String keyword) throws Exception {
+		return dao.getAvailedKeywordCount(keyword);
+	}
+
 }

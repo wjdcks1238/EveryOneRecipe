@@ -105,4 +105,12 @@ public class BoardSearchDao {
 	public List<Map<String, String>> getWeekSearchTotal() {
 		return sqlSession.selectList("boardSearchMapper.getWeekSearchTotal");
 	}
+
+	public int getkeywordVisibleCount(String keyword) {
+		return sqlSession.selectOne("boardSearchMapper.getkeywordVisibleCount", keyword);
+	}
+
+	public int getAvailedKeywordCount(String keyword) {
+		return sqlSession.selectOne("boardSearchMapper.getAvailedKeywordCount", keyword);
+	}
 }

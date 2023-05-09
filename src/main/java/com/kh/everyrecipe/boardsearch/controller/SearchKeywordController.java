@@ -47,10 +47,36 @@ public class SearchKeywordController {
 		return modifiedResult;
 	}
 	
-	@GetMapping("refreshRecommend")
+	@GetMapping("/refreshRecommend")
 	@ResponseBody
 	public String refreshRecommend() throws Exception {
 		List<SearchVo> recommendKeyword= bsService.getRecommendSearchKeyword();
 		return new Gson().toJson(recommendKeyword);
+	}
+	
+	@GetMapping("/isvisiblekeyword")
+	@ResponseBody
+	public int isVisibleKeyword(
+			@RequestParam("keyword") String keyword
+			) throws Exception {
+		
+		int result = bsService.getkeywordVisibleCount(keyword);
+		
+		System.out.println(result);
+		
+		return result;
+	}
+	
+	@GetMapping("/isavailedkeyword")
+	@ResponseBody
+	public int isAvailedKeyword(
+			@RequestParam("keyword") String keyword
+			) throws Exception{
+		
+		int result = bsService.getAvailedKeywordCount(keyword);
+		
+		System.out.println(result);
+		
+		return result;
 	}
 }
