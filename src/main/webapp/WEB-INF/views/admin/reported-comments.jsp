@@ -120,6 +120,19 @@
 			        </div>
 			    </div>
 			</li>
+			<li class="nav-item">
+			    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+			        aria-expanded="true" aria-controls="collapseFour">
+			        <i style="margin-left: 3px" class="fas fa-ban"></i>
+			        <span>비속어/금지어 관리</span>
+			    </a>
+			    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+			        <div class="bg-white py-2 collapse-inner rounded">
+			            <a class="collapse-item" href="<%=request.getContextPath()%>/admin/addBadwords">추가</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/deleteBadwords">삭제</a>
+			        </div>
+			    </div>
+			</li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 

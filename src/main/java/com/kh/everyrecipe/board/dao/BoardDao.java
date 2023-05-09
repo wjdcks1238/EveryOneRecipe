@@ -113,6 +113,20 @@ public class BoardDao {
 		return null;
 	}
 	
+	//비속어 필터 관련
+	public List<String> getAllBadwords() {
+		return sqlSession.selectList("boardMapper.getAllBadwords");
+	}
+	public List<String> badwordSearch(String keyword) {
+		return sqlSession.selectList("boardMapper.badwordSearch",keyword);
+	}
+	public int deleteWords(List<String> badwords) {
+		return sqlSession.delete("boardMapper.deleteWords",badwords);
+	}
+	public int addWord(String word) {
+		return sqlSession.insert("boardMapper.addWord",word);
+	}
+	
 
 
 

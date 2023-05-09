@@ -82,7 +82,32 @@
                     </div>
                 </div>
             </li>
-
+			<li class="nav-item">
+			    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+			        aria-expanded="true" aria-controls="collapseThree">
+			        <i class="fas fa-fw fa-minus-circle"></i>
+			        <span>신고 관리</span>
+			    </a>
+			    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+			        <div class="bg-white py-2 collapse-inner rounded">
+			            <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-posts">게시글 관리</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/reported-comments">댓글 관리</a>
+			        </div>
+			    </div>
+			</li>
+			<li class="nav-item">
+			    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+			        aria-expanded="true" aria-controls="collapseFour">
+			        <i style="margin-left: 3px" class="fas fa-ban"></i>
+			        <span>비속어/금지어 관리</span>
+			    </a>
+			    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+			        <div class="bg-white py-2 collapse-inner rounded">
+			            <a class="collapse-item" href="<%=request.getContextPath()%>/admin/addBadwords">추가</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/deleteBadwords">삭제</a>
+			        </div>
+			    </div>
+			</li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 

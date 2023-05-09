@@ -418,21 +418,11 @@ public class AdminController {
 	}
 	
 	//비속어 관리 
-	//삭제
+	//삭제 페이지
 	@GetMapping("/deleteBadwords")
 	public ModelAndView deleteBadwords(ModelAndView mv) throws Exception {
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("badwordList.txt");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-		Set<String> badwords = new LinkedHashSet<String>();
-		try {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				badwords.add(line);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		List<String> badwords = bService.getAllBadwords();
 		
 		mv.addObject("badwords", badwords);
 		
@@ -442,28 +432,10 @@ public class AdminController {
 	
 	@PostMapping("/badwordSearch")
 	@ResponseBody
-	public Set<String> badwordSearch(String keyword){
+	public List<String> badwordSearch(String keyword){
 		//검색 후 결과 반환
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("badwordList.txt");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-		Set<String> badwords = new LinkedHashSet<String>();
-		Set<String> searched = new LinkedHashSet<String>();
-		try {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				badwords.add(line);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		for(String s : badwords) {
-			if(s.contains(keyword)) {
-				searched.add(s);
-			}
-			
-		}
 		
+		List<String> searched = bService.badwordSearch(keyword);
 		
 		return searched;
 	}
@@ -473,43 +445,23 @@ public class AdminController {
 	public String deletWords(@RequestParam("words[]") Set<String> words, HttpServletRequest request){
 		//선택한 단어 삭제
 		
-		System.out.println(words);
+		List<String> badwords= new ArrayList(words);
 		
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("badwordList.txt");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-		Set<String> badwords = new LinkedHashSet<String>();
-		try {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				badwords.add(line);
-			}
-			reader.close();
-			badwords.removeAll(words);
-			System.out.println(badwords);
-			
-			ClassLoader classLoader = getClass().getClassLoader();
-			ServletContext servletContext = request.getServletContext();
-			String filePath = servletContext.getRealPath("/WEB-INF/classes/badwordList.txt");
-			File file = new File(filePath);
-			System.out.println(file.getAbsolutePath());
-	        try (OutputStream outputStream = new FileOutputStream(file);
-	             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream))) {
-	        	 for(String s: badwords) {
-	        		 bufferedWriter.write(s);
-	        		 bufferedWriter.newLine();
-	        	 }
-	        }
-	        file.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		
+		int result = bService.deleteWords(badwords);
+		
+		
+		
+		if(result!=0) {
+			return "true";
+		}else {
+			return "false";
 		}
 		
 		
 		
 		
-		
-		
-		return "true";
 	}
 	
 	
@@ -517,72 +469,33 @@ public class AdminController {
 	//추가
 	@GetMapping("/addBadwords")
 	public ModelAndView addBadwords(ModelAndView mv) throws Exception {
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("badwordList.txt");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-		Set<String> badwords = new LinkedHashSet<String>();
-		try {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				badwords.add(line);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		List<String> badwords = bService.getAllBadwords();
 		mv.addObject("badwords", badwords);
 		
 		mv.setViewName("admin/addBadwords");
 		return mv;
 	}
+	
 	@PostMapping("/addWord")
 	@ResponseBody
 	public String addWord(String word, HttpServletRequest request){
 		// 비속어/금지어 추가
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("badwordList.txt");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-		Set<String> badwords = new LinkedHashSet<String>();
+		int result = 1;
 		try {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				badwords.add(line);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+			result= bService.addWord(word);			
+		} catch (Exception e) {
+			result=0;
 		}
-		for(String s : badwords) {
-			if(s.contains(word)) {
-				return  "false";
-			}
-			
-		}
-		ServletContext servletContext = request.getServletContext();
-		String filePath = servletContext.getRealPath("/WEB-INF/classes/badwordList.txt");
-		File file = new File(filePath);
-		System.out.println(file.getAbsolutePath());
 		
-       
-		try {
-			OutputStream outputStream = new FileOutputStream(file);
-			BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream)); 
-			for(String s: badwords) {
-				bufferedWriter.write(s);
-				bufferedWriter.newLine();
-       	 	}
-			bufferedWriter.write(word);
-			file.createNewFile();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-    	} catch (IOException e) {
-			e.printStackTrace();
+		if(result==1) {
+			return "true";
+		}else {
+			return "false";
 		}
-        
 		
 	
 		
 		
-		return "true";
 	}
 	
 }

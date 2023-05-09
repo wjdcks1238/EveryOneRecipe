@@ -200,9 +200,21 @@ select
 	</delete>
 	
 	
+	<select id="getAllBadwords" resultType="string">
+		SELECT * FROM badwords
+	</select>
+	<select id="badwordSearch" parameterType="string" resultType="string">
+		SELECT badword FROM badwords WHERE badword LIKE '%'||#{keyword}||'%'
+	</select>
+	
+	<delete id="deleteWords">
+		DELETE FROM badwords where 
+		<foreach collection="list" item="item" separator="OR">
+			badword=#{item}
+		</foreach>
+	</delete>	
 
-	
-	
-
-	
+	<insert id="addWord" parameterType="string">
+		INSERT INTO BADWORDS VALUES(#{word})
+	</insert>
 </mapper>
