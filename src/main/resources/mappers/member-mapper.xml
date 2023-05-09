@@ -95,4 +95,11 @@
 		 where userid = #{userId}
 		   and password = #{password}
 	</delete>
+	
+	<!-- 암호화해서 DB에 저장하기 -->
+	<update id="encodePassword" parameterType="mvo">
+		update members 
+		   set password=#{password}
+		where userid=#{userId}
+	</update>
 </mapper>

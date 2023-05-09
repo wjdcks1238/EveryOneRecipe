@@ -123,7 +123,6 @@
 							<div align="center">
 								<button id="passwordchk" type="submit" class="btn btn-primary">확인</button>
 							</div>
-						
 					</div>
 				</div>
 

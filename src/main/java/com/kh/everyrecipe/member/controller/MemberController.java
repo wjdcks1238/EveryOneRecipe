@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -526,5 +527,26 @@ public class MemberController {
 		return new Gson().toJson(data);
 	}
 
+	//DB에 저장된 암호 암호화하여 DB에 저장
+	@GetMapping("/encodePassword")
+	public String encodePassword(@RequestParam("userId") String userId, Model model) throws Exception {
+	    // 아이디에 해당하는 회원 정보를 조회합니다.
+	    MemberVo member = mService.selectOne(userId);
+	    if(member == null) {
+	        model.addAttribute("message", "해당 아이디의 회원 정보가 존재하지 않습니다.");
+	        return "result";
+	    }
+	    // 암호화된 비밀번호를 DB에 저장합니다.
+	    String bCryptString=passwordEncoder.encode(member.getPassword());
+	    member.setPassword(bCryptString);
+	    
+	    int result = mService.encodePassword(member);
+	    if (result == 1) {
+	        model.addAttribute("message", "암호화된 비밀번호가 DB에 저장되었습니다.");
+	    } else {
+	        model.addAttribute("message", "암호화된 비밀번호 저장에 실패했습니다.");
+	    }
+	    return "/";
+	}
 	
 }

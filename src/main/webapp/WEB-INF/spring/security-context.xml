@@ -16,6 +16,7 @@
 		<s:intercept-url pattern="/member/checkEmail" access="permitAll"/>
 		<s:intercept-url pattern="/member/infoupdateAjax" access="hasAnyRole('MEMBER', 'ADMIN')"/>
 		<s:intercept-url pattern="/member/memberDelete" access="hasAnyRole('MEMBER', 'ADMIN')"/>
+		<s:intercept-url pattern="/member/encodePassword" access="hasAnyRole('MEMBER', 'ADMIN')"/>
 		<s:intercept-url pattern="/member/login" access="permitAll" />
 		<s:intercept-url pattern="/naverlogin" access="permitAll" />
 		<s:intercept-url pattern="/main/**" access="permitAll" />
