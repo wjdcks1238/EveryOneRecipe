@@ -96,28 +96,33 @@
             <c:forEach var="ctlist" items="${chatlist }">
 ${ctlist.userId }: ${ctlist.message }
             </c:forEach>
+―――――――――――――여기까지 읽음――――――――――――――     
 			</textarea>
     </div>
     <div class="input-div">
         <textarea placeholder="Press Enter for send message." id="chatMsg"></textarea>
-    </div>
-    <div>
-    	<button class="btn-send">전송</button>
-    </div>
+    </div>    
 </div>
-<div class="delete-exit-div" style="display: flex; justify-content: flex-end;">
-	<div class="delete-btn" style="display:inline-block; margin: 15px 30px 0 0;">
-		<button class="btn btn-danger delete-room" id="deleteRoom"
-		onclick="location.href='<%=request.getContextPath()%>/chat/delete?chatRoomNo=${chatRoomNo}'">
-		방삭제
-		</button>
+<div class="row">
+	<div class="col-md-6" style="display:inline-block;">
+		<div style="margin: 15px 0 0 20px;">
+    		<button class="btn-send btn text-white" style="background-color: #F18C7E;">전송</button>
+    	</div>
 	</div>
-	<div class="exit-btn" style="display:inline-block; margin: 15px 20px 0 0;">
-		<form action="<%=request.getContextPath()%>/chat/exit" method="get">
-			<input type="hidden" name="userId" value="${loginUser }"/>
-			<input type="hidden" name="key" value="${chatRoomNo }"/>
-			<button type="submit" class="btn btn-danger exit-room">방 나가기</button>
-		</form>
+	<div class="col-md-6 delete-exit-div" style="display: flex; justify-content: flex-end;">
+		<div class="delete-btn" style="display:inline-block; margin: 15px 15px 0 0;">
+			<button class="btn btn-danger delete-room" id="deleteRoom"
+			onclick="location.href='<%=request.getContextPath()%>/chat/delete?chatRoomNo=${chatRoomNo}'">
+			방삭제
+			</button>
+		</div>
+		<div class="exit-btn" style="display:inline-block; margin: 15px 15px 0 0;">
+			<form action="<%=request.getContextPath()%>/chat/exit" method="get">
+				<input type="hidden" name="userId" value="${loginUser }"/>
+				<input type="hidden" name="key" value="${chatRoomNo }"/>
+				<button type="submit" class="btn btn-danger exit-room">방 나가기</button>
+			</form>
+		</div>
 	</div>
 </div>
 <script type="text/javascript">
@@ -130,17 +135,43 @@ function connect(){
 	
 	ws.onopen = function(){
 		register();
+		$(".btn-send").hide();
 	};
 	ws.onmessage = function(e){
 		var data = e.data;
 		addMsg(data);
 	};
+
 	ws.onclose = function(){
-	};
-}
+		alert('상대방이 채팅을 종료한 상태입니다. 전송버튼을 통해 메세지를 보낼 수 있습니다.')
+		$(".btn-send").show();
+		$(".btn-send").on("click", sendBtn);
+		function sendBtn(){
+		 $.ajax({
+			 type : 'GET',
+	         url  : '${pageContext.request.contextPath}/chat/addmsg',
+	         async : false,
+	         data : {
+	        	 key: "${chatRoomNo}",
+	        	 message: $("#chatMsg").val(),
+	        	 userid: "${loginUser }"
+	        	 },
+	         success : function(result){
+	        	 var chat = $("#msgArea").val();
+	        	 chat = chat + "\n" + userid +" :" + $("#chatMsg").val() + "\n";
+	        	 $("#msgArea").val(chat);
+	        	 $("#chatMsg").val("");
+	        	 
+	        	 var autoscroll = $("#msgArea").prop('scrollHeight');
+				 $("#msgArea").scrollTop(autoscroll);
+			 }
+		 })
+		}
+	}	
+};
 	function addMsg(msg){
 		var chat = $("#msgArea").val();
-		chat = chat + "\n"+ targetid + " : " + msg;
+		chat = chat + "\n"+ targetid + " : " + msg + "\n";
 		$('#msgArea').val(chat);
 	};
 	
@@ -168,13 +199,13 @@ function connect(){
 	// 앤터키 누르면 메세지 전송
 	$(function(){
 		connect();
-		$(document).on('keydown', 'div.input-div textarea', function(e){
+		$(document).on('keydown', function(e){
 			if(e.keyCode == 13 && !e.shiftKey) {
 	        e.preventDefault();
 	        
 	        if($(".targetUser option:selected").val() != ""){
 				var chat = $("#msgArea").val();
-				chat = chat + "\n" + userid +" :" + $("#chatMsg").val();
+				chat = chat + "\n" + userid +" :" + $("#chatMsg").val() + "\n" ;
 				
 				$("#msgArea").val(chat);
 				sendMsg();
@@ -189,28 +220,11 @@ function connect(){
 	})	
 });	
 
-
-$(".btn-send").on("click", sendBtn);
-function sendBtn(){
-	console.log("${chatRoomNo}");
-	console.log($("#chatMsg").val());
-	console.log(userid);
-	 $.ajax({
-		 type : 'GET',
-         url  : '${pageContext.request.contextPath}/chat/addmsg',
-         async : false,
-         data : {
-        	 key: "${chatRoomNo}",
-        	 message: $("#chatMsg").val(),
-        	 userid: "${loginUser }"
-        	 },
-         success : function(result){
-        	 alert('성공');
-	 }
-
-	 })
-}
-
+//채팅 페이지 로딩시 스크롤바 가장 하단으로 자동 이동
+$(window).ready(function(){
+	  $('#msgArea').scrollTop($("#msgArea")[0].scrollHeight - $("#msgArea").height()); 
+});
+	
 
 
 	

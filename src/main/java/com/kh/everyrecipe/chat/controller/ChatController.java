@@ -137,6 +137,7 @@ public class ChatController {
 	
 	//websocket연결 끊어질 시 데이터 insert 
 	@GetMapping("/addmsg")
+	@ResponseBody
 	public String addmsg(MessageVo cm, int key, String message, String userid) {
 		cm.setKey(key);
 		cm.setMessage(message);
