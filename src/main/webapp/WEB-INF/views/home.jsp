@@ -422,24 +422,39 @@ $(document).ready(function(){
 $.noConflict();
 
 
+
+var curPage=1;
+var recocurPage=1;
+var weekcurPage=1;
+var fwcurPage=1;
+
 /* 추천, 주간, 팔로잉 게시글 숨김. 조회순 게시글만 표출  */
 $(document).ready(function(){
 	$(".sort_like").hide();
 	$(".week_post").hide();
 	$(".follow_post").hide();
-	$(".reco-hide").hide();
-	$(".fw-hide").hide();
+	$(".reco-hide").remove();
+	$(".fw-hide").remove();
+	$(".week-hide").remove();
+	
 });
 
 /* 추천 버튼 누르면 추천순 게시글 표출 + 조회순, 주간, 팔로잉 게시글 숨김 */
 function recorc(){
-	$(".week_post").hide();
 	$(".sort_lkup").hide();
+	$(".week_post").hide();	
 	$(".follow_post").hide();
 	$(".sort_like").show();
 	$(".reco-hide").show();
-	$(".lookup-hide").hide();
-	$(".fw-hide").hide();
+	$(".reco-hide").remove();
+	$(".lookup-hide").remove();
+	$(".week-hide").remove();
+	$(".fw-hide").remove();
+	
+	curPage = 1;
+	recocurPage=1;
+	weekcurPage=1;
+	fwcurPage=1;
 };
 
 /* 조회순 버튼 누르면 조회순 게시글 표출 + 주간, 추천순, 팔로잉 게시글 숨김 */
@@ -449,30 +464,51 @@ function bestrc(){
 	$(".follow_post").hide();
 	$(".sort_lkup").show();
 	$(".lookup-hide").show();
-	$(".reco-hide").hide();
-	$(".fw-hide").hide();
+	$(".lookup-hide").remove();
+	$(".reco-hide").remove();
+	$(".week-hide").remove();
+	$(".fw-hide").remove();	
+	
+	curPage = 1;
+	recocurPage=1;
+	weekcurPage=1;
+	fwcurPage=1;
 };
 
 /* 주간게시글 버튼 누르면 주간 게시글 표출 + 추천순, 조회순, 팔로잉 게시글 숨김 */
 function weekrc(){
-	$(".sort_like").hide();	
 	$(".sort_lkup").hide();
+	$(".sort_like").hide();		
 	$(".follow_post").hide();
 	$(".week_post").show();
-	$(".lookup-hide").hide();
-	$(".reco-hide").hide();
-	$(".fw-hide").hide();
+	$(".week-hide").show();
+	$(".week-hide").remove();
+	$(".lookup-hide").remove();
+	$(".reco-hide").remove();
+	$(".fw-hide").remove();	
+	
+	curPage = 1;
+	recocurPage=1;
+	weekcurPage=1;
+	fwcurPage=1;
 };
 
 /* 팔로잉게시글 버튼 누르면 팔로잉 게시글 표출 + 추천순, 조회순, 주간 게시글 숨김 */
 function followrc(){
-	$(".sort_like").hide();	
-	$(".sort_lkup").hide();	
+	$(".sort_lkup").hide();
+	$(".sort_like").hide();			
 	$(".week_post").hide();
 	$(".follow_post").show();
 	$(".fw-hide").show();
-	$(".lookup-hide").hide();
-	$(".reco-hide").hide();
+	$(".fw-hide").remove();
+	$(".lookup-hide").remove();
+	$(".reco-hide").remove();
+	$(".week-hide").remove();
+	
+	curPage = 1;
+	recocurPage=1;
+	weekcurPage=1;
+	fwcurPage=1;
 };
 
 
@@ -511,7 +547,7 @@ const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'O
 
 //조회순 피드 무한스크롤
 
-var curPage=1;
+
 $(window).scroll(function() {
     if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
         curPage+=1;
@@ -583,7 +619,7 @@ $(window).scroll(function() {
 });
 
 // 추천(좋아요순)피드 무한스크롤
-var recocurPage=1;
+
 $(window).scroll(function() {
     if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
         recocurPage+=1;
@@ -662,7 +698,7 @@ $(window).scroll(function() {
 });
 
 // 팔로잉(최신순)피드 무한스크롤
-var fwcurPage=1;
+
 $(window).scroll(function() {
     if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
         fwcurPage+=1;
@@ -734,7 +770,7 @@ $(window).scroll(function() {
 });
 
 //주간 게시글 피드 무한스크롤
-var weekcurPage=1;
+
 $(window).scroll(function() {
     if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
         weekcurPage+=1;
@@ -756,7 +792,7 @@ $(window).scroll(function() {
             			 				weekDate.getMinutes() + ":" + weekDate.getSeconds() + " KST " + weekDate.getFullYear();
             			 				
             			 var a= `
-            				 <div class="card">
+            				 <div class="card week-hide">
             					<a href="<%=request.getContextPath() %>/board/list/`+week.postId+`}">
             						<img class="img-fluid" src=`+week.mainImage+` alt="" style="width: 100%; height: 100%;">
             					</a>
