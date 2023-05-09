@@ -153,6 +153,19 @@ span[name=cancel-icon] i {
 			        </div>
 			    </div>
 			</li>
+			<li class="nav-item">
+			    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+			        aria-expanded="true" aria-controls="collapseFour">
+			        <i style="margin-left: 3px" class="fas fa-ban"></i>
+			        <span>비속어/금지어 관리</span>
+			    </a>
+			    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+			        <div class="bg-white py-2 collapse-inner rounded">
+			            <a class="collapse-item" href="<%=request.getContextPath()%>/admin/addBadwords">추가</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/deleteBadwords">삭제</a>
+			        </div>
+			    </div>
+			</li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -281,7 +294,6 @@ span[name=cancel-icon] i {
 				  console.log(result);
 				  $("#badwordDiv").empty();
 				  
-				  
 				  for(i=0;i<result.length;i++){
 					  var existWord = false;
 					  $("span[name=selected-text2]").each(function(){
@@ -327,7 +339,12 @@ span[name=cancel-icon] i {
 			  type: "POST", 
 			  data: {words: words},
 			  success:function(result){
-				  alert(result);
+				  if(result=="true"){
+					  alert("적용되었습니다.");
+				  }else{
+					  alert("에러가 발생했습니다. 이미 삭제되었을 수 있습니다.");
+					  
+				  }
 				  location.reload();
 
 				  

@@ -53,9 +53,17 @@ public interface BoardService {
 
 	
 	
-	
+	//조회수 중복 증가 방지
 	public int updateAccessTime(ClientChkVo chk) throws Exception;
 	public int upOrNot(ClientChkVo chk) throws Exception;
+	
+	
+	//비속어 필터 관련
+	public List<String> getAllBadwords() throws Exception;
+	public List<String> badwordSearch(String keyword);
+	public int deleteWords(List<String> badwords);
+	public int addWord(String word);
+	
 
 	
 }

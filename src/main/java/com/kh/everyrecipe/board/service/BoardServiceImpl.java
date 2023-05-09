@@ -127,6 +127,24 @@ public class BoardServiceImpl implements BoardService{
 		return dao.boardManagementList();
 	}
 	
+	//비속어 필터 관련
+	@Override
+	public List<String> getAllBadwords() throws Exception {
+		return dao.getAllBadwords();
+	}
+	@Override
+	public List<String> badwordSearch(String keyword) {
+		return dao.badwordSearch(keyword);
+	}
+	@Override
+	public int deleteWords(List<String> badwords) {
+		return dao.deleteWords(badwords);
+	}
+	@Override
+	public int addWord(String word) {
+		return dao.addWord(word);
+	}
+	
 
 
 

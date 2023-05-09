@@ -142,6 +142,19 @@ span[name=cancel-icon] i {
 			        </div>
 			    </div>
 			</li>
+			<li class="nav-item">
+			    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+			        aria-expanded="true" aria-controls="collapseFour">
+			        <i style="margin-left: 3px" class="fas fa-ban"></i>
+			        <span>비속어/금지어 관리</span>
+			    </a>
+			    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+			        <div class="bg-white py-2 collapse-inner rounded">
+			            <a class="collapse-item" href="<%=request.getContextPath()%>/admin/addBadwords">추가</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/deleteBadwords">삭제</a>
+			        </div>
+			    </div>
+			</li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -193,9 +206,8 @@ span[name=cancel-icon] i {
                 	 
                      <c:forEach items="${badwords }" var="word">
                      	
-                     		<button type="button" name="cancel-btn" class=" pl-1 pr-1 mr-2 mb-1">
+                     		<button type="button" name="cancel-btn" class=" pl-1 pr-1 mr-2 mb-1" disabled>
 			 		 			${word }
-			  					<span name="cancel-icon"><i class="fa fa-times"></i></span>
 							</button>
                      	
                      </c:forEach>
@@ -235,7 +247,7 @@ span[name=cancel-icon] i {
     $("#submit").on("click",function(){
     	var word=$("#word").val().trim();
     	if(word==''){
-    		alert('금지어/비속어를 입력해주세요');
+    		alert('비속어/금지어를 입력해주세요');
     		return;
     	}
     	$.ajax({
@@ -243,7 +255,11 @@ span[name=cancel-icon] i {
 			  type: "POST", 
 			  data: {word: word},
 			  success:function(result){
-				  alert(result);
+				  if(result=="true"){
+					  alert("적용되었습니다.");
+				  }else{
+					  alert("이미 존재하는 비속어/금지어 입니다.");
+				  }
 				  location.reload();
 			  },
 			  error:function(){
