@@ -36,7 +36,7 @@
 		<div class="row post-top-meta">
 			<div class="col">
 				<div class="btn-group" role="group" aria-label="Basic example">
-				  <button type="button" class="btn btn-secondary" onclick="searchKey()">음식이름 검색</button>
+				  <button type="button" class="btn btn-secondary" onclick="clickSearchKey()">음식이름 검색</button>
 				  <button type="button" class="btn btn-secondary" onclick="searchHash()">해시태그 검색</button>
 				  <div class="btn-group" role="group">
 				    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -129,6 +129,41 @@
 <%@ include file="/WEB-INF/views/js_import.jsp" %>
 
 <script>
+	function clickSearchKey() {
+		var keyword = $("#foodSearchKeyword").val();
+		$.ajax({
+			url:'${pageContext.request.contextPath}/keyword/isvisiblekeyword',
+			type:"GET",
+			data:{
+				keyword: keyword
+			},
+			success: function(data) {
+				if(data == 1) { //차단된 여부 확인
+					searchKey();
+				} else if(data == 0) { //차단되었거나 검색어가 없음.
+					searchResultKeywordData(keyword)
+				}
+			}
+		});
+	}
+	
+	function searchResultKeywordData(keyword) {
+		$.ajax({
+			url: '${pageContext.request.contextPath}/keyword/isavailedkeyword',
+			type: "GET",
+			data:{
+				keyword: keyword
+			},
+			success: function(data) {
+				if(data == 1) { // 차단되어 검색어가 검색이 안되었던 상황
+					alert('관리자에 의해 차단되어진 검색어 이거나, 검색이 불간능한 검색어 입니다.다른 키워드로 검색 바랍니다.');
+				} else { //검색어가 아예 없음
+					searchKey();
+				}
+			}
+		});
+	}
+	
 	function searchKey() {
 		  var keyword = $("#foodSearchKeyword").val();
 		  

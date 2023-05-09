@@ -85,10 +85,10 @@
 		select trunc(searchdate) srdate, count(*) as CNT
 		    from searchdb
 		    where
-		        keword='콩나물' and 
-		        searchdate between TO_DATE('2023-05-01','YYYY-MM-DD')
-		            and TO_DATE('2023-05-08','YYYY-MM-DD')+1
-		        and SEARCHOPTION='R'
+		        keword=#{keyword} and 
+		        searchdate between TO_DATE(#{startDate},'YYYY-MM-DD')
+		            and TO_DATE(#{endDate},'YYYY-MM-DD')+1
+		        and SEARCHOPTION=#{option}
 		group by trunc(searchdate)
 		order by srdate asc
 	</select>
