@@ -79,6 +79,12 @@
  	 <div id="naver_id_login" style="text-align:left"><a href="${url}">
 	 <img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
       <hr>
+      <!--TODO
+      🔲 창이 열리고 아이디 찾기|비밀번호 찾기 기능 제공
+       -->
+      <p>
+        암호를 잊으셨나요? <a href="#">비밀번호 찾기</a>
+      </p>
       <p>
         계정이 없으신가요? <a href="#" onclick="toggle()">가입하기</a>
       </p>
