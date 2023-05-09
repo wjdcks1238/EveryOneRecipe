@@ -37,13 +37,12 @@ public class ChatController {
 	
 	//채팅방 목록 조회
 	@GetMapping("/chatroom")
-	public String selectChatRoomList(Model model, HttpServletRequest req) {
-		
+	public String selectChatRoomList(Model model, HttpServletRequest req) {		
 		List<RoomVo> crList = service.selectChatRoomList();		
 		String userId = req.getRemoteUser();
 		
 		model.addAttribute("chatRoomList", crList);
-		model.addAttribute("loginUser", userId);		
+		model.addAttribute("loginUser", userId);
 		
 		return "chat/chatroom";
 	}
@@ -135,7 +134,18 @@ public class ChatController {
 		mv.setViewName("redirect:chatroom");
 		return mv;
 	}
-
+	
+	//websocket연결 끊어질 시 데이터 insert 
+	@GetMapping("/addmsg")
+	public String addmsg(MessageVo cm, int key, String message, String userid) {
+		cm.setKey(key);
+		cm.setMessage(message);
+		cm.setUserId(userid);
+		service.insertMessage(cm);
+		
+		return "chat/addmsg";
+	}
+	
 	
 	
 

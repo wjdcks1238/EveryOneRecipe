@@ -101,6 +101,9 @@ ${ctlist.userId }: ${ctlist.message }
     <div class="input-div">
         <textarea placeholder="Press Enter for send message." id="chatMsg"></textarea>
     </div>
+    <div>
+    	<button class="btn-send">전송</button>
+    </div>
 </div>
 <div class="delete-exit-div" style="display: flex; justify-content: flex-end;">
 	<div class="delete-btn" style="display:inline-block; margin: 15px 30px 0 0;">
@@ -159,6 +162,7 @@ function connect(){
 			key : "${chatRoomNo}"
 		}
 		ws.send(JSON.stringify(msg));
+		console.log(msg);
 	};
 	
 	// 앤터키 누르면 메세지 전송
@@ -184,6 +188,31 @@ function connect(){
 		}
 	})	
 });	
+
+
+$(".btn-send").on("click", sendBtn);
+function sendBtn(){
+	console.log("${chatRoomNo}");
+	console.log($("#chatMsg").val());
+	console.log(userid);
+	 $.ajax({
+		 type : 'GET',
+         url  : '${pageContext.request.contextPath}/chat/addmsg',
+         async : false,
+         data : {
+        	 key: "${chatRoomNo}",
+        	 message: $("#chatMsg").val(),
+        	 userid: "${loginUser }"
+        	 },
+         success : function(result){
+        	 alert('성공');
+	 }
+
+	 })
+}
+
+
+
 	
 $(".exit-room").on("click", exitRoom);
 function exitRoom(){
@@ -194,11 +223,7 @@ $(".delete-room").on("click", deleteRoom);
 function deleteRoom(){
 	alert('채팅방과 대화내역이 삭제됩니다.');	
 }
-	
 
-$(document).ready(function() {
-	history.replaceState({}, null, location.pathname);	    
-});
 
 </script>
 </body>
