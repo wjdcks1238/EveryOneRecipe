@@ -107,15 +107,5 @@ public class MemberServiceImpl implements MemberService{
 		return dao.memberDelete(id);
 	}
 
-	@Override
-	public int encodePassword(MemberVo vo) throws Exception {
-		return dao.encodePassword(vo);
-	}
-
-
-
-
-
-
 	
 }

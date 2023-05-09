@@ -92,8 +92,5 @@ public class MemberDao {
 		return sqlSession.delete("memberMapper.memberDelete",id);
 	}
 	
-	public int encodePassword(MemberVo vo) throws Exception {
-		return sqlSession.update("memberMapper.encodePassword",vo);
-		
-	}
+
 }

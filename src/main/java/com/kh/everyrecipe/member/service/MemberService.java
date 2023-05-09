@@ -47,5 +47,4 @@ public interface MemberService {
 	
 	public int memberDelete(String id ) throws Exception;
 
-	public int encodePassword(MemberVo vo) throws Exception;
 }
