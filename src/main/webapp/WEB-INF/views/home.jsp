@@ -345,11 +345,11 @@ body{
 			<h2><span>WEEK RECIPE</span></h2>
 		</div>
 		<div>
-		<div class="card-columns listrecent">
+		<div class="card-columns listrecent" style="display: flex; flex-flow:row wrap;">
 			<c:forEach items="${weekboard }" var="list">
-			<div class="card">
+			<div class="card" style="width: 354.656px; height:464.156px;">
 				<a href="<%=request.getContextPath() %>/board/list/${list.postId}">
-					<img class="img-fluid" src="${list.mainImage}" alt="" style="width: 100%; height: 100%;">
+					<img class="img-fluid" src="${list.mainImage}" alt="">
 				</a>
 				<div class="card-block">
 					<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${list.postId}" id="chk_data">${list.foodName }</a></h2>
@@ -380,7 +380,7 @@ body{
 			</c:forEach>
 			</div>		
 		</div>
-		<div class="card-columns listrecent week-ISdiv">
+		<div class="card-columns listrecent week-ISdiv" style="display: flex; flex-flow:row wrap;">
 		</div>
 	</section>
 	<!-- End List Posts	================================================== -->
@@ -784,9 +784,9 @@ $(window).scroll(function() {
             			 				weekDate.getMinutes() + ":" + weekDate.getSeconds() + " KST " + weekDate.getFullYear();
             			 				
             			 var a= `
-            				 <div class="card week-hide">
+            				 <div class="card week-hide" style="width: 354.656px;">
             					<a href="<%=request.getContextPath() %>/board/list/`+week.postId+`}">
-            						<img class="img-fluid" src=`+week.mainImage+` alt="" style="width: 100%; height: 100%;">
+            						<img class="img-fluid" src=`+week.mainImage+` alt="">
             					</a>
             					<div class="card-block">
             						<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/`+week.postId+`" id="chk_data">`+week.foodName+`</a></h2>
