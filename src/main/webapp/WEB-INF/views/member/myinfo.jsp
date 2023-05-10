@@ -131,14 +131,9 @@
 						</div> --%>
 				</div>
 			</div>
-
-
-		</div>
-	</div>
-</div>
     <main role="main">
 
-    <div class="container-fluid" style="margin-top: 10%;padding-left:10%">
+    <div style="margin-top: 5%;">
     	
     		<div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
     			<c:forEach items="${postList }" var="list" >
@@ -159,6 +154,11 @@
     </div>
 
     </main>
+
+
+		</div>
+	</div>
+</div>
 	
 
 
