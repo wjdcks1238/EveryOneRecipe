@@ -82,7 +82,8 @@
 	<!-- 좋아요 갯수 -->
 	<select id="getPostLikeCnt" resultType="_int">
 		select count(postid) 
-		from postlike 
+		from postlike
+	 	where isdeleted = 'N'   
 		group by postid
 		order by count(postid) desc
 	</select>	
