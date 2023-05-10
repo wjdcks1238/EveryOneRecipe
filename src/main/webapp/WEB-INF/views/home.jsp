@@ -349,7 +349,7 @@ body{
 			<c:forEach items="${weekboard }" var="list">
 			<div class="card" style="width: 354.656px; height:464.156px;">
 				<a href="<%=request.getContextPath() %>/board/list/${list.postId}">
-					<img class="img-fluid" src="${list.mainImage}" alt="">
+					<img class="img-fluid" src="${list.mainImage}" style="width: 100%; height: 50%;">
 				</a>
 				<div class="card-block">
 					<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/${list.postId}" id="chk_data">${list.foodName }</a></h2>
@@ -784,9 +784,9 @@ $(window).scroll(function() {
             			 				weekDate.getMinutes() + ":" + weekDate.getSeconds() + " KST " + weekDate.getFullYear();
             			 				
             			 var a= `
-            				 <div class="card week-hide" style="width: 354.656px;">
+            				 <div class="card week-hide" style="width: 354.656px; height:464.156px;">
             					<a href="<%=request.getContextPath() %>/board/list/`+week.postId+`}">
-            						<img class="img-fluid" src=`+week.mainImage+` alt="">
+            						<img class="img-fluid" src=`+week.mainImage+` style="width: 100%; height: 50%;">
             					</a>
             					<div class="card-block">
             						<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/`+week.postId+`" id="chk_data">`+week.foodName+`</a></h2>
