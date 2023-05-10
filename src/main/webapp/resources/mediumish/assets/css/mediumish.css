@@ -59,6 +59,7 @@ section {
 }
 .card-columns .card {
 	margin-bottom:20px;
+	width: 545px;
 }
 .listfeaturedtag .wrapthumbnail {
 	height:258px;

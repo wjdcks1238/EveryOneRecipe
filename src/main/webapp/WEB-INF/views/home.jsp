@@ -107,6 +107,7 @@ body{
     border: 1px solid;
     border-radius: 10px;
 }
+
 </style>
 </head>
 <body>
@@ -162,7 +163,7 @@ body{
 		<div class="section-title">
 			<h2><span>FOLLOW RECIPE</span></h2>
 		</div>
-		<div class="card-columns listfeaturedtag">	
+		<div class="card-columns listfeaturedtag" style="display: flex; flex-flow:row wrap;">	
 			<!-- begin post -->
 			<c:forEach var="fw" items="${fwpost }">
 			<div class="card">
@@ -207,7 +208,7 @@ body{
 			</div>
 			</c:forEach>
 		</div>
-		<div class="card-columns listfeaturedtag fw-ISdiv">
+		<div class="card-columns listfeaturedtag fw-ISdiv" style="display: flex; flex-flow:row wrap;">
 		</div>
 	</section>	
 	<%} %>
@@ -219,7 +220,7 @@ body{
 			<span>BEST RECIPE</span>
 			</h2>			
 		</div>
-		<div class="card-columns listfeaturedtag">	
+		<div class="card-columns listfeaturedtag" style="display: flex; flex-flow:row wrap;">	
 			<!-- begin post -->
 			<c:forEach var="lu" items="${lupost }">
 			<div class="card">
@@ -264,7 +265,7 @@ body{
 			</div>
 			</c:forEach>
 		</div>
-		<div class="card-columns listfeaturedtag lookup-ISdiv">
+		<div class="card-columns listfeaturedtag lookup-ISdiv" style="display: flex; flex-flow:row wrap;">
 		</div>	
 	</section>
 	
@@ -276,7 +277,7 @@ body{
 			<span>RECOMMEND RECIPE</span>		
 			</h2>			
 		</div>
-		<div class="card-columns listfeaturedtag">	
+		<div class="card-columns listfeaturedtag" style="display: flex; flex-flow:row wrap;">	
 			<!-- begin post -->
 			<c:forEach var="post" items="${rcpost }">
 			<c:set var="i" value="${i+1}"/>
@@ -327,7 +328,7 @@ body{
 			</div>
 			</c:forEach>
 		</div>
-		<div class="card-columns listfeaturedtag reco-ISdiv">
+		<div class="card-columns listfeaturedtag reco-ISdiv" style="display: flex; flex-flow:row wrap;">
 		</div>	
 	</section>
 
