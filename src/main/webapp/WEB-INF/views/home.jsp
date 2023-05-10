@@ -280,7 +280,6 @@ body{
 		<div class="card-columns listfeaturedtag" style="display: flex; flex-flow:row wrap;">	
 			<!-- begin post -->
 			<c:forEach var="post" items="${rcpost }">
-			<c:set var="i" value="${i+1}"/>
 			<div class="card card-width">
 				<div class="row">
 					<div class="col-md-5 wrapthumbnail">
@@ -318,7 +317,7 @@ body{
 									<div style="width: 15%; display:inline-block;">
 									<span class="material-symbols-outlined" style="color:red;">favorite</span>
 									<span class="post-read" style="display:inline-block">																		
-									${fwcnt[i-1] }</span>									
+									${post.cntlike }</span>									
 									</div>
 								</div>
 							</div>
@@ -671,7 +670,7 @@ $(window).scroll(function() {
 	            									<div style="width: 15%; display:inline-block;">
 	            									<span class="material-symbols-outlined" style="color:red;">favorite</span>
 	            									<span class="post-read" style="display:inline-block">
-	            									${fwcnt[i-1] }
+	            									`+reco.cntlike+`
 	            									</span>
 	            									</div>								
             									</div>

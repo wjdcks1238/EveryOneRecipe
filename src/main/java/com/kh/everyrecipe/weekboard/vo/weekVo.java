@@ -25,6 +25,7 @@ public class weekVo {
 	private String isDeleted;
 	private String mainImage;
 	private String profileUrl;
+	private int cntlike;
 	private String dateWrite;
 	
 	public String getDateWrite() {
@@ -120,6 +121,12 @@ public class weekVo {
 	}
 	public void setProfileUrl(String profileUrl) {
 		this.profileUrl = profileUrl;
+	}
+	public int getCntlike() {
+		return cntlike;
+	}
+	public void setCntlike(int cntlike) {
+		this.cntlike = cntlike;
 	}
 	
 	

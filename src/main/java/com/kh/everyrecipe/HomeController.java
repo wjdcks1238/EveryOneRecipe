@@ -135,11 +135,7 @@ public class HomeController {
 		// 실시간 인기 검색어
 		List<popularVo> pwordlist = service.popularWord();
 		model.addAttribute("pword", pwordlist);	
-	/*--------------------------------------------------------------------*/
-		//좋아요 갯수
-		List<Integer> fwcnt = fService.getPostLikeCnt();
-		model.addAttribute("fwcnt", fwcnt);
-		
+	/*--------------------------------------------------------------------*/		
 		//추천 게시글(좋아요가 많은 순서)피드		
 		Map<String, String> recomap = new HashMap<>();
 		recomap.put("start", "0");
