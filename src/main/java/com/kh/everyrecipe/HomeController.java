@@ -168,7 +168,7 @@ public class HomeController {
 		//주간 게시글(월~일요일) 피드
 		Map<String, String> weekmap = new HashMap<>();
 		weekmap.put("start", "0");
-		weekmap.put("end", "10");
+		weekmap.put("end", "9");
 		List<weekVo> weekpost = service.weeklistPage(weekmap);
 		model.addAttribute("weekboard", weekpost);	
 		

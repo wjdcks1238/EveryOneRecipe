@@ -38,4 +38,6 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeButtons = 'Source,Save,Templates,NewPage,Print,Cut,Copy,Paste,PasteText,PasteFromWord,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,CopyFormatting,RemoveFormat,CreateDiv,Language,BidiRtl,BidiLtr,Anchor,Flash,Smiley,PageBreak,Iframe,SpecialChar,Styles,Format,BGColor,ShowBlocks,Maximize,About';
 	
 	config.extraPlugins = 'image2';
+	
+	config.enterMode = CKEDITOR.ENTER_BR;
 };

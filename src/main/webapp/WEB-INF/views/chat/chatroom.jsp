@@ -80,7 +80,7 @@ td, th{
     </tbody>
 </table>
 <div style="margin-left: 3%;">
- 	 <h5>${loginUser }</h5>님 안녕하세요.
+ 	 <h5 style="display: inline-block;">${loginUser }</h5><div style="display: inline-block;">&nbsp;님 안녕하세요.</div>
 </div>
 
 <!-- 로그인이 되어있는 경우 -->
