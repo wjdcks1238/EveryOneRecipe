@@ -51,6 +51,15 @@
     transform: translateX(-50%) translateY(-50%);
    
 }
+.commentContentDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: min-content;
+}
+.textarea {
+  width: 80%;
+}
 </style>
 </head>
 <body>
@@ -258,9 +267,17 @@
 					<form id="frmReply">
 						<fieldset>
 						<legend>댓글 작성</legend>
-						<div><textarea rows="3"   style="width:80%;" name="commentContent" id="commentContent"></textarea></div>
+						<%-- <div class="commentContentDiv">
+							<textarea rows="3"   style="width:80%;" name="commentContent" id="commentContent"></textarea>
+							<button type="button" data-uname="${uName }" class="btn reply">등록</button>
+						</div>
+						 --%>
+						<div style="display: flex; align-items: center;">
+						    <textarea rows="3" style="width:80%;" name="commentContent" id="commentContent"></textarea>
+						    <button type="button" data-uname="${uName}" class="btn reply" style="margin-left: 10px;">등록</button>
+						</div>
+						
 						<input type="hidden" name="boardNum" value="${post.postId }">
-						<button type="button" data-uname="${uName }" class="btn reply">댓글 작성</button>
 						</fieldset>
 					</form>
 				</c:when>
