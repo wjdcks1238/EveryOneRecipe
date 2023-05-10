@@ -97,15 +97,17 @@
 		<div class="col-md-10 col-md-offset-2 col-xs-12">
 			<div class="row">
 				<div class="col-4">
-						<label>프로필 이미지</label>
+						<!-- <label>프로필 이미지</label> -->
 						<img width="100%" alt="<%=request.getContextPath()%>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
-   	 					<button type="button" class="btn-open-popup btn mt-3">프로필 이미지 변경</button>
-   	 					<button class="btn mt-3" type="button" id="deletePI">삭제</button>
+   	 					<div class="row justify-content-between">
+	   	 					<button type="button" class="btn-open-popup btn mt-3">이미지 변경</button>
+	   	 					<button class="btn mt-3" type="button" id="deletePI">이미지 삭제</button>
+   	 					</div>
 				</div>
 				<div class="col-8">
 					<form id="updateForm">
-						<div>
-							<h3>아이디: ${memberDto.userId }</h3>
+						<div class="userId">
+							<h3>${memberDto.userId }</h3>
 						</div>
 						<label>닉네임</label>
 						<input class="form-control" style="width: 300px" type="text" name="nickName" value="${memberDto.nickName }">

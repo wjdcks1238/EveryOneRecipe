@@ -97,34 +97,38 @@
 			<div class="row">
 				<div class="col-4">
 						<div>
-							<label>프로필 이미지</label> 
+							<!-- <label>프로필 이미지</label> --> 
 							<img  width="100%" alt="<%=request.getContextPath() %>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
 						</div>
 				</div>
 				<div class="col-8">
 						<div>
-							<h3>닉네임: ${memberDto.nickName }</h3>
+							<h3>${memberDto.nickName }(${memberDto.userId })</h3>
 						</div>
 						<div class="row">
 							<div class="col-4">
-							    <a href="<%=request.getContextPath()%>/member/follower/<%=request.getUserPrincipal().getName() %> ">팔로워: ${followerCount }</a>	
+							    <a href="<%=request.getContextPath()%>/member/follower/<%=request.getUserPrincipal().getName() %> ">팔로워 ${followerCount }</a>	
 							</div>
 							<div class="col-4">
-							    <a href="<%=request.getContextPath()%>/member/following/<%=request.getUserPrincipal().getName() %> ">팔로잉: ${followingCount }</a>	
+							    <a href="<%=request.getContextPath()%>/member/following/<%=request.getUserPrincipal().getName() %> ">팔로잉 ${followingCount }</a>	
 							</div>
 						</div>
-						<div>
+						<div class="profile">
+							${memberDto.profile }
+						</div>
+						<!-- 내정보보기이지만 다른 회원의 페이지와 화면이 동일해야 좋을거같아서 일단 주석처리합니다.
+						닉네임(아이디)
+						팔로워 팔로잉
+						프로필설명 -->
+						<%-- <div>
 							아이디: ${memberDto.userId }
-						</div>
-						<div>	
+						</div> --%>
+						<%-- <div>	
 							이메일: ${memberDto.email }
-						</div>
-						<div>
-							프로필 설명: ${memberDto.profile }
-						</div>
-						<div>
+						</div> --%>
+						<%-- <div>
 							가입일: ${memberDto.createAt }
-						</div>
+						</div> --%>
 				</div>
 			</div>
 
