@@ -92,5 +92,10 @@ public class MemberDao {
 		return sqlSession.delete("memberMapper.memberDelete",id);
 	}
 	
+	public String findId(String email ) throws Exception {
+		return sqlSession.selectOne("memberMapper.findId",email);
+	}
+	
+	
 
 }

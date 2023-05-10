@@ -46,5 +46,7 @@ public interface MemberService {
 	public int checkEmail(String email) throws Exception;
 	
 	public int memberDelete(String id ) throws Exception;
+	
+	public String findId(String email) throws Exception;
 
 }

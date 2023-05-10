@@ -14,8 +14,12 @@
 		<s:intercept-url pattern="/member/signup" access="permitAll"/>
 		<s:intercept-url pattern="/member/checkSignup" access="permitAll"/>
 		<s:intercept-url pattern="/member/checkEmail" access="permitAll"/>
+		<s:intercept-url pattern="/member/findid" access="permitAll"/>
+		<s:intercept-url pattern="/member/findidAjax" access="permitAll"/>
 		<s:intercept-url pattern="/member/infoupdateAjax" access="hasAnyRole('MEMBER', 'ADMIN')"/>
 		<s:intercept-url pattern="/member/memberDelete" access="hasAnyRole('MEMBER', 'ADMIN')"/>
+		<s:intercept-url pattern="/member/withdrawal" access="hasAnyRole('MEMBER', 'ADMIN')"/>
+		<s:intercept-url pattern="/member/findpw" access="permitAll"/>
 		<s:intercept-url pattern="/member/login" access="permitAll" />
 		<s:intercept-url pattern="/naverlogin" access="permitAll" />
 		<s:intercept-url pattern="/main/**" access="permitAll" />

@@ -82,9 +82,8 @@
       <!--TODO
       🔲 창이 열리고 아이디 찾기|비밀번호 찾기 기능 제공
        -->
-      <p>
-        암호를 잊으셨나요? <a href="#">비밀번호 찾기</a>
-      </p>
+ 		<button onclick="openPopup(event)"> ID/PW 찾기 </button>
+      
       <p>
         계정이 없으신가요? <a href="#" onclick="toggle()">가입하기</a>
       </p>
@@ -158,6 +157,18 @@ $('#email').focusout(function(){
 	});//ajax	
 })
 //TODO: 로그인시 비밀번호 확인
+	function openPopup(event) {
+		let newPopup;
+		event.preventDefault();
+		let openUrl = "${pageContext.request.contextPath}/member/findid";
+		let popOption = "width=700,height=700";
+		
+		newPopup = window.open(openUrl, "_blank", popOption);
+	}
+	function closePopup(){
+		newPopup.close();
+	}
+
 
 </script>
 </body>

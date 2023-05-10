@@ -242,7 +242,9 @@
 
 					<!--  회원목록 모달창으로 띄우기  -->
 					<button id="open-modal" type="button" class="btn btn-primary"
-						data-toggle="modal" data-target="#memberlist">회원목록</button>
+						data-toggle="modal" data-target="#memberlist">
+						회원목록
+					</button>
 					<div id="memberlist" class="modal">
 						<div class="modal-dialog">
 							<div class="modal-content" style="width: 700px;">

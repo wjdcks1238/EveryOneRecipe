@@ -160,19 +160,29 @@
 										<label>이메일</label>
 									</div>
 									<div class="col-sm-4">
-										<input type="email" name="email" value="${memberDto.email }"
+										<div style="display:inline-block">
+											<input type="email" name="email" value="${memberDto.email }"
 											placeholder="이메일을 입력해주세요." id="emailInput" class="form-control" style="width: 300px">
+											<div align="center">
+											<button type="button" id="checkEmailBtn" class="btn mt-3" onclick="checkEmailBtn" >중복확인</button>
+											</div>
+										</div>
+										
 									</div>
+									
 									<div class="error-message hide error" id="email-error">이메일을 입력해주세요.</div>
 									<div class="error-message hide error" id="regMail-error">올바른 이메일 형식이 아닙니다.</div>
 									<div class="error-message hide error" id="regMail-error2">이메일 주소는 50자 이하여야 합니다.</div>
-									<div class="col-sm-4 text-rigth">
-										<button type="button" id="checkEmailBtn" class="btn mt-3" onclick="checkEmailBtn">중복확인</button>
-									</div>
+									
+									<!-- <div class="col-sm-4 text-rigth" style="display:inline-block">
+										
+									</div> -->
+									
+									
 								</div>
 							</div>
 							<div align="center">
-								<button type="button" onclick="removeMember();" class="btn mt-3" >탈퇴하기</button>
+								<button id="delete" type="button" onclick="removeMember();" class="btn mt-3" >탈퇴하기</button>
 								<button id="modifyBtn" type="submit" class="btn mt-3">회원정보수정</button>
 							</div>
 						</form>
@@ -349,11 +359,20 @@
 		
 	
 	//회원탈퇴
-	function removeMember(){
-		if(window.confirm("정말 탈퇴하시겠습니까?")){
-			location.href="<%=request.getContextPath()%>/login"
-		}
-	}
+	$(document).on("click", "#delete", function(){
+		alert("정말 탈퇴 하시겠습니까?");
+		$.ajax({
+			type:"POST",
+			url:"<%=request.getContextPath()%>/member/memberDelete",
+	
+			success:function(data){
+				console.log(data);
+				
+			}
+		});//ajax	
+	
+	})
+	
 	</script>
 </body>
 </html>

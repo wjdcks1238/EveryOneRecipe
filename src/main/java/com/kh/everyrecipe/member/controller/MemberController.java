@@ -493,10 +493,53 @@ public class MemberController {
 		return str;
 	}
 	//회원탈퇴
-	@GetMapping("/withdrawal")
-	public int memberDelete(@RequestParam("userId") String userId, Principal principal, MemberModifyDto dto) throws Exception {
-		dto.setUserId(principal.getName());
+	//on delete cascade 추가해야함 (제약조건 삭제 후 추가해야함)
+	@PostMapping("/memberDelete")
+	public int memberDelete(Principal principal) throws Exception {
+	
+		String userId = principal.getName();
+		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ 컨트롤러 진"+userId);
+		
 		int result = mService.memberDelete(userId);
+		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@reusult : "+result);
+		
+		return result;
+		
+	}
+	
+	//비밀번호 찾기
+	@GetMapping("/findpw")
+	public int findpw(MemberModifyDto dto) throws Exception {
+		int result = 0;
+		
+		return result;
+		
+	}
+	
+	//아이 찾기
+	@GetMapping("/findid")
+	public ModelAndView findId(ModelAndView mv,String email) throws Exception {
+			
+		String result = mService.findId(email);
+		
+		mv.addObject("email", email);
+		mv.setViewName("member/findid");
+		
+		return mv;
+			
+	}
+	//아이 찾기
+	@PostMapping("/findidAjax")
+	@ResponseBody
+	public String findidAjax(String email, MemberVo vo) throws Exception {
+		String pw = vo.getPassword();
+		
+		
+		String result = mService.findId(email);
+		
+		
 		
 		return result;
 		

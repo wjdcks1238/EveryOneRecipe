@@ -107,5 +107,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.memberDelete(id);
 	}
 
+	@Override
+	public String findId(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.findId(email);
+	}
+
 	
 }
