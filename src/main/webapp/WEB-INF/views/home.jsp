@@ -631,7 +631,7 @@ $(window).scroll(function() {
             			 const format_day = (("00" + recoDate.getDate().toString()).slice(-2));           			 
             			 var recoDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + recoDate.getHours() + ":" + 
             			 				recoDate.getMinutes() + ":" + recoDate.getSeconds() + " KST " + recoDate.getFullYear();
-            			 				
+            			 	
             			 var a= `            
             				<div class="card reco-hide card-width">
             					<div class="row">
@@ -709,7 +709,7 @@ $(window).scroll(function() {
             			 const format_day = (("00" + fwDate.getDate().toString()).slice(-2));           			 
             			 var fwDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + fwDate.getHours() + ":" + 
             			 				fwDate.getMinutes() + ":" + fwDate.getSeconds() + " KST " + fwDate.getFullYear();
-            			 				
+           				
             			 var a= `
             				<div class="card fw-hide card-width">
 	         					<div class="row">
@@ -774,14 +774,15 @@ $(window).scroll(function() {
             	 if(result.length != 0){
             		 for(i=0; i<result.length;i++){
             			 var week = result[i];            			 
-            			 var weekDate = new Date(week.createAt);
+            			 var weekDate = new Date(week.createAt); 
             			 
-            			 const dayOfWeek = week[new Date(weekDate).getDay()];            			
+            			 const week1 = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            			             			 
+            			 const dayOfWeek = week1[new Date(weekDate).getDay()];            			
             			 const dayOfMonth = month[new Date(weekDate).getMonth()];            			 
             			 const format_day = (("00" + weekDate.getDate().toString()).slice(-2));           			 
             			 var weekDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + weekDate.getHours() + ":" + 
             			 				weekDate.getMinutes() + ":" + weekDate.getSeconds() + " KST " + weekDate.getFullYear();
-            			 				
             			 var a= `
             				 <div class="card week-hide" style="width: 354.656px; height:464.156px;">
             					<a href="<%=request.getContextPath() %>/board/list/`+week.postId+`}">
