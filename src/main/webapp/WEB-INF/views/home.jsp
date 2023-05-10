@@ -166,7 +166,7 @@ body{
 		<div class="card-columns listfeaturedtag" style="display: flex; flex-flow:row wrap;">	
 			<!-- begin post -->
 			<c:forEach var="fw" items="${fwpost }">
-			<div class="card">
+			<div class="card card-width">
 				<div class="row">
 					<div class="col-md-5 wrapthumbnail">
 						<a href="<%=request.getContextPath() %>/board/list/${fw.postId}">
@@ -223,7 +223,7 @@ body{
 		<div class="card-columns listfeaturedtag" style="display: flex; flex-flow:row wrap;">	
 			<!-- begin post -->
 			<c:forEach var="lu" items="${lupost }">
-			<div class="card">
+			<div class="card card-width">
 				<div class="row">
 					<div class="col-md-5 wrapthumbnail">
 						<a href="<%=request.getContextPath() %>/board/list/${lu.postId}">
@@ -281,7 +281,7 @@ body{
 			<!-- begin post -->
 			<c:forEach var="post" items="${rcpost }">
 			<c:set var="i" value="${i+1}"/>
-			<div class="card">
+			<div class="card card-width">
 				<div class="row">
 					<div class="col-md-5 wrapthumbnail">
 						<a href="<%=request.getContextPath() %>/board/list/${post.postId}">
@@ -561,7 +561,7 @@ $(window).scroll(function() {
             			 				luDate.getMinutes() + ":" + luDate.getSeconds() + " KST " + luDate.getFullYear();
             			 				
             			 var a= `
-            				<div class="card lookup-hide">
+            				<div class="card lookup-hide card-width">
             					<div class="row">
             						<div class="col-md-5 wrapthumbnail">
             							<a href="<%=request.getContextPath() %>/board/list/`+lookup.postId+`">
@@ -634,7 +634,7 @@ $(window).scroll(function() {
             			 				recoDate.getMinutes() + ":" + recoDate.getSeconds() + " KST " + recoDate.getFullYear();
             			 				
             			 var a= `            
-            				<div class="card reco-hide">
+            				<div class="card reco-hide card-width">
             					<div class="row">
             						<div class="col-md-5 wrapthumbnail">
             							<a href="<%=request.getContextPath() %>/board/list/`+reco.postId+`">
@@ -712,7 +712,7 @@ $(window).scroll(function() {
             			 				fwDate.getMinutes() + ":" + fwDate.getSeconds() + " KST " + fwDate.getFullYear();
             			 				
             			 var a= `
-            				<div class="card fw-hide">
+            				<div class="card fw-hide card-width">
 	         					<div class="row">
 	         						<div class="col-md-5 wrapthumbnail">
 	         							<a href="<%=request.getContextPath() %>/board/list/`+fw.postId+`">

@@ -59,6 +59,9 @@ section {
 }
 .card-columns .card {
 	margin-bottom:20px;
+}
+
+.card-columns .card-width{
 	width: 545px;
 }
 .listfeaturedtag .wrapthumbnail {
