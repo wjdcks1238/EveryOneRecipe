@@ -52,7 +52,7 @@
 			FROM (
 			SELECT ROWNUM AS SEQ, A.*
    				FROM(
-   				 SELECT post.postid, post.userid, post.nickname, content, FOODNAME, post.CREATEAT, LOOKUP, count(post.postid), MAINIMAGE, MEMBERS.profileUrl
+   				 SELECT post.postid, post.userid, post.nickname, content, FOODNAME, post.CREATEAT, LOOKUP, count(post.postid), MAINIMAGE, MEMBERS.profileUrl, count(postlike.postid) cntlike
 				 FROM POST
 				 inner join POSTLIKE
 				 on POST.postid = POSTLIKE.POSTID
@@ -77,16 +77,6 @@
        			ORDER BY lookup DESC) A)
     	WHERE SEQ<![CDATA[>]]> #{start} AND SEQ<![CDATA[<=]]> #{end}
 	</select>
-	
-	
-	<!-- 좋아요 갯수 -->
-	<select id="getPostLikeCnt" resultType="_int">
-		select count(postid) 
-		from postlike
-	 	where isdeleted = 'N'   
-		group by postid
-		order by count(postid) desc
-	</select>	
 	
 	<!-- 게시물 피드(팔로잉 중인 유저의 게시물만) -->
 	<select id="getFollowingPost" resultType="wvo">

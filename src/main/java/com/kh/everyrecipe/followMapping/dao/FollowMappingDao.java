@@ -71,11 +71,6 @@ public class FollowMappingDao {
 		return sqlSession.selectList("followMapper.getBestPost", map);
 	}
 	
-	// 좋아요 갯수
-	public List<Integer> getPostLikeCnt(){
-		return sqlSession.selectList("followMapper.getPostLikeCnt");
-	}
-	
 	//팔로잉 게시물 피드
 	public List<weekVo> getFollowingPost(Map<String, String> fwmap){
 		return sqlSession.selectList("followMapper.getFollowingPost", fwmap);
