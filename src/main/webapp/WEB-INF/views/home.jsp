@@ -512,15 +512,6 @@ function followrc(){
 };
 
 
-
-/* 주간 게시글 데이터가 없을시 페이징 번호 div 숨김 */ 
-$(document).ready(function(){
-	var exist = $("#chk_data").html();	
-	if(exist == null){
-		$(".page_btn").hide();
-	}	
-});
-
 /* 채팅 진입시 로그인 여부 확인 */
 function chk_id(e){
 	var userid = "${userId}";
@@ -750,7 +741,7 @@ $(window).scroll(function() {
 	         										</span>
 	         										<span class="author-meta">
 	         										<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+fw.userId+`">`+fw.nickname+`</a></span><br/>
-	         										<span class="post-date">`+luDate_format+`</span>
+	         										<span class="post-date">`+fwDate_format+`</span>
 	         										<span class="post-read" style="white-space: pre-line;">									
 	         										조회수: `+fw.lookUp+`</span>
 	         										</span>								
@@ -815,7 +806,7 @@ $(window).scroll(function() {
             								</span>
             								<span class="author-meta">
             								<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+week.userId+`">`+week.nickname+`</a></span><br/>
-            								<span class="post-date" style="white-space: pre-line;">`+fwDate_format+`</span><span class="dot"></span><span class="post-read" style="white-space: pre-line;">조회수: `+week.lookUp+`</span>
+            								<span class="post-date" style="white-space: pre-line;">`+weekDate_format+`</span><span class="dot"></span><span class="post-read" style="white-space: pre-line;">조회수: `+week.lookUp+`</span>
             								</span>
             								<span class="post-read-more exp"><a href="<%=request.getContextPath() %>/board/list/`+week.postId+`" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
             							</div>
