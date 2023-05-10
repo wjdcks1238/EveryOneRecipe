@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>게시글 상세</title>
+<title>${post.foodName }</title>
 <%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <link href="${pageContext.request.contextPath}/resources/css/detail.css" rel="stylesheet">
@@ -75,7 +75,7 @@
 						<a href="<%=request.getContextPath()%>/member/info/${post.userId}"><img class="author-thumb" src="${post.profileUrl}" alt="Sal"></a>
 					</div>
 					<div class="col-md-10">
-						<a class="link-dark" href="<%=request.getContextPath()%>/member/info/${post.userId}">작성자 : ${post.nickname } </a>
+						<a class="link-dark" href="<%=request.getContextPath()%>/member/info/${post.userId}">${post.nickname } </a>
 							<c:if test="${loggedIn}">
 								<span class="row ml-1"> 
 									<c:if test="${loggedIn}">

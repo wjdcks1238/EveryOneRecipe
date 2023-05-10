@@ -76,13 +76,13 @@
 					<div class="col-3"></div>
 				
 					<div class="col-2">
-						프로필 이미지
+						<!-- 프로필 이미지 -->
 						<img  width="100%" alt="<%=request.getContextPath() %>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
 				 
 					</div>
 					<div class="col-4">
 						<div class="row ml-0">
-							<h3>닉네임: ${memberDto.nickName }</h3> 
+							<h3>${memberDto.nickName }(${memberDto.userId })</h3> 
 							<c:if test="${loggedIn}">
 								<c:set var="user" value="<%=request.getUserPrincipal().getName() %>"/>
 								<c:if test="${user ne memberDto.userId}">
@@ -100,21 +100,21 @@
 						</div>
 						<div class="row">
 							<div class="col-4">
-							    <a href="<%=request.getContextPath()%>/member/follower/${memberDto.userId } ">팔로워: ${followerCount }</a>	
+							    <a href="<%=request.getContextPath()%>/member/follower/${memberDto.userId } ">팔로워 ${followerCount }</a>	
 							</div>
 							<div class="col-4">
-							    <a href="<%=request.getContextPath()%>/member/following/${memberDto.userId } ">팔로잉: ${followingCount }</a>	
+							    <a href="<%=request.getContextPath()%>/member/following/${memberDto.userId } ">팔로잉 ${followingCount }</a>	
 							</div>
 						</div>
-						<div>
+						<%-- <div>
 							아이디: ${memberDto.userId }
+						</div> --%>
+						<div class="profile">
+							${memberDto.profile }
 						</div>
-						<div>
-							프로필 설명: ${memberDto.profile }
-						</div>
-						<div>
+						<%-- <div>
 							가입일: ${memberDto.createAt }
-						</div>
+						</div> --%>
 						
 					
 						
