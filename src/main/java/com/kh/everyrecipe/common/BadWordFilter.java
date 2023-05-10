@@ -13,30 +13,21 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.kh.everyrecipe.board.service.BoardService;
 
 @Component
 public class BadWordFilter {
 	
-	HttpServletRequest request;
+	@Autowired
+	private BoardService bService;
 	
-	//private List<String> badWords = Arrays.asList("욕설1", "욕설2", "욕설3");
-	InputStream inputStream = getClass().getClassLoader().getResourceAsStream("badwordList.txt");
-	BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-	private Set<String> badwords = new LinkedHashSet<String>();
-	
-	public boolean containsBadWord(String content) {
+	public boolean containsBadWord(String content) throws Exception {
 		
-		try {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				badwords.add(line);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		List<String> badwords= bService.getAllBadwords();
 		
 		for (String word : badwords) {
 			if (content.contains(word)) {
