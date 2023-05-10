@@ -82,7 +82,7 @@ input[type="text"]{
 		<textarea  form="frm" name="editor" id="editor">${post.content }</textarea>
 		
 		<div class="mt-3">
-			<input style="width: 40%" class="form-control" value="${hashtags}" name="hashtag" type="text" placeholder="#해쉬태그 입력">
+			<input id="hashtagInput" style="width: 40%" class="form-control" value="${hashtags}" name="hashtag" type="text" placeholder="#해쉬태그 입력">
 		</div>	
 			
 		<div class="mt-2">
@@ -235,6 +235,16 @@ $("#sb").click(function(){
 
 		
 	}
+	//해쉬태그 입력시 스페이스바 입력되면 #으로 바꿔주기
+	const hashtagInput = document.getElementById('hashtagInput');
+	hashtagInput.addEventListener('keyup', function(event) {
+	    if (event.key === ' ') { // 입력된 키가 공백인 경우
+	      const currentValue = hashtagInput.value.trim();
+	      if (currentValue.length > 0) { // 입력된 값이 공백이 아닌 경우
+	        hashtagInput.value = currentValue + ' #'; // #을 추가하여 값을 입력합니다.
+	      }
+	    }
+	  });
 </script>
 </body>
 
