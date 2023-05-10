@@ -407,7 +407,7 @@ toggleList.forEach(($toggle) => {
       contentType: 'application/json',
       data: JSON.stringify({
         userId: userId,
-        role: checked ? 'ROLE_ADMIN' : 'ROLE_USER'
+        role: checked ? 'ROLE_ADMIN' : 'ROLE_MEMBER'
       }),
       success: function(response) {
         console.log(response);
