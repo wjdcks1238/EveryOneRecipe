@@ -88,7 +88,7 @@ input[type="text"]{
 			<textarea form="frm" name="editor" id="editor">${board.content }</textarea>
 			
 			<div class="mt-3">
-				<input style="width: 40%" class="form-control hashtag" name="hashtag" type="text" placeholder="해쉬태그 입력">
+				<input style="width: 40%" class="form-control hashtag" name="hashtag" type="text" placeholder="#해쉬태그 입력">
 			</div>	
 				
 			<div class="mt-2"> 

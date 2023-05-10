@@ -39,7 +39,8 @@
 			<table class="table"  >
 				<thead>
 					<tr>
-					    <th class="col-md-2 text-right">글 번호</th>
+					<!-- 내가 좋아요,북마크 누른 게시글 목록에 해당 글번호와 작성일, 조회수 필요하지 않아보이는데 이걸 어찌할까요 -->
+					    <!-- <th class="col-md-2 text-right">글 번호</th> -->
 					    <th class="col-md-2 text-right">레시피명</th>
 					    <th class="col-md-3 text-right">닉네임</th>
 					    <th class="col-md-3 text-right">작성일자</th>
@@ -49,7 +50,7 @@
 				<tbody>
 				<c:forEach items="${bList}" var="list">
 				    <tr>
-				        <td class="text-right">${list.postId }</td>
+				       <%--  <td class="text-right">${list.postId }</td> --%>
 				        <td class="text-right"><a href="<%=request.getContextPath() %>/board/list/${list.postId}" class="text-primary">${list.foodName }</a></td>
 				        <td class="text-right">${list.nickname }</td>
 				        <td class="text-right">${list.createDate }</td>

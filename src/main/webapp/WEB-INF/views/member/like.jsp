@@ -40,7 +40,7 @@
 			<table class="table">
 				<thead>
 					<tr>
-					    <th class="col-md-2 text-right">글 번호</th>
+					   <!--  <th class="col-md-2 text-right">글 번호</th> -->
 					    <th class="col-md-2 text-right">레시피명</th>
 					    <th class="col-md-3 text-right">닉네임</th>
 					    <th class="col-md-3 text-right">작성일자</th>
@@ -50,7 +50,7 @@
 				<tbody>
 				<c:forEach items="${bList}" var="list">
 				    <tr>
-				        <td class="text-right">${list.postId }</td>
+				       <%--  <td class="text-right">${list.postId }</td> --%>
 				        <td class="text-right"><a href="<%=request.getContextPath() %>/board/list/${list.postId}" class="text-primary">${list.foodName }</a></td>
 				        <td class="text-right">${list.nickname }</td>
 				        <td class="text-right">${list.createDate }</td>
