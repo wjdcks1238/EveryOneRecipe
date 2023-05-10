@@ -704,7 +704,7 @@ public class BoardController {
 		@ResponseBody
 		public String insertReplyAjax(
 				CommentVo vo
-			  , Principal principal) {
+			  , Principal principal) throws Exception {
 			vo.setUserId(principal.getName());
 			
 			if (badWordFilter.containsBadWord(vo.getContent()) ) {
@@ -720,7 +720,7 @@ public class BoardController {
 		@PostMapping("/updateReplyAjax")
 		@ResponseBody
 		public String updateReplyAjax(
-				CommentVo vo) {
+				CommentVo vo) throws Exception {
 			
 			if (badWordFilter.containsBadWord(vo.getContent()) ) {
 				return "false";
