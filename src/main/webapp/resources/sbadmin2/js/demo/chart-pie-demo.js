@@ -13,7 +13,7 @@ function searchdata() {
 function fn_data1(){
 	cdata=[];
 	clabel=[];
-	var option = $("[name=inlineRadioOptions]").val();
+	var option = document.querySelector('input[name="inlineRadioOptions"]:checked').value;
 	var curr = $("[id=currentdate]").val();
 	
 	console.log(curr);

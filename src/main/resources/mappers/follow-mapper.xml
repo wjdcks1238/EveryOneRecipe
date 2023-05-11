@@ -52,7 +52,7 @@
 			FROM (
 			SELECT ROWNUM AS SEQ, A.*
    				FROM(
-   				 SELECT post.postid, post.userid, post.nickname, content, FOODNAME, post.CREATEAT, LOOKUP, count(post.postid), MAINIMAGE, MEMBERS.profileUrl, count(postlike.postid) cntlike
+   				 SELECT post.postid, post.userid, post.nickname, REGEXP_REPLACE(post.CONTENT, <![CDATA['<img[^>]*>']]>, 'image') AS CONTENT, FOODNAME, post.CREATEAT, LOOKUP, count(post.postid), MAINIMAGE, MEMBERS.profileUrl, count(postlike.postid) cntlike
 				 FROM POST
 				 inner join POSTLIKE
 				 on POST.postid = POSTLIKE.POSTID
@@ -69,7 +69,7 @@
 	select *
 		FROM(SELECT ROWNUM AS SEQ, A.*		
     		FROM (
-    			SELECT P.*, M.PROFILEURL
+    			SELECT P.POSTID, P.USERID, P.NICKNAME, P.FOODNAME, P.CREATEAT, P.UPDATEAT, P.ISDELETED, P.LOOKUP, P.ISBLINDED, P.MAINIMAGE, M.profileUrl, REGEXP_REPLACE(P.CONTENT, <![CDATA['<img[^>]*>']]>, 'image') AS CONTENT
         		FROM POST P
                 inner join MEMBERS M
                 ON P.USERID = M.USERID
@@ -84,7 +84,7 @@
 			FROM(
 			SELECT ROWNUM AS SEQ, A.*
 				FROM(
-					SELECT P.*, M.profileUrl
+					SELECT P.POSTID, P.USERID, P.NICKNAME, P.FOODNAME, P.CREATEAT, P.UPDATEAT, P.ISDELETED, P.LOOKUP, P.ISBLINDED, P.MAINIMAGE, M.profileUrl, REGEXP_REPLACE(P.CONTENT, <![CDATA['<img[^>]*>']]>, 'image') AS CONTENT
 					from POST P
                 	INNER JOIN MEMBERS M
                 	ON P.userid = M.userid

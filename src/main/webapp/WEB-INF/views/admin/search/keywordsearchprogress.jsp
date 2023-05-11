@@ -129,7 +129,6 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchword">검색어 관리</a>
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchrank">검색어 순위</a>
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/keywordsearchprogress">키워드 검색 추이</a>
                         <a class="collapse-item" href="<%=request.getContextPath() %>/admin/search/datasearchprogress">일자별 검색 추이</a>
                         <div class="collapse-divider"></div>
@@ -175,14 +174,16 @@
                    			<tr>
                    				<td>검색유형</td>
                    				<td>
-                   					<div class="form-check form-check-inline">
-								  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="레시피">
-								  <label class="form-check-label" for="inlineRadio1">레시피</label>
-								</div>
-								<div class="form-check form-check-inline">
-								  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="해시태그">
-								  <label class="form-check-label" for="inlineRadio2">해시태그</label>
-								</div>
+                   					<div class="form-check">
+	                   					<div class="form-check form-check-inline">
+										  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="레시피">
+										  <label class="form-check-label" for="inlineRadio1">레시피</label>
+										</div>
+										<div class="form-check form-check-inline">
+										  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="해시태그">
+										  <label class="form-check-label" for="inlineRadio2">해시태그</label>
+										</div>
+                   					</div>
                    				</td>
                    			</tr>
                    			<tr>

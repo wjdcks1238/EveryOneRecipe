@@ -124,7 +124,6 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchword">검색어 관리</a>
-                        <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/searchrank">검색어 순위</a>
                         <a class="collapse-item" href="<%=request.getContextPath()%>/admin/search/keywordsearchprogress">키워드 검색 추이</a>
                         <a class="collapse-item" href="<%=request.getContextPath() %>/admin/search/datasearchprogress">일자별 검색 추이</a>
                         <div class="collapse-divider"></div>
@@ -221,33 +220,44 @@
 <script>
 	$(".btn_swipe_searchOption").click(function() {
 		var keword = $(this).data('keword');
-		
-		$.ajax({
-			url: "<%=request.getContextPath() %>/admin/search/searchword/visibledata",
-			type: "GET",
-			data: {
-				keword: keword
-			},
-			dataType: "json",
-			async: false,
-			success: function(data) {
-				var htmlval = '';
-				for(i=0;i<data.length;i++) {
-					var swdata = data[i];
-					htmlval += '<tr>';
-					htmlval += '<td>' + swdata.rowN + '</td>';
-					htmlval += '<td>' + swdata.keword + '</td>';
-					htmlval += '<td>';
-					htmlval += '<button type="button" data-keword="' + swdata.keword + '" class="btn_swipe_searchOption" style="border-style: none; background: none;">' + swdata.isVisible + '</button>';
-					htmlval += '</td>';
-					htmlval += '<td>' + swdata.times + '</td>';
-					htmlval += '<td>' + swdata.searchDate + '</td>';
-					htmlval += '</tr>';
-				}
-				$("#searchWord").html(htmlval);
-			}
-		})
+		swipeInvisibleKeyword(keword);
 	});
+	
+function swipeInvisibleKeyword(keword){
+	$.ajax({
+		url: "<%=request.getContextPath() %>/admin/search/searchword/visibledata",
+		type: "GET",
+		data: {
+			keword: keword
+		},
+		dataType: "json",
+		async: false,
+		success: function(data) {
+			var htmlval = '';
+			for(i=0;i<data.length;i++) {
+				var swdata = data[i];
+				htmlval += '<tr>';
+				htmlval += '<td>' + swdata.rowN + '</td>';
+				htmlval += '<td>' + swdata.keword + '</td>';
+				htmlval += '<td>';
+				htmlval += '<button type="button" data-keword="' + swdata.keword + '" class="btn_swipe_searchOption" style="border-style: none; background: none;">' + swdata.isVisible + '</button>';
+				htmlval += '</td>';
+				htmlval += '<td>' + swdata.times + '</td>';
+				htmlval += '<td>' + swdata.searchDate + '</td>';
+				htmlval += '</tr>';
+			}
+			$("#searchWord").html(htmlval);
+			visibleKeywordClick();
+		}
+	});
+	
+	function visibleKeywordClick() {
+		$(".btn_swipe_searchOption").click(function() {
+			var keword = $(this).data('keword');
+			swipeInvisibleKeyword(keword);
+		});
+	}
+}
 </script>
 </body>
 </html>

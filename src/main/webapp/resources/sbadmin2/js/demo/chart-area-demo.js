@@ -41,7 +41,7 @@ function ct_data(){
 	chartData=[];
 	chartLabel=[];
 	var keyword = $("[id=keyword]").val();
-	var option = $("[name=inlineRadioOptions]").val();
+	var option = document.querySelector('input[name="inlineRadioOptions"]:checked').value;
 	var start = $("[id=startdate]").val();
 	var end = $("[id=enddate]").val();
 	

@@ -182,7 +182,7 @@
 		    		alert("알 수 없는 오류가 발생되었습니다.");
 		    	}
 		    	
-		    	display(data);
+		    	displayList(data);
 		    }
 		  });
 		}
@@ -206,7 +206,7 @@
 		    		alert("알 수 없는 오류가 발생되었습니다.");
 		    	}
 		    	
-		    	display(data);
+		    	displayList(data);
 		    }
 		  });
 		}
@@ -283,7 +283,7 @@
 		});
 	}
 	
-	function display(data) {
+	function displayList(data) {
 		console.log(data);
 		var htmlval = "";
 		var a;
@@ -377,14 +377,13 @@
 	
 	function refreshRecommendData(data) {
 		console.log(data);
-		var htmlval = "";
-		htmlval += '<legend>추천 검색어</legend>';
+		var htmlval = '<legend>추천 검색어</legend>';
 		for(i=0;i<data.length;i++) {
 			keydata = data[i];
 			htmlval += '<button type="button" data-keyword="' + keydata.keword + '" class="btn_redirectSearch" style="border-style: dotted; border-radius: 10px; border-width: 3px; background: none;">' + keydata.keword + '</button>';
 		}
 		$("#recommendList").html(htmlval);
-		
+		redirect();
 	}
 	
 	$(".btn_redirectSearch").click(function() {
@@ -392,6 +391,14 @@
 		
 		location.href="<%=request.getContextPath() %>/board/search?keyword="+keyword;
 	});
+	
+	function redirect() {
+		$(".btn_redirectSearch").click(function() {
+			var keyword = $(this).data('keyword');
+			
+			location.href="<%=request.getContextPath() %>/board/search?keyword="+keyword;
+		});
+	}
 
 </script>
 </body>

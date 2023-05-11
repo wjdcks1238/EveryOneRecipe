@@ -52,12 +52,13 @@
 	
 	<!-- dashboard용 신고개수 반환 -->
 	<select id="getPostReportCount" resultType="_int">
-		select count(*)from
+		select count(*) from
 		(SELECT p.postid, p.foodname, p.userid,p.nickname, COUNT(*) as reportCnt , p.ISBLINDED as status
 				FROM post p
 				LEFT JOIN report r ON p.postid = r.postid
 				WHERE r.postid IS NOT NULL
 				GROUP BY p.postid, p.foodname, p.nickname,p.ISBLINDED, p.userid)
+		where status='N'
 	</select>
 	<select id="getCommentReportCount" resultType="_int">
 		select count(*) from  
@@ -67,6 +68,7 @@
 		     LEFT JOIN members m ON r.userid = m.userid
 			     WHERE r.userid IS NOT NULL
 				 GROUP BY c.postid, c.cmtid, m.nickname, c.ISBLINDED, r.userid)
+		where status='N'
 	</select>
 	
 	<select id="getReportedComments" resultType="com.kh.everyrecipe.report.vo.ReportedCommentVo">
