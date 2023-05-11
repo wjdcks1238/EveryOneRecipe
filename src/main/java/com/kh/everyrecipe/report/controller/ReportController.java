@@ -114,7 +114,7 @@ public class ReportController {
 		vo.setCmtId(cmtId);
 		
 		if(otherReportContext != "") {
-			reportContent = selectedRadio + " | " + otherReportContext;
+			reportContent = otherReportContext;
 		} else {
 			reportContent = selectedRadio;
 		}

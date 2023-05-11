@@ -253,7 +253,7 @@
 						<tr class="editbox ${cvo.cmtId }">
 							<td colspan="2"><textarea rows="3" cols="61" name="updateBox">${cvo.content }</textarea>
 								<br>
-								<button type="button" data-cmtid="${cvo.cmtId}" onclick="clickUpdateComment()">수정</button>
+								<button type="button" data-cmtid="${cvo.cmtId}" onclick="clickUpdateComment(this)">수정</button>
 								<button type="button" onclick="closeEdit(${cvo.cmtId})">취소</button>
 							</td>
 						</tr>
@@ -314,8 +314,8 @@ function closeEdit(num) {
 	$(".editbox."+num).hide();
 }
 
-function clickUpdateComment() {
-	var cid = $(this).data('cmtid');
+function clickUpdateComment(thisele) {
+	var cid = $(thisele).data('cmtid');
 	
 	$.ajax({
 		url: "${pageContext.request.contextPath}/member/checkuserblocked",
@@ -474,7 +474,6 @@ function displayReply(result) {
 		var aaa = ${loggedIn};
 		var userName = "${uName}";
 		if(aaa) {
-			htmlval += '<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openInsert('+reply.cmtId+')">답글 쓰기</button>';
 			if(userName === reply.userId) {
 				htmlval += '<button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="openEdit('+reply.cmtId+')">댓글 수정</button> <button type="button" style="border-style: none; background-color: white; font-size: xx-small;" onclick="deleteCmt('+reply.cmtId+', '+reply.postId+')">댓글 삭제</button>';
 			}
