@@ -6,9 +6,15 @@
 <html lang="ko">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>로그인 페이지</title>
+	<title>회원가입|로그인</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css ">
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-5D3s7oBzI+us+OydsNusK8dJMSDxgdKJdsgSiLAgT+2P65oKUfOq9wuE+GlvGcl2" crossorigin="anonymous">
+
+<!-- Bootstrap Icons CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+	
 
 </head>
 <body>
@@ -17,7 +23,9 @@
   <div class="left">
     <img src="//unsplash.it/700" alt="" />
     <div class="sign-up">
-      <h1>회원가입</h1>
+      <h1>회원가입
+     	 <i id="resetBtn" class="bi bi-arrow-clockwise reset-btn" style="display: none"></i>
+      </h1>
       <c:url value="/member/signup" var="signupUrl" />
       <form:form name="signup" action="${signupUrl} " method="POST">
         <input type="text" id="userid" name="userId" placeholder="아이디" required/>
@@ -40,13 +48,8 @@
         	<div class="error-message hide error" id="regMail-error">올바른 이메일 형식이 아닙니다.</div>
         	<div class="error-message hide error" id="regMail-error2">이메일 주소는 50자 이하여야 합니다.</div>
 
-       <!--  <p>
-       <span>개인정보 수집 및 이용에 동의하십니까?</span>
-       <input type="checkbox">
-       <label>동의함</label>
-        </p> -->
-        <!-- <input type="submit" value="가입하기" id="submitBtn" disabled/> -->
         <button type="submit" value="가입하기" id="submitBtn">가입하기</button>
+
       </form:form>
       <p>
         이미 계정이 있으신가요?
@@ -57,10 +60,10 @@
   <!-- 로그인 -->
   <!--
   	✔회원가입시 닉네임 입력 받기 -> mapper 추가, 회원가입 성공
-  	🔲회원가입 완료되면 성공 alert 띄우기
+  	✔회원가입 완료되면 성공 alert 띄우기
   	🔲로그인실패시 실패 alert 띄우기
-  	🔲아무것도 입력하지 않고 회원가입 버튼 누르면 500에러 발생 조치할 것
-  	🔲회원가입시 이메일 중복 체크 추가하기 
+  	✔아무것도 입력하지 않고 회원가입 버튼 누르면 500에러 발생 조치할 것 ->required
+  	✔회원가입시 이메일 중복 체크 추가하기 
   	✔회원가입시 유효성 통과 못하면 가입하기 버튼 비활성화 -> 항목마다 submitBtn.disabled = true; 걸어주었다.
     -->
   <div class="right">
@@ -98,18 +101,10 @@
 </section>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/login.js"></script>
 <script>
-
-/* var msg = "<c:out value='${msg}'/>";
-var url = "<c:out value='${url}'/>";
-alert(msg);
-location.href=url; */
-
 //아이디 중복체크
 let isIdChecked = "0";
 
 $('#userid').blur(function(){
-	console.log("userid blur~");
-	console.log("id : "+$('#userid').val());
 	$.ajax({
 		type:"POST",
 		url:"<%=request.getContextPath()%>/member/checkSignup",
@@ -127,10 +122,6 @@ $('#userid').blur(function(){
 					isIdChecked = "n";
 					$("#idcheck-error").html("중복된 아이디입니다.");
 					$("#idcheck-error").removeClass("hide");
-					/* setTimeout(function(){
-						$("#idcheck-error").addClass("hide");
-					}, 3000); */
-					/* $('#userid').val(''); */
 					$('#userid').focus();
 				}
 			}
@@ -141,13 +132,10 @@ $('#userid').blur(function(){
 let isEmailChecked = 0;
 
 $('#email').focusout(function(){
-	console.log("(☞ﾟヮﾟ)☞  이메일  blur");
-	console.log("email : "+$('#email').val());
 	$.ajax({
 		type:"POST",
 		url:'${pageContext.request.contextPath}/member/checkEmail',
 		data:{
-//			email: email
 			email: $('#email').val()
 		},
 		success:function(data){
@@ -161,7 +149,6 @@ $('#email').focusout(function(){
 				if($('#email').val()!=''){
 					isEmailChecked = "n";
 					alert("중복된 이메일입니다.");
-					/* $('#email').focus(); */
 				}
 			}
 		}
@@ -179,10 +166,6 @@ $('#email').focusout(function(){
 	function closePopup(){
 		newPopup.close();
 	}
-	
-	//회원가입 성공 시 alert창
-	
-
 
 </script>
 </body>

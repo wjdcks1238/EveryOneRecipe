@@ -4,6 +4,34 @@ function toggle() {
   section = document.querySelector("section");
   section.classList.toggle("active");
 }
+//리셋버튼
+const resetBtn = document.querySelector(".reset-btn");
+const inputs = document.querySelectorAll("input");
+
+$(function() {
+    // Reset button click event
+    $('.reset-btn').click(function() {
+      $('input').val('');
+    });
+  });	
+function resetValidation() {
+	  inputs.forEach((input) => {
+	    input.classList.remove("is-invalid");
+	    input.nextElementSibling.textContent = "";
+	    let errorId = input.getAttribute("data-error");
+	    let errorElement = document.getElementById(errorId);
+	    if (errorElement) {
+	      errorElement.classList.add("hide");
+	    }
+	  });
+	}
+
+	resetBtn.addEventListener("click", () => {
+	  inputs.forEach((input) => (input.value = ""));
+	  resetValidation();
+	});
+
+
 //유효성 검사
 //아이디 입력창 값 가져오기
 let inputUserId = document.getElementById("userid");
@@ -41,15 +69,19 @@ inputUserId.onkeyup = function(){
 	if (inputUserId.value === "") {
 		useridError.classList.remove('hide');
 		useridRegIdError.classList.add('hide');
+		resetBtn.style.display = "inline-block";
 		submitBtn.disabled = true;
 	} else {
 		useridError.classList.add('hide');
+		resetBtn.style.display = "none";
 		// 정규식 검사
 		if (!regId.test(inputUserId.value)) {
 			useridRegIdError.classList.remove('hide');
+			resetBtn.style.display = "inline-block";
 			submitBtn.disabled = true;
 		} else {
 			useridRegIdError.classList.add('hide');
+			resetBtn.style.display = "none";
 		}
 	}
 }
@@ -58,14 +90,17 @@ inputPassword.onkeyup = function(){
 	if(inputPassword.value === ""){
 		regPasswordError.classList.remove('hide');
 		passwordCheckError.classList.add('hide');
+		resetBtn.style.display = "inline-block";
 		submitBtn.disabled = true;
 	} else {
 		regPasswordError.classList.add('hide');
 		if(!regPass.test(inputPassword.value)){
 			regPasswordError.classList.remove('hide');
+			resetBtn.style.display = "inline-block";
 			submitBtn.disabled = true;
 		} else {
 				passwordCheckError.classList.remove('hide');
+				resetBtn.style.display = "none";
 		}
 	}
 }
@@ -73,9 +108,11 @@ inputPassword.onkeyup = function(){
 checkpw.onkeyup = function(){
 	if(inputPassword.value !== checkpw.value ){
 		passwordCheckError.classList.remove('hide');
+		resetBtn.style.display = "inline-block";
 		submitBtn.disabled = true;
 	} else {
 		passwordCheckError.classList.add('hide');
+		resetBtn.style.display = "inline-block";
 		submitBtn.disabled = true;
 	}
 }
@@ -85,15 +122,18 @@ inputNickName.onkeyup = function(){
 	if (inputNickName.value === "") {
 		nickError.classList.remove('hide');
 		nickError.classList.add('hide');
+		resetBtn.style.display = "inline-block";
 		submitBtn.disabled = true;
 	} else {
 		regNickError.classList.add('hide');
 		// 정규식 검사
 		if (!regNickname.test(inputNickName.value)) {
 			regNickError.classList.remove('hide');
+			resetBtn.style.display = "inline-block";
 			submitBtn.disabled = true;
 		} else {
 			regNickError.classList.add('hide');
+			resetBtn.style.display = "none";
 		}
 	}
 }
@@ -102,23 +142,29 @@ inputEmail.onkeyup = function(){
 	if(inputEmail.value === ""){
 		emailError.classList.remove('hide');
 		emailError.classList.add('hide');
+		resetBtn.style.display = "inline-block";
 		submitBtn.disabled = true;
 	}else{
 		if(!regMail.test(inputEmail.value)){
 			regEmailError.classList.remove('hide');
+			resetBtn.style.display = "inline-block";
 			submitBtn.disabled = true;
 		}else{
 			if(inputEmail.value.length > 50){ // 수정: 이메일 길이가 50 초과인 경우 처리
 				regEmailError2.classList.remove('hide');
+				resetBtn.style.display = "inline-block";
 				submitBtn.disabled = true;
 			}else{
 				regEmailError2.classList.add('hide');
+				resetBtn.style.display = "inline-block";
 				submitBtn.disabled = true;
 			}
 			regEmailError.classList.add('hide');
 			submitBtn.disabled = false;
+			resetBtn.style.display = "none";
 		}
 	}
 }
+
 
 

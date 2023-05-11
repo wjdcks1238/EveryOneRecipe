@@ -530,7 +530,7 @@ public class MemberController {
 		
 	}
 	
-	//아이 찾기
+	//아이디 찾기
 	@GetMapping("/findid")
 	public ModelAndView findId(ModelAndView mv,String email) throws Exception {
 			
@@ -542,7 +542,6 @@ public class MemberController {
 		return mv;
 			
 	}
-	//아이 찾기
 	@PostMapping("/findidAjax")
 	@ResponseBody
 	public String findidAjax(String email, MemberVo vo) throws Exception {
