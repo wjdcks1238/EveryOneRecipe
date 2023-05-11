@@ -317,7 +317,9 @@
 	        $.ajax({
 	            url: '${pageContext.request.contextPath}/member/modifyUser',
 	            type: 'POST',
-	            data: {password: prePassword, email: email, newpassword : newpassword},
+	            data: {prePassword: prePassword  // prePassword
+	            		, email: email, password : newpassword  //VO
+	            		},
 	            success: function(result){
 	            	console.log("썩세스 펑션 리절트 결과 0이면 실패 1이면 성공 이상한건 -1!!  (☞ﾟヮﾟ)☞ "+result);
 	            	

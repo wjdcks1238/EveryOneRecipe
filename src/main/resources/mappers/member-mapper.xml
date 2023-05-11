@@ -78,10 +78,10 @@
 	<update id="modify" >
 	  UPDATE members
 	  <set>
-	    <if test="newpassword != null and newpassword != '' ">password = #{newpassword},</if>
+	    <if test="password != null and password != '' ">password = #{password},</if>
 	    <if test="email != null">email = #{email},</if>
 	  </set>
-	  WHERE userid = #{userId} and password = #{password}
+	  WHERE userid = #{userId}
 	</update>
 
 	<!-- 이메일 중복확인 -->
