@@ -168,7 +168,7 @@
 		select count(*) from search where KEWORD=#{keyword}
 	</select>
 	<select id="searchRecommendKeyword" resultType="svo">
-		select ROW_NUMBER() OVER (ORDER BY times DESC) as rown, s.* from search s <![CDATA[where rownum <= 5]]>
+		select ROW_NUMBER() OVER (ORDER BY times DESC) as rown, s.* from search s <![CDATA[where rownum <= 5]]> and s.ISVISIBLE='Y'
 	</select>
 	<select id="searchUserId" parameterType="map" resultType="mvo">
 		select USERID, NICKNAME, PROFILE, PROFILEURL from members where USERID LIKE '%'||#{keyword}||'%'
