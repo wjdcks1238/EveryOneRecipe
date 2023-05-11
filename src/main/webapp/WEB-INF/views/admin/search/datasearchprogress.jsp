@@ -167,14 +167,16 @@
                    			<tr>
                    				<td>검색유형</td>
                    				<td>
-                   					<div class="form-check form-check-inline">
-								  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="레시피">
-								  <label class="form-check-label" for="inlineRadio1">레시피</label>
-								</div>
-								<div class="form-check form-check-inline">
-								  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="해시태그">
-								  <label class="form-check-label" for="inlineRadio2">해시태그</label>
-								</div>
+                   					<div class="form-check">
+	                   					<div class="form-check form-check-inline">
+										  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="레시피">
+										  <label class="form-check-label" for="inlineRadio1">레시피</label>
+										</div>
+										<div class="form-check form-check-inline">
+										  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="해시태그">
+										  <label class="form-check-label" for="inlineRadio2">해시태그</label>
+										</div>
+                   					</div>
                    				</td>
                    			</tr>
                    			<tr>
