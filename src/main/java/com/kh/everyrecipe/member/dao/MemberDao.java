@@ -71,8 +71,8 @@ public class MemberDao {
 		
 		return sqlSession.selectOne("memberMapper.loginForMyInfo",map);
 	}
-	public int modify(MemberModifyDto mvo) throws Exception {
-		return sqlSession.update("memberMapper.modify",mvo);
+	public int modify(MemberVo vo) throws Exception {
+		return sqlSession.update("memberMapper.modify",vo);
 		
 	}
 

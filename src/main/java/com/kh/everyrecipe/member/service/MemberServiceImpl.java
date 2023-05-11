@@ -78,11 +78,6 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public int modify(MemberModifyDto mvo) throws Exception {
-		return dao.modify(mvo);
-	}
-
-	@Override
 	public int loginForMyInfo(Map<String, String> map) throws Exception {
 		return dao.loginForMyInfo(map);
 	}
@@ -109,8 +104,12 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public String findId(String email) throws Exception {
-		// TODO Auto-generated method stub
 		return dao.findId(email);
+	}
+
+	@Override
+	public int modify(MemberVo vo) throws Exception {
+		return dao.modify(vo);
 	}
 
 	

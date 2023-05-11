@@ -15,8 +15,6 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"
 	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
 	crossorigin="anonymous"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/js/modify.js"></script>
 <style>
 .modal {
 	position: absolute;
@@ -305,7 +303,7 @@
 	    var newpassword = $.trim($("input[name=password]").eq(1).val());
 	    var email = $.trim($("input[name=email]").val());
 
-	    console.log("~~~~~~~~~~~~~~입력된 암호  (☞ ﾟヮﾟ)☞ : " + prePassword);
+	    console.log("~~~~~~~~~~~~~~입력된 기존 암호 prePassword (☞ ﾟヮﾟ)☞ : " + prePassword);
 	    //✔이메일만 변경하고 싶으면 현재 비밀번호 입력 후 회원정보수정 성공해야함 --> newpassword eq(2)->(1)로 수정함, ajax data/prePassword : prePassword -> password : prepassword로 수정함
 	    //✔입력되어 있는 이메일을 지운 뒤 회원정보수정 누르면 비밀번호 틀렸다는 alert 띄워짐
 	    //✔이메일중복체크 하지 않아도 회원정보수정 버튼 진행됨; -> 이메일 정규식에 정보수청버튼 비활성화 추가함
@@ -313,18 +311,18 @@
 	    //✔비밀번호 입력 없이 회원정보수정 누르면 비밀번호를 입력해주세요 alert 띄우기 --> else if(prePassword.length == 0) 추가함
 	    //✔아무것도 변경없이 회원정보수정 눌러도 변경이 완료되었다는 alert 띄우기
 	    if (prePassword.length != 0) {
-	    	console.log(prePassword);
-	    	console.log(newpassword);
+	    	console.log("입력된 기존암호는 이거얌 : "+prePassword);
+	    	console.log("변경할 새로운 암호는 이거얌 : "+newpassword);
 	    	
 	        $.ajax({
-	            url: '${pageContext.request.contextPath}/member/modify',
+	            url: '${pageContext.request.contextPath}/member/modifyUser',
 	            type: 'POST',
 	            data: {password: prePassword, email: email, newpassword : newpassword},
 	            success: function(result){
-	            	console.log("아니이게뭐야 (☞ﾟヮﾟ)☞"+result);
+	            	console.log("썩세스 펑션 리절트 결과 0이면 실패 1이면 성공 이상한건 -1!!  (☞ﾟヮﾟ)☞ "+result);
 	            	
 	                if (result == 1) {
-	                    console.log("어어 됐다??"+ prePassword);
+	                    console.log("리절트가 1이면 성공인데  : "+ newpassword);
 	                    alert("개인 정보 수정이 완료되었습니다.");
 	                    location.href="${pageContext.request.contextPath}/member/infoupdate";
 	                    
@@ -334,7 +332,7 @@
 						
 					} else {//result : -1
 						alert("정보 수정에 실패했습니다.");
-						location.href="${pageContext.request.contextPath}/";
+						location.href="${pageContext.request.contextPath}/member/modify";
 					}
 				},  // success
 				error : function() {

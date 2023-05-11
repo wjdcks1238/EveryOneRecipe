@@ -408,7 +408,7 @@ public class MemberController {
 	public String infoupdateAjax(String password, Principal principal, HttpServletRequest request) throws Exception {
 	    String str = "";
 	    String id = principal.getName();
-	    // 현재 로그인한 유저의 id로 member의 모든 정보 조
+	    // 현재 로그인한 유저의 id로 member의 모든 정보 조회
 	    MemberVo m = mService.selectOne(id);
 	    
 	    //password는 사용자가 입력한 암호화 되기 전 비밀번호, m에 담긴 비밀번호는 암호화된 비밀번호 PasswordEncoder.matches 메소드는 
@@ -430,20 +430,43 @@ public class MemberController {
 		String id = principal.getName();
 		if(id != null) {
 			mv.addObject("memberDto", mService.selectOne(id));
+			
 		}
 		mv.setViewName("member/modify");
 		return mv;
 	}
 	//개인정보수정
-	@PostMapping("/modify")
+	@PostMapping("/modifyUser")
 	@ResponseBody
-	public int modifyUser(String password, MemberModifyDto vo, Principal principal) 
+	public int modifyUser(String password, MemberVo vo, Principal principal) 
 	{
 		int result = -1;
 	    try {
-	    	vo.setUserId(principal.getName());
-	        result = mService.modify(vo);
+	    	//로그인한 사용자의 id로 정보를 가져온다.
+	    	String id = principal.getName();
+	    	MemberVo mvo = mService.selectOne(id);
+	    	System.out.println("모디파이 프린시펄겟네임 : "+mvo);
+	    	
+			//password는 사용자가 입력한 암호화 되기 전 비밀번호, m에 담긴 비밀번호는 암호화된 비밀번호 PasswordEncoder.matches 메소드는 
+		    // 꼭!! 암호화 되기 전 비밀번호와 암호화 된 비밀번호를 파라미터로 넣어줘야 에러가 나지 않는다.
+		    boolean isPasswordMatch = passwordEncoder.matches(password, mvo.getPassword());
+		    System.out.println("모디파이 이즈패스워드매치 : "+passwordEncoder.matches(password, mvo.getPassword()));
+		    System.out.println("브이오에 담긴 패스워드  ~~~~~ : "+mvo.getPassword());
+		    System.out.println("ㅅㅏ용자가 입력한 패스워드 ~~~~~ : "+password);
+	        
+		    if (isPasswordMatch) {
+		    	// 새로운 비밀번호를 암호화하여 DB에 저장
+		        String encodedPassword = passwordEncoder.encode(vo.getPassword());
+		        mvo.setPassword(encodedPassword);
+		        mService.modify(mvo);
+		        result = 1;
+		    } else {
+		    	result = 0;
+		    }
+		    
+		    return result;
 	    } catch (Exception e) {
+	    	System.out.println("모디파이 캐치 :~~~~~~ ");
 	    }
 	    return result;// ajax success결과 페이지로 이동
 	}

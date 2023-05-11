@@ -37,7 +37,7 @@ public interface MemberService {
 
 	public int loginForMyInfo(Map<String, String> map) throws Exception;
 	
-	public int modify(MemberModifyDto mvo) throws Exception;
+	public int modify(MemberVo vo) throws Exception;
 
 	public String getBlockData(String name) throws Exception;
 
