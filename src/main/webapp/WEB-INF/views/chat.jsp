@@ -27,15 +27,23 @@
 .chat_wrap .chat{
 	height:450px;
 } 
-.chat_wrap .input-div{
+.chat_wrap .input-div1{
 	bottom: 0;
 	width: 100%;
 	background-color: #FFF;
 	text-align: center;
 	border-top: 1px solid #F18C7E;
+}
+
+.chat_wrap .input-div2{
+	bottom: 0;
+	width: 100%;
+	background-color: #FFF;
+	text-align: center;
 	border-bottom:1px solid #F18C7E;
 }
-.chat_wrap .input-div > textarea{
+.chat_wrap .input-div1 > textarea
+, .chat_wrap .input-div2 > textarea{
 	width: 100%;
 	height: 80px;
 	border: none;
@@ -99,17 +107,16 @@ ${ctlist.userId }: ${ctlist.message }
 ―――――――――――――여기까지 읽음――――――――――――――     
 			</textarea>
     </div>
-    <div class="input-div">
+    <div class="input-div1">
         <textarea placeholder="Press Enter for send message." id="chatMsg"></textarea>
-    </div>    
+    </div>
+    <div class="input-div2">
+        <textarea placeholder="Press Enter for send message." id="chatMsg-close"></textarea>
+    </div>
+        
 </div>
-<div class="row">
-	<div class="col-md-6" style="display:inline-block;">
-		<div style="margin: 15px 0 0 20px;">
-    		<button class="btn-send btn text-white" style="background-color: #F18C7E;">전송</button>
-    	</div>
-	</div>
-	<div class="col-md-6 delete-exit-div" style="display: flex; justify-content: flex-end;">
+<div>	
+	<div class="delete-exit-div" style="display: flex; justify-content: flex-end;">
 		<div class="delete-btn" style="display:inline-block; margin: 15px 15px 0 0;">
 			<button class="btn btn-danger delete-room" id="deleteRoom"
 			onclick="location.href='<%=request.getContextPath()%>/chat/delete?chatRoomNo=${chatRoomNo}'">
@@ -135,7 +142,8 @@ function connect(){
 	
 	ws.onopen = function(){
 		register();
-		$(".btn-send").hide();
+		$("#chatMsg-close").hide();
+		$("#chatMsg").show();
 	};
 	ws.onmessage = function(e){
 		var data = e.data;
@@ -143,31 +151,42 @@ function connect(){
 	};
 
 	ws.onclose = function(){
+		// 상대방 접속 종료시 새로운 메세지 입력창 show. 기존 입력창 hide
 		alert('상대방이 채팅을 종료한 상태입니다. 전송버튼을 통해 메세지를 보낼 수 있습니다.')
-		$(".btn-send").show();
-		$(".btn-send").on("click", sendBtn);
-		function sendBtn(){
+		$("#chatMsg").hide();
+		$("#chatMsg-close").show();
+				
+		$("#chatMsg-close").on('keydown', keycode);
+		function keycode(e){
+			if(e.keyCode == 13 && !e.shiftKey) {
+	        e.preventDefault();
+	        
 		 $.ajax({
 			 type : 'GET',
 	         url  : '${pageContext.request.contextPath}/chat/addmsg',
 	         async : false,
 	         data : {
 	        	 key: "${chatRoomNo}",
-	        	 message: $("#chatMsg").val(),
+	        	 message: $("#chatMsg-close").val(),
 	        	 userid: "${loginUser }"
 	        	 },
 	         success : function(result){
 	        	 var chat = $("#msgArea").val();
-	        	 chat = chat + "\n" + userid +" :" + $("#chatMsg").val() + "\n";
+	        	 if($("#chatMsg-close").val() == ""){
+						alert("메세지를 입력하시오.")
+						return false;
+					} else{
+	        	 chat = chat + "\n" + userid +" :" + $("#chatMsg-close").val() + "\n";
 	        	 $("#msgArea").val(chat);
-	        	 $("#chatMsg").val("");
-	        	 
+	        	 $("#chatMsg-close").val("");
+				}	        	 
 	        	 var autoscroll = $("#msgArea").prop('scrollHeight');
 				 $("#msgArea").scrollTop(autoscroll);
 			 }
 		 })
 		}
 	}	
+}
 };
 	function addMsg(msg){
 		var chat = $("#msgArea").val();
@@ -199,25 +218,29 @@ function connect(){
 	// 앤터키 누르면 메세지 전송
 	$(function(){
 		connect();
-		$(document).on('keydown', function(e){
+		$("#chatMsg").on('keydown', keycode);	
+			function keycode(e){
 			if(e.keyCode == 13 && !e.shiftKey) {
 	        e.preventDefault();
 	        
 	        if($(".targetUser option:selected").val() != ""){
 				var chat = $("#msgArea").val();
-				chat = chat + "\n" + userid +" :" + $("#chatMsg").val() + "\n" ;
-				
-				$("#msgArea").val(chat);
-				sendMsg();
-				$("#chatMsg").val("");		
-				
+				if($("#chatMsg").val() == ""){
+					alert("메세지를 입력하시오.")
+					return false;
+				} else{
+					chat = chat + "\n" + userid +" :" + $("#chatMsg").val() + "\n" ;					
+					$("#msgArea").val(chat);
+					sendMsg();
+					$("#chatMsg").val("");		
+				}
 				var autoscroll = $("#msgArea").prop('scrollHeight');
 				$("#msgArea").scrollTop(autoscroll);
 	        } else{
 	        	alert("상대방 아이디를 선택하시오.");        	
 	        }
 		}
-	})	
+	}	
 });	
 
 //채팅 페이지 로딩시 스크롤바 가장 하단으로 자동 이동
