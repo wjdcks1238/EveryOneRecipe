@@ -20,7 +20,7 @@
       <h1>회원가입</h1>
       <c:url value="/member/signup" var="signupUrl" />
       <form:form name="signup" action="${signupUrl} " method="POST">
-        <input type="text" id="userid" name="userId" placeholder="아이디" />
+        <input type="text" id="userid" name="userId" placeholder="아이디" required/>
             <div class="error-message hide error" id="userid-error">아이디를 입력하세요.</div>
         	<div class="error-message hide error" id="regid-error">공백없이 영어 소문자, 숫자 조합 5자~14자 이하로 입력해주세요.</div>
         	<div class="error-message hide error" id="idcheck-error">중복된 아이디입니다.</div>
@@ -69,30 +69,41 @@
       <h1>로그인</h1>
       <c:url value="/login" var="loginUrl" />
       <form:form name="f" action="${loginUrl}" method="POST">
-        <input type="text" id="id" name="username" placeholder="ID" />
+        <input type="text" id="id" name="username" placeholder="ID" required />
         <input type="password" id="password" name="password" placeholder="Password" />
         <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
         <div class="error-message hide error" id="">잘못된 비밀번호입니다.</div>
-        <button type="submit" value="로그인" id="loginSubmitBtn">로그인</button>
+		 <div align="right">
+		  <a href="#" onclick="toggle()">가입하기</a>
+		  <script>${msg}</script>
+		  <span class="button-separator">|</span>
+		  <a href="#" onclick="openPopup(event)">ID/PW 찾기</a>
+		 </div>
+        
+		  <button type="submit" value="로그인" id="loginSubmitBtn" align="center">로그인</button>
+
+
       </form:form>
 	 <!-- 네이버 로그인 창으로 이동 -->
- 	 <div id="naver_id_login" style="text-align:left"><a href="${url}">
-	 <img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
+ 	 <div id="naver_id_login" style="text-align:left" align="center">
+ 	 	<a href="${naverUrl}">
+	 		<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
+	 	</a>
+	 </div>
       <hr>
-      <!--TODO
-      🔲 창이 열리고 아이디 찾기|비밀번호 찾기 기능 제공
-       -->
- 		<button onclick="openPopup(event)"> ID/PW 찾기 </button>
-      
-      <p>
-        계정이 없으신가요? <a href="#" onclick="toggle()">가입하기</a>
-      </p>
     </div>
+    
   </div>
 
 </section>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/login.js"></script>
 <script>
+
+/* var msg = "<c:out value='${msg}'/>";
+var url = "<c:out value='${url}'/>";
+alert(msg);
+location.href=url; */
+
 //아이디 중복체크
 let isIdChecked = "0";
 
@@ -168,6 +179,9 @@ $('#email').focusout(function(){
 	function closePopup(){
 		newPopup.close();
 	}
+	
+	//회원가입 성공 시 alert창
+	
 
 
 </script>

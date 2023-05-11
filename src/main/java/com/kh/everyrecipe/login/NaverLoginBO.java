@@ -31,6 +31,7 @@ public class NaverLoginBO {
 		//private final static String CLIENT_ID = "클라이언트 id";
 		//private final static String CLIENT_SECRET = "클라이언트 secret";
 		//private final static String REDIRECT_URI = "콜백 주소";
+	
 		@Value("${client.id}")
 		private String CLIENT_ID;
 		@Value("${client.secret}")

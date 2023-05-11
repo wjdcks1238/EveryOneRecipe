@@ -66,12 +66,13 @@ public class MemberController {
 	
 	@GetMapping("/login")
 	public String login() {
+		System.out.println("여기를 탈거 같아 ");
 		return "member/login";
 	}
 
 	//회원가입
 	@PostMapping("/signup")
-	public ModelAndView signup(ModelAndView mv, MemberVo vo, RedirectAttributes rttr) throws Exception {
+	public ModelAndView signup(ModelAndView mv, MemberVo vo,HttpServletRequest req) throws Exception {
 		System.out.println(passwordEncoder.encode(vo.getPassword()));
 		if(StringUtils.hasText(vo.getPassword())) {
 			String bCryptString=passwordEncoder.encode(vo.getPassword());
@@ -79,13 +80,17 @@ public class MemberController {
 		}
 		
 		int result = mService.insert(vo);
-	
+		
+		String msg = "";
+		
 		if(result > 0) {
-			rttr.addFlashAttribute("msg", "회원가입 성공");
-			mv.setViewName("redirect:login");
+			
+			mv.addObject("msg", "alert('회원가입에 성공했습니다.')");
+			mv.setViewName("member/login");
+			
 		} else {
-			rttr.addFlashAttribute("msg", "회원가입 실패");
-			mv.setViewName("redirect:login");
+			mv.addObject("msg", "alert('회원가입에 실패했습니다.')");
+			mv.setViewName("member/login");
 		}
 		return mv;
 	}

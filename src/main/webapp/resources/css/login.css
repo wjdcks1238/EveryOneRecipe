@@ -155,3 +155,6 @@ section.active .right {
 button[disabled] {
   opacity: 0.2;
 }
+.button-separator {
+  margin: 0 10px; /* 버튼과 a 태그 간격 조절 */
+}
