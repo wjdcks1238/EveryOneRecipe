@@ -50,11 +50,12 @@
 	color: #333;
 }
 
-.inputdiv {
+/* .inputdiv {
 	padding: 7px 60px 7px 120px;
 	border-top: 2px solid rgb(51, 51, 51);
-	border-bottom: 1px solid rgb(221, 221, 221);
-}
+	border-bottom: 2px solid rgb(221, 221, 221);
+	align: center;
+} */
 .error {
 	font-size: 13px;
 	color: red;
@@ -64,7 +65,6 @@
 .hide {
 	display: none;
 }
-
 </style>
 </head>
 <body>
@@ -89,47 +89,33 @@
 
 			</div>
 
-
 			<div class="col-md-10 col-md-offset-2 col-xs-12">
 				<div class="row">
 					<div class="col-8">
-							<div>
-								<h5>개인 정보 수정</h5>
-							</div>
-							<div>
-								<h6>비밀번호 재확인</h6>
-							</div>
-							<p>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</p>
-							<div class="inputdiv">
-								<div>
-									<div>
-										<label>아이디</label>
-									</div>
-									<div>
-										<input type="text" name="userId" value="${memberDto.userId }"
-											readonly="${memberDto.userId }" class="form-control" style="width: 300px">
-									</div>
-								</div>
-								<div>
-									<div>
-										<label>비밀번호</label>
-									</div>
-									<div>
-										<input type="password" name="password" placeholder="현재 비밀번호를 입력해주세요." class="form-control" style="width: 300px">
-									</div>
-									
-								</div>
-							</div>
-							<div align="center">
-								<button id="passwordchk" type="submit" class="btn btn-primary">확인</button>
-							</div>
+						<div>
+							<h5>개인 정보 수정</h5>
+						</div>
+						<div>
+							<h6>비밀번호 재확인</h6>
+						</div>
+						<p>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</p>
+						<form id="updateForm">
+							<label>아이디</label>
+							<input class="form-control" type="text" name="userId" value="${memberDto.userId }"
+								readonly="${memberDto.userId }" style="width: 300px"> <label class="mt-3">비밀번호</label>
+							<input class="form-control" type="password" name="password"
+								placeholder="현재 비밀번호를 입력해주세요." style="width: 300px">
+							<button id="passwordchk" type="button" class="btn mt-2 ">확인</button>
+						</form>
 					</div>
 				</div>
 
 
 			</div>
+
 		</div>
 	</div>
+
 
 
 
@@ -149,20 +135,20 @@
 	    $.ajax({
 	        type: "POST",
 	        url: "${pageContext.request.contextPath}/member/infoupdateAjax",
-	        data: { "password": password },
+	        data: { password: password },
 	        success: function(data) {
 	            result = data;
 	            if (result === "success") {
 	                location.href = "<%=request.getContextPath()%>/member/modify";
-	            } else {
-	                alert("비밀번호가 일치하지 않습니다.");
-	            }
-	        },
-	        error: function(xhr, textStatus, errorThrown) {
-	            console.log("Ajax 요청 실패: " + textStatus + ", " + errorThrown);
-	        }
-	    });
-	});
+											} else {
+												alert("비밀번호가 일치하지 않습니다.");
+											}
+										},
+										error : function(xhr, textStatus,errorThrown) {
+											console.log("Ajax 요청 실패: "+ textStatus + ", "+ errorThrown);
+										}
+									});
+						});
 	</script>
 </body>
 </html>

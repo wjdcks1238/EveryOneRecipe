@@ -408,7 +408,6 @@ public class MemberController {
 	public String infoupdateAjax(String password, Principal principal, HttpServletRequest request) throws Exception {
 	    String str = "";
 	    String id = principal.getName();
-
 	    // 현재 로그인한 유저의 id로 member의 모든 정보 조
 	    MemberVo m = mService.selectOne(id);
 	    
@@ -424,19 +423,7 @@ public class MemberController {
 	    
 	    return str;
 	}
-
-//	    // CSRF 토큰 검증
-//        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-//        if (csrfToken == null) {
-//            str = "fail";
-//            return str;
-//        }
-//        String csrfTokenValue = csrfToken.getToken();
-//        String csrfHeaderName = csrfToken.getHeaderName();
-        
-//	    if(bCryptPasswordEncoder.matches(checkPassword, currPass)) {
-//	    bCryptPasswordEncoder.encode(password)
-	    
+    
 	//개인정보수정 : 비밀번호 변경 후 로그아웃 후 재로그인 해야함, 비밀번호 변경 없어도 됨, 비밀번호 변경시 유효성 체크
 	@GetMapping("/modify")
 	public ModelAndView modify(ModelAndView mv, Principal principal) throws Exception {

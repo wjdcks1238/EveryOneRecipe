@@ -101,14 +101,14 @@
 
 			<div class="col-md-10 col-md-offset-2 col-xs-12">
 				<div class="row">
-					<div class="col-8">
+					<div class="col-12">
 						<form id="updateForm">
 							<div>
 								<h5>개인 정보 수정</h5>
 							</div>
 							<div class="inputdiv">
 								<div class="row">
-									<div class="col-sm-4">
+									<div class="col-sm-3">
 										<label>아이디</label>
 									</div>
 									<div class="col-sm-4">
@@ -119,7 +119,7 @@
 								</div>
 								<!-- -- -- -- 비밀번호 -- -- --  -->
 								<div class="row">
-									<div class="col-sm-4">
+									<div class="col-sm-3">
 										<label>비밀번호</label>
 									</div>
 									<div class="col-sm-4">
@@ -127,8 +127,9 @@
 									</div>
 									<div class="col-sm-4"></div>
 								</div>
+								<!-- -- -- -- 새비밀번호 -- -- --  -->
 								<div class="row">
-									<div class="col-sm-4">
+									<div class="col-sm-3">
 										<label>새 비밀번호</label>
 									</div>
 									<div class="col-sm-4">
@@ -139,8 +140,9 @@
 									</div>
 									<div class="col-sm-4"></div>
 								</div>
+								<!-- -- -- -- 새비밀번호 확인-- -- --  -->
 								<div class="row">
-									<div class="col-sm-4">
+									<div class="col-sm-3">
 										<label>새 비밀번호 확인</label>
 									</div>
 									<div class="col-sm-4">
@@ -156,29 +158,20 @@
 								3.중복확인 버튼 누르면 이메일 유효성, DB중복 확인
 								4.중복확인 버튼 누르지 않고 회원정보수정 버튼 누르면 alert창 띄움  -->
 								<div class="row">
-									<div class="col-sm-4">
+									<div class="col-sm-3">
 										<label>이메일</label>
 									</div>
 									<div class="col-sm-4">
-										<div style="display:inline-block">
-											<input type="email" name="email" value="${memberDto.email }"
+										<input type="email" name="email" value="${memberDto.email }"
 											placeholder="이메일을 입력해주세요." id="emailInput" class="form-control" style="width: 300px">
-											<div align="center">
-											<button type="button" id="checkEmailBtn" class="btn mt-3" onclick="checkEmailBtn" >중복확인</button>
-											</div>
-										</div>
-										
+										<div class="error-message hide error" id="email-error">이메일을 입력해주세요.</div>
+										<div class="error-message hide error" id="regMail-error">올바른 이메일 형식이 아닙니다.</div>
+										<div class="error-message hide error" id="regMail-error2">이메일 주소는 50자 이하여야 합니다.</div>
 									</div>
-									
-									<div class="error-message hide error" id="email-error">이메일을 입력해주세요.</div>
-									<div class="error-message hide error" id="regMail-error">올바른 이메일 형식이 아닙니다.</div>
-									<div class="error-message hide error" id="regMail-error2">이메일 주소는 50자 이하여야 합니다.</div>
-									
-									<!-- <div class="col-sm-4 text-rigth" style="display:inline-block">
-										
-									</div> -->
-									
-									
+									<div class="col-sm-4" align="center">
+											<button type="button" id="checkEmailBtn" class="btn mt-3" onclick="checkEmailBtn" >중복확인</button>
+									</div>
+											
 								</div>
 							</div>
 							<div align="center">
