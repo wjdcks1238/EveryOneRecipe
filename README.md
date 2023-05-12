@@ -77,6 +77,7 @@
 3. UI설계서
 
 4. ERD
+![ERD](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/07b4c336-3da4-4b8b-930c-5e9002abc4f1)
 
 5. 클래스 다이어그램
 
