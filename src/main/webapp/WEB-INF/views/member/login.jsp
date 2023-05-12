@@ -8,6 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>회원가입|로그인</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css ">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/loginOr.css ">
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-5D3s7oBzI+us+OydsNusK8dJMSDxgdKJdsgSiLAgT+2P65oKUfOq9wuE+GlvGcl2" crossorigin="anonymous">
@@ -49,7 +50,6 @@
         	<div class="error-message hide error" id="regMail-error2">이메일 주소는 50자 이하여야 합니다.</div>
 
         <button type="submit" value="가입하기" id="submitBtn">가입하기</button>
-
       </form:form>
       <p>
         이미 계정이 있으신가요?
@@ -85,15 +85,14 @@
         
 		  <button type="submit" value="로그인" id="loginSubmitBtn" align="center">로그인</button>
 
-
+	     <hr class="hr-how" />
+		 <!-- 네이버 로그인 창으로 이동 -->
+	 	 <div id="naver_id_login" style="text-align:center">
+	 	 	<a href="${naverUrl}">
+		 		<img width="45" src="<%=request.getContextPath() %>/resources/icons/btnG_아이콘사각.png" alt="naver login logo"/>
+		 	</a>
+		 </div>
       </form:form>
-	 <!-- 네이버 로그인 창으로 이동 -->
- 	 <div id="naver_id_login" style="text-align:left" align="center">
- 	 	<a href="${naverUrl}">
-	 		<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
-	 	</a>
-	 </div>
-      <hr>
     </div>
     
   </div>
