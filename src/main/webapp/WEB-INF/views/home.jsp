@@ -222,7 +222,7 @@ body {
 													class="author-thumb" src="${fw.profileUrl }" alt="Sal"></a>
 											</span> <span class="author-meta"> <span class="post-name"><a
 													href="<%=request.getContextPath() %>/member/info/${fw.userId}">${fw.nickname }</a></span><br />
-												<span class="post-date">${fw.createAt }</span> <span
+												<span class="post-date">${fw.createAtfmt }</span> <span
 												class="post-read" style="white-space: pre-line;">
 													조회수: ${fw.lookUp}</span>
 											</span>
@@ -282,7 +282,7 @@ body {
 													class="author-thumb" src="${lu.profileUrl }" alt="Sal"></a>
 											</span> <span class="author-meta"> <span class="post-name"><a
 													href="<%=request.getContextPath() %>/member/info/${lu.userId}">${lu.nickname }</a></span><br />
-												<span class="post-date">${lu.createAt }</span> <span
+												<span class="post-date">${lu.createAtfmt }</span> <span
 												class="post-read" style="white-space: pre-line;">
 													조회수: ${lu.lookUp }</span>
 											</span>
@@ -344,7 +344,7 @@ body {
 														class="author-thumb" src="${post.profileUrl}" alt="Sal"></a>
 												</span> <span class="author-meta"> <span class="post-name"><a
 														href="<%=request.getContextPath() %>/member/info/${post.userId}">${post.nickname }</a></span><br />
-													<span class="post-date" style="padding-right: 6px">${post.createAt }</span>
+													<span class="post-date" style="padding-right: 6px">${post.createAtfmt }</span>
 												</span>
 											</div>
 											<div style="width: 15%; display: inline-block;">
@@ -411,7 +411,7 @@ body {
 												class="author-thumb" src="${list.profileUrl }" alt="Sal"></a>
 										</span> <span class="author-meta"> <span class="post-name"><a
 												href="<%=request.getContextPath() %>/member/info/${list.userId}">${list.nickname }</a></span><br />
-											<span class="post-date" style="white-space: pre-line;">${list.createAt }</span><span
+											<span class="post-date" style="white-space: pre-line;">${list.createAtfmt }</span><span
 											class="dot"></span><span class="post-read"
 											style="white-space: pre-line;">조회수: ${list.lookUp }</span>
 										</span>
@@ -579,9 +579,6 @@ $(document).ready(function(){
 });
 
 
-const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
 //조회순 피드 무한스크롤
 
 
@@ -596,15 +593,8 @@ $(window).scroll(function() {
             success : function(result){
             	 if(result.length != 0){
             		 for(i=0; i<result.length;i++){
-            			 var lookup=result[i];            			 
-            			 var luDate = new Date(lookup.createAt);
-            			 
-            			 const dayOfWeek = week[new Date(luDate).getDay()];            			
-            			 const dayOfMonth = month[new Date(luDate).getMonth()];            			 
-            			 const format_day = (("00" + luDate.getDate().toString()).slice(-2));           			 
-            			 var luDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + luDate.getHours() + ":" + 
-            			 				luDate.getMinutes() + ":" + luDate.getSeconds() + " KST " + luDate.getFullYear();
-            			 				
+            			 var lookup=result[i];           			 
+
             			 var a= `
             				<div class="card lookup-hide card-width">
             					<div class="row">
@@ -636,7 +626,7 @@ $(window).scroll(function() {
             										</span>
             										<span class="author-meta">
             										<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+lookup.userId+`">`+lookup.nickname+`</a></span><br/>
-            										<span class="post-date">`+luDate_format+`</span>
+            										<span class="post-date">`+lookup.createAtfmt+`</span>
             										<span class="post-read" style="white-space: pre-line;">									
             										조회수: `+lookup.lookUp+`</span>
             										</span>								
@@ -669,14 +659,7 @@ $(window).scroll(function() {
             	 if(result.length != 0){
             		 for(i=0; i<result.length;i++){
             			 var reco = result[i];   
-            			 var recoDate = new Date(reco.createAt);
-            			 
-            			 const dayOfWeek = week[new Date(recoDate).getDay()];            			
-            			 const dayOfMonth = month[new Date(recoDate).getMonth()];            			 
-            			 const format_day = (("00" + recoDate.getDate().toString()).slice(-2));           			 
-            			 var recoDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + recoDate.getHours() + ":" + 
-            			 				recoDate.getMinutes() + ":" + recoDate.getSeconds() + " KST " + recoDate.getFullYear();
-            			 	
+
             			 var a= `            
             				<div class="card reco-hide card-width">
             					<div class="row">
@@ -709,7 +692,7 @@ $(window).scroll(function() {
 	            									</span>
 	            									<span class="author-meta">
 	            									<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+reco.userId+`">`+reco.nickname+`</a></span><br/>
-	            									<span class="post-date" style="padding-right: 6px">`+recoDate_format+`</span>
+	            									<span class="post-date" style="padding-right: 6px">`+reco.createAtfmt+`</span>
 	            									</span>
 	            									</div>
 	            									<div style="width: 15%; display:inline-block;">
@@ -747,14 +730,7 @@ $(window).scroll(function() {
             	 if(result.length != 0){
             		 for(i=0; i<result.length;i++){
             			 var fw = result[i];            			 
-            			 var fwDate = new Date(fw.createAt);
-            			 
-            			 const dayOfWeek = week[new Date(fwDate).getDay()];            			
-            			 const dayOfMonth = month[new Date(fwDate).getMonth()];            			 
-            			 const format_day = (("00" + fwDate.getDate().toString()).slice(-2));           			 
-            			 var fwDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + fwDate.getHours() + ":" + 
-            			 				fwDate.getMinutes() + ":" + fwDate.getSeconds() + " KST " + fwDate.getFullYear();
-           				
+
             			 var a= `
             				<div class="card fw-hide card-width">
 	         					<div class="row">
@@ -786,7 +762,7 @@ $(window).scroll(function() {
 	         										</span>
 	         										<span class="author-meta">
 	         										<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+fw.userId+`">`+fw.nickname+`</a></span><br/>
-	         										<span class="post-date">`+fwDate_format+`</span>
+	         										<span class="post-date">`+fw.createAtfmt+`</span>
 	         										<span class="post-read" style="white-space: pre-line;">									
 	         										조회수: `+fw.lookUp+`</span>
 	         										</span>								
@@ -819,15 +795,7 @@ $(window).scroll(function() {
             	 if(result.length != 0){
             		 for(i=0; i<result.length;i++){
             			 var week = result[i];            			 
-            			 var weekDate = new Date(week.createAt); 
-            			 
-            			 const week1 = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            			             			 
-            			 const dayOfWeek = week1[new Date(weekDate).getDay()];            			
-            			 const dayOfMonth = month[new Date(weekDate).getMonth()];            			 
-            			 const format_day = (("00" + weekDate.getDate().toString()).slice(-2));           			 
-            			 var weekDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + weekDate.getHours() + ":" + 
-            			 				weekDate.getMinutes() + ":" + weekDate.getSeconds() + " KST " + weekDate.getFullYear();
+
             			 var a= `
             				 <div class="card week-hide" style="width: 356.5px; height: 50%;">
             					<a href="<%=request.getContextPath() %>/board/list/`+week.postId+`}">
@@ -853,7 +821,7 @@ $(window).scroll(function() {
             								</span>
             								<span class="author-meta">
             								<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+week.userId+`">`+week.nickname+`</a></span><br/>
-            								<span class="post-date" style="white-space: pre-line;">`+weekDate_format+`</span><span class="dot"></span><span class="post-read" style="white-space: pre-line;">조회수: `+week.lookUp+`</span>
+            								<span class="post-date" style="white-space: pre-line;">`+week.createAtfmt+`</span><span class="dot"></span><span class="post-read" style="white-space: pre-line;">조회수: `+week.lookUp+`</span>
             								</span>            								
             							</div>
             						</div>

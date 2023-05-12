@@ -58,6 +58,7 @@
         	SELECT ROWNUM AS SEQ, A.*
             FROM (
             	SELECT P.POSTID, P.USERID, P.NICKNAME, P.FOODNAME, P.CREATEAT, P.UPDATEAT, P.ISDELETED, P.LOOKUP, P.ISBLINDED, P.MAINIMAGE, M.profileUrl, REGEXP_REPLACE(P.CONTENT, <![CDATA['<img[^>]*>']]>, 'image') AS CONTENT
+            	, to_char(p.CREATEAT, 'YYYY"-"MM"-"DD" ("DY") "HH24"시 "MI"분"') AS CREATEATFMT
 	        	FROM POST P
                 INNER JOIN MEMBERS M
                 ON P.userid = M.userid

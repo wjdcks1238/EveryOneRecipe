@@ -21,6 +21,7 @@ public class weekVo {
 	private String content;
 	private int lookUp;
 	private Date createAt;
+	private String createAtfmt;
 	private Date updateAt;
 	private String isDeleted;
 	private String mainImage;
@@ -127,6 +128,12 @@ public class weekVo {
 	}
 	public void setCntlike(int cntlike) {
 		this.cntlike = cntlike;
+	}
+	public String getCreateAtfmt() {
+		return createAtfmt;
+	}
+	public void setCreateAtfmt(String createAtfmt) {
+		this.createAtfmt = createAtfmt;
 	}
 	
 	

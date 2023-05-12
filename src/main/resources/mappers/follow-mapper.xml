@@ -53,6 +53,7 @@
 			SELECT ROWNUM AS SEQ, A.*
    				FROM(
    				 SELECT post.postid, post.userid, post.nickname, REGEXP_REPLACE(post.CONTENT, <![CDATA['<img[^>]*>']]>, 'image') AS CONTENT, FOODNAME, post.CREATEAT, LOOKUP, count(post.postid), MAINIMAGE, MEMBERS.profileUrl, count(postlike.postid) cntlike
+   				 , to_char(post.CREATEAT, 'YYYY"-"MM"-"DD" ("DY") "HH24"시 "MI"분"') AS CREATEATFMT
 				 FROM POST
 				 inner join POSTLIKE
 				 on POST.postid = POSTLIKE.POSTID
@@ -70,6 +71,7 @@
 		FROM(SELECT ROWNUM AS SEQ, A.*		
     		FROM (
     			SELECT P.POSTID, P.USERID, P.NICKNAME, P.FOODNAME, P.CREATEAT, P.UPDATEAT, P.ISDELETED, P.LOOKUP, P.ISBLINDED, P.MAINIMAGE, M.profileUrl, REGEXP_REPLACE(P.CONTENT, <![CDATA['<img[^>]*>']]>, 'image') AS CONTENT
+    			, to_char(p.CREATEAT, 'YYYY"-"MM"-"DD" ("DY") "HH24"시 "MI"분"') AS CREATEATFMT
         		FROM POST P
                 inner join MEMBERS M
                 ON P.USERID = M.USERID
@@ -85,6 +87,7 @@
 			SELECT ROWNUM AS SEQ, A.*
 				FROM(
 					SELECT P.POSTID, P.USERID, P.NICKNAME, P.FOODNAME, P.CREATEAT, P.UPDATEAT, P.ISDELETED, P.LOOKUP, P.ISBLINDED, P.MAINIMAGE, M.profileUrl, REGEXP_REPLACE(P.CONTENT, <![CDATA['<img[^>]*>']]>, 'image') AS CONTENT
+					, to_char(p.CREATEAT, 'YYYY"-"MM"-"DD" ("DY") "HH24"시 "MI"분"')  AS CREATEATFMT
 					from POST P
                 	INNER JOIN MEMBERS M
                 	ON P.userid = M.userid
