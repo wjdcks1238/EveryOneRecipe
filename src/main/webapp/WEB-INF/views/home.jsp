@@ -187,7 +187,7 @@ body {
 				</h2>
 			</div>
 			<div class="card-columns listfeaturedtag"
-				style="display: flex; flex-flow: row wrap;">
+				style="display: flex; flex-flow: row wrap; justify-content: center;">
 				<!-- begin post -->
 				<c:forEach var="fw" items="${fwpost }">
 					<div class="card card-width">
@@ -235,7 +235,7 @@ body {
 				</c:forEach>
 			</div>
 			<div class="card-columns listfeaturedtag fw-ISdiv"
-				style="display: flex; flex-flow: row wrap;"></div>
+				style="display: flex; flex-flow: row wrap; justify-content: center;"></div>
 		</section>
 		<%} %>
 
@@ -247,7 +247,7 @@ body {
 				</h2>
 			</div>
 			<div class="card-columns listfeaturedtag"
-				style="display: flex; flex-flow: row wrap;">
+				style="display: flex; flex-flow: row wrap; justify-content: center;">
 				<!-- begin post -->
 				<c:forEach var="lu" items="${lupost }">
 					<div class="card card-width">
@@ -295,7 +295,7 @@ body {
 				</c:forEach>
 			</div>
 			<div class="card-columns listfeaturedtag lookup-ISdiv"
-				style="display: flex; flex-flow: row wrap;"></div>
+				style="display: flex; flex-flow: row wrap; justify-content: center;"></div>
 		</section>
 
 
@@ -307,7 +307,7 @@ body {
 				</h2>
 			</div>
 			<div class="card-columns listfeaturedtag"
-				style="display: flex; flex-flow: row wrap;">
+				style="display: flex; flex-flow: row wrap; justify-content: center;">
 				<!-- begin post -->
 				<c:forEach var="post" items="${rcpost }">
 					<div class="card card-width">
@@ -361,7 +361,7 @@ body {
 				</c:forEach>
 			</div>
 			<div class="card-columns listfeaturedtag reco-ISdiv"
-				style="display: flex; flex-flow: row wrap;"></div>
+				style="display: flex; flex-flow: row wrap; justify-content: center;"></div>
 		</section>
 
 
@@ -380,13 +380,13 @@ body {
 			</div>
 			<div>
 				<div class="card-columns listrecent"
-					style="display: flex; flex-flow: row wrap;">
+					style="display: flex; flex-flow: row wrap; justify-content: center;">
 					<c:forEach items="${weekboard }" var="list">
-						<div class="card" style="width: 356.5px; height: 465px;">
+						<div class="card" style="width: 356.5px; height: 50%;">
 							<a
 								href="<%=request.getContextPath() %>/board/list/${list.postId}">
 								<img class="img-fluid" src="${list.mainImage}"
-								style="width: 100%; height: 58%;">
+								style="width: 100%; height: 268px;">
 							</a>
 							<div class="card-block">
 								<h2 class="card-title">
@@ -424,7 +424,7 @@ body {
 				</div>
 			</div>
 			<div class="card-columns listrecent week-ISdiv"
-				style="display: flex; flex-flow: row wrap;"></div>
+				style="display: flex; flex-flow: row wrap; justify-content: center;"></div>
 		</section>
 		<!-- End List Posts	================================================== -->
 
@@ -829,9 +829,9 @@ $(window).scroll(function() {
             			 var weekDate_format = dayOfWeek + " " + dayOfMonth + " " + format_day + " " + weekDate.getHours() + ":" + 
             			 				weekDate.getMinutes() + ":" + weekDate.getSeconds() + " KST " + weekDate.getFullYear();
             			 var a= `
-            				 <div class="card week-hide" style="width: 356.5px; height: 465px;">
+            				 <div class="card week-hide" style="width: 356.5px; height: 50%;">
             					<a href="<%=request.getContextPath() %>/board/list/`+week.postId+`}">
-            						<img class="img-fluid" src=`+week.mainImage+` style="width: 100%; height: 58%;">
+            						<img class="img-fluid" src=`+week.mainImage+` style="width: 100%; height: 268px;">
             					</a>
             					<div class="card-block">
             						<h2 class="card-title"><a href="<%=request.getContextPath() %>/board/list/`+week.postId+`" id="chk_data">`+week.foodName+`</a></h2>
