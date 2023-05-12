@@ -109,19 +109,20 @@ section.active .right {
 .sign-up form [type=submit], .sign-in form [type=submit] {
 	display: grid;
 	place-content: center;
-	max-width: fit-content;
 	padding: 0.5em 1em;
 	color: #fff;
 	background: #00a4cc;
 	border-radius: 5px;
 	cursor: pointer;
 	text-transform: capitalize;
-	font-size: 1.2em;
+	font-weight: bolder;
+	font-size: small;
 }
 
 .sign-up p, .sign-in p {
 	text-transform: uppercase;
-	margin-top: 20px;
+	margin-top: 10px;
+	font-size: small;
 }
 
 .sign-up p a, .sign-in p a {
@@ -139,7 +140,7 @@ section.active .right {
 	background: #f95700;
 }
 
-.left p a {
+.left p a:hover {
 	color: #f95700;
 }
 
@@ -168,4 +169,14 @@ button[disabled] {
 .reset-btn {
 	margin-left: 10px;
 	cursor: pointer;
+}
+
+.aBtn a:link, a:visited{
+	color: black;
+	text-decoration: none;
+	font-size: small;
+	font-weight: bold;
+}
+.aBtn a:hover, a:active{
+	color: #00a4cc;
 }

@@ -10,11 +10,13 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css ">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/loginOr.css ">
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	
+	<!-- 회원가입 리셋 아이콘 사용하기 위해 추가함 -->
 	<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-5D3s7oBzI+us+OydsNusK8dJMSDxgdKJdsgSiLAgT+2P65oKUfOq9wuE+GlvGcl2" crossorigin="anonymous">
-
-<!-- Bootstrap Icons CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-5D3s7oBzI+us+OydsNusK8dJMSDxgdKJdsgSiLAgT+2P65oKUfOq9wuE+GlvGcl2" crossorigin="anonymous">
+	
+	<!-- Bootstrap Icons CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
 	
 
 </head>
@@ -76,7 +78,9 @@
         <input type="password" id="password" name="password" placeholder="Password" />
         <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
         <div class="error-message hide error" id="">잘못된 비밀번호입니다.</div>
-		 <div align="right">
+		 
+		 <!-- 가입하기 | ID/PW찾기 링크  -->
+		 <div align="right" class="aBtn">
 		  <a href="#" onclick="toggle()">가입하기</a>
 		  <script>${msg}</script>
 		  <span class="button-separator">|</span>
@@ -84,12 +88,14 @@
 		 </div>
         
 		  <button type="submit" value="로그인" id="loginSubmitBtn" align="center">로그인</button>
-
+		  
+		 <!-- 또는 -->
 	     <hr class="hr-how" />
+	     
 		 <!-- 네이버 로그인 창으로 이동 -->
 	 	 <div id="naver_id_login" style="text-align:center">
 	 	 	<a href="${naverUrl}">
-		 		<img width="45" src="<%=request.getContextPath() %>/resources/icons/btnG_아이콘사각.png" alt="naver login logo"/>
+		 		<img src="<%=request.getContextPath() %>/resources/icons/btnW_아이콘사각.png" alt="naver login logo" width="40"/>
 		 	</a>
 		 </div>
       </form:form>
