@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>계정정보 찾기</title>
+	<title>계정찾기</title>
 	    <!-- Custom fonts for this template -->
     <link href="<%=request.getContextPath()%>/resources/sbadmin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -16,6 +16,8 @@
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath()%>/resources/sbadmin2/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/findAccount.css ">
     
 	<style>
 		button {
@@ -30,30 +32,29 @@
 </head>
 <body>
 
-  <h1 class="h3 mb-3 text-gray-800 text-center mt-3">계정정보 찾기</h1>
-	  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-	        
-	        <tr>
-	          <th>Email</th>
-	          <td>
-	            
-	             <input type="text" name="email" id="emailInput"/>
-	            
-	          </td>
-	        </tr>
-	        
-	        
-	        <tr>
-	          <th>
-	          </th>
-	          <td>
-	       		 <button id="findInfo" type="submit" >찾기</button>
-				 <button onclick='window.close()'>닫기</button>
-	          </td>
-	        </tr>
-	        
-	        
-	  </table>
+	  <section>
+		  <div class="findAccount-01">
+			  <div class="findAccount-02">
+				 <h1 class="h3 mb-3 text-gray-800 text-center mt-3">비밀번호 찾기</h1>
+				  <div class="계정찾기 알맹이">
+					  <div class="findEmail">
+					  	<p>가입한 이메일 주소를 입력해주세요.</p>
+					  </div>
+					  <div class="findInput">
+						  <div class="findInput-02">
+						  	<input type="email" class="inputEmail" name="email" placeholder="이메일">
+						  	<button type="button">확인</button>
+						  </div>
+					  </div>
+					  <button class="emailBtn">인증코드 보내기</button>
+					  <div class="cs">
+					  	<p>회원가입 시 입력한 정보가 기억나지 않는다면?</p>
+					  	<a href="tel:1234-5678" class="문의하기">고객센터 문의하기(1234-5678)</a>
+					  </div>
+				  </div>
+			  </div>
+		  </div>
+	  </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstl/1.2/jstl.min.js"></script>
 <script>
 

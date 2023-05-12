@@ -94,8 +94,8 @@
 	     
 		 <!-- 네이버 로그인 창으로 이동 -->
 	 	 <div id="naver_id_login" style="text-align:center">
-	 	 	<a href="${naverUrl}">
-		 		<img src="<%=request.getContextPath() %>/resources/icons/btnW_아이콘사각.png" alt="naver login logo" width="40"/>
+	 	 	<a href="<%=request.getContextPath() %>/naverlogin">
+		 		<img src="<%=request.getContextPath() %>/resources/icons/btnW_아이콘사각.png" alt="naver login logo" width="40" height="40"/>
 		 	</a>
 		 </div>
       </form:form>
@@ -159,12 +159,13 @@ $('#email').focusout(function(){
 		}
 	});//ajax	
 })
-//TODO: 로그인시 비밀번호 확인
+	//계정/비밀번호 찾기
 	function openPopup(event) {
 		let newPopup;
 		event.preventDefault();
 		let openUrl = "${pageContext.request.contextPath}/member/findid";
-		let popOption = "width=700,height=700";
+		let popOption = "width=450,height=550";
+		
 		
 		newPopup = window.open(openUrl, "_blank", popOption);
 	}

@@ -1,0 +1,72 @@
+.findAccount-01 {
+    width: 100%;
+    height: calc(100% - 120px);
+    margin: 40px auto 0px;
+    padding: 0px 16px;
+    box-sizing: border-box;
+}
+.findAccount-02 {
+    position: relative;
+    height: 100%;
+}
+.findEmail {
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 20px;
+}
+.findInput {
+    border: 1px solid #dbdbdb;
+    padding: 6px 16px;
+    margin: 12px 0 28px 0;
+}
+.findInput-02 {
+    /* display: -webkit-box; */
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    /* display: flex; */
+    /* -webkit-align-items: center; */
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    /* align-items: center; */
+    /* -webkit-box-pack: justify; */
+    /* -webkit-justify-content: space-between; */
+    justify-content: space-between;
+}
+.inputEmail {
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    font-size: 15px;
+}
+
+.emailBtn {
+    width: 100%;
+    height: 50px;
+    padding: 15px 10px;
+    line-height: 20px;
+    font-size: 17px;
+    min-height: 50px;
+    background-color: #c7effd;
+    border-color: #c7effb;
+    color: #fff;
+    cursor: default;
+    font-family: 맑은 고딕;
+}
+.cs {
+    width: 100%;
+    height: 72px;
+    line-height: 20px;
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 12px;
+    background: rgb(247, 248, 250);
+}
+.h1 {
+	margin-bottom: 20px;
+	text-align: center;
+}
