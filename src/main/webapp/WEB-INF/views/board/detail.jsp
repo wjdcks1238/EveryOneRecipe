@@ -228,8 +228,9 @@
 
 
 		<div id="comments" class="mt-4">
-			<fieldset>
+			<div id="cmtCount">
 				<span>댓글</span> <span>${cmtCount }</span>
+			</div>
 				<table id="tb_comment" style="width: 100%">
 					<c:forEach items="${comment }" var="cvo" varStatus="s">
 						<tr>
@@ -259,7 +260,6 @@
 						</tr>
 					</c:forEach>
 				</table>
-			</fieldset>
 		</div>
 		<div>
 			<c:choose>
@@ -363,11 +363,12 @@ function updateComment(cid) {
 }
 
 function deleteCmt(cid) {
+	var postId = ${post.postId}
 	$.ajax({
 		url: "${pageContext.request.contextPath}/board/deleteReplyAjax",
 		type: "POST",
 		data: {cmtId: cid
-			  , postId: ${post.postId}
+			  , postId: postId
 		},
 		dataType:"json",
 		async: false,
@@ -378,7 +379,7 @@ function deleteCmt(cid) {
 				alert("댓글이삭제 되지 않았습니다. 확인하시고 다시 삭제해주세요.")
 			}
 			
-			displayReply(result);
+			refreshCommentCount(result, postId);
 		},
 		error: function(){
 			
@@ -424,11 +425,12 @@ function getReason() {
 }
 
 function submitReply() {
+	var postId = ${post.postId}
 	$.ajax({
 		url: "${pageContext.request.contextPath}/board/insertReplyAjax",
 		type: "POST",
 		data:{
-			postId: ${post.postId},
+			postId: postId,
 			content: $("[name=commentContent]").val()
 		},
 		dataType:"json",
@@ -448,13 +450,33 @@ function submitReply() {
 					alert("댓글이 작성이 되지 않았습니다. 다시 작성해 주세요.");
 				}
 			}
-			
-			displayReply(result);
+			refreshCommentCount(result, postId);
 		}
 		, error: function() {
 			
 		}
 	});
+}
+
+function refreshCommentCount(result, postId) {
+	$.ajax({
+		url: "${pageContext.request.contextPath}/board/refreshcmtcount",
+		type: "GET",
+		data: {
+			postId: postId
+		},
+		success: function(data) {
+			console.log(data);
+			setCommentCount(data);
+			displayReply(result);
+		}
+	});
+}
+
+function setCommentCount(data) {
+	var htmlval = '';
+	htmlval += '<span>댓글</span> <span> ' + data + '</span>';
+	$("#cmtCount").html(htmlval);
 }
 
 function displayReply(result) {

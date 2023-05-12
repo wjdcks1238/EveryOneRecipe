@@ -144,6 +144,10 @@ public class BoardServiceImpl implements BoardService{
 	public int addWord(String word) {
 		return dao.addWord(word);
 	}
+	@Override
+	public int refreshCmtCount(String postId) throws Exception {
+		return dao.refreshCmtCount(postId);
+	}
 	
 
 
