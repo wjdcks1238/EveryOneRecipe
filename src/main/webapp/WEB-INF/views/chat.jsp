@@ -138,7 +138,7 @@ var userid = "${loginUser }";
 var targetid = $(".targetUser option:selected").val();
 
 function connect(){
-	ws = new WebSocket("ws://localhost:8090/everyrecipe/chat/websocket");
+	ws = new WebSocket("ws://"+window.location.host+"<%=request.getContextPath()%>/chat/websocket");
 	
 	ws.onopen = function(){
 		register();
