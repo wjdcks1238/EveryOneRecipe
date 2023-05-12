@@ -45,7 +45,7 @@
 	      <div class="col">
 	        <div class="card mb-3" style="max-width: 253px;">
 	          <div class="card-body p-3" >
-	            <h5 class="card-title"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
+	            <h5 class="card-title text-truncate"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
 	            <img style="max-height: 350px" alt="" src="${list.mainImage }" width="100%" >
 	            <ul>
 	              <c:forEach items="${list.ingredients}" var="ing">
@@ -67,7 +67,7 @@
 	      <div class="col">
 	        <div class="card mb-3" style="max-width: 253px;">
 	          <div class="card-body p-3" >
-	            <h5 class="card-title"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
+	            <h5 class="card-title text-truncate"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
 	             <img style="max-height: 350px" alt="" src="${list.mainImage }" width="100%">
 	            <ul>
 	              <c:forEach items="${list.ingredients}" var="ing">
@@ -94,7 +94,7 @@
 	      <div class="col">
 	        <div class="card mb-3" style="max-width: 253px;">
 	          <div class="card-body p-3" >
-	            <h5 class="card-title"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
+	            <h5 class="card-title text-truncate"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
 	             <img style="max-height: 350px" alt="" src="${list.mainImage }" width="100%" >	
 	            <ul>
 	              <c:forEach items="${list.ingredients}" var="ing">
@@ -121,7 +121,7 @@
 	      <div class="col-3 ">
 	        <div class="card mb-3" style="max-width: 253px;">
 	          <div class="card-body p-3" >
-	            <h5 class="card-title"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
+	            <h5 class="card-title text-truncate"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
 	             <img style="max-height: 350px" alt="" src="${list.mainImage }" width="100%" >
 	            <ul>
 	              <c:forEach items="${list.ingredients}" var="ing">
