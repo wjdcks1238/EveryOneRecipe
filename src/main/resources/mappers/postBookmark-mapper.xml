@@ -31,11 +31,11 @@
 	
 	<select id="getBookmarkPosts" resultType="bvo">
 		select p.POSTID, p.USERID, p.NICKNAME, p.FOODNAME, p.CREATEAT as createDate, p.LOOKUP, b.adddate from POST p
-		join postbookmark b
+		join (select *from postbookmark where userid=#{userId}) b
           on p.postid=b.postid
 	   where
 		<foreach collection="list" item="item" open="(" separator=")or(" close=")">
-			 b.POSTID=#{item}
+			 p.POSTID=#{item}
 		</foreach>
 		order by b.adddate desc
 	</select>

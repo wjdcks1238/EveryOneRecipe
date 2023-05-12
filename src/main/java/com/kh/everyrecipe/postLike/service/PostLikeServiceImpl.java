@@ -56,7 +56,7 @@ public class PostLikeServiceImpl implements PostLikeService{
 	}
 
 	@Override
-	public List<BoardVo> getLikePosts(List<Integer> list) throws Exception {
+	public List<BoardVo> getLikePosts(Map<String, Object> list) throws Exception {
 		return dao.getLikePosts(list);
 	}
 

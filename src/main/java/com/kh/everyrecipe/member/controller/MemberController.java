@@ -352,7 +352,12 @@ public class MemberController {
 			map.put("currentPage", pNum);
 			mv.addObject("pageInfo",map);
 			
-			List<BoardVo> bList = plService.getLikePosts(list);
+			Map<String, Object> map2= new HashMap<String, Object>();
+			map2.put("list", list);
+			map2.put("userId", principal.getName());
+			
+			List<BoardVo> bList = plService.getLikePosts(map2);
+
 			mv.addObject("bList", bList);			
 		}
 		
@@ -386,7 +391,11 @@ public class MemberController {
 			map.put("currentPage", pNum);
 			mv.addObject("pageInfo",map);
 			
-			List<BoardVo> bList = pbService.getBookmarkPosts(list);
+			Map<String, Object> map2= new HashMap<String, Object>();
+			map2.put("list", list);
+			map2.put("userId", principal.getName());
+			
+			List<BoardVo> bList = pbService.getBookmarkPosts(map2);
 			mv.addObject("bList", bList);
 		}
 

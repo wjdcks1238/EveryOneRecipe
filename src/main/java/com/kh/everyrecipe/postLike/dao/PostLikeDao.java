@@ -50,7 +50,7 @@ public class PostLikeDao {
 		return sqlSession.selectList("postLikeMapper.getLikeList",userId,new RowBounds((pNum-1)*limit, limit));
 	}
 
-	public List<BoardVo> getLikePosts(List<Integer> list) {
+	public List<BoardVo> getLikePosts(Map<String, Object> list) {
 		return sqlSession.selectList("postLikeMapper.getLikePosts",list);
 	}
 

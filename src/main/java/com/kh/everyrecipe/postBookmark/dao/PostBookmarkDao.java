@@ -46,7 +46,7 @@ public class PostBookmarkDao {
 		return sqlSession.selectList("postBookmarkMapper.getBookmarkList",userId,new RowBounds((pNum-1)*limit, limit));
 	}
 
-	public List<BoardVo> getBookmarkPosts(List<Integer> list) {
+	public List<BoardVo> getBookmarkPosts(Map<String, Object> list) {
 		return sqlSession.selectList("postBookmarkMapper.getBookmarkPosts",list);
 	}
 

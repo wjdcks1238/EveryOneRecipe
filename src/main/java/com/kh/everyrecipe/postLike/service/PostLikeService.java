@@ -19,7 +19,7 @@ public interface PostLikeService {
 	public int removeLike(Map<String, String> map) throws Exception;
 	public int getLikeCount(int postId) throws Exception;
 	public List<Integer> getLikeList(String name, int pNum, int limit)throws Exception;
-	public List<BoardVo> getLikePosts(List<Integer> list)throws Exception;
+	public List<BoardVo> getLikePosts(Map<String, Object> list)throws Exception;
 	public int getLikeCountPaging(String name);
 
 	

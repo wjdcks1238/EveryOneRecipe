@@ -36,11 +36,11 @@
 	
 	<select id="getLikePosts" resultType="bvo">
 		select p.postid, p.userid, p.nickname, p.foodname, p.createat as createDate, p.lookup, l.adddate from post p
-		join postlike l
+		join (select *from postlike where userid=#{userId}) l
 		  on p.postid=l.postid
 		 where
 		<foreach collection="list" item="item" open="(" separator=")or(" close=")">
-			 l.postid=#{item}
+			 p.postid=#{item}
 		</foreach>
 		order by l.adddate desc
 	</select>
