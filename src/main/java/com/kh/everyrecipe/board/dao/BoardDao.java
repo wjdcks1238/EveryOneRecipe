@@ -126,6 +126,9 @@ public class BoardDao {
 	public int addWord(String word) {
 		return sqlSession.insert("boardMapper.addWord",word);
 	}
+	public int refreshCmtCount(String postId) {
+		return sqlSession.selectOne("boardMapper.refreshCmtCount",postId);
+	}
 	
 
 

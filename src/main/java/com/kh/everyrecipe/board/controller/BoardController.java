@@ -700,6 +700,16 @@ public class BoardController {
 //			return ;	
 		}
 		
+		@GetMapping("/refreshcmtcount")
+		@ResponseBody
+		public int refreshCmtCount(
+				@RequestParam("postId") String postId
+				) throws Exception{
+			int data = bService.refreshCmtCount(postId);
+			
+			return data;
+		}
+		
 		@PostMapping("/insertReplyAjax")
 		@ResponseBody
 		public String insertReplyAjax(

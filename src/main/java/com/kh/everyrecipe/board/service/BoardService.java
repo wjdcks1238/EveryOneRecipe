@@ -63,6 +63,7 @@ public interface BoardService {
 	public List<String> badwordSearch(String keyword);
 	public int deleteWords(List<String> badwords);
 	public int addWord(String word);
+	public int refreshCmtCount(String postId) throws Exception;
 	
 
 	

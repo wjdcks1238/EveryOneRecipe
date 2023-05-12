@@ -160,7 +160,9 @@ select
     )}
 	</select>
 	
-	
+	<select id="refreshCmtCount" parameterType="String" resultType="_int">
+		select count(*) from TBCOMMENT where POSTID=#{postId} and ISDELETED='N'
+	</select>
 	
 	<!--Ingredients  -->
 	<update id="insertIngList" parameterType="java.util.List">
