@@ -113,6 +113,7 @@ section.active .right {
 	color: #fff;
 	background: #00a4cc;
 	border-radius: 5px;
+	border: aliceblue;
 	cursor: pointer;
 	text-transform: capitalize;
 	font-weight: bolder;
