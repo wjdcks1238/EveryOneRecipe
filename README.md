@@ -80,18 +80,21 @@
 ![ERD](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/07b4c336-3da4-4b8b-930c-5e9002abc4f1)
 
 5. 클래스 다이어그램
-
-![Model8!postimage_8](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/0a2f473b-3d90-4bc1-b91a-fcc86ae2b04f)
-![Model9!search_9](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/6efd120c-5d8d-46d9-b1e4-f0ae916c8ffe)
-![Model10!DirectMessage_10](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/7a0cd622-398b-41da-8753-1d213d8a72e1)
-![Model!weekboard_0](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/e9f1abdb-cb49-4ba7-9c9e-e4d188a18dce)
-![Model1!board_1](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/95447530-f445-4b95-8534-ed37139c317b)
-![Model2!comment_2](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/f15245a6-5184-4512-86ea-63e072f48432)
-![Model3!replycomment_3](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/e948c15a-12b9-4c47-80e2-5a7fb2a823ba)
-![Model4!followmapping_4](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/cc9d927a-033f-4626-8805-2e03f17ca2fb)
-![Model5!member_5](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/a9d60dc1-c65f-4cbf-b3ab-aa147b09b751)
-![Model6!postBookmark_6](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/22603817-2134-4131-b145-b093b444cd9a)
-![Model7!postlike_7](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/71f9d1d5-c389-4f79-a45f-9ee125f7cc61)
+![Model!weekboard_0](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/c9736e81-d9e4-4561-927b-b76f64e22303)
+![Model1!board_1](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/82bf223c-500f-41c2-9d0f-777138436117)
+![Model2!comment_2](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/0a376368-974a-4577-8a71-6eb4ef644cab)
+![Model3!replycomment_3](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/451b18c5-725d-4559-b040-4e565365b11f)
+![Model4!followmapping_4](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/d0c8f857-ebf5-4063-a6c4-7c0638030bb9)
+![Model5!member_5](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/2b0e8675-6c5f-46c7-8d1e-05fd19fbb9c3)
+![Model6!postBookmark_6](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/833e3fe6-b72d-495f-afe5-e7bf700fd88e)
+![Model7!postlike_7](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/a807ca3a-d087-46d5-bf9b-aa12dfb89e1a)
+![Model8!shopping_10](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/c0b5cd87-47e0-4be1-9424-a25c9a5a1586)
+![Model9!boardsearch_8](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/289df47f-caa4-47fd-b2fc-b47f9684f111)
+![Model10!chat_9](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/f4fbd355-82ef-4928-bb5c-539576a0862c)
+![Model11!home_11](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/bdb52009-7f08-4191-a2bc-43b3136e6831)
+![Model12!admin_12](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/08229325-dd13-4cd7-8335-a455335c0e9a)
+![Model13!login_13](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/23320846-593e-4119-b885-d1a4d864de56)
+![Model14!report_14](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/f3e4cf9d-9550-427c-8d6e-ac697560a93b)
 
 6. 시퀀스 다이어그램
 ![시퀀스 다이어그램_ DM](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/c057019c-9fd1-4813-8087-9be7f7f50459)
