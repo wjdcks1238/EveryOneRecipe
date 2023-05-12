@@ -80,8 +80,8 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.getBlockData",name);
 	}
 
-	public MemberBlockVo getUserBlock(String name) {
-		return sqlSession.selectOne("memberMapper.getUserBlock",name);
+	public List<MemberBlockVo> getUserBlock(String name) {
+		return sqlSession.selectList("memberMapper.getUserBlock",name);
 	}
 	
 	public int checkEmail(String email) throws Exception {

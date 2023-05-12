@@ -411,9 +411,12 @@ function getReason() {
 		dataType: "json",
 		success: function(data) {
 			console.log(data);
-			var reason = data.Reason;
-			var startTime = data.startTime;
-			var endTime = data.endTime;
+			for(i=0;i<data.length;i++){
+				var reason = data[i].Reason;
+				var startTime = data[i].startTime;
+				var endTime = data[i].endTime;
+			}
+			
 			
 			console.log(reason);
 			console.log(startTime);

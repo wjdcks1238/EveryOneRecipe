@@ -88,7 +88,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberBlockVo getUserBlock(String name) throws Exception {
+	public List<MemberBlockVo> getUserBlock(String name) throws Exception {
 		return dao.getUserBlock(name);
 	}
 

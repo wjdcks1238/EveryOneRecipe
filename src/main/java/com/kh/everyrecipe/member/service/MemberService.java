@@ -41,7 +41,7 @@ public interface MemberService {
 
 	public String getBlockData(String name) throws Exception;
 
-	public MemberBlockVo getUserBlock(String name) throws Exception;
+	public List<MemberBlockVo> getUserBlock(String name) throws Exception;
 	
 	public int checkEmail(String email) throws Exception;
 	

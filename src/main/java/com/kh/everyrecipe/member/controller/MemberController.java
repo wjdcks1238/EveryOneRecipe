@@ -575,7 +575,7 @@ public class MemberController {
 			Principal principal
 			) throws Exception {
 		String name = principal.getName();
-		MemberBlockVo data = mService.getUserBlock(name);
+		List<MemberBlockVo> data = mService.getUserBlock(name);
 		System.out.println(data);
 		
 		return new Gson().toJson(data);
