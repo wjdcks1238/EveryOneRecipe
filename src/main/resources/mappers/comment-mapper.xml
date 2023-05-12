@@ -5,7 +5,7 @@
 		select count(*) from TBCOMMENT where POSTID=#{postId} and ISDELETED='N'and ISBLINDED='N'
 	</select>
 	<select id="getCommentList" resultType="cvo" parameterType="_int">
-		select * from TBCOMMENT where POSTID=#{postId} and ISDELETED='N' and ISBLINDED='N' order by CMTID desc
+		select CMTID, USERID, POSTID, CONTENT, TO_CHAR(UPDATEAT, 'YYYY-MM-DD HH24:MI:SS') UPDATEAT, ISDELETED, ISBLINDED from TBCOMMENT where POSTID=#{postId} and ISDELETED='N' and ISBLINDED='N' order by CMTID desc
 	</select>
 	<select id="getCommentIdList" resultType="cvo" parameterType="_int">
 		select CMTID from TBCOMMENT where POSTID=#{postId} order by CMTID desc

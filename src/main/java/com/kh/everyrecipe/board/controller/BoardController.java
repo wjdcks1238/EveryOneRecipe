@@ -495,6 +495,7 @@ public class BoardController {
 				}
 				mv.addObject("hashtags",hashtagList );
 				List<CommentVo> cvo = cmtService.getCommentList(postId);
+				System.out.println(cvo);
 				mv.addObject("comment", cvo);
 				int cmtCount = cmtService.getCountComment(postId);
 				mv.addObject("cmtCount", cmtCount);

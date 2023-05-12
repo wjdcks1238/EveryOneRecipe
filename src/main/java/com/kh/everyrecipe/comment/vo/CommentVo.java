@@ -22,14 +22,14 @@ public class CommentVo {
 //	USERID    NOT NULL VARCHAR2(20 CHAR)  
 //	POSTID    NOT NULL NUMBER             
 //	CONTENT   NOT NULL VARCHAR2(200 CHAR) 
-//	UPDATEAT  NOT NULL TIMESTAMP(6)       
+//	UPDATEAT  NOT NULL TIMESTAMP(6)        << 출력은 String으로 
 //	ISDELETED NOT NULL VARCHAR2(1 CHAR)
 	
 	private int cmtId;
 	private String userId;
 	private int postId;
 	private String content;
-	private Date updateAt;
+	private String updateAt;
 	private char isDeleted;
 	private char isBlinded;
 }
