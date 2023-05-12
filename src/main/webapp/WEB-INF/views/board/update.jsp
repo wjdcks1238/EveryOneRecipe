@@ -72,9 +72,9 @@ input[type="text"]{
 			<label for="image">
 	 					<a  class="btn btn-success">대표 이미지 선택</a> 
 			</label>
+				<input type="hidden" value="${post.mainImage }" id="oldImage" name="oldImage">
 				<input style="display: none" type="file" id="image" accept="image/*"  name="report" >
 				<div id="image_container" class="mb-3"><img id="img" alt="" style="max-width:70%; max-height:400px "  src="${post.mainImage }"> </div>
-				
 		</div>
 		
 		
@@ -216,6 +216,7 @@ $("#sb").click(function(){
 		$("#image").val('');
 		$("#image_container").empty();
 		$("#remove").remove();
+		$("#oldImage").val("");
 		
 	});
 		

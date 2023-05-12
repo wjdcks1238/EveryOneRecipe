@@ -609,6 +609,7 @@ public class BoardController {
 				, @RequestParam("amount") List<String> amounts
 				, @RequestParam("hashtag") String hashtag
 				, @RequestParam(name="image", required = false) MultipartFile multi
+				, @RequestParam(name="oldImage", required = false) String oldImage
 				, @RequestParam("firstImage") String firstImage) throws Exception {
 				
 			//받은 bvo를 그대로 업데이트
@@ -630,12 +631,18 @@ public class BoardController {
 		    	 Map<String, String> uploadResult = fileUtil.saveFile(multi);
 		    	 bvo.setMainImage(uploadResult.get("url"));
 		     }else {
-		    	 //대표 이미지를 설정하지 않았을 경우 첫번째 이미지가 대표 이미지가 되게 한다.
-		    	 if("".equals(firstImage)) {
-		    		 bvo.setMainImage(request.getContextPath()+"/resources/img/default.jpeg");
-		    	 }else {		    		 
-		    		 bvo.setMainImage(firstImage);
+		    	 if(oldImage.isEmpty()) {		    		 
+		    		 //대표 이미지를 설정하지 않았을 경우 첫번째 이미지가 대표 이미지가 되게 한다.
+		    		 if("".equals(firstImage)) {
+		    			 bvo.setMainImage(request.getContextPath()+"/resources/img/default.jpeg");
+		    		 }else {		    		 
+		    			 bvo.setMainImage(firstImage);
+		    		 }
+		    	 }else {
+		    		 //이전 대표이미지를 삭제/변경하지 않았다면 그대로 사용한다.
+		    		 bvo.setMainImage(oldImage);
 		    	 }
+		    	 
 		    	 
 		     } 
 		     
