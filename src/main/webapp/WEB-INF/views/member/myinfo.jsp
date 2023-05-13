@@ -93,7 +93,7 @@
 		</div>
 
 
-		<div class="col-md-8 col-md-offset-2 col-xs-12">
+		<div class="col-md-10 col-md-offset-2 col-xs-12">
 			<div class="row">
 				<div class="col-4">
 						<div>
@@ -116,28 +116,24 @@
 						<div class="profile">
 							${memberDto.profile }
 						</div>
-						<!-- 내정보보기이지만 다른 회원의 페이지와 화면이 동일해야 좋을거같아서 일단 주석처리합니다.
-						닉네임(아이디)
-						팔로워 팔로잉
-						프로필설명 -->
-						<%-- <div>
+						<div>
 							아이디: ${memberDto.userId }
-						</div> --%>
-						<%-- <div>	
+						</div>
+						<div>	
 							이메일: ${memberDto.email }
-						</div> --%>
-						<%-- <div>
+						</div>
+						<div>
 							가입일: ${memberDto.createAt }
-						</div> --%>
+						</div>
 				</div>
 			</div>
     <main role="main">
 
     <div style="margin-top: 5%;">
     	
-    		<div id="postList" class="row row-cols-1 row-cols-md-3 g-4">
+    		<div id="postList" class="row">
     			<c:forEach items="${postList }" var="list" >
-	    			<div class="col-md-2 card card-pin mt-3 ml-3" style="padding: 0">
+	    			<div class="col-md-3 card card-pin mt-3 ml-3" style="padding: 0">
 	    				<img class="card-img" style="max-height: 200px" src="${list.mainImage }" alt="Card image">
 	    				<div class="overlay">
 	    					<h2 class="card-title title">${list.foodName }</h2>
@@ -220,7 +216,7 @@
                 		for(i = 0 ; i<data.length;i++){
     	            		var reply = data[i];	
     	            		
-    	            		var card = $('<div class="col-md-2 card card-pin mt-3 ml-3" style="padding: 0">'+
+    	            		var card = $('<div class="col-md-3 card card-pin mt-3 ml-3" style="padding: 0">'+
     	            				'<img class="card-img" style="max-height: 200px" src="'+reply.mainImage +'" alt="Card image">'+
     	            				'<div class="overlay">'+
     	            					'<h2 class="card-title title">'+reply.foodName+'</h2>'+

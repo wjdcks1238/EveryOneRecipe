@@ -104,6 +104,11 @@ $(function() {
 	});
 });
 $("#addIng").on("click", function(){	
+	var count = $('input[name="ingredient"]').length;
+	if(count>=20){
+		alert("재료가 너무 많습니다");
+		return;
+	}
 	var div= $("<div class='mt-1'> ").append($("<input style='width: 20%' class='form-control chk' type='text' placeholder='재료' name='ingredient'> "));
 	div.append(" ");
 	div.append($("<input style='width: 20%' class='form-control chk' type='text' placeholder='수량' name='amount'>"));
