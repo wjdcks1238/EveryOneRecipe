@@ -449,6 +449,12 @@ body {
 				<img src="./resources/img/chat-icon2.png"> 채팅방
 			</a>
 		</div>
+		<div class="rcm_div" style="margin-bottom: 15px; margin-left: 15px;">
+			<a href="<%=request.getContextPath() %>/board/findRecipe"
+				style="color: white; text-decoration: none;">
+				<img width="55px" src="./resources/icons/find.png"><span style="font-size: small;">레시피 추천</span> 
+			</a>
+		</div>
 	</div>
 
 

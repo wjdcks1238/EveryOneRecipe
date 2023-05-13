@@ -45,7 +45,7 @@ button[name=ing]{
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <div class="container" style="min-height: 80vh">
 	<div class="mt-5">
-		<h3>가지고 있는 모든 재료를 선택해 주세요.</h3>
+		<h3>가지고 계신 모든 재료를 선택해 주세요.</h3>
 		 <p class="mt-3"> 선택한 재료들을 조합하여, 현재 만들 수 있는 레시피를 찾아드립니다.</p> 
 	</div>
 	<input style="width: 20%" class="form-control mt-5" type="text" name="ingSearch" placeholder="재료를 입력해 주세요">
