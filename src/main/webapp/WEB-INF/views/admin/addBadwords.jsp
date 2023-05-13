@@ -210,7 +210,7 @@ span[name=cancel-icon] i {
 							</button>
                      	
                      </c:forEach>
-                     
+                    <hr>
                     <input id="word" class="form-control mt-3" style="width:400px;"  type="text" placeholder="입력"> 
                     <button id="submit" class="mt-3 btn btn-primary" type="button">적용</button>
                            

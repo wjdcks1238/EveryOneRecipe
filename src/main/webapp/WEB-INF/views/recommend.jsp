@@ -47,7 +47,7 @@
 	          <div class="card-body p-3" >
 	            <h5 class="card-title text-truncate"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
 	            <img style="max-height: 350px" alt="" src="${list.mainImage }" width="100%" >
-	            <ul>
+	            <ul class="mt-2">
 	              <c:forEach items="${list.ingredients}" var="ing">
 	                <li>${ing.ingredient}: ${ing.amount}</li>
 	              </c:forEach>
@@ -64,12 +64,12 @@
   </div>
     <div class="row">
 	  <c:forEach items="${recList1}" var="list" varStatus="status">
-	      <div class="col">
+	      <div class="col" style="min-width: 200px;">
 	        <div class="card mb-3" style="max-width: 253px;">
 	          <div class="card-body p-3" >
 	            <h5 class="card-title text-truncate"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
 	             <img style="max-height: 350px" alt="" src="${list.mainImage }" width="100%">
-	            <ul>
+	            <ul class="mt-2">
 	              <c:forEach items="${list.ingredients}" var="ing">
 	                <li>${ing.ingredient}: ${ing.amount}</li>
 	              </c:forEach>
@@ -91,12 +91,12 @@
   </div>
     <div class="row">
 	  <c:forEach items="${recList2}" var="list" varStatus="status">
-	      <div class="col">
+	      <div class="col" style="min-width: 200px;">
 	        <div class="card mb-3" style="max-width: 253px;">
 	          <div class="card-body p-3" >
 	            <h5 class="card-title text-truncate"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
 	             <img style="max-height: 350px" alt="" src="${list.mainImage }" width="100%" >	
-	            <ul>
+	            <ul class="mt-2">
 	              <c:forEach items="${list.ingredients}" var="ing">
 	                <li>${ing.ingredient}: ${ing.amount}</li>
 	              </c:forEach>
@@ -118,12 +118,12 @@
   </div>
     <div class="row">
 	  <c:forEach items="${recList3}" var="list" varStatus="status">
-	      <div class="col-3 ">
+	      <div class="col-3 " style="min-width: 200px;">
 	        <div class="card mb-3" style="max-width: 253px;">
 	          <div class="card-body p-3" >
 	            <h5 class="card-title text-truncate"><a href="<%=request.getContextPath()%>/board/list/${list.postId}"><b>${list.foodName}</b></a> </h5>
 	             <img style="max-height: 350px" alt="" src="${list.mainImage }" width="100%" >
-	            <ul>
+	            <ul class="mt-2">
 	              <c:forEach items="${list.ingredients}" var="ing">
 	                <li>${ing.ingredient}: ${ing.amount}</li>
 	              </c:forEach>
