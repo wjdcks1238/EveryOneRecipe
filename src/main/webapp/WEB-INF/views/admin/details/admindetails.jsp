@@ -74,7 +74,7 @@ $('input[name="${memberDto.authority }"]').change(function(){
 	        <tr>
 	        	<th>권한부여</th>
 	        	<td>
-	        		승인 <input type="radio" name="authority" value="ROLE_ADMIN"/>
+	        		승인 <input type="radio" name="authority" value="ROLE_ADMIN" checked/>
 	        		회수 <input type="radio" name="authority" value="ROLE_MEMBER"/>
 	        	</td>
 	        </tr>
