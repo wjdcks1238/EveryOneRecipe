@@ -6,10 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>chatroom list</title>
+<%@ include file="/WEB-INF/views/css_import.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.3.js" ></script>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<link href="${pageContext.request.contextPath}/resources/css/detail.css" rel="stylesheet">
 <style>
 td, th{
 	text-align: center;
@@ -19,6 +20,7 @@ td, th{
 
 </head>
 <body>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <table class="table table-hover" align="center">
     <thead style="background-color: #FFD7D1; color: #FA7F7F;">
         <tr>
@@ -54,19 +56,19 @@ td, th{
                         <c:if test="${!empty loginUser }">
                             	<c:choose>
                             		<c:when test="${loginUser eq 'everysrecipe0'}">
-		                                <button class="btn btn-outline-secondary" 
+		                                <button class="btn btn-outline-primary" 
 		                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}?id=${chatRoom.userId }'">
 		                                	입장
 		                                </button>
                                 	</c:when>
                                 	<c:when test="${loginUser eq chatRoom.userId}">
-		                                <button class="btn btn-outline-secondary" 
+		                                <button class="btn btn-outline-primary" 		       
 		                                onclick="location.href='<%=request.getContextPath() %>/chat/room/${chatRoom.key}?id=${chatRoom.userId }'">
 		                                	입장
-		                                </button>
+		                                </button> 
                                 	</c:when>
                                 	<c:otherwise>
-                                		<button class="btn btn-outline-secondary" onclick="alert('관리자 또는 개설자만 입장 가능합니다.')">
+                                		<button class="btn btn-outline-primary" onclick="alert('관리자 또는 개설자만 입장 가능합니다.')">
                                 			입장
                                 		</button>
                                 	</c:otherwise>
@@ -80,7 +82,7 @@ td, th{
     </tbody>
 </table>
 <div style="margin-left: 3%;">
- 	 <h5 style="display: inline-block;">${loginUser }</h5><div style="display: inline-block;">&nbsp;님 안녕하세요.</div>
+ 	 <h5 style="display: inline-block; font-weight: bold;">${loginUser }</h5><div style="display: inline-block;">&nbsp;님 안녕하세요.</div>
 </div>
 
 <!-- 로그인이 되어있는 경우 -->
