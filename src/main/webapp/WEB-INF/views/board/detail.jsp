@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,7 +140,7 @@
 				<blockquote>
 					<ul>
 	    				<c:forEach items="${post.ingredients }" var="ing" varStatus="status">
-							<li><a href="#"> ${ing.ingredient } </a> : ${ing.amount }
+							<li><a href="<%=request.getContextPath()%>/board/search?keyword=${ing.ingredient }"> ${ing.ingredient } </a> : ${ing.amount }
 							<button style="height: 30px" type="button" class="btn_open btn btn-sm btn-success ml-3" value="${ing.ingredient }" 
 							onclick="openPopup();">구매</button>
 							</li>							
@@ -217,7 +218,7 @@
 			<div class="after-post-tags">
 				<ul class="tags">
 					<c:forEach items="${hashtags }" var="hashtag" >
-							<li><a href="#">${hashtag }</a> </li>
+						<li><a href="<%=request.getContextPath()%>/board/search?keyword=${fn:substring(hashtag, 1,fn:length(hashtag))}">${hashtag }</a> </li>
 					</c:forEach>
 					
 				</ul>
