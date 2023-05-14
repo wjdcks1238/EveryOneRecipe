@@ -66,7 +66,6 @@ public class MemberController {
 	
 	@GetMapping("/login")
 	public String login() {
-		System.out.println("여기를 탈거 같아 ");
 		return "member/login";
 	}
 

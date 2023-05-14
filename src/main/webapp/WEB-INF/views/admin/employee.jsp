@@ -283,6 +283,8 @@
 						data-toggle="modal" data-target="#memberlist">
 						회원목록
 					</button>
+						<!-- footer -->
+					<%@ include file="adminFooter.jsp"%>
 					<div id="memberlist" class="modal">
 						<div class="modal-dialog">
 							<div class="modal-content" style="width: 700px;">
@@ -368,8 +370,7 @@
 	<script
 		src="<%=request.getContextPath()%>/resources/sbadmin2//js/demo/datatables-demo.js"></script>
 
-	<!-- footer -->
-	<%@ include file="adminFooter.jsp"%>
+
 
 	<script>
 const openModalBtn = document.getElementById('open-modal');
