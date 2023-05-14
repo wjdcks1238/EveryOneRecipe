@@ -51,7 +51,6 @@
 .wrapper{
 	min-height: 80vh;
 }
-
 </style>
 </head>
 <body>
@@ -100,7 +99,7 @@
 				<div class="col-4">
 						<!-- <label>프로필 이미지</label> -->
 						<img width="100%" alt="<%=request.getContextPath()%>/resources/tempProfileImg/food.svg" src="${memberDto.profileUrl }">
-   	 					<div class="row justify-content-between">
+   	 					<div>
 	   	 					<button type="button" class="btn-open-popup btn mt-3">이미지 변경</button>
 	   	 					<button class="btn mt-3" type="button" id="deletePI">이미지 삭제</button>
    	 					</div>
