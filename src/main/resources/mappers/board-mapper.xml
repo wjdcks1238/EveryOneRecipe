@@ -108,9 +108,9 @@ select
 	     ,count(POSTID) as cnt
 	     , p.FOODNAME
 	 FROM (select * from post  WHERE ISDELETED = 'N') p
-	 JOIN (select * from ingredient where INGREDIENT in 
+	 JOIN (select * from ingredient where trim(INGREDIENT) in 
 	 		<foreach collection="list" item="item" open="(" close=")" separator="," >
-	   			 #{item}
+	   			 trim(#{item})
 	  		</foreach>
 	 ) i
 	  using (POSTID)
