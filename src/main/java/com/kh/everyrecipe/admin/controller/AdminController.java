@@ -374,7 +374,7 @@ public class AdminController {
 		int result= rService.changeBlockT(bvo);
 		return result;
 	}
-	//차단시간 변경. 현재시간 이하로는 변경 불가
+	//차단 해제
 	@PostMapping("/unblock")
 	@ResponseBody
 	public int unblock(int blockId) {
@@ -387,7 +387,6 @@ public class AdminController {
 	@PostMapping("/block")
 	@ResponseBody
 	public int block(BlockedMemberVo bvo) {
-		System.out.println(bvo);
 		int result= rService.block(bvo);
 		return result;
 	}

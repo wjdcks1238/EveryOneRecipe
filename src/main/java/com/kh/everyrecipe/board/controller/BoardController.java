@@ -417,7 +417,7 @@ public class BoardController {
 		
 		@PostMapping("ISajax")
 		@ResponseBody
-		public String testAjax( int curPage, String userId, Principal principal) throws Exception {
+		public String ISajax( int curPage, String userId, Principal principal) throws Exception {
 			List<PostVo> pvoList=null;
 //			System.out.println(map.get("curPage"));
 //			System.out.println(map.get("pageListSize"));

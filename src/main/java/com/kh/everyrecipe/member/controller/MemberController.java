@@ -113,9 +113,7 @@ public class MemberController {
 	@GetMapping("/myinfo")
 	public ModelAndView myinfo(ModelAndView mv, Principal principal) throws Exception {
 		
-		//TODO
 		//회원 정보 - 닉네임, 프로필, 프로필 사진, 팔로워 정보,  팔로잉 정보, (회원이고 본인이 아닐 시) 팔로우 버튼
-
 		//회원 포스트 목록
 		String id = principal.getName();
 		Map<String, String> map = new HashMap<>();
@@ -301,11 +299,7 @@ public class MemberController {
 
 			) throws Exception {
 		mvo.setUserId(principal.getName());
-		//TODO 닉네임 중복 또는 비었을 때
-		
-		
 		mvo.setProfileUrl(request.getContextPath()+defaultProfileIMG);
-		System.out.println(mvo);
 		mService.deletePI(mvo);
 
 	

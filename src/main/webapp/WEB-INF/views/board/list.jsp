@@ -106,12 +106,12 @@ var start = {
                 if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
                     start.param.curPage++; // 현재 페이지에서 +1 처리.
                     console.log("### 2: " + start.param.curPage);
-                    start.testAjax(); //ajax 호출
+                    start.ISajax(); //ajax 호출
                 } 
             }); 
         },
         // 무한 스크롤 ajax 요청
-        testAjax : function() {
+        ISajax : function() {
         	var arr = [ {curPage:start.param.curPage, pageListSize :start.param.pageListSize} ];
         	var map = {curPage:start.param.curPage};
         	console.log(map);
