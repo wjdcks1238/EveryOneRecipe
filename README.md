@@ -97,8 +97,11 @@
 ![Model14!report_14](https://github.com/wjdcks1238/EveryOneRecipe/assets/113161447/f3e4cf9d-9550-427c-8d6e-ac697560a93b)
 
 6. 시퀀스 다이어그램
-![시퀀스 다이어그램_ DM](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/c057019c-9fd1-4813-8087-9be7f7f50459)
-![시퀀스 다이어그램_ 검색](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/99051c88-e815-407b-9022-e099d519d793)
-![시퀀스 다이어그램_게시글 북마크](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/e3e97c5a-e985-4c6c-b138-a0fd285122ef)
+![회원가입 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/0f8bad1a-c23d-49c1-a182-080d999d7d94)
+![로그인 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/befbd439-aa43-4e8b-834c-697e019ab135)
+![CK에디터 파일 업로드 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/70d4f5c0-4940-4e6d-8804-386a4775094b)
+![채팅 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/eb0b712d-bb80-448f-ae86-5563775c8746)
+![북마크 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/e804fadd-288c-450b-aeb3-0272f0b0910c)
+![검색 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/de8e3210-a8ed-4cb2-830e-3aa5b38c6603)
 
 ---
