@@ -571,11 +571,6 @@ public class BoardController {
 		 			return mv;
 		 		}
 		 		
-		 		//없는 게시글 번호로 접근시
-		 		if(pvo ==null) {
-					mv.setViewName("errors/errorPage");
-					return mv;
-				}
 				//삭제된 게시물 번호로 접근시
 				if("Y".equals(pvo.getIsDeleted())) {
 					mv.setViewName("errors/deletedPost");

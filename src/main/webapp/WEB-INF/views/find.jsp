@@ -82,10 +82,7 @@ button[name=ing]{
 					$("#searchResult").text("");
 					for(i =0; i<result.length;i++){
 						var existEqaulCing = false;
-						//console.log("### "+result[i]);
 						$("button[name=cancel-btn]").each(function(){
-							//console.log("# " +$(this).text());
-							//console.log($(this).children("span[name=selected-text]").text().trim());
 							if($(this).children("span[name=selected-text]").text().trim() && result[i]){
 								if(result[i] == $(this).children("span[name=selected-text]").text().trim()){
 									existEqaulCing = true;
@@ -94,18 +91,12 @@ button[name=ing]{
 							}
 						});
 						if(existEqaulCing == false){
-							//console.log("확인"+result[i]);
-							//var a = $('<a name="ing" href="#">'+result[i]+'</a><span>/</span>');
-							
 							var a=`<button type="button" name="ing" class="btn pl-1 pr-1 mr-3 mb-2">
 								  <span>`+result[i]+`</span>
 								</button>`;
-							
-							
 							$("#searchResult").append(a);	
 						}
 					}
-					
 			  },
 			  error:function(){
 				  console.log("실패");
@@ -146,15 +137,13 @@ button[name=ing]{
 	$(document).on("click", "#submit", function() {
 		  var ingForm= $('#ingForm');
 		  if($("#chosenList").val()==""){
-			  
 			  alert("재료를 선택해 주세요");
 			  location.reload(true);	 
-			  return
+			  return;
 		  }
 		  // 요청 URL과 HTTP 메서드 설정
 		  ingForm.attr('action', 'recommend');
 		  ingForm.attr('method', 'POST');
-
 		  // 폼 제출
 		  ingForm.submit();
 	});
