@@ -4,32 +4,33 @@ function toggle() {
   section = document.querySelector("section");
   section.classList.toggle("active");
 }
-//리셋버튼
+//리셋 버튼
 const resetBtn = document.querySelector(".reset-btn");
 const inputs = document.querySelectorAll("input");
 
 $(function() {
-    // Reset button click event
-    $('.reset-btn').click(function() {
-      $('input').val('');
-    });
-  });	
-function resetValidation() {
-	  inputs.forEach((input) => {
-	    input.classList.remove("is-invalid");
-	    input.nextElementSibling.textContent = "";
-	    let errorId = input.getAttribute("data-error");
-	    let errorElement = document.getElementById(errorId);
-	    if (errorElement) {
-	      errorElement.classList.add("hide");
-	    }
-	  });
-	}
+  // Reset button click event
+  $('.reset-btn').click(function() {
+    $('input').val('');
+  });
+});
 
-	resetBtn.addEventListener("click", () => {
-	  inputs.forEach((input) => (input.value = ""));
-	  resetValidation();
-	});
+function resetValidation() {
+  inputs.forEach((input) => {
+    input.classList.remove("is-invalid");
+    input.nextElementSibling.textContent = "";
+    let errorElements = document.querySelectorAll(".error-message");
+    errorElements.forEach((errorElement) => {
+      errorElement.classList.add("hide");
+    });
+  });
+}
+
+resetBtn.addEventListener("click", () => {
+  inputs.forEach((input) => (input.value = ""));
+  resetValidation();
+});
+
 
 
 //유효성 검사

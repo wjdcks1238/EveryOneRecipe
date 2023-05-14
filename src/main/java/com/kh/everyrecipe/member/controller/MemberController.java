@@ -72,7 +72,6 @@ public class MemberController {
 	//회원가입
 	@PostMapping("/signup")
 	public ModelAndView signup(ModelAndView mv, MemberVo vo,HttpServletRequest req) throws Exception {
-		System.out.println(passwordEncoder.encode(vo.getPassword()));
 		if(StringUtils.hasText(vo.getPassword())) {
 			String bCryptString=passwordEncoder.encode(vo.getPassword());
 			vo.setPassword(bCryptString);
