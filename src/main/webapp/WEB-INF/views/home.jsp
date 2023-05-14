@@ -217,7 +217,8 @@ body {
 										style="overflow: hidden; text-overflow: ellipsis; word-break: break-word; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">${fw.content }</h4>
 									<div class="metafooter">
 										<div class="wrapfooter">
-											<span class="meta-footer-thumb"> <a
+											<div style="width: 80%; display: inline-block">
+												<span class="meta-footer-thumb"> <a
 												href="<%=request.getContextPath() %>/member/info/${fw.userId}"><img
 													class="author-thumb" src="${fw.profileUrl }" alt="Sal"></a>
 											</span> <span class="author-meta"> <span class="post-name"><a
@@ -226,6 +227,12 @@ body {
 												class="post-read" style="white-space: pre-line;">
 													조회수: ${fw.lookUp}</span>
 											</span>
+											</div>
+											<div style="width: 15%; display: inline-block;">
+												<span class="material-symbols-outlined" style="color: red;">favorite</span>
+												<span class="post-read" style="display: inline-block">
+													${fw.cntlike }</span>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -277,6 +284,7 @@ body {
 										style="overflow: hidden; text-overflow: ellipsis; word-break: break-word; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">${lu.content }</h4>
 									<div class="metafooter">
 										<div class="wrapfooter">
+											<div style="width: 80%; display: inline-block">
 											<span class="meta-footer-thumb"> <a
 												href="<%=request.getContextPath() %>/member/info/${lu.userId}"><img
 													class="author-thumb" src="${lu.profileUrl }" alt="Sal"></a>
@@ -284,8 +292,14 @@ body {
 													href="<%=request.getContextPath() %>/member/info/${lu.userId}">${lu.nickname }</a></span><br />
 												<span class="post-date">${lu.createAtfmt }</span> <span
 												class="post-read" style="white-space: pre-line;">
-													조회수: ${lu.lookUp }</span>
+													조회수: ${lu.lookUp }</span>												
 											</span>
+											</div>
+											<div style="width: 15%; display: inline-block;">
+												<span class="material-symbols-outlined" style="color: red;">favorite</span>
+												<span class="post-read" style="display: inline-block">
+													${lu.cntlike }</span>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -345,6 +359,8 @@ body {
 												</span> <span class="author-meta"> <span class="post-name"><a
 														href="<%=request.getContextPath() %>/member/info/${post.userId}">${post.nickname }</a></span><br />
 													<span class="post-date" style="padding-right: 6px">${post.createAtfmt }</span>
+													<span class="post-read" style="white-space: pre-line;">
+													조회수: ${post.lookUp }</span>		
 												</span>
 											</div>
 											<div style="width: 15%; display: inline-block;">
@@ -409,13 +425,17 @@ body {
 										<span class="meta-footer-thumb"> <a
 											href="<%=request.getContextPath() %>/member/info/${list.userId}"><img
 												class="author-thumb" src="${list.profileUrl }" alt="Sal"></a>
-										</span> <span class="author-meta"> <span class="post-name"><a
+										</span> <span class="author-meta" style="width: 200px;"> <span class="post-name"><a
 												href="<%=request.getContextPath() %>/member/info/${list.userId}">${list.nickname }</a></span><br />
-											<span class="post-date" style="white-space: pre-line;">${list.createAtfmt }</span><span
-											class="dot"></span><span class="post-read"
+											<span class="post-date" style="white-space: pre-line;">${list.createAtfmt }</span><br />
+											<span class="post-read"
 											style="white-space: pre-line;">조회수: ${list.lookUp }</span>
 										</span>
-
+										<div style="width: 15%; display: inline-block;">
+												<span class="material-symbols-outlined" style="color: red;">favorite</span>
+												<span class="post-read" style="display: inline-block">
+												${list.cntlike }</span>
+										</div>										
 									</div>
 								</div>
 							</div>
@@ -627,6 +647,7 @@ $(window).scroll(function() {
             								>`+lookup.content+`</h4>
             								<div class="metafooter">
             									<div class="wrapfooter">
+            										<div style="width: 80%; display: inline-block">
             										<span class="meta-footer-thumb">
             										<a href="<%=request.getContextPath() %>/member/info/`+lookup.userId+`"><img class="author-thumb" src="`+lookup.profileUrl+`" alt="Sal"></a>
             										</span>
@@ -635,7 +656,13 @@ $(window).scroll(function() {
             										<span class="post-date">`+lookup.createAtfmt+`</span>
             										<span class="post-read" style="white-space: pre-line;">									
             										조회수: `+lookup.lookUp+`</span>
-            										</span>								
+            										</span>
+            										</div>
+            										<div style="width: 15%; display: inline-block;">
+    												<span class="material-symbols-outlined" style="color: red;">favorite</span>
+    												<span class="post-read" style="display: inline-block">
+    												`+lookup.cntlike+`</span>
+    											</div>
             									</div>
             								</div>
             							</div>
@@ -699,6 +726,8 @@ $(window).scroll(function() {
 	            									<span class="author-meta">
 	            									<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+reco.userId+`">`+reco.nickname+`</a></span><br/>
 	            									<span class="post-date" style="padding-right: 6px">`+reco.createAtfmt+`</span>
+	            									<span class="post-read" style="white-space: pre-line;">
+													조회수: `+reco.lookUp+`</span>
 	            									</span>
 	            									</div>
 	            									<div style="width: 15%; display:inline-block;">
@@ -763,6 +792,7 @@ $(window).scroll(function() {
 	         								>`+fw.content+`</h4>
 	         								<div class="metafooter">
 	         									<div class="wrapfooter">
+	         									<div style="width: 80%; display: inline-block">
 	         										<span class="meta-footer-thumb">
 	         										<a href="<%=request.getContextPath() %>/member/info/`+fw.userId+`"><img class="author-thumb" src="`+fw.profileUrl+`" alt="Sal"></a>
 	         										</span>
@@ -771,7 +801,13 @@ $(window).scroll(function() {
 	         										<span class="post-date">`+fw.createAtfmt+`</span>
 	         										<span class="post-read" style="white-space: pre-line;">									
 	         										조회수: `+fw.lookUp+`</span>
-	         										</span>								
+	         										</span>
+	         									</div>
+	         									<div style="width: 15%; display: inline-block;">
+												<span class="material-symbols-outlined" style="color: red;">favorite</span>
+												<span class="post-read" style="display: inline-block">
+													`+fw.cntlike+`</span>
+												</div>	         									
 	         									</div>
 	         								</div>
 	         							</div>
@@ -825,10 +861,16 @@ $(window).scroll(function() {
             								<span class="meta-footer-thumb">
             								<a href="<%=request.getContextPath() %>/member/info/`+week.userId+`"><img class="author-thumb" src="`+week.profileUrl+`" alt="Sal"></a>
             								</span>
-            								<span class="author-meta">
+            								<span class="author-meta" style="width: 200px;">
             								<span class="post-name"><a href="<%=request.getContextPath() %>/member/info/`+week.userId+`">`+week.nickname+`</a></span><br/>
-            								<span class="post-date" style="white-space: pre-line;">`+week.createAtfmt+`</span><span class="dot"></span><span class="post-read" style="white-space: pre-line;">조회수: `+week.lookUp+`</span>
-            								</span>            								
+            								<span class="post-date" style="white-space: pre-line;">`+week.createAtfmt+`</span><br/>
+            								<span class="post-read" style="white-space: pre-line;">조회수: `+week.lookUp+`</span>
+            								</span>
+	            								<div style="width: 15%; display: inline-block;">
+												<span class="material-symbols-outlined" style="color: red;">favorite</span>
+												<span class="post-read" style="display: inline-block">
+												`+week.cntlike+`</span>
+											</div>	
             							</div>
             						</div>
             					</div>
