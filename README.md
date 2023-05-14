@@ -1,4 +1,4 @@
-# 모두의 레시피
+# 모두의 레시피🍽
 
 팀원: 고정찬(조장), 김진태, 박새롬, 오경훈
 
@@ -102,6 +102,7 @@
 ![CK에디터 파일 업로드 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/70d4f5c0-4940-4e6d-8804-386a4775094b)
 ![채팅 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/eb0b712d-bb80-448f-ae86-5563775c8746)
 ![북마크 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/e804fadd-288c-450b-aeb3-0272f0b0910c)
+![좋아요 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/29d19e18-fe73-4515-9634-4cee3a4f1d14)
 ![검색 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/de8e3210-a8ed-4cb2-830e-3aa5b38c6603)
 
 ---
