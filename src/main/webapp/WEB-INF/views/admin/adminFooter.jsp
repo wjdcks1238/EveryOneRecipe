@@ -5,7 +5,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
+            <span>Copyright &copy; 2023 EVERY RECIPE CORP.ALL RIGHTS RESERVED</span>
         </div>
     </div>
 
