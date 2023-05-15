@@ -58,8 +58,6 @@
 * IDE : STS 3.9.12.RELEASE
 * Version Manage System : Github Desktop 3.2.0
 
----
-## 프로젝트 기능 구현
 
 ---
 ## Schedule
@@ -106,3 +104,26 @@
 ![검색 시퀀스다이어그램](https://github.com/wjdcks1238/EveryOneRecipe/assets/114970464/de8e3210-a8ed-4cb2-830e-3aa5b38c6603)
 
 ---
+## 프로젝트 기능 구현
+<h3>김진태</h3>
+
+<details>
+<summary>게시물(작성/수정, 상세/전체보기)</summary>
+게시글 작성/수정
+</details>
+
+<details>
+<summary>회원 프로필(프로필 확인, 편집),</summary>
+접을 내용을 입력하세요.
+</details>
+
+<details>
+<summary>소셜 네트워크 기능(회원 팔로우, 좋아요, 북마크, 레시피 추천)</summary>
+접을 내용을 입력하세요.
+</details>
+
+<details>
+<summary>관리페이지(신고 관리, 게시글/댓글 블라인드, 회원 제재)</summary>
+접을 내용을 입력하세요.
+</details>
+
