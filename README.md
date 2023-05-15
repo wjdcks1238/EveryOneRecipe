@@ -69,7 +69,8 @@
 ## Document
 
 1. 기능정의서
-![요구정의서(기능정의서)](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/0ed1d6c5-531f-40c8-a403-8c801788030a)
+![요구사항정의서](https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/5cd74823-a095-4926-9784-57f9a3db233e)
+
 
 2. 유스케이스 다이어그램
 ![유스케이스](https://github.com/wjdcks1238/EveryOneRecipe/assets/12677904/d6d29134-7fd6-42e6-9123-aba3536e726b)
