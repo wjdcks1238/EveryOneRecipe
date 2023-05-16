@@ -105,6 +105,28 @@
 
 ---
 ## 프로젝트 기능 구현
+<h3>고정찬</h3>
+ 
+ <details>
+  <summary>게시물(댓글 추가/수정/삭제, 게시글 및 댓글 신고</summary>
+ </details>
+ 
+ <details>
+  <summary>검색</summary>
+ </details>
+ 
+ <details>
+  <summary>관리 페이지 Dashboard 메인</summary>
+ </details>
+ 
+ <details>
+  <summary>검색어 관리</summary>
+ </details>
+ 
+ <details>
+  <summary>검색추이(키워드 별 검색추이/일자 별 검색추이)</summary>
+ </details>
+
 <h3>김진태</h3>
 
 <details>
@@ -126,4 +148,5 @@
 <summary>관리페이지(신고 관리, 게시글/댓글 블라인드, 회원 제재)</summary>
 접을 내용을 입력하세요.
 </details>
+
 
