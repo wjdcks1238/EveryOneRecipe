@@ -131,22 +131,42 @@
 
 <details>
 <summary>게시물(작성/수정, 상세/전체보기)</summary>
-게시글 작성/수정
+<img width="1920" alt="게시글 작성,수정 " src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/113f5689-3868-4337-a94a-3c9439f50bc6">
+<img width="1920" alt="게시글 작성, 수정2" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/83a42807-a8d5-4eea-b76c-e5728194047f">
+<img width="1920" alt="게시글 작성, 수정3" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/91b1fd86-b887-40af-865c-970f5bec77db">
+<hr>
+<img width="1920" alt="게시글 상세보기" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/91afd5dd-628f-41ad-b6c7-cc60920d0ed2">
+<img width="1920" alt="게시글 상세보기2" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/fd8622d9-fe64-4668-82ec-e6091d77e4ed">
+<hr>
+<img width="1920" alt="전체 게시글" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/859d3a42-7d10-465f-a898-268c18532b01">
+<img width="1920" alt="전체 게시글2" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/6696bd60-ae8c-4d78-87e3-f92d864080a8">
 </details>
 
 <details>
-<summary>회원 프로필(프로필 확인, 편집),</summary>
-접을 내용을 입력하세요.
+<summary>회원 프로필</summary>
+<img width="1920" alt="내 정보 보기" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/28208096-ea5d-4cf7-bcfb-2eee6cad66db">
+<img width="1920" alt="내 정보 보기2" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/ae766ac2-94b6-4004-9c84-8464c92cab07">
 </details>
 
 <details>
 <summary>소셜 네트워크 기능(회원 팔로우, 좋아요, 북마크, 레시피 추천)</summary>
-접을 내용을 입력하세요.
+<img width="1920" alt="레시피 추천" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/a67d0a90-2ecc-4ef5-9ccf-01bbb1f411d1">
+<img width="1920" alt="레시피 추천2" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/ecfb5181-b5ac-408a-8b35-15334fbf35fa">
+<img width="1920" alt="레시피 추천3" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/2b699b85-b073-4e9b-866b-1593b5c64b78">
 </details>
 
 <details>
 <summary>관리페이지(신고 관리, 게시글/댓글 블라인드, 회원 제재)</summary>
-접을 내용을 입력하세요.
+<img width="1920" alt="게시글, 댓글 신고 관리" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/a61ff844-2af3-4583-aca4-e1e8cfeaff46">
+<img width="1920" alt="게시글, 댓글 신고 관리2" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/f51a8aad-69bd-443a-af1b-22c97b958ec0">
+<img width="1920" alt="게시글, 댓글 신고 관리3" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/a625e78c-f17d-40c6-8601-286f0a0ed7d4">
+<hr>
+<img width="1920" alt="비속어, 금지어 관리" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/21c8c2bb-2dd0-4f75-b185-c97fad157fb7">
+<img width="1920" alt="비속어, 금지어 관리2" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/eaa4dd42-1bf0-4373-8cb6-662a9d5ab41e">
+<hr>
+<img width="1920" alt="회원 차단 관리" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/00210c5d-8767-4402-834d-719402ea59fb">
+<img width="1920" alt="회원 차단 관리3" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/f7317434-1a8b-43e5-abe3-532f97c4338c">
+<img width="1920" alt="회원 차단 관리4" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/2240c4e1-5a58-4754-be34-f61c63f7c6b7">
 </details>
 
 
