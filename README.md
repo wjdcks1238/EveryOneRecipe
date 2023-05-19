@@ -61,7 +61,9 @@
 
 ---
 ## Schedule
-<img width="1061" alt="일정관리" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/de4ae090-d65f-4113-a6b3-3001e86b2b85">
+<img width="1387" alt="일정관리" src="https://github.com/wjdcks1238/EveryOneRecipe/assets/111834753/02b6947b-89e5-46e1-a0ab-0dfa61c5324e">
+
+
 ---
 ## Document
 
