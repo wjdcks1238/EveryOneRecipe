@@ -26,15 +26,10 @@ public class PostBookmarkController {
 	@PostMapping("/bookmark")
 	@ResponseBody
 	public boolean like(Principal principal,int postId) throws Exception {
-	
-
-		
 		Map<String, String> map = new HashMap<String, String>();
 //		회원 id, postId 전달
 		map.put("userId",principal.getName() ); 
 		map.put("postId", postId+""); 
-		
-		
 		//북마크 정보를 가져옴
 		PostBookmarkVo bmvo= bmService.getBookmarkInfo(map);
 		//DB에 정보가 없으면 -> 북마크
@@ -47,16 +42,11 @@ public class PostBookmarkController {
 			bmService.reAddBookmark(map);
 			return true;
 		}
-		
-	
 		//isdelete: 'N'   -> 북마크 취소
 		if("N".equals(bmvo.getIsDeleted()) ) {
 			bmService.removeBookmark(map);
 			return false; 
 		}
-		
-		
-		
 		return false;
 	}
 

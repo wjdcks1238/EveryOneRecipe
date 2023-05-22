@@ -261,26 +261,21 @@ span[name=cancel-icon] i {
     <script type="text/javascript">
 
     $(document).on("click","button[name=cancel-btn]", function(){
-    	//console.log($(this).children("span[name=selected-text]").text().trim());
     	$("#deleteDiv").append(`
     			<button type="button" name="cancel-cancel-btn" class=" pl-1 pr-1 mr-2 mb-1">
 		 			<span name="selected-text2">`+$(this).children("span[name=selected-text]").text().trim()+`</span>
 					<span name="cancel-icon"><i class="fa fa-times"></i></span>
 				</button>`);
     	$(this).remove();
-    	
     });
     $(document).on("click","button[name=cancel-cancel-btn]", function(){
-    	//console.log($(this).children("span[name=selected-text2]").text().trim());
     	$("#badwordDiv").append(`
     			<button type="button" name="cancel-btn" class=" pl-1 pr-1 mr-2 mb-1">
 		 			<span name="selected-text">`+$(this).children("span[name=selected-text2]").text().trim()+`</span>
 					<span name="cancel-icon"><i class="fa fa-times"></i></span>
 				</button>`);
     	$(this).remove();
-    	
     });
-    
     
     $("#search").on("propertychange change paste input",function(){
     	var keyword= $("#search").val().trim();
@@ -305,7 +300,6 @@ span[name=cancel-icon] i {
 								  return;
 							  }
 						  }
-						  
 					  })
 					  
 					  if(existWord==false){
@@ -313,10 +307,8 @@ span[name=cancel-icon] i {
 									 		 			<span name="selected-text">`+result[i]+`</span>
 									  					<span name="cancel-icon"><i class="fa fa-times"></i></span>
 													</button>`);
-						  
 					  }
 				  }
-				  
 			  },
 			  error:function(){
 				  console.log("실패");
@@ -328,7 +320,6 @@ span[name=cancel-icon] i {
     	    return $(this).text().trim();
     	}).get();
     	console.log(words);
-    	//var words= $("#deleteDiv").text();
     	if(words==''){
     		alert("취소할 비속어/금지어를 선택해주세요");
     		return;
@@ -341,12 +332,9 @@ span[name=cancel-icon] i {
 				  if(result=="true"){
 					  alert("적용되었습니다.");
 				  }else{
-					  alert("에러가 발생했습니다. 이미 삭제되었을 수 있습니다.");
-					  
+					  alert("에러가 발생했습니다. 이미 삭제되었을 수 있습니다.");					  
 				  }
 				  location.reload();
-
-				  
 			  },
 			  error:function(){
 				  console.log("실패");

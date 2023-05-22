@@ -163,7 +163,8 @@
 
 
     
-    <script type="text/javascript">$(document).ready(function(){
+    <script type="text/javascript">
+    $(document).ready(function(){
         start.init();
     });
     var start = {
@@ -177,14 +178,12 @@
            testEvent : function() {
                 // 무한 스크롤
                 $(window).scroll(function() {
-                    // 맨 밑으로 스크롤이 갔을경우 if문을 탑니다.
                     if($(window).scrollTop() > $(document).height() - $(window).height() - 500) { 
                         start.param.curPage++; // 현재 페이지에서 +1 처리.
                         start.testAjax(); //ajax 호출
                     } 
                 }); 
             },
-            // 무한 스크롤 ajax 요청
             testAjax : function() {
             	var userId='${memberDto.userId}';
             	var arr = [ {curPage:start.param.curPage, pageListSize :start.param.pageListSize} ];
@@ -199,20 +198,12 @@
                     success : successCallback,
                     error : errorCallback
                 });
-                // 성공
                 function successCallback(data) {
-                	
                     if(data.length == 0 ){
                         $("#end").append('<div class="noList"><span>더 이상 표시할 항목이 없습니다.</span></div>');
                         $(window).off("scroll");
                     } 
-                    
-         
                     if(data.length != 0){
-                    	console.log("작동중");
-                    	console.log("### 3: " + start.param.curPage);
-                    	
-                    	
                 		for(i = 0 ; i<data.length;i++){
     	            		var reply = data[i];	
     	            		
@@ -230,10 +221,6 @@
     	                	
     	            		$("#postList").append(card);
                 		}
-                    	
-                    	
-                   
-                    	
     	           }    
                 }
                 

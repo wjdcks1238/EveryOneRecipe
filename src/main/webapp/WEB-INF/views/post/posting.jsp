@@ -165,8 +165,6 @@ input[type="text"]{
 		
 		$("#sb").click(function(){
 			$('.chk').each(function() {
-//				console.log($(this).val().trim());
-//				console.log($(this).val());
 				if($(this).val().trim()==''){
 					alert("음식이름, 재료, 수량을 전부 입력해주세요");
 					return false;
@@ -209,11 +207,6 @@ input[type="text"]{
 			formData.append('image', $('input[type=file]')[0].files[0]);
 			formData.append('firstImage',imgUrl);
 			
-			/*
-			for (var pair of formData.entries()) {
-				  console.log(pair[0] + ': ' + pair[1]);
-			}
-			*/
 			$.ajax({
 			  url: "${pageContext.request.contextPath}/board/postajax",
 			  type: "POST", 
@@ -239,14 +232,7 @@ input[type="text"]{
 		$("#remove").remove();
 		
 	});
-	/*	
-	if($("#image-container").text()!=''){
-		console.log($("#image-container").text());
-		$("#mainImageDiv").append('<button class="mb-3 close" id="remove" type="button"><span aria-hidden="true">&times;</span></button>');
-		
-	}
-	*/
-		
+
 	//해쉬태그 입력시 스페이스바 입력되면 #으로 바꿔주기
 	const hashtagInput = document.getElementById('hashtagInput');
 	hashtagInput.addEventListener('keyup', function(event) {

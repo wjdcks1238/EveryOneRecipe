@@ -122,15 +122,12 @@ button[name=ing]{
 		
 	});
 	$(document).on("click", "button[name=cancel-btn]", function() {
-	    //$(this).next().remove();	
 	    $(this).remove();
 	    var cList = $("#chosenList").val().replace($(this).children("span[name=selected-text]").text()+'$', '');
 	    $("#chosenList").val(cList);
-	    
 	    var a=`<button type="button" name="ing" class="btn pl-1 pr-1 mr-3 mb-2">
 			  <span>`+$(this).children("span[name=selected-text]").text()+`</span>
 			</button>`;
-		
 		$("#searchResult").append(a);
 	    
 	});

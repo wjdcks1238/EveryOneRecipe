@@ -119,8 +119,6 @@ var start = {
                 type     : 'POST',
                 url      : '${pageContext.request.contextPath}/board/ISajax',
                 async : false,
-                //contentType: "application/json",
-                //data     : JSON.stringify(map),
                 data : map,
                 dataType : 'json',
                 success : successCallback,
@@ -133,8 +131,6 @@ var start = {
                     $(".list").append('<div class="noList"><span>더 이상 표시할 항목이 없습니다.</span></div>');
                     $(window).off("scroll");
                 } 
-                
-     
                 if(data.length != 0){
                 	console.log("작동중");
                 	console.log("### 3: " + start.param.curPage);
@@ -162,8 +158,6 @@ var start = {
 	            		
 	            		var date = parseDate(reply.createDate);
 	            		var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-	            	
-	            		
 	            	
 	            		var card = $('<div class="col-md-4 mt-3">'+
 	            						'<div class="card" >'+
@@ -195,9 +189,6 @@ var start = {
 	            					'</div>');
 	            		$("#postList").append(card);
             		}
-                	
-                	
-               
                 	
 	           }    
             }

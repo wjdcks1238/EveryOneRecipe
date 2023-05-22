@@ -458,18 +458,14 @@ public class BoardController {
 				, HttpServletRequest request
 				, ClientChkVo chk
 				) throws Exception {
-				
-			
 				PostVo pvo = bService.selectOne(postId);
-				//없는 게시글 번호로 접근시의 처리 (임시)
+				//없는 게시글 번호로 접근시의 처리
 				if(pvo ==null) {
 					mv.addObject("notExist", "존재하지 않는 게시물입니다.");
 					mv.setViewName("errors/reason");
 					return mv;
 				}
 				
-				
-				//TODO 관리자는 접근 가능하게
 				//블라인드된 게시글로 접근
 				if("Y".equals(pvo.getIsBlinded())) {
 					mv.addObject("blinded", "블라인드 처리된 게시물입니다.");
@@ -484,10 +480,6 @@ public class BoardController {
 					return mv;
 				}
 				
-//				MemberVo mvo = mService.selectOne(pvo.getUserId());
-//				mv.addObject("member", mvo);
-//				bService.selectOne(postId) - id, nickname --> join 
-				
 				List<HashtagVo> hvoList= bService.getHashtags(postId);
 				List<String> hashtagList = new ArrayList<String>();
 				for(HashtagVo hvo : hvoList) {
@@ -495,43 +487,28 @@ public class BoardController {
 				}
 				mv.addObject("hashtags",hashtagList );
 				List<CommentVo> cvo = cmtService.getCommentList(postId);
-				System.out.println(cvo);
 				mv.addObject("comment", cvo);
 				int cmtCount = cmtService.getCountComment(postId);
 				mv.addObject("cmtCount", cmtCount);
-				System.out.println(cvo.toString());
 				
-				
-				//(회원일시) 작성자 팔로우 여부와 좋아요 여부.
-				//작성자 본인이거나 비회원일시 비활성화 
-				//TODO 전체 팔로워 전체 좋아요
-				
-				//팔로우 - isdelete N, FWID는 열람중인 회원, USERID는 작성자
+				//(회원일시) 작성자 팔로우 여부와 좋아요 여부. 작성자 본인이거나 비회원일시 비활성화. 팔로우 - isdelete N, FWID는 열람중인 회원, USERID는 작성자
 				Map<String, String> map1 = new HashMap<String, String>();
 				//회원 id, 작성자 id 전달
-				
 				if(principal!=null) {
 					map1.put("userId",  pvo.getUserId()); 
 					map1.put("fwId",principal.getName() ); 
-					
 					mv.addObject("isFollowed", fService.isFollowed(map1));
-					
 					//좋아요 - isdelete N, POSTID, USERID
 					Map<String, String> map2 = new HashMap<String, String>();
 					//회원 id, 게시글 id 전달
 					map2.put("userId",principal.getName() ); 
 					map2.put("postId", postId+"" ); 
-					
-					
 					mv.addObject("isLiked",pService.isLiked(map2));
 					mv.addObject("isBookmarked",bmService.isBookmarked(map2));
-					
-					
 				}
 			
 			//게시글 좋아요 수 	
 			mv.addObject("likeCount",pService.getLikeCount(postId));
-			
 			
 			// 조회수 중복증가 방지
 			String ip = request.getRemoteAddr();
@@ -559,13 +536,10 @@ public class BoardController {
 				,@PathVariable int postId, Principal principal
 				) throws Exception {
 				
-		//TODO 없는 게시글 번호로 접근시의 처리
-			String hashtags= "";
-		
-		 
-		 		PostVo pvo = bService.selectOne(postId);	
-		 		// 작성자가 아닐 때의 처리
+				String hashtags= "";
 		 		
+				PostVo pvo = bService.selectOne(postId);	
+		 		// 작성자가 아닐 때
 		 		if(principal==null || !principal.getName().equals(pvo.getUserId())) {
 		 			mv.setViewName("redirect:/board/list");
 		 			return mv;
@@ -577,9 +551,6 @@ public class BoardController {
 					return mv;
 				}
 				
-				
-				
-		 		//List<HashtagVo>가 아닌 List<String>이 나을 수 있음
 				List<HashtagVo> hvoList= bService.getHashtags(postId);
 				for(HashtagVo hvo : hvoList) {
 					hashtags += "#"+hvo.getHashtag();
@@ -606,11 +577,8 @@ public class BoardController {
 				, @RequestParam(name="image", required = false) MultipartFile multi
 				, @RequestParam(name="oldImage", required = false) String oldImage
 				, @RequestParam("firstImage") String firstImage) throws Exception {
-				
 			//받은 bvo를 그대로 업데이트
-			
-			//TODO 대표 이미지
-			 List<IngredientVo> ivoList = new ArrayList<>(); // 공백일 때 처리 필요 
+			 List<IngredientVo> ivoList = new ArrayList<>(); 
 		     for (int i = 0; i < ingredients.size(); i++) { 
 		    	 ivoList.add(new IngredientVo(bvo.getPostId(), ingredients.get(i), amounts.get(i)));
 		     }
@@ -637,10 +605,7 @@ public class BoardController {
 		    		 //이전 대표이미지를 삭제/변경하지 않았다면 그대로 사용한다.
 		    		 bvo.setMainImage(oldImage);
 		    	 }
-		    	 
-		    	 
 		     } 
-		     
 		     
 			List<HashtagVo> hashtagList = new ArrayList<>();
 
@@ -658,27 +623,18 @@ public class BoardController {
 					}
 				}
 				bService.deleteHashtagList(bvo.getPostId());  
-				//nullpointer 발생하지만 작동은 잘됨..??
 				bService.insertHashtagList(hashtagList);
 				
 			}else {
 				bService.deleteHashtagList(bvo.getPostId());  
 				
 			}
-				
-
-		
 				bService.updatePost(bvo);
 				//삭제 후 새로 추가
 				bService.deleteIngList(bvo.getPostId()); 
 				bService.insertIngList(ivoList);					
-					
-				
-				
 	
 			return "true";
-
-			
 		}
 		
 		
@@ -797,19 +753,15 @@ public class BoardController {
 			List<List<String>> needList1 = new ArrayList();
 			List<List<String>> needList2 = new ArrayList();
 			List<List<String>> needList3 = new ArrayList();		
-//			//TODO 재료 입력시 $문자 사용 불가능하게 변경
-
 
 			List<RecommendVo> recList= bService.getIngForRec(chosenList);
 			
-			//선택한 재료와 레시피 재료의 차집합 구해서 같이넣어줌
-			
+			//선택한 재료와 레시피 재료의 차집합을 구함
 			for(RecommendVo vo: recList) {
-				//레시피의 전체 재료수    레시피 재료들중 가지고있는 재료 수
+				//레시피의 전체 재료수   레시피 재료들중 가지고있는 재료 수
 				if(vo.getIngcnt()-vo.getCnt()==0) {
 					PostVo pvo = bService.selectOne(vo.getPostId());
 					recList0.add(pvo);
-					
 				}
 				if(vo.getIngcnt()-vo.getCnt()==1) {
 					PostVo pvo = bService.selectOne(vo.getPostId());
@@ -844,8 +796,6 @@ public class BoardController {
 					needList3.add(inglist);
 				}
 			}
-			
-			
 			mv.addObject("recList0", recList0);
 			mv.addObject("recList1", recList1);
 			mv.addObject("recList2", recList2);
@@ -854,7 +804,6 @@ public class BoardController {
 			mv.addObject("needList1", needList1);
 			mv.addObject("needList2", needList2);
 			mv.addObject("needList3", needList3);
-			
 			
 			mv.addObject("chosenList", chosenList);
 			

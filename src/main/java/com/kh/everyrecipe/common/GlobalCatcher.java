@@ -12,12 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class GlobalCatcher {
 	
 	
-	@ExceptionHandler(BadWordException.class)
-	public String badWordCatcher(Exception ex , Model m) {
-		//rttr.addFlashAttribute("ex",ex );
-		m.addAttribute(ex.getMessage());
-		return "post/posting";
-	}
 	@ExceptionHandler(Exception.class)
 	public String catcher(Exception ex , Model m) {
 		m.addAttribute("ex",ex );

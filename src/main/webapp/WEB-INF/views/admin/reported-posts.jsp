@@ -330,10 +330,6 @@
 			url: "${pageContext.request.contextPath}/admin/all-reported-p",
 			type: "POST", 
 			success:function(result){
-				console.log(result[0]);
-				
-				
-			
 				var tbody = $("<tbody></tbody>");
 				for(i = 0; i < result.length; i++){
 				    var list = result[i];
@@ -385,9 +381,7 @@
 			  	});
 			$("#viewAll").text("게시글 ID별로 보기");
 			$("#viewAll").attr("id", "reload");
-			
 			}
-			
 		});
   	});
 	$(document).on("click","#reload" ,function() {

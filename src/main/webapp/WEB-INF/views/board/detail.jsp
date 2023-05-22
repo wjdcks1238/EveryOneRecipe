@@ -559,7 +559,6 @@ $(document).on("click","#followBtn" ,function() {
 		async : false,
 		success:function(result){
 			if(result==false){
-				
 				var htmlVal= "<img id='followBtn' style='cursor: pointer;' alt='' width='30px' src='${pageContext.request.contextPath}/resources/icons/add.png'>";
 				$("#follow").html(htmlVal);
 			}else if(result==true){
@@ -589,10 +588,7 @@ $(document).on("click","#likeBtn" ,function() {
 				$("#likeCount").html(": "+result[1]);
 			}
 		}
-		
 	});
-	
-	
 });
 
 

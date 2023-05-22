@@ -303,18 +303,16 @@
     
     // 1초마다 현재 시간을 가져와서 input 요소에 할당
 	 setInterval(() => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const dateString = year+'-'+month+'-'+day+'T'+hours+':'+minutes;
-    startTimeInput.val(dateString);
-  }, 1000);
+	    const now = new Date();
+	    const year = now.getFullYear();
+	    const month = String(now.getMonth() + 1).padStart(2, '0');
+	    const day = String(now.getDate()).padStart(2, '0');
+	    const hours = String(now.getHours()).padStart(2, '0');
+	    const minutes = String(now.getMinutes()).padStart(2, '0');
+	    const dateString = year+'-'+month+'-'+day+'T'+hours+':'+minutes;
+	    startTimeInput.val(dateString);
+	  }, 1000);
     
-    
-   
 	 $(document).ready(function() {
 		  $('#addDay1').click(function() {
 		    var datetimeInput = $('#endTime');
@@ -324,6 +322,8 @@
 		    datetimeInput.val(newDatetimeString);
 		  });
 		});
+	 
+	 
 	 $(document).ready(function() {
 		  $('#addDay3').click(function() {
 		    var datetimeInput = $('#endTime');
@@ -365,18 +365,14 @@
 						alert("변경되었습니다.");
 						location.reload();
 					}
-					
 				}
-				
 	    	});
 		}else{
 			alert("현재시각 이후로 설정해주세요");
 		}
 	});
 	
-	
 	$(document).on("click","#unblock" ,function() {
-		
     	$.ajax({
     		url: "${pageContext.request.contextPath}/admin/unblock",
 			type: "POST", 
@@ -388,11 +384,8 @@
 					alert("해제되었습니다.");
 					location.reload();
 				}
-				
 			}
-			
     	});
-
 	});
 	
 	

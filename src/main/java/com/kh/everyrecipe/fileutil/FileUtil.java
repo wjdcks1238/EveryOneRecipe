@@ -55,12 +55,7 @@ public class FileUtil {
 				Cloudinary cloudinary = new Cloudinary(config);
 				
 				Map uploadResult = cloudinary.uploader().upload(f, ObjectUtils.emptyMap());
-				
-				System.out.println("==============================================");
-				System.out.println(uploadResult.get("url"));
-				
 				map = new HashMap<String, String>();
-				
 				map.put("original", originalFileName);
 				map.put("url", uploadResult.get("url").toString());
 			} catch(Exception e) {

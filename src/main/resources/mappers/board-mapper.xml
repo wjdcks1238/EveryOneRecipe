@@ -72,26 +72,13 @@
 </select>
 	
 	<select id="selectOne" resultMap="postResultMap" parameterType="_int">
-		SELECT p.POSTID
-     , p.USERID
-     , p.NICKNAME
-     , p.FOODNAME
-     , p.CONTENT
-     , p.CREATEAT
-     , p.UPDATEAT
-     , p.ISDELETED
-     , p.LOOKUP
-     , p.ISBLINDED
-     , p.MAINIMAGE
-     , i.INGREDIENT
-     , i.AMOUNT
-     , m.PROFILEURL
-     , m.PROFILE
-  FROM (select * from post where postid= #{postId}) p
-  JOIN ingredient i
-    ON p.POSTID = i.POSTID
-  JOIN members m
-    ON p.USERID = m.USERID
+		SELECT p.POSTID, p.USERID, p.NICKNAME, p.FOODNAME, p.CONTENT, p.CREATEAT, p.UPDATEAT
+     		 , p.ISDELETED, p.LOOKUP, p.ISBLINDED, p.MAINIMAGE, i.INGREDIENT, i.AMOUNT, m.PROFILEURL, m.PROFILE
+  		  FROM (select * from post where postid= #{postId}) p
+          JOIN ingredient i
+            ON p.POSTID = i.POSTID
+          JOIN members m
+            ON p.USERID = m.USERID
 	</select>
 
 <!-- 재료 조합을 위한 검색 -->
@@ -117,7 +104,7 @@ select
 	 group by POSTID, p.FOODNAME
 	 order by POSTID 
 	 )p2  
-	</select>
+</select>
 	
 
 	<select id="getLastPostId" resultType="_int">

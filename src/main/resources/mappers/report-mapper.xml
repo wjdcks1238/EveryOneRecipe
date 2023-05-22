@@ -43,7 +43,8 @@
 	
 	</select>
 	<select id="getAllReportedP" resultType="com.kh.everyrecipe.report.vo.ReportedPostVoAll">
-		SELECT r.reportid, p.postid, p.foodname, p.userid as pUserId, p.nickname, r.userid as rUserId, r.reportContent, r.reportTime, p.ISBLINDED as status
+		SELECT r.reportid, p.postid, p.foodname, p.userid as pUserId, p.nickname
+			 , r.userid as rUserId, r.reportContent, r.reportTime, p.ISBLINDED as status
 		FROM post p
 		LEFT JOIN report r ON p.postid = r.postid
 		WHERE r.userid IS NOT NULL AND r.POSTID IS NOT NULL
@@ -79,6 +80,7 @@
 	     WHERE r.userid IS NOT NULL
 		 GROUP BY c.postid, c.cmtid, m.nickname, c.ISBLINDED, r.userid
 	</select>
+	
 	
 	<select id="getReportInfoC" resultType="com.kh.everyrecipe.report.vo.ReportVo">
 		SELECT REPORTID,USERID,CMTID,REPORTCONTENT,REPORTTIME FROM REPORT WHERE CMTID =#{cmtId}
@@ -129,8 +131,7 @@
 			  				WHEN ISBLINDED='N' THEN 'Y'
 							WHEN ISBLINDED='Y' THEN 'N'
 						  END
-		 WHERE POSTID=#{postId}
-		 	
+		 WHERE POSTID=#{postId}	 	
 	</update>
 	<update id="tgBlindCmt">
 		UPDATE TBCOMMENT 
@@ -146,3 +147,4 @@
 	
 	</select>
 </mapper>
+	

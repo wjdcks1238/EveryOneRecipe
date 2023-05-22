@@ -272,11 +272,7 @@ public class MemberController {
 			  , ModelAndView mv
 			) throws Exception {
 		Map<String, String> uploadResult;
-		
 		uploadResult = fileUtil.saveFile(multi);
-		System.out.println(uploadResult.get("original"));	
-		System.out.println(uploadResult.get("url"));			
-		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("userId", principal.getName());
 		map.put("profileUrl", uploadResult.get("url"));
@@ -309,7 +305,6 @@ public class MemberController {
 			, MemberVo mvo
 			) throws Exception {
 		mvo.setUserId(principal.getName());
-		//TODO 닉네임 중복 또는 비었을 때
 		mService.update(mvo);
 		
 	}

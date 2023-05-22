@@ -477,7 +477,7 @@ public class AdminController {
 	
 	@PostMapping("/addWord")
 	@ResponseBody
-	public String addWord(String word, HttpServletRequest request){
+	public String addWord(String word){
 		// 비속어/금지어 추가
 		int result = 1;
 		try {
@@ -485,16 +485,11 @@ public class AdminController {
 		} catch (Exception e) {
 			result=0;
 		}
-		
 		if(result==1) {
 			return "true";
 		}else {
 			return "false";
 		}
-		
-	
-		
-		
 	}
 	
 }
